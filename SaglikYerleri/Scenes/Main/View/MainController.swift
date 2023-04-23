@@ -43,6 +43,7 @@ final class MainController: UIViewController {
     
     private func createCallbacks() {
         configureHorizontalCollectionView()
+        configureVerticalCollectionView()
     }
     
     private func configureNavigationBar() {
@@ -55,8 +56,8 @@ final class MainController: UIViewController {
 //MARK: - Configure HorizontalCollectionView
 extension MainController: UICollectionViewDelegateFlowLayout {
     private func configureHorizontalCollectionView() {
-        viewModel.horizontalCollectionData.bind(to: mainView.topView.horizontalCollectionView.rx.items(cellIdentifier: HorizontalCollectionCell.identifier, cellType: HorizontalCollectionCell.self)) { row, category, cell in
-            cell.configure(with: category)
+        viewModel.horizontalCollectionData.bind(to: mainView.topView.horizontalCollectionView.rx.items(cellIdentifier: HorizontalCollectionCell.identifier, cellType: HorizontalCollectionCell.self)) { row, horizontalCollectionData, cell in
+            cell.configure(with: horizontalCollectionData)
         } .disposed(by: disposeBag)
     }
     
@@ -79,4 +80,13 @@ extension MainController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
     }
     
+}
+
+//MARK: - Configure VerticalCollectionView
+extension MainController {
+    private func configureVerticalCollectionView() {
+        viewModel.verticalCollectionData.bind(to: mainView.verticalCollectionView.rx.items(cellIdentifier: VerticalCollectionCell.identifier, cellType: VerticalCollectionCell.self)) { row, verticalCollectionData, cell in
+            cell.configure(with: verticalCollectionData)
+        }.disposed(by: disposeBag)
+    }
 }

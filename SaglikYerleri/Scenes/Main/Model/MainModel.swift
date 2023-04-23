@@ -49,14 +49,91 @@ extension MainHorizontalCollectionData {
 }
 
 enum MainVerticalCollectionData {
-    case dutyPharmacies(image: UIImage, title: String, backgroundColor: UIColor)
-    case allPharmacies(image: UIImage, title: String, backgroundColor: UIColor)
-    case healthCenters(image: UIImage, title: String, backgroundColor: UIColor)
-    case hospitals(image: UIImage, title: String, backgroundColor: UIColor)
-    case dentalCenters(image: UIImage, title: String, backgroundColor: UIColor)
-    case medicalLaboratories(image: UIImage, title: String, backgroundColor: UIColor)
-    case radiologyCenters(image: UIImage, title: String, backgroundColor: UIColor)
-    case spaCenters(image: UIImage, title: String, backgroundColor: UIColor)
-    case psychologistCenters(image: UIImage, title: String, backgroundColor: UIColor)
+    case dutyPharmacies(title: String, backgroundColor: UIColor)
+    case allPharmacies(itle: String, backgroundColor: UIColor)
+    case healthCenters(title: String, backgroundColor: UIColor)
+    case hospitals(itle: String, backgroundColor: UIColor)
+    case dentalCenters(title: String, backgroundColor: UIColor)
+    case medicalLaboratories(title: String, backgroundColor: UIColor)
+    case radiologyCenters(itle: String, backgroundColor: UIColor)
+    case spaCenters(itle: String, backgroundColor: UIColor)
+    case psychologistCenters(itle: String, backgroundColor: UIColor)
+    case gynecologyCenters(itle: String, backgroundColor: UIColor)
+    case physicalTherapyCenters(title: String, backgroundColor: UIColor)
+    case opticalCenters(title: String, backgroundColor: UIColor)
+    case animalHospitals(itle: String, backgroundColor: UIColor)
+    case dialysisCenters(itle: String, backgroundColor: UIColor)
+    case emergencyCenters(title: String, backgroundColor: UIColor)
+}
+
+extension MainVerticalCollectionData {
+    var categoryTitle: String {
+        switch self {
+        case .dutyPharmacies(let title, _):
+            return title
+        case .allPharmacies(let title, _):
+            return title
+        case .healthCenters(let title, _):
+            return title
+        case .hospitals(let title, _):
+            return title
+        case .dentalCenters(let title, _):
+            return title
+        case .medicalLaboratories(let title, _):
+            return title
+        case .radiologyCenters(let title, _):
+            return title
+        case .spaCenters(let title, _):
+            return title
+        case .psychologistCenters(let title, _):
+            return title
+        case .gynecologyCenters(let title, _):
+            return title
+        case .physicalTherapyCenters(let title, _):
+            return title
+        case .opticalCenters(let title, _):
+            return title
+        case .animalHospitals(let title, _):
+            return title
+        case .dialysisCenters(let title, _):
+            return title
+        case .emergencyCenters(let title, _):
+            return title
+        }
+    }
     
+    var bacgroundColor: UIColor {
+        switch self {
+        case .dutyPharmacies(_, let backgroundColor):
+            return backgroundColor
+        case .allPharmacies(_, let backgroundColor):
+            return backgroundColor
+        case .healthCenters(_, let backgroundColor):
+            return backgroundColor
+        case .hospitals(_, let backgroundColor):
+            return backgroundColor
+        case .dentalCenters(_, let backgroundColor):
+            return backgroundColor
+        case .medicalLaboratories(_, let backgroundColor):
+            return backgroundColor
+        case .radiologyCenters(_, let backgroundColor):
+            return backgroundColor
+        case .spaCenters(_, let backgroundColor):
+            return backgroundColor
+        case .psychologistCenters(_, let backgroundColor):
+            return backgroundColor
+        case .gynecologyCenters(_, let backgroundColor):
+            return backgroundColor
+        case .physicalTherapyCenters(_, let backgroundColor):
+            return backgroundColor
+        case .opticalCenters(_, let backgroundColor):
+            return backgroundColor
+        case .animalHospitals(_, let backgroundColor):
+            return backgroundColor
+        case .dialysisCenters(_, let backgroundColor):
+            return backgroundColor
+        case .emergencyCenters(_, let backgroundColor):
+            return backgroundColor
+        }
+    }
 }

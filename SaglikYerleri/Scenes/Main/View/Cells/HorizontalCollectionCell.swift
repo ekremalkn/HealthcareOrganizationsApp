@@ -37,6 +37,7 @@ final class HorizontalCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = 8
@@ -49,11 +50,12 @@ final class HorizontalCollectionCell: UICollectionViewCell {
     
     private func addShadow() {
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize.zero
+        layer.shadowOpacity = 0.1
+        layer.shadowOffset = CGSize.init(width: 3, height: 3)
     }
 }
 
+//MARK: - UI Elements AddSubview / SetupConstraints
 extension HorizontalCollectionCell: CellProtocol {
     func configureCell() {
         backgroundColor = .white

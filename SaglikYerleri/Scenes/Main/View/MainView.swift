@@ -21,10 +21,10 @@ final class MainView: UIView {
     lazy var topView = CustomTopView()
     
     lazy var verticalCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: MainView.createCompositionalLayout())
+        collection.register(VerticalCollectionCell.self, forCellWithReuseIdentifier: VerticalCollectionCell.identifier)
         collection.backgroundColor = UIColor(hex: "FBFCFE")
+        collection.showsVerticalScrollIndicator = false
         return collection
     }()
     
@@ -38,6 +38,71 @@ final class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+//MARK: - Creating  Collection Compositional Layout
+extension MainView {
+    static func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        // Item
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(0.6),
+                heightDimension: .fractionalHeight(1)
+            )
+        )
+        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        
+        let verticalStackItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(0.5)
+            )
+        )
+        
+        verticalStackItem.contentInsets = item.contentInsets
+        
+        var verticalStackGroup: NSCollectionLayoutGroup
+        
+        if #available(iOS 16.0, *) {
+            verticalStackGroup = NSCollectionLayoutGroup.vertical(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(0.4),
+                    heightDimension: .fractionalHeight(1)
+                ),
+                repeatingSubitem: verticalStackItem,
+                count: 2
+            )
+        } else {
+            // Fallback on earlier versions
+            verticalStackGroup = NSCollectionLayoutGroup.vertical(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(0.4),
+                    heightDimension: .fractionalHeight(1)
+                ),
+                subitem: verticalStackItem,
+                count: 2
+            )
+        }
+        
+        // Group
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(0.8)
+            ),
+            subitems: [
+            item,
+            verticalStackGroup
+            ]
+        )
+        
+        // Sections
+        let sections = NSCollectionLayoutSection(group: group)
+        
+        // Return
+        return UICollectionViewCompositionalLayout(section: sections)
+    }
 }
 
 //MARK: - UI Elements AddSubview / SetupConstraints

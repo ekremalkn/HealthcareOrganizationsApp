@@ -38,7 +38,7 @@ final class CustomTopView: UIView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 15
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .white
+        collection.backgroundColor = UIColor(hex: "FBFCFE")
         collection.register(HorizontalCollectionCell.self, forCellWithReuseIdentifier: HorizontalCollectionCell.identifier)
         collection.showsHorizontalScrollIndicator = false
         return collection
