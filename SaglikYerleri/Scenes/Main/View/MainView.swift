@@ -18,11 +18,10 @@ final class MainView: UIView {
         return button
     }()
     
-    lazy var topView = CustomTopView()
-    
-    lazy var verticalCollectionView: UICollectionView = {
+    lazy var mainCollectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: MainView.createCompositionalLayout())
         collection.register(VerticalCollectionCell.self, forCellWithReuseIdentifier: VerticalCollectionCell.identifier)
+        collection.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier)
         collection.backgroundColor = UIColor(hex: "FBFCFE")
         collection.showsVerticalScrollIndicator = false
         return collection
@@ -62,6 +61,7 @@ extension MainView {
         
         verticalStackItem.contentInsets = item.contentInsets
         
+        // Vertical Group
         var verticalStackGroup: NSCollectionLayoutGroup
         
         if #available(iOS 16.0, *) {
@@ -89,16 +89,20 @@ extension MainView {
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(0.8)
+                heightDimension: .fractionalHeight(0.3)
             ),
             subitems: [
-            item,
-            verticalStackGroup
+                item,
+                verticalStackGroup
             ]
         )
         
-        // Sections
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.5))
+        
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        
         let sections = NSCollectionLayoutSection(group: group)
+        sections.boundarySupplementaryItems = [header]
         
         // Return
         return UICollectionViewCompositionalLayout(section: sections)
@@ -114,26 +118,16 @@ extension MainView: ViewProtocol {
     }
     
     func addSubview() {
-        addSubview(topView)
-        addSubview(verticalCollectionView)
+        addSubview(mainCollectionView)
     }
     
     func setupConstraints() {
-        topViewConstraints()
         collectionViewConstraints()
     }
     
-    private func topViewConstraints() {
-        topView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalTo(self)
-            make.height.equalTo(self.snp.height).multipliedBy(0.5)
-        }
-    }
-    
     private func collectionViewConstraints() {
-        verticalCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
+        mainCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.leading.bottom.trailing.equalTo(self)
         }
         

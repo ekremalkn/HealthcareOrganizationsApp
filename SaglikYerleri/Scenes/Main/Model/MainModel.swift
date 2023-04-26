@@ -8,47 +8,62 @@
 import UIKit
 
 enum MainHorizontalCollectionData {
-    case dutyPharmacies(image: UIImage, categoryTitle: String)
-    case allPharmacies(image: UIImage, categoryTitle: String)
-    case healthCenters(image: UIImage, categoryTitle: String)
-    case hospitals(image: UIImage, categoryTitle: String)
-    case dentalCenters(image: UIImage, categoryTitle: String)
+    case dutyPharmacies(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor)
+    case allPharmacies(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor)
+    case healthCenters(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor)
+    case hospitals(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor)
+    case dentalCenters(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor)
 }
 
 extension MainHorizontalCollectionData {
     var image: UIImage {
         switch self {
-        case .dutyPharmacies(image: let image, categoryTitle: _):
+        case .dutyPharmacies(image: let image, categoryTitle: _, tintAndBackgroundColor:_):
             return image
-        case .allPharmacies(image: let image, categoryTitle: _):
+        case .allPharmacies(image: let image, categoryTitle: _, tintAndBackgroundColor:_):
             return image
-        case .healthCenters(image: let image, categoryTitle: _):
+        case .healthCenters(image: let image, categoryTitle: _, tintAndBackgroundColor:_):
             return image
-        case .hospitals(image: let image, categoryTitle: _):
+        case .hospitals(image: let image, categoryTitle: _, tintAndBackgroundColor:_):
             return image
-        case .dentalCenters(image: let image, categoryTitle: _):
+        case .dentalCenters(image: let image, categoryTitle: _, tintAndBackgroundColor:_):
             return image
         }
     }
     
     var categoryTitle: String {
         switch self {
-        case .dutyPharmacies( _, let categoryTitle):
+        case .dutyPharmacies( _, let categoryTitle, tintAndBackgroundColor:_):
             return categoryTitle
-        case .allPharmacies( _, let categoryTitle):
+        case .allPharmacies( _, let categoryTitle, tintAndBackgroundColor:_):
             return categoryTitle
-        case .healthCenters( _, let categoryTitle):
+        case .healthCenters( _, let categoryTitle, tintAndBackgroundColor:_):
             return categoryTitle
-        case .hospitals( _, let categoryTitle):
+        case .hospitals( _, let categoryTitle, tintAndBackgroundColor:_):
             return categoryTitle
-        case .dentalCenters( _, let categoryTitle):
+        case .dentalCenters( _, let categoryTitle, tintAndBackgroundColor:_):
             return categoryTitle
+        }
+    }
+    
+    var tintAndBackgroundColor: UIColor {
+        switch self {
+        case .dutyPharmacies(_, _, let tintAndBackgroundColor):
+            return tintAndBackgroundColor
+        case .allPharmacies(_, _, let tintAndBackgroundColor):
+            return tintAndBackgroundColor
+        case .healthCenters(_, _, let tintAndBackgroundColor):
+            return tintAndBackgroundColor
+        case .hospitals(_, _, let tintAndBackgroundColor):
+            return tintAndBackgroundColor
+        case .dentalCenters(_, _, let tintAndBackgroundColor):
+            return tintAndBackgroundColor
         }
     }
     
 }
 
-enum MainVerticalCollectionData {
+enum MainCollectionData {
     case dutyPharmacies(title: String, backgroundColor: UIColor)
     case allPharmacies(itle: String, backgroundColor: UIColor)
     case healthCenters(title: String, backgroundColor: UIColor)
@@ -66,7 +81,7 @@ enum MainVerticalCollectionData {
     case emergencyCenters(title: String, backgroundColor: UIColor)
 }
 
-extension MainVerticalCollectionData {
+extension MainCollectionData {
     var categoryTitle: String {
         switch self {
         case .dutyPharmacies(let title, _):

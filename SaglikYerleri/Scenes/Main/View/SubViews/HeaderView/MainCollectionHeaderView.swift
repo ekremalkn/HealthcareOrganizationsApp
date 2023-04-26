@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import RxSwift
 
-final class CustomTopView: UIView {
+final class MainCollectionHeaderView: UICollectionReusableView {
+    static let identifier = "MainCollectionHeaderView"
     
     //MARK: - Creating UI Elements
     private lazy var titleLabel: UILabel = {
@@ -53,6 +55,9 @@ final class CustomTopView: UIView {
         return label
     }()
     
+    //MARK: - DisposeBag
+    var disposeBag = DisposeBag()
+    
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,12 +68,16 @@ final class CustomTopView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
     
     
 }
 
 //MARK: - UI Elements AddSubview / SetupConstraints
-extension CustomTopView: ViewProtocol {
+extension MainCollectionHeaderView: ViewProtocol {
     func configureView() {
         backgroundColor = UIColor(hex: "FBFCFE")
         addSubview()
@@ -105,7 +114,7 @@ extension CustomTopView: ViewProtocol {
             make.top.equalTo(titleLabel.snp.bottom)
             make.centerX.equalTo(titleLabel.snp.centerX)
             make.width.equalTo(titleLabel.snp.width).offset(10)
-            make.height.equalTo(self.snp.height).multipliedBy(0.15)
+            make.height.equalTo(self.snp.height).multipliedBy(0.12)
         }
     }
     
@@ -122,7 +131,7 @@ extension CustomTopView: ViewProtocol {
             make.top.equalTo(topSearchedLabel.snp.bottom).offset(5)
             make.leading.equalTo(self.snp.leading)
             make.trailing.equalTo(self.snp.trailing).offset(20)
-            make.height.equalTo(self.snp.height).multipliedBy(0.30)
+            make.height.equalTo(self.snp.height).multipliedBy(0.35)
         }
     }
     

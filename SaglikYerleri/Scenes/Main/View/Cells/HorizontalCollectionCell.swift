@@ -11,8 +11,15 @@ final class HorizontalCollectionCell: UICollectionViewCell {
     static let identifier = "HorizontalCollectionCell"
     
     //MARK: - Creating UI Elements
+    private lazy var imageBackgroundView: UIView = {
+        let view = UIView()
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
     private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -31,6 +38,7 @@ final class HorizontalCollectionCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureCell()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -41,10 +49,15 @@ final class HorizontalCollectionCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = 8
+        
+        imageBackgroundView.layer.cornerRadius = (contentView.frame.height * 0.4) / 2
+        imageBackgroundView.clipsToBounds = true
     }
     
     func configure(with data: MainHorizontalCollectionData) {
+        self.imageBackgroundView.backgroundColor = data.tintAndBackgroundColor.withAlphaComponent(0.2)
         self.categoryImageView.image = data.image
+        self.categoryImageView.tintColor = data.tintAndBackgroundColor
         self.categoryLabel.text = data.categoryTitle
     }
     
@@ -65,20 +78,29 @@ extension HorizontalCollectionCell: CellProtocol {
     }
     
     func addSubview() {
-        contentView.addSubview(categoryImageView)
+        contentView.addSubview(imageBackgroundView)
+        imageBackgroundView.addSubview(categoryImageView)
         contentView.addSubview(categoryLabel)
     }
     
     func setupConstraints() {
+        imageBackgroundViewConstraints()
         categoryImageViewConstraints()
         categoryLabelConstraints()
     }
     
-    private func categoryImageViewConstraints() {
-        categoryImageView.snp.makeConstraints { make in
+    private func imageBackgroundViewConstraints() {
+        imageBackgroundView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(10)
             make.trailing.equalTo(contentView.snp.trailing).offset(-10)
-            make.height.equalTo(contentView.snp.height).multipliedBy(0.25)
+            make.height.width.equalTo(contentView.snp.height).multipliedBy(0.40)
+        }
+    }
+    
+    private func categoryImageViewConstraints() {
+        categoryImageView.snp.makeConstraints { make in
+            make.center.equalTo(imageBackgroundView.snp.center)
+            make.height.width.equalTo(imageBackgroundView.snp.height).multipliedBy(0.60)
         }
     }
     

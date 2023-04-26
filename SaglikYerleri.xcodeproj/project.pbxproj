@@ -18,15 +18,17 @@
 		F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F072589F29F2E08F00F625CE /* ViewProtocol.swift */; };
 		F07258A329F2E19200F625CE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F07258A229F2E19200F625CE /* SnapKit */; };
 		F07258A629F2E3FF00F625CE /* UIColor+HEXColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258A529F2E3FF00F625CE /* UIColor+HEXColor.swift */; };
-		F07258B429F31BF900F625CE /* CustomTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258B329F31BF900F625CE /* CustomTopView.swift */; };
+		F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258B329F31BF900F625CE /* MainCollectionHeaderView.swift */; };
 		F07258B829F32B2F00F625CE /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258B729F32B2F00F625CE /* CustomTextField.swift */; };
 		F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258B929F3386400F625CE /* HorizontalCollectionCell.swift */; };
 		F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BB29F338B200F625CE /* CellProtocol.swift */; };
 		F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BE29F33F9800F625CE /* MainViewModel.swift */; };
 		F07258C229F3416400F625CE /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258C129F3416400F625CE /* MainModel.swift */; };
 		F0CDE30629F51EDD0050D81B /* VerticalCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */; };
-		F0CDE30929F536FD0050D81B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F0CDE30829F536FD0050D81B /* RxCocoa */; };
-		F0CDE30B29F536FD0050D81B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F0CDE30A29F536FD0050D81B /* RxSwift */; };
+		F0D77CEE29F668CF0061C85E /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77CED29F668CF0061C85E /* RxCocoa */; };
+		F0D77CF029F668CF0061C85E /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77CEF29F668CF0061C85E /* RxSwift */; };
+		F0D77CF329F668FB0061C85E /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77CF229F668FB0061C85E /* RxDataSources */; };
+		F0D77CF529F680240061C85E /* MainCollectionSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77CF429F680240061C85E /* MainCollectionSectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,13 +44,14 @@
 		F072589D29F2DFCE00F625CE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F072589F29F2E08F00F625CE /* ViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocol.swift; sourceTree = "<group>"; };
 		F07258A529F2E3FF00F625CE /* UIColor+HEXColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HEXColor.swift"; sourceTree = "<group>"; };
-		F07258B329F31BF900F625CE /* CustomTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTopView.swift; sourceTree = "<group>"; };
+		F07258B329F31BF900F625CE /* MainCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionHeaderView.swift; sourceTree = "<group>"; };
 		F07258B729F32B2F00F625CE /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		F07258B929F3386400F625CE /* HorizontalCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCollectionCell.swift; sourceTree = "<group>"; };
 		F07258BB29F338B200F625CE /* CellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellProtocol.swift; sourceTree = "<group>"; };
 		F07258BE29F33F9800F625CE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F07258C129F3416400F625CE /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionCell.swift; sourceTree = "<group>"; };
+		F0D77CF429F680240061C85E /* MainCollectionSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionSectionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0CDE30B29F536FD0050D81B /* RxSwift in Frameworks */,
-				F0CDE30929F536FD0050D81B /* RxCocoa in Frameworks */,
+				F0D77CF029F668CF0061C85E /* RxSwift in Frameworks */,
+				F0D77CF329F668FB0061C85E /* RxDataSources in Frameworks */,
+				F0D77CEE29F668CF0061C85E /* RxCocoa in Frameworks */,
 				F07258A329F2E19200F625CE /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,7 +176,7 @@
 		F07258A829F30F9E00F625CE /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				F07258B229F31BCB00F625CE /* TopView */,
+				F07258B229F31BCB00F625CE /* HeaderView */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -186,12 +190,12 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		F07258B229F31BCB00F625CE /* TopView */ = {
+		F07258B229F31BCB00F625CE /* HeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				F07258B329F31BF900F625CE /* CustomTopView.swift */,
+				F07258B329F31BF900F625CE /* MainCollectionHeaderView.swift */,
 			);
-			path = TopView;
+			path = HeaderView;
 			sourceTree = "<group>";
 		};
 		F07258B529F32B0000F625CE /* Components */ = {
@@ -222,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				F07258C129F3416400F625CE /* MainModel.swift */,
+				F0D77CF429F680240061C85E /* MainCollectionSectionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,8 +249,9 @@
 			name = SaglikYerleri;
 			packageProductDependencies = (
 				F07258A229F2E19200F625CE /* SnapKit */,
-				F0CDE30829F536FD0050D81B /* RxCocoa */,
-				F0CDE30A29F536FD0050D81B /* RxSwift */,
+				F0D77CED29F668CF0061C85E /* RxCocoa */,
+				F0D77CEF29F668CF0061C85E /* RxSwift */,
+				F0D77CF229F668FB0061C85E /* RxDataSources */,
 			);
 			productName = SaglikYerleri;
 			productReference = F072587729F284EC00F625CE /* SaglikYerleri.app */;
@@ -277,7 +283,8 @@
 			mainGroup = F072586E29F284EC00F625CE;
 			packageReferences = (
 				F07258A129F2E19200F625CE /* XCRemoteSwiftPackageReference "SnapKit" */,
-				F0CDE30729F536FD0050D81B /* XCRemoteSwiftPackageReference "RxSwift" */,
+				F0D77CEC29F668CF0061C85E /* XCRemoteSwiftPackageReference "RxSwift" */,
+				F0D77CF129F668FB0061C85E /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = F072587829F284EC00F625CE /* Products */;
 			projectDirPath = "";
@@ -305,10 +312,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F07258B429F31BF900F625CE /* CustomTopView.swift in Sources */,
+				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
 				F072589829F2CF2800F625CE /* Coordinator.swift in Sources */,
 				F072589E29F2DFCE00F625CE /* MainView.swift in Sources */,
 				F072589C29F2D89A00F625CE /* MainCoordinator.swift in Sources */,
+				F0D77CF529F680240061C85E /* MainCollectionSectionModel.swift in Sources */,
 				F07258B829F32B2F00F625CE /* CustomTextField.swift in Sources */,
 				F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
@@ -547,12 +555,20 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		F0CDE30729F536FD0050D81B /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		F0D77CEC29F668CF0061C85E /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 6.0.0;
+			};
+		};
+		F0D77CF129F668FB0061C85E /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -563,15 +579,20 @@
 			package = F07258A129F2E19200F625CE /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		F0CDE30829F536FD0050D81B /* RxCocoa */ = {
+		F0D77CED29F668CF0061C85E /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F0CDE30729F536FD0050D81B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = F0D77CEC29F668CF0061C85E /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		F0CDE30A29F536FD0050D81B /* RxSwift */ = {
+		F0D77CEF29F668CF0061C85E /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F0CDE30729F536FD0050D81B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = F0D77CEC29F668CF0061C85E /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		F0D77CF229F668FB0061C85E /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0D77CF129F668FB0061C85E /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
