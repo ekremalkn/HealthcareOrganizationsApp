@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03B830E29FBD716006C5AFC /* NetworkService.swift */; };
+		F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7329FFD2690013E22D /* ENCityModel.swift */; };
+		F06BEE7629FFD4240013E22D /* ENCountyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7529FFD4240013E22D /* ENCountyModel.swift */; };
+		F06BEE7829FFD63E0013E22D /* HospitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7729FFD63E0013E22D /* HospitalModel.swift */; };
+		F06BEE7A29FFD70D0013E22D /* HealthCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7929FFD70D0013E22D /* HealthCenterModel.swift */; };
+		F06BEE7C29FFD80E0013E22D /* DentalCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7B29FFD80E0013E22D /* DentalCenterModel.swift */; };
+		F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7D29FFD9010013E22D /* MedicalLaboratoryModel.swift */; };
+		F06BEE8029FFDA020013E22D /* RadiologyCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7F29FFDA020013E22D /* RadiologyCenterModel.swift */; };
+		F06BEE8229FFDA7C0013E22D /* AnimalHospitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE8129FFDA7C0013E22D /* AnimalHospitalModel.swift */; };
+		F06BEE8429FFDAEE0013E22D /* PsychologyCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE8329FFDAEE0013E22D /* PsychologyCenterModel.swift */; };
+		F06BEE8629FFDB470013E22D /* GynecologyCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE8529FFDB470013E22D /* GynecologyCenterModel.swift */; };
+		F06BEE8829FFDBC00013E22D /* OptikCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE8729FFDBC00013E22D /* OptikCenterModel.swift */; };
 		F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F072587A29F284EC00F625CE /* AppDelegate.swift */; };
 		F072587D29F284EC00F625CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F072587C29F284EC00F625CE /* SceneDelegate.swift */; };
 		F072588429F284ED00F625CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F072588329F284ED00F625CE /* Assets.xcassets */; };
@@ -25,13 +37,37 @@
 		F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BE29F33F9800F625CE /* MainViewModel.swift */; };
 		F07258C229F3416400F625CE /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258C129F3416400F625CE /* MainModel.swift */; };
 		F0CDE30629F51EDD0050D81B /* VerticalCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */; };
+		F0D70D0229FD1B6900CA4C39 /* TRCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */; };
+		F0D70D0429FD1B9600CA4C39 /* TRCountyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */; };
+		F0D70D0629FD1DF800CA4C39 /* PharmacyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0529FD1DF800CA4C39 /* PharmacyModel.swift */; };
+		F0D70D0829FD1E3400CA4C39 /* NetworkEndPointCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0729FD1E3400CA4C39 /* NetworkEndPointCases.swift */; };
+		F0D70D0A29FD219900CA4C39 /* NetworkEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0929FD219900CA4C39 /* NetworkEndPoint.swift */; };
+		F0D70D0C29FD2C6B00CA4C39 /* NetworkAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0B29FD2C6B00CA4C39 /* NetworkAPIConstant.swift */; };
 		F0D77CEE29F668CF0061C85E /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77CED29F668CF0061C85E /* RxCocoa */; };
 		F0D77CF029F668CF0061C85E /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77CEF29F668CF0061C85E /* RxSwift */; };
 		F0D77CF329F668FB0061C85E /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77CF229F668FB0061C85E /* RxDataSources */; };
 		F0D77CF529F680240061C85E /* MainCollectionSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77CF429F680240061C85E /* MainCollectionSectionModel.swift */; };
+		F0D77CF829F929160061C85E /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77CF729F929160061C85E /* MapController.swift */; };
+		F0D77CFD29F929D30061C85E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77CFC29F929D30061C85E /* MapView.swift */; };
+		F0D77D0229F930280061C85E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0129F930280061C85E /* MapViewModel.swift */; };
+		F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0529FA72390061C85E /* NetworkManager.swift */; };
+		F0D77D0929FA724D0061C85E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77D0829FA724D0061C85E /* Alamofire */; };
+		F0D77D0D29FA823B0061C85E /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F03B830E29FBD716006C5AFC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		F06BEE7329FFD2690013E22D /* ENCityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENCityModel.swift; sourceTree = "<group>"; };
+		F06BEE7529FFD4240013E22D /* ENCountyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENCountyModel.swift; sourceTree = "<group>"; };
+		F06BEE7729FFD63E0013E22D /* HospitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalModel.swift; sourceTree = "<group>"; };
+		F06BEE7929FFD70D0013E22D /* HealthCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCenterModel.swift; sourceTree = "<group>"; };
+		F06BEE7B29FFD80E0013E22D /* DentalCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DentalCenterModel.swift; sourceTree = "<group>"; };
+		F06BEE7D29FFD9010013E22D /* MedicalLaboratoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalLaboratoryModel.swift; sourceTree = "<group>"; };
+		F06BEE7F29FFDA020013E22D /* RadiologyCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiologyCenterModel.swift; sourceTree = "<group>"; };
+		F06BEE8129FFDA7C0013E22D /* AnimalHospitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalHospitalModel.swift; sourceTree = "<group>"; };
+		F06BEE8329FFDAEE0013E22D /* PsychologyCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PsychologyCenterModel.swift; sourceTree = "<group>"; };
+		F06BEE8529FFDB470013E22D /* GynecologyCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GynecologyCenterModel.swift; sourceTree = "<group>"; };
+		F06BEE8729FFDBC00013E22D /* OptikCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptikCenterModel.swift; sourceTree = "<group>"; };
 		F072587729F284EC00F625CE /* SaglikYerleri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaglikYerleri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F072587A29F284EC00F625CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F072587C29F284EC00F625CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,7 +87,18 @@
 		F07258BE29F33F9800F625CE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F07258C129F3416400F625CE /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionCell.swift; sourceTree = "<group>"; };
+		F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCityModel.swift; sourceTree = "<group>"; };
+		F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCountyModel.swift; sourceTree = "<group>"; };
+		F0D70D0529FD1DF800CA4C39 /* PharmacyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyModel.swift; sourceTree = "<group>"; };
+		F0D70D0729FD1E3400CA4C39 /* NetworkEndPointCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndPointCases.swift; sourceTree = "<group>"; };
+		F0D70D0929FD219900CA4C39 /* NetworkEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndPoint.swift; sourceTree = "<group>"; };
+		F0D70D0B29FD2C6B00CA4C39 /* NetworkAPIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPIConstant.swift; sourceTree = "<group>"; };
 		F0D77CF429F680240061C85E /* MainCollectionSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionSectionModel.swift; sourceTree = "<group>"; };
+		F0D77CF729F929160061C85E /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		F0D77CFC29F929D30061C85E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		F0D77D0129F930280061C85E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		F0D77D0529FA72390061C85E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0D77D0929FA724D0061C85E /* Alamofire in Frameworks */,
 				F0D77CF029F668CF0061C85E /* RxSwift in Frameworks */,
 				F0D77CF329F668FB0061C85E /* RxDataSources in Frameworks */,
 				F0D77CEE29F668CF0061C85E /* RxCocoa in Frameworks */,
@@ -69,6 +117,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F03B830B29FBD6F2006C5AFC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F03B830E29FBD716006C5AFC /* NetworkService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		F072586E29F284EC00F625CE = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +149,7 @@
 				F072589629F2CF1900F625CE /* Protocols */,
 				F07258A429F2E3DD00F625CE /* Extensions */,
 				F072589129F285DA00F625CE /* Scenes */,
+				F0D77D0329FA71AF0061C85E /* Network */,
 				F072588F29F2858400F625CE /* Support */,
 				F072589029F2859000F625CE /* Resources */,
 			);
@@ -129,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				F072589229F285E200F625CE /* Main */,
+				F0D77CF629F928ED0061C85E /* Map */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -147,7 +205,7 @@
 		F072589329F285E700F625CE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F07258A829F30F9E00F625CE /* SubViews */,
+				F07258B229F31BCB00F625CE /* HeaderView */,
 				F07258A929F30FA700F625CE /* Cells */,
 				F072589429F285F600F625CE /* MainController.swift */,
 				F072589D29F2DFCE00F625CE /* MainView.swift */,
@@ -171,14 +229,6 @@
 				F07258A529F2E3FF00F625CE /* UIColor+HEXColor.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		F07258A829F30F9E00F625CE /* SubViews */ = {
-			isa = PBXGroup;
-			children = (
-				F07258B229F31BCB00F625CE /* HeaderView */,
-			);
-			path = SubViews;
 			sourceTree = "<group>";
 		};
 		F07258A929F30FA700F625CE /* Cells */ = {
@@ -231,6 +281,75 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F0D70D0029FD183700CA4C39 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */,
+				F06BEE7329FFD2690013E22D /* ENCityModel.swift */,
+				F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */,
+				F06BEE7529FFD4240013E22D /* ENCountyModel.swift */,
+				F0D70D0529FD1DF800CA4C39 /* PharmacyModel.swift */,
+				F06BEE7729FFD63E0013E22D /* HospitalModel.swift */,
+				F06BEE7929FFD70D0013E22D /* HealthCenterModel.swift */,
+				F06BEE7B29FFD80E0013E22D /* DentalCenterModel.swift */,
+				F06BEE7D29FFD9010013E22D /* MedicalLaboratoryModel.swift */,
+				F06BEE7F29FFDA020013E22D /* RadiologyCenterModel.swift */,
+				F06BEE8129FFDA7C0013E22D /* AnimalHospitalModel.swift */,
+				F06BEE8329FFDAEE0013E22D /* PsychologyCenterModel.swift */,
+				F06BEE8529FFDB470013E22D /* GynecologyCenterModel.swift */,
+				F06BEE8729FFDBC00013E22D /* OptikCenterModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F0D77CF629F928ED0061C85E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				F0D70D0029FD183700CA4C39 /* Model */,
+				F0D77CF929F929AB0061C85E /* View */,
+				F0D77D0029F9300F0061C85E /* ViewModel */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		F0D77CF929F929AB0061C85E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0D77CF729F929160061C85E /* MapController.swift */,
+				F0D77CFC29F929D30061C85E /* MapView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0D77D0029F9300F0061C85E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0D77D0129F930280061C85E /* MapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0D77D0329FA71AF0061C85E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F03B830B29FBD6F2006C5AFC /* Service */,
+				F0D77D0429FA722C0061C85E /* Core */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		F0D77D0429FA722C0061C85E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */,
+				F0D70D0929FD219900CA4C39 /* NetworkEndPoint.swift */,
+				F0D70D0729FD1E3400CA4C39 /* NetworkEndPointCases.swift */,
+				F0D77D0529FA72390061C85E /* NetworkManager.swift */,
+				F0D70D0B29FD2C6B00CA4C39 /* NetworkAPIConstant.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -252,6 +371,7 @@
 				F0D77CED29F668CF0061C85E /* RxCocoa */,
 				F0D77CEF29F668CF0061C85E /* RxSwift */,
 				F0D77CF229F668FB0061C85E /* RxDataSources */,
+				F0D77D0829FA724D0061C85E /* Alamofire */,
 			);
 			productName = SaglikYerleri;
 			productReference = F072587729F284EC00F625CE /* SaglikYerleri.app */;
@@ -285,6 +405,7 @@
 				F07258A129F2E19200F625CE /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F0D77CEC29F668CF0061C85E /* XCRemoteSwiftPackageReference "RxSwift" */,
 				F0D77CF129F668FB0061C85E /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				F0D77D0729FA724D0061C85E /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = F072587829F284EC00F625CE /* Products */;
 			projectDirPath = "";
@@ -312,17 +433,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0D70D0629FD1DF800CA4C39 /* PharmacyModel.swift in Sources */,
+				F06BEE7C29FFD80E0013E22D /* DentalCenterModel.swift in Sources */,
+				F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */,
+				F0D77D0D29FA823B0061C85E /* NetworkConstants.swift in Sources */,
+				F06BEE7829FFD63E0013E22D /* HospitalModel.swift in Sources */,
+				F06BEE7A29FFD70D0013E22D /* HealthCenterModel.swift in Sources */,
 				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
 				F072589829F2CF2800F625CE /* Coordinator.swift in Sources */,
+				F0D70D0229FD1B6900CA4C39 /* TRCityModel.swift in Sources */,
 				F072589E29F2DFCE00F625CE /* MainView.swift in Sources */,
+				F0D70D0829FD1E3400CA4C39 /* NetworkEndPointCases.swift in Sources */,
+				F06BEE7629FFD4240013E22D /* ENCountyModel.swift in Sources */,
 				F072589C29F2D89A00F625CE /* MainCoordinator.swift in Sources */,
+				F0D70D0A29FD219900CA4C39 /* NetworkEndPoint.swift in Sources */,
+				F0D70D0429FD1B9600CA4C39 /* TRCountyModel.swift in Sources */,
 				F0D77CF529F680240061C85E /* MainCollectionSectionModel.swift in Sources */,
 				F07258B829F32B2F00F625CE /* CustomTextField.swift in Sources */,
+				F06BEE8429FFDAEE0013E22D /* PsychologyCenterModel.swift in Sources */,
 				F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */,
+				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,
+				F0D77D0229F930280061C85E /* MapViewModel.swift in Sources */,
+				F0D77CFD29F929D30061C85E /* MapView.swift in Sources */,
+				F06BEE8229FFDA7C0013E22D /* AnimalHospitalModel.swift in Sources */,
+				F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */,
 				F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */,
+				F0D70D0C29FD2C6B00CA4C39 /* NetworkAPIConstant.swift in Sources */,
+				F06BEE8629FFDB470013E22D /* GynecologyCenterModel.swift in Sources */,
+				F06BEE8029FFDA020013E22D /* RadiologyCenterModel.swift in Sources */,
+				F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */,
+				F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */,
 				F07258A629F2E3FF00F625CE /* UIColor+HEXColor.swift in Sources */,
+				F06BEE8829FFDBC00013E22D /* OptikCenterModel.swift in Sources */,
 				F07258C229F3416400F625CE /* MainModel.swift in Sources */,
 				F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */,
 				F072589529F285F600F625CE /* MainController.swift in Sources */,
@@ -571,6 +715,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F0D77D0729FA724D0061C85E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -593,6 +745,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F0D77CF129F668FB0061C85E /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		F0D77D0829FA724D0061C85E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0D77D0729FA724D0061C85E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -56,7 +56,7 @@ final class MainCollectionHeaderView: UICollectionReusableView {
     }()
     
     //MARK: - DisposeBag
-    var disposeBag = DisposeBag()
+     var disposeBag = DisposeBag()
     
     //MARK: - Init Methods
     override init(frame: CGRect) {

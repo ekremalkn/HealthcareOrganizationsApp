@@ -13,7 +13,7 @@ import RxDataSources
 final class MainController: UIViewController {
     
     //MARK: - References
-    var coordinator: Coordinator?
+    weak var mainCoordinator: MainCoordinator?
     let mainView = MainView()
     let viewModel = MainViewModel()
     
@@ -53,9 +53,16 @@ extension MainController {
     private func configureMainCollectionView() {
         let mainCollectionDataSource = self.mainCollectionDataSource()
         
+        // Bind Data mainCollectionView
         viewModel.mainCollectionData.asObservable().map { mainCollectionData -> [SectionModel<String, MainCollectionData>] in
             return [SectionModel(model: "", items: mainCollectionData)]
         }.bind(to: mainView.mainCollectionView.rx.items(dataSource: mainCollectionDataSource)).disposed(by: disposeBag)
+        
+        // Handle DidSelect
+        mainView.mainCollectionView.rx.modelSelected(MainCollectionData.self).bind { [weak self] mainCollectionData in
+            guard let self else { return }
+            self.mainCoordinator?.openMapController(categoryType: mainCollectionData.categoryType)
+        }.disposed(by: disposeBag)
         
     }
     
@@ -63,7 +70,6 @@ extension MainController {
         let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, MainCollectionData>> { dataSource, collectionView, indexPath, mainCollectionData in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VerticalCollectionCell.identifier, for: indexPath) as? VerticalCollectionCell else { return UICollectionViewCell()}
             cell.configure(with: mainCollectionData)
-            
             return cell
         } configureSupplementaryView: { [weak self] _, collectionView, item, indexPath in
             guard let self = self, let headerView =
@@ -72,10 +78,18 @@ extension MainController {
             // Configure Header's HorizontalCollectionView
             let headerDataSource = self.headerDataSource()
             
+            
+            // Bind Data to HorizontalCollectionView
             self.viewModel.horizontalCollectionData.asObservable().map { mainHorizontalCollectionData ->
                 [SectionModel<String, MainHorizontalCollectionData>] in
                 return [SectionModel(model: "", items: mainHorizontalCollectionData)]
             }.bind(to: headerView.horizontalCollectionView.rx.items(dataSource: headerDataSource)).disposed(by: headerView.disposeBag)
+            
+            // Handle DidSelect
+            headerView.horizontalCollectionView.rx.modelSelected(MainHorizontalCollectionData.self).bind { [weak self] mainHorizontalCollectionData in
+                guard let self else { return }
+                self.mainCoordinator?.openMapController(categoryType: mainHorizontalCollectionData.categoryType)
+            }.disposed(by: headerView.disposeBag)
             
             // Delegate for horizontalCollection cell size
             headerView.horizontalCollectionView.rx.setDelegate(self).disposed(by: headerView.disposeBag)

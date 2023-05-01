@@ -14,8 +14,15 @@ final class MainCoordinator: Coordinator {
     
     func startCoordinator() {
         let mainControler = MainController()
+        mainControler.mainCoordinator = self
         navigationController.pushViewController(mainControler, animated: false)
     }
     
+    func openMapController(categoryType: NetworkConstants) {
+        let mapController = MapController()
+        let mapViewModel = MapViewModel(type: categoryType)
+        mapController.mapViewModel = mapViewModel
+        navigationController.pushViewController(mapController, animated: true)
+    }
     
 }
