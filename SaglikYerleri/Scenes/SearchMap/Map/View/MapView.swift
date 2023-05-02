@@ -16,11 +16,6 @@ final class MapView: UIView {
         return mapView
     }()
     
-    lazy var searchController : UISearchController = {
-        let searchControler = UISearchController(searchResultsController: nil)
-        
-        return searchControler
-    }()
     
     //MARK: - Init Methods
     override init(frame: CGRect) {

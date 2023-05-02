@@ -1,36 +1,34 @@
 //
-//  MapViewModel.swift
+//  SearchResultViewModel.swift
 //  SaglikYerleri
 //
-//  Created by Ekrem Alkan on 26.04.2023.
+//  Created by Ekrem Alkan on 2.05.2023.
 //
 
 import Foundation
 import RxSwift
 
-final class MapViewModel {
+class SearchResultViewModel {
     
     //MARK: - Category Type
     let categoryType: NetworkConstants?
-        
+    
     //MARK: - Variables
     let cities = PublishSubject<[CityModel]>()
-    let counties = PublishSubject<[CountyModel]>()
-    let organizations = PublishSubject<[OrganizationModel]>()
-
+    
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
-
-
+    
+    
     //MARK: - Init Methods
-    init(type: NetworkConstants) {
-        self.categoryType = type
+    init(categoryType: NetworkConstants) {
+        self.categoryType = categoryType
     }
     
     //MARK: - Fetch Cities
     func fetchCities() {
         guard let categoryType else { return }
-        
+                
         switch categoryType {
         case .hospitals:
             NetworkService.shared.getTRCities(type: .hospitals).subscribe { [weak self] event in
@@ -165,7 +163,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let hospitalCounties):
                     guard let hospitalCounties = hospitalCounties?.data else { return }
-                    self?.counties.onNext(hospitalCounties)
+                    self?.cities.onNext(hospitalCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -177,7 +175,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let healthCenterCounties):
                     guard let healthCenterCounties = healthCenterCounties?.data else { return }
-                    self?.counties.onNext(healthCenterCounties)
+                    self?.cities.onNext(healthCenterCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -189,7 +187,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let dentalCenterCounties):
                     guard let dentalCenterCounties = dentalCenterCounties?.data else { return }
-                    self?.counties.onNext(dentalCenterCounties)
+                    self?.cities.onNext(dentalCenterCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -202,7 +200,7 @@ final class MapViewModel {
                 case .next(let pharmacyCounties):
                     guard let pharmacyCounties = pharmacyCounties?.data else { return }
                     print(pharmacyCounties)
-                    self?.counties.onNext(pharmacyCounties)
+                    self?.cities.onNext(pharmacyCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -214,7 +212,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let medicalLaboratoryCounties):
                     guard let medicalLaboratoryCounties = medicalLaboratoryCounties?.data else { return }
-                    self?.counties.onNext(medicalLaboratoryCounties)
+                    self?.cities.onNext(medicalLaboratoryCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -226,7 +224,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let radiologyCenterCounties):
                     guard let radiologyCenterCounties = radiologyCenterCounties?.data else { return }
-                    self?.counties.onNext(radiologyCenterCounties)
+                    self?.cities.onNext(radiologyCenterCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -238,7 +236,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let animalHospitalCounties):
                     guard let animalHospitalCounties = animalHospitalCounties?.data else { return }
-                    self?.counties.onNext(animalHospitalCounties)
+                    self?.cities.onNext(animalHospitalCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -250,7 +248,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let psychologistCenterCounties):
                     guard let psychologistCenterCounties = psychologistCenterCounties?.data else { return }
-                    self?.counties.onNext(psychologistCenterCounties)
+                    self?.cities.onNext(psychologistCenterCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -262,7 +260,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let gynecologyCenterCounties):
                     guard let gynecologyCenterCounties = gynecologyCenterCounties?.data else { return }
-                    self?.counties.onNext(gynecologyCenterCounties)
+                    self?.cities.onNext(gynecologyCenterCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -274,7 +272,7 @@ final class MapViewModel {
                 switch event {
                 case .next(let optikCenterCounties):
                     guard let optikCenterCounties = optikCenterCounties?.data else { return }
-                    self?.counties.onNext(optikCenterCounties)
+                    self?.cities.onNext(optikCenterCounties)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -283,133 +281,4 @@ final class MapViewModel {
             }.disposed(by: disposeBag)
         }
     }
-    
-    //MARK: - Fetch Organizations
-    func fetchOrganizations(city: String, county: String) {
-        guard let categoryType else { return }
-        
-        switch categoryType {
-        case .hospitals:
-            NetworkService.shared.getHealthOrganizations(type: .hospitals, city: city, county: county).subscribe { [weak self] (hospitalModel: Event<HospitalModel?>) in
-                switch hospitalModel {
-                case .next(let hospitals):
-                    guard let hospitals = hospitals?.data else { return }
-                    self?.organizations.onNext(hospitals)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .healthCenters:
-            NetworkService.shared.getHealthOrganizations(type: .healthCenters, city: city, county: county).subscribe { [weak self] (healthCenterModel: Event<HealthCenterModel?>) in
-                switch healthCenterModel {
-                case .next(let healthCenters):
-                    guard let healthCenters = healthCenters?.data else { return }
-                    self?.organizations.onNext(healthCenters)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .dentalCenters:
-            NetworkService.shared.getHealthOrganizations(type: .dentalCenters, city: city, county: county).subscribe { [weak self] (dentalCenterModel: Event<DentalCenterModel?>) in
-                switch dentalCenterModel {
-                case .next(let dentalCenters):
-                    guard let dentalCenters = dentalCenters?.data else { return }
-                    self?.organizations.onNext(dentalCenters)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .pharmacy:
-            NetworkService.shared.getHealthOrganizations(type: .pharmacy, city: city, county: county).subscribe { [weak self] (pharmacyModel: Event<PharmacyModel?>) in
-                switch pharmacyModel {
-                case .next(let pharmacies):
-                    guard let pharmacies = pharmacies?.data else { return }
-                    self?.organizations.onNext(pharmacies)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .medicalLaboratories:
-            NetworkService.shared.getHealthOrganizations(type: .medicalLaboratories, city: city, county: county).subscribe { [weak self] (medicalLaboratoryModel: Event<MedicalLaboratoryModel?>) in
-                switch medicalLaboratoryModel {
-                case .next(let medicalLaboratories):
-                    guard let medicalLaboratories = medicalLaboratories?.data else { return }
-                    self?.organizations.onNext(medicalLaboratories)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .radiologyCenters:
-            NetworkService.shared.getHealthOrganizations(type: .radiologyCenters, city: city, county: county).subscribe { [weak self] (radiologyCenterModel: Event<RadiologyCenterModel?>) in
-                switch radiologyCenterModel {
-                case .next(let radiologyCenters):
-                    guard let radiologyCenters = radiologyCenters?.data else { return }
-                    self?.organizations.onNext(radiologyCenters)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .animalHospitals:
-            NetworkService.shared.getHealthOrganizations(type: .animalHospitals, city: city, county: county).subscribe { [weak self] (animalHospitalModel: Event<AnimalHospitalModel?>) in
-                switch animalHospitalModel {
-                case .next(let animalHospitals):
-                    guard let animalHospitals = animalHospitals?.data else { return }
-                    self?.organizations.onNext(animalHospitals)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .psychologistCenters:
-            NetworkService.shared.getHealthOrganizations(type: .psychologistCenters, city: city, county: county).subscribe { [weak self] (psychologistCenterModel: Event<PsychologyCenterModel?>) in
-                switch psychologistCenterModel {
-                case .next(let psychologistCenters):
-                    guard let psychologistCenters = psychologistCenters?.data else { return }
-                    self?.organizations.onNext(psychologistCenters)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .gynecologyCenters:
-            NetworkService.shared.getHealthOrganizations(type: .gynecologyCenters, city: city, county: county).subscribe { [weak self] (gynecologyCenterModel: Event<GynecologyCenterModel?>) in
-                switch gynecologyCenterModel {
-                case .next(let gynecologyCenters):
-                    guard let gynecologyCenters = gynecologyCenters?.data else { return }
-                    self?.organizations.onNext(gynecologyCenters)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        case .optikCenters:
-            NetworkService.shared.getHealthOrganizations(type: .optikCenters, city: city, county: county).subscribe { [weak self] (optikCenterModel: Event<GynecologyCenterModel?>) in
-                switch optikCenterModel {
-                case .next(let optikCenters):
-                    guard let optikCenters = optikCenters?.data else { return }
-                    self?.organizations.onNext(optikCenters)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("success")
-                }
-            }.disposed(by: disposeBag)
-        }
-    }
-    
 }

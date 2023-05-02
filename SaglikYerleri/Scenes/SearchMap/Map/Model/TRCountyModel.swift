@@ -17,6 +17,6 @@ struct TRCountyModel: Codable {
 }
 
 // MARK: - TRCounty
-struct TRCounty: Codable, CountyModel {
+struct TRCounty: Codable, CityModel {
     let ilceAd, ilceSlug: String?
 }

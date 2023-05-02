@@ -19,9 +19,10 @@ final class MainCoordinator: Coordinator {
     }
     
     func openMapController(categoryType: NetworkConstants) {
-        let mapController = MapController()
-        let mapViewModel = MapViewModel(type: categoryType)
-        mapController.mapViewModel = mapViewModel
+        let mapController = MapController(categoryType: categoryType)
+        let mapViewModel = MapViewModel(categoryType: categoryType)
+        mapController.viewModel = mapViewModel
+        
         navigationController.pushViewController(mapController, animated: true)
     }
     

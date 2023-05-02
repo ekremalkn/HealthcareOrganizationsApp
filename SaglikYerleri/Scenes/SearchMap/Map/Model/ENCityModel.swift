@@ -11,10 +11,10 @@ import Foundation
 struct ENCityModel: Codable {
     let status, message: String?
     let systemTime, rowCount: Int?
-    let data: [ENCities]?
+    let data: [ENCity]?
 }
 
-// MARK: - ENCities
-struct ENCities: Codable, CityModel {
+// MARK: - ENCity
+struct ENCity: Codable, CityModel {
     let cityName, citySlug: String?
 }
