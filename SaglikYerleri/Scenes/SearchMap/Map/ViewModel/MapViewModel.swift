@@ -24,7 +24,7 @@ final class MapViewModel {
     init(categoryType: NetworkConstants) {
         self.categoryType = categoryType
     }
-    
+
     //MARK: - Fetch Organizations
     func fetchOrganizations(city: String, county: String) {
         guard let categoryType else { return }

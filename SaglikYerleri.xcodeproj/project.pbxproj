@@ -36,6 +36,10 @@
 		F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BB29F338B200F625CE /* CellProtocol.swift */; };
 		F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BE29F33F9800F625CE /* MainViewModel.swift */; };
 		F07258C229F3416400F625CE /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258C129F3416400F625CE /* MainModel.swift */; };
+		F0CA98172A03B3CD00F996D8 /* SelectedCityCountyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */; };
+		F0CA981A2A0437ED00F996D8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F0CA98192A0437ED00F996D8 /* Lottie */; };
+		F0CA981D2A04380900F996D8 /* LoadingView.json in Resources */ = {isa = PBXBuildFile; fileRef = F0CA981C2A04380900F996D8 /* LoadingView.json */; };
+		F0CA98202A0438C800F996D8 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA981F2A0438C800F996D8 /* LoadingView.swift */; };
 		F0CDE30629F51EDD0050D81B /* VerticalCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */; };
 		F0D70D0229FD1B6900CA4C39 /* TRCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */; };
 		F0D70D0429FD1B9600CA4C39 /* TRCountyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */; };
@@ -89,6 +93,9 @@
 		F07258BB29F338B200F625CE /* CellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellProtocol.swift; sourceTree = "<group>"; };
 		F07258BE29F33F9800F625CE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F07258C129F3416400F625CE /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCityCountyCell.swift; sourceTree = "<group>"; };
+		F0CA981C2A04380900F996D8 /* LoadingView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingView.json; sourceTree = "<group>"; };
+		F0CA981F2A0438C800F996D8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionCell.swift; sourceTree = "<group>"; };
 		F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCityModel.swift; sourceTree = "<group>"; };
 		F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCountyModel.swift; sourceTree = "<group>"; };
@@ -117,6 +124,7 @@
 				F0D77CF329F668FB0061C85E /* RxDataSources in Frameworks */,
 				F0D77CEE29F668CF0061C85E /* RxCocoa in Frameworks */,
 				F07258A329F2E19200F625CE /* SnapKit in Frameworks */,
+				F0CA981A2A0437ED00F996D8 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +190,7 @@
 		F072589029F2859000F625CE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F0CA981B2A0437F700F996D8 /* LottieAnimations */,
 				F072588329F284ED00F625CE /* Assets.xcassets */,
 				F072588529F284ED00F625CE /* LaunchScreen.storyboard */,
 			);
@@ -257,6 +266,7 @@
 		F07258B529F32B0000F625CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F0CA981E2A04383E00F996D8 /* View */,
 				F07258B629F32B0E00F625CE /* TextField */,
 			);
 			path = Components;
@@ -287,6 +297,30 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F0CA98152A03B39800F996D8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F0CA981B2A0437F700F996D8 /* LottieAnimations */ = {
+			isa = PBXGroup;
+			children = (
+				F0CA981C2A04380900F996D8 /* LoadingView.json */,
+			);
+			path = LottieAnimations;
+			sourceTree = "<group>";
+		};
+		F0CA981E2A04383E00F996D8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0CA981F2A0438C800F996D8 /* LoadingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		F0D70D0029FD183700CA4C39 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +345,7 @@
 		F0D73A102A00CC6D00D4F58D /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
+				F0CA98152A03B39800F996D8 /* Cells */,
 				F0D73A122A00CC9200D4F58D /* View */,
 				F0D73A132A00CC9A00D4F58D /* ViewModel */,
 			);
@@ -413,6 +448,7 @@
 				F0D77CEF29F668CF0061C85E /* RxSwift */,
 				F0D77CF229F668FB0061C85E /* RxDataSources */,
 				F0D77D0829FA724D0061C85E /* Alamofire */,
+				F0CA98192A0437ED00F996D8 /* Lottie */,
 			);
 			productName = SaglikYerleri;
 			productReference = F072587729F284EC00F625CE /* SaglikYerleri.app */;
@@ -447,6 +483,7 @@
 				F0D77CEC29F668CF0061C85E /* XCRemoteSwiftPackageReference "RxSwift" */,
 				F0D77CF129F668FB0061C85E /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				F0D77D0729FA724D0061C85E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				F0CA98182A0437ED00F996D8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = F072587829F284EC00F625CE /* Products */;
 			projectDirPath = "";
@@ -463,6 +500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F072588729F284ED00F625CE /* LaunchScreen.storyboard in Resources */,
+				F0CA981D2A04380900F996D8 /* LoadingView.json in Resources */,
 				F072588429F284ED00F625CE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,6 +516,7 @@
 				F06BEE7C29FFD80E0013E22D /* DentalCenterModel.swift in Sources */,
 				F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */,
 				F0D77D0D29FA823B0061C85E /* NetworkConstants.swift in Sources */,
+				F0CA98172A03B3CD00F996D8 /* SelectedCityCountyCell.swift in Sources */,
 				F06BEE7829FFD63E0013E22D /* HospitalModel.swift in Sources */,
 				F06BEE7A29FFD70D0013E22D /* HealthCenterModel.swift in Sources */,
 				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
@@ -498,6 +537,7 @@
 				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,
+				F0CA98202A0438C800F996D8 /* LoadingView.swift in Sources */,
 				F0D77D0229F930280061C85E /* MapViewModel.swift in Sources */,
 				F0D77CFD29F929D30061C85E /* MapView.swift in Sources */,
 				F06BEE8229FFDA7C0013E22D /* AnimalHospitalModel.swift in Sources */,
@@ -743,6 +783,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F0CA98182A0437ED00F996D8 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		F0D77CEC29F668CF0061C85E /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -774,6 +822,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F07258A129F2E19200F625CE /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		F0CA98192A0437ED00F996D8 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0CA98182A0437ED00F996D8 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		F0D77CED29F668CF0061C85E /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

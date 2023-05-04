@@ -7,7 +7,7 @@
 
 import Alamofire
 
-enum NetworkEndPointCases: NetworkEndPoint {
+public enum NetworkEndPointCases: NetworkEndPoint {
 
     
     case getCityList(type: NetworkConstants)

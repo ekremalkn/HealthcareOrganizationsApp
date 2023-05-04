@@ -12,7 +12,7 @@ protocol NetworkConstantsProtocol {
     var orgnizationConstant: String { get }
 }
 
-enum NetworkConstants: NetworkConstantsProtocol {
+public enum NetworkConstants: NetworkConstantsProtocol {
     case hospitals
     case healthCenters
     case dentalCenters

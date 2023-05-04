@@ -52,26 +52,55 @@ final class MapController: UIViewController {
     
     private func subscribeTo() {
         configureSearchBarPlaceHolder(categoryType: categoryType)
-        subscribeToSearchBar()
+        subscribeToSearchBarText()
         subscribeToSearchResultControllerVariables()
     }
     
 }
 
-//MARK: - SearchController Subscribes
+//MARK: - MapController Subscribes
 extension MapController {
     
     private func subscribeToSearchResultControllerVariables() {
-        searchResultController?.county.subscribe(onNext: { [weak self] countySlug in
+        searchResultController?.selectedCountySlug.subscribe(onNext: { [weak self] countySlug in
             guard let city = self?.searchResultController?.city else { return }
             self?.viewModel?.fetchOrganizations(city: city, county: countySlug)
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
+        
+        searchResultController?.searchControllerDissmissed.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            self.mapView.congfigureAlphaView(hideAlphaView: true)
+        }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
+        
+        searchResultController?.selectedCountyName.subscribe(onNext: { [weak self] countyName in
+            guard let self else { return }
+            self.searchController?.searchBar.text = countyName
+        }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
+        
+        // Search Controller ViewModel Loading States
+        searchResultController?.viewModel?.fetchingCities.subscribe(onNext: { [weak self] value in
+            value ? self?.mapView.loadingView.animationView?.play() : self?.mapView.loadingView.animationView?.stop()
+        }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
+        
+        searchResultController?.viewModel?.fetchedCities.subscribe(onNext: { [weak self] _ in
+            self?.mapView.loadingView.animationView?.stop()
+        }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
+        
+        searchResultController?.viewModel?.errorMsg.subscribe(onNext: { [weak self] errorMsg in
+            self?.mapView.loadingView.animationView?.play()
+        }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
     }
     
-    private func subscribeToSearchBar() {
-//        searchController?.searchBar.rx.text.subscribe(onNext: { [weak self] text in
-//            
-//        }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
+    private func subscribeToSearchBarText() {
+        searchController?.searchBar.rx.text.subscribe(onNext: { [weak self] text in
+            guard let text else { return }
+            self?.searchResultController?.viewModel?.filterCityCounty(character: text)
+        }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
+        
+        searchController?.searchBar.rx.textDidBeginEditing.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            self.mapView.congfigureAlphaView(hideAlphaView: false)
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -90,22 +119,22 @@ extension MapController {
             self.title = "Sağlık Ocakları"
             self.searchController?.searchBar.placeholder = searchBarPlaceholder
         case .dentalCenters:
-            self.title = "Diş Sağlığı Merk."
+            self.title = "Diş Klinikleri"
             self.searchController?.searchBar.placeholder = searchBarPlaceholder
         case .pharmacy:
             self.title = "Eczaneler"
             self.searchController?.searchBar.placeholder = searchBarPlaceholder
         case .medicalLaboratories:
-            self.title = "Medikal Lab."
+            self.title = "Tıbbi Lab."
             self.searchController?.searchBar.placeholder = searchBarPlaceholder
         case .radiologyCenters:
             self.title = "Radyoloji Merk."
             self.searchController?.searchBar.placeholder = searchBarPlaceholder
         case .animalHospitals:
-            self.title = "Veterinerler"
+            self.title = "Hayvan Hastaneleri"
             self.searchController?.searchBar.placeholder = searchBarPlaceholder
         case .psychologistCenters:
-            self.title = "Psikoloji Merk."
+            self.title = "Psikologlar"
             self.searchController?.searchBar.placeholder = searchBarPlaceholder
         case .gynecologyCenters:
             self.title = "Jinekolog Merk."

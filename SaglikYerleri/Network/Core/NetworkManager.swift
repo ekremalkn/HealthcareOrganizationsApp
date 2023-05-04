@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import Alamofire
 
-final class NetworkManager {
+public final class NetworkManager {
     static let shared = NetworkManager()
     
     public func request<T: Decodable>(path: String, headers: HTTPHeaders, bearerToken: String) -> Observable<T> {
