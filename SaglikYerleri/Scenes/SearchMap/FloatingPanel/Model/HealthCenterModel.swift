@@ -16,7 +16,7 @@ struct HealthCenterModel: Codable {
 
 // MARK: - HealthCenter
 struct HealthCenter: Codable, OrganizationModel {
-    let ad, aciklama, adres, tel: String?
+    let ad, adres, tel: String?
     let email: String?
     let website: String?
     let sehir, ilce: String?
@@ -24,7 +24,6 @@ struct HealthCenter: Codable, OrganizationModel {
 
     enum CodingKeys: String, CodingKey {
         case ad = "Ad"
-        case aciklama = "Aciklama"
         case adres = "Adres"
         case tel = "Tel"
         case email = "Email"

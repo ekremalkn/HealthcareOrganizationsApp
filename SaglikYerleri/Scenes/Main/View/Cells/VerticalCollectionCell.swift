@@ -41,8 +41,9 @@ final class VerticalCollectionCell: UICollectionViewCell {
     
     func configure(with data: MainCollectionData) {
         self.categoryTitleLabel.text = data.categoryTitle
-        self.contentView.backgroundColor = data.bacgroundColor
+        self.contentView.backgroundColor = data.backgroundColor
     }
+    
     
 }
 

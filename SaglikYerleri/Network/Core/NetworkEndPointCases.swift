@@ -46,7 +46,19 @@ public enum NetworkEndPointCases: NetworkEndPoint {
                 return type.cityConstant
             case .gynecologyCenters:
                 return type.cityConstant
-            case .optikCenters:
+            case .opticCenters:
+                return type.cityConstant
+            case .privateDentalCenters:
+                return type.cityConstant
+            case .spaCenters:
+                return type.cityConstant
+            case .dialysisCenters:
+                return type.cityConstant
+            case .emergencyCenters:
+                return type.cityConstant
+            case .medicalShopCenters:
+                return type.cityConstant
+            case .physiotheraphyCenters:
                 return type.cityConstant
             }
             
@@ -70,7 +82,19 @@ public enum NetworkEndPointCases: NetworkEndPoint {
                 return type.cityConstant + "&city=\(city)"
             case .gynecologyCenters:
                 return type.cityConstant + "&city=\(city)"
-            case .optikCenters:
+            case .opticCenters:
+                return type.cityConstant + "&city=\(city)"
+            case .privateDentalCenters:
+                return type.cityConstant + "&city=\(city)"
+            case .spaCenters:
+                return type.cityConstant + "&city=\(city)"
+            case .dialysisCenters:
+                return type.cityConstant + "&city=\(city)"
+            case .emergencyCenters:
+                return type.cityConstant + "&city=\(city)"
+            case .medicalShopCenters:
+                return type.cityConstant + "&city=\(city)"
+            case .physiotheraphyCenters:
                 return type.cityConstant + "&city=\(city)"
             }
             
@@ -94,7 +118,19 @@ public enum NetworkEndPointCases: NetworkEndPoint {
                 return type.orgnizationConstant + "&city=\(city)&country=\(county)"
             case .gynecologyCenters:
                 return type.orgnizationConstant + "&city=\(city)&country=\(county)"
-            case .optikCenters:
+            case .opticCenters:
+                return type.orgnizationConstant + "&city=\(city)&country=\(county)"
+            case .privateDentalCenters:
+                return type.orgnizationConstant + "&city=\(city)&country=\(county)"
+            case .spaCenters:
+                return type.orgnizationConstant + "&city=\(city)&country=\(county)"
+            case .dialysisCenters:
+                return type.orgnizationConstant + "&city=\(city)&country=\(county)"
+            case .emergencyCenters:
+                return type.orgnizationConstant + "&city=\(city)&country=\(county)"
+            case .medicalShopCenters:
+                return type.orgnizationConstant + "&city=\(city)&country=\(county)"
+            case .physiotheraphyCenters:
                 return type.orgnizationConstant + "&city=\(city)&country=\(county)"
             }
         }

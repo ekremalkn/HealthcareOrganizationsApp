@@ -11,9 +11,27 @@ import MapKit
 final class MapView: UIView {
     
     //MARK: - Creating UI Elements
-    private lazy var mapView: MKMapView = {
+    lazy var backButton: UIBarButtonItem = {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .white
+        return backButton
+    }()
+    
+    lazy var mapView: MKMapView = {
         let mapView = MKMapView()
         return mapView
+    }()
+    
+    lazy var customTopView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    lazy var searchBarBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
     }()
     
     private lazy var alphaView: UIView = {
@@ -35,11 +53,25 @@ final class MapView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func congfigureAlphaView(hideAlphaView: Bool) {
+    //MARK: - Layout Subviews
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        customTopView.layer.cornerRadius = 12
+    }
+    
+    func configureCustomTopView(customTopViewBColor: UIColor) {
+        customTopView.backgroundColor = customTopViewBColor.withAlphaComponent(0.8)
+    }
+    
+    func configureAlphaView(hideAlphaView: Bool, completion: (() -> Void)? = nil) {
         if hideAlphaView {
             self.alphaView.isHidden = true
+            self.loadingView.animationView?.stop()
+            completion?()
         } else {
             self.alphaView.isHidden = false
+            self.loadingView.animationView?.play()
+            completion?()
         }
     }
     
@@ -53,14 +85,17 @@ extension MapView: ViewProtocol {
     
     func addSubview() {
         addSubview(mapView)
-        mapView.addSubview(loadingView)
         mapView.addSubview(alphaView)
+        mapView.addSubview(customTopView)
+        alphaView.addSubview(loadingView)
+        
     }
     
     func setupConstraints() {
         mapViewConstraints()
         loadingViewConstraints()
         alphaViewConstraints()
+        customTopViewConstraints()
     }
     
     private func mapViewConstraints() {
@@ -71,7 +106,7 @@ extension MapView: ViewProtocol {
     
     private func loadingViewConstraints() {
         loadingView.snp.makeConstraints { make in
-            make.center.equalTo(mapView.snp.center)
+            make.center.equalTo(alphaView.snp.center)
             make.height.width.equalTo(64)
         }
     }
@@ -81,6 +116,15 @@ extension MapView: ViewProtocol {
             make.edges.equalTo(self)
         }
     }
+    
+    func customTopViewConstraints() {
+        customTopView.snp.makeConstraints { make in
+            make.top.equalTo(self)
+            make.leading.trailing.equalTo(self)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.top)
+        }
+    }
+    
     
     
 }

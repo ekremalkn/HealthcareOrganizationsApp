@@ -12,17 +12,16 @@ final class MainCoordinator: Coordinator {
     
     var navigationController = UINavigationController()
     
+    
     func startCoordinator() {
         let mainControler = MainController()
         mainControler.mainCoordinator = self
         navigationController.pushViewController(mainControler, animated: false)
     }
     
-    func openMapController(categoryType: NetworkConstants) {
-        let mapController = MapController(categoryType: categoryType)
-        let mapViewModel = MapViewModel(categoryType: categoryType)
-        mapController.viewModel = mapViewModel
-        
+    func openMapController(categoryType: NetworkConstants, customTopViewBC: UIColor) {
+        let mapController = MapController(categoryType: categoryType, customTopViewBC: customTopViewBC)
+        mapController.mapCoordinator = MapCoordinator()
         navigationController.pushViewController(mapController, animated: true)
     }
     

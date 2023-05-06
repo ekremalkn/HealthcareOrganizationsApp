@@ -76,10 +76,12 @@ extension SearchResultView: ViewProtocol {
         }
     }
     
-    func needSelectedItemCollectionView(animateState: SearchResultAnimateState) {
+    func needSelectedItemCollectionView(animateState: SearchResultAnimateState, completion: @escaping (() -> Void)) {
         switch animateState {
         case .toTop:
-            self.animateTableAndCollection(animateState: animateState)
+            self.animateTableAndCollection(animateState: animateState) {
+                completion()
+            }
         case .toBottom:
             addSubview(selectedCityCountyCollectionView)
             
@@ -89,12 +91,14 @@ extension SearchResultView: ViewProtocol {
                 make.leading.trailing.equalTo(tableView)
             }
             
-            self.animateTableAndCollection(animateState: animateState)
+            self.animateTableAndCollection(animateState: animateState) {
+                completion()
+            }
         }
         
     }
     
-    func animateTableAndCollection(animateState: SearchResultAnimateState) {
+    func animateTableAndCollection(animateState: SearchResultAnimateState, completion: @escaping (() -> Void)) {
         var tableFrame = tableView.frame
         
         switch animateState {
@@ -122,6 +126,7 @@ extension SearchResultView: ViewProtocol {
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.tableView.frame = tableFrame
             self?.selectedCityCountyCollectionView.layoutIfNeeded()
+            completion()
         }
         
         

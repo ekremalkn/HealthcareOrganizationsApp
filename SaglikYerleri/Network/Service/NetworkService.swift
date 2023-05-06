@@ -74,10 +74,27 @@ final class NetworkService: NetworkServiceProtocol {
         case .gynecologyCenters:
             let observable: Observable<GynecologyCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey).asObservable()
             return observable.map { $0 as? T }
-        case .optikCenters:
+        case .opticCenters:
             let observable: Observable<OptikCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey).asObservable()
             return observable.map { $0 as? T }
-
+        case .privateDentalCenters:
+            let observable: Observable<PrivateDentalCenterModel?>  = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
+            return observable.map { $0 as? T }
+        case .spaCenters:
+            let observable: Observable<SpaCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
+            return observable.map { $0 as? T }
+        case .dialysisCenters:
+            let observable: Observable<DialysisCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
+            return observable.map { $0 as? T }
+        case .emergencyCenters:
+            let obseravble: Observable<EmergencyCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
+            return obseravble.map { $0 as? T}
+        case .medicalShopCenters:
+            let observable: Observable<EmergencyCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
+            return observable.map { $0 as? T}
+        case .physiotheraphyCenters:
+            let observable: Observable<PhysiotheraphyCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
+            return observable.map { $0 as? T}
         }
        
 

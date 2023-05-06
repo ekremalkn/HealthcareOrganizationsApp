@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03B830E29FBD716006C5AFC /* NetworkService.swift */; };
+		F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */; };
+		F061C2BB2A06530700D1E485 /* SpaCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */; };
+		F061C2BD2A06539400D1E485 /* PhysiotheraphyCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BC2A06539400D1E485 /* PhysiotheraphyCenterModel.swift */; };
+		F061C2BF2A06540400D1E485 /* DialysisCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BE2A06540400D1E485 /* DialysisCenterModel.swift */; };
+		F061C2C12A06545C00D1E485 /* EmergencyCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C02A06545C00D1E485 /* EmergencyCenterModel.swift */; };
+		F061C2C32A06550C00D1E485 /* MedicalShopCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C22A06550C00D1E485 /* MedicalShopCenterModel.swift */; };
+		F061C2C52A0655D500D1E485 /* PrivateDentalCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */; };
+		F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */; };
 		F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7329FFD2690013E22D /* ENCityModel.swift */; };
 		F06BEE7629FFD4240013E22D /* ENCountyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7529FFD4240013E22D /* ENCountyModel.swift */; };
 		F06BEE7829FFD63E0013E22D /* HospitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7729FFD63E0013E22D /* HospitalModel.swift */; };
@@ -35,7 +43,7 @@
 		F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258B929F3386400F625CE /* HorizontalCollectionCell.swift */; };
 		F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BB29F338B200F625CE /* CellProtocol.swift */; };
 		F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BE29F33F9800F625CE /* MainViewModel.swift */; };
-		F07258C229F3416400F625CE /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258C129F3416400F625CE /* MainModel.swift */; };
+		F07258C229F3416400F625CE /* MainCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258C129F3416400F625CE /* MainCollectionModel.swift */; };
 		F0CA98172A03B3CD00F996D8 /* SelectedCityCountyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */; };
 		F0CA981A2A0437ED00F996D8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F0CA98192A0437ED00F996D8 /* Lottie */; };
 		F0CA981D2A04380900F996D8 /* LoadingView.json in Resources */ = {isa = PBXBuildFile; fileRef = F0CA981C2A04380900F996D8 /* LoadingView.json */; };
@@ -56,14 +64,26 @@
 		F0D77CF529F680240061C85E /* MainCollectionSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77CF429F680240061C85E /* MainCollectionSectionModel.swift */; };
 		F0D77CF829F929160061C85E /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77CF729F929160061C85E /* MapController.swift */; };
 		F0D77CFD29F929D30061C85E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77CFC29F929D30061C85E /* MapView.swift */; };
-		F0D77D0229F930280061C85E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0129F930280061C85E /* MapViewModel.swift */; };
 		F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0529FA72390061C85E /* NetworkManager.swift */; };
 		F0D77D0929FA724D0061C85E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77D0829FA724D0061C85E /* Alamofire */; };
 		F0D77D0D29FA823B0061C85E /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */; };
+		F0EE779C2A052DAE007BF9A7 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = F0EE779B2A052DAE007BF9A7 /* FloatingPanel */; };
+		F0EE779E2A052DEF007BF9A7 /* FloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */; };
+		F0EE77A32A052EE1007BF9A7 /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */; };
+		F0EE77A62A054708007BF9A7 /* FloatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE77A52A054708007BF9A7 /* FloatingViewModel.swift */; };
+		F0EE77A82A054C04007BF9A7 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE77A72A054C04007BF9A7 /* MapCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F03B830E29FBD716006C5AFC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaCenterModel.swift; sourceTree = "<group>"; };
+		F061C2BC2A06539400D1E485 /* PhysiotheraphyCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysiotheraphyCenterModel.swift; sourceTree = "<group>"; };
+		F061C2BE2A06540400D1E485 /* DialysisCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialysisCenterModel.swift; sourceTree = "<group>"; };
+		F061C2C02A06545C00D1E485 /* EmergencyCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyCenterModel.swift; sourceTree = "<group>"; };
+		F061C2C22A06550C00D1E485 /* MedicalShopCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalShopCenterModel.swift; sourceTree = "<group>"; };
+		F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateDentalCenterModel.swift; sourceTree = "<group>"; };
+		F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHorizontalCollectionModel.swift; sourceTree = "<group>"; };
 		F06BEE7329FFD2690013E22D /* ENCityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENCityModel.swift; sourceTree = "<group>"; };
 		F06BEE7529FFD4240013E22D /* ENCountyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENCountyModel.swift; sourceTree = "<group>"; };
 		F06BEE7729FFD63E0013E22D /* HospitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalModel.swift; sourceTree = "<group>"; };
@@ -92,7 +112,7 @@
 		F07258B929F3386400F625CE /* HorizontalCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCollectionCell.swift; sourceTree = "<group>"; };
 		F07258BB29F338B200F625CE /* CellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellProtocol.swift; sourceTree = "<group>"; };
 		F07258BE29F33F9800F625CE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		F07258C129F3416400F625CE /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		F07258C129F3416400F625CE /* MainCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionModel.swift; sourceTree = "<group>"; };
 		F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCityCountyCell.swift; sourceTree = "<group>"; };
 		F0CA981C2A04380900F996D8 /* LoadingView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingView.json; sourceTree = "<group>"; };
 		F0CA981F2A0438C800F996D8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -109,9 +129,12 @@
 		F0D77CF429F680240061C85E /* MainCollectionSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionSectionModel.swift; sourceTree = "<group>"; };
 		F0D77CF729F929160061C85E /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		F0D77CFC29F929D30061C85E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		F0D77D0129F930280061C85E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		F0D77D0529FA72390061C85E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
+		F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingController.swift; sourceTree = "<group>"; };
+		F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
+		F0EE77A52A054708007BF9A7 /* FloatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewModel.swift; sourceTree = "<group>"; };
+		F0EE77A72A054C04007BF9A7 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +147,7 @@
 				F0D77CF329F668FB0061C85E /* RxDataSources in Frameworks */,
 				F0D77CEE29F668CF0061C85E /* RxCocoa in Frameworks */,
 				F07258A329F2E19200F625CE /* SnapKit in Frameworks */,
+				F0EE779C2A052DAE007BF9A7 /* FloatingPanel in Frameworks */,
 				F0CA981A2A0437ED00F996D8 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +161,17 @@
 				F03B830E29FBD716006C5AFC /* NetworkService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		F061C2B92A0650C500D1E485 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */,
+				F06BEE7329FFD2690013E22D /* ENCityModel.swift */,
+				F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */,
+				F06BEE7529FFD4240013E22D /* ENCountyModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F072586E29F284EC00F625CE = {
@@ -234,6 +269,7 @@
 				F072589729F2CF2800F625CE /* Coordinator.swift */,
 				F072589F29F2E08F00F625CE /* ViewProtocol.swift */,
 				F07258BB29F338B200F625CE /* CellProtocol.swift */,
+				F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -291,7 +327,8 @@
 		F07258C029F3414300F625CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F07258C129F3416400F625CE /* MainModel.swift */,
+				F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */,
+				F07258C129F3416400F625CE /* MainCollectionModel.swift */,
 				F0D77CF429F680240061C85E /* MainCollectionSectionModel.swift */,
 			);
 			path = Model;
@@ -324,20 +361,22 @@
 		F0D70D0029FD183700CA4C39 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */,
-				F06BEE7329FFD2690013E22D /* ENCityModel.swift */,
-				F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */,
-				F06BEE7529FFD4240013E22D /* ENCountyModel.swift */,
 				F0D70D0529FD1DF800CA4C39 /* PharmacyModel.swift */,
 				F06BEE7729FFD63E0013E22D /* HospitalModel.swift */,
 				F06BEE7929FFD70D0013E22D /* HealthCenterModel.swift */,
-				F06BEE7B29FFD80E0013E22D /* DentalCenterModel.swift */,
 				F06BEE7D29FFD9010013E22D /* MedicalLaboratoryModel.swift */,
 				F06BEE7F29FFDA020013E22D /* RadiologyCenterModel.swift */,
+				F06BEE7B29FFD80E0013E22D /* DentalCenterModel.swift */,
 				F06BEE8129FFDA7C0013E22D /* AnimalHospitalModel.swift */,
 				F06BEE8329FFDAEE0013E22D /* PsychologyCenterModel.swift */,
 				F06BEE8529FFDB470013E22D /* GynecologyCenterModel.swift */,
 				F06BEE8729FFDBC00013E22D /* OptikCenterModel.swift */,
+				F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */,
+				F061C2BC2A06539400D1E485 /* PhysiotheraphyCenterModel.swift */,
+				F061C2BE2A06540400D1E485 /* DialysisCenterModel.swift */,
+				F061C2C02A06545C00D1E485 /* EmergencyCenterModel.swift */,
+				F061C2C22A06550C00D1E485 /* MedicalShopCenterModel.swift */,
+				F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,7 +384,7 @@
 		F0D73A102A00CC6D00D4F58D /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
-				F0CA98152A03B39800F996D8 /* Cells */,
+				F061C2B92A0650C500D1E485 /* Model */,
 				F0D73A122A00CC9200D4F58D /* View */,
 				F0D73A132A00CC9A00D4F58D /* ViewModel */,
 			);
@@ -355,9 +394,8 @@
 		F0D73A112A00CC7400D4F58D /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				F0D70D0029FD183700CA4C39 /* Model */,
+				F0EE77A72A054C04007BF9A7 /* MapCoordinator.swift */,
 				F0D77CF929F929AB0061C85E /* View */,
-				F0D77D0029F9300F0061C85E /* ViewModel */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -365,6 +403,7 @@
 		F0D73A122A00CC9200D4F58D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F0CA98152A03B39800F996D8 /* Cells */,
 				F0D73A142A00CCBB00D4F58D /* SearchResultView.swift */,
 				F0D73A162A00CCEC00D4F58D /* SearchResultController.swift */,
 			);
@@ -384,6 +423,7 @@
 			children = (
 				F0D73A112A00CC7400D4F58D /* Map */,
 				F0D73A102A00CC6D00D4F58D /* SearchResult */,
+				F0EE77992A052BF7007BF9A7 /* FloatingPanel */,
 			);
 			path = SearchMap;
 			sourceTree = "<group>";
@@ -395,14 +435,6 @@
 				F0D77CFC29F929D30061C85E /* MapView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		F0D77D0029F9300F0061C85E /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F0D77D0129F930280061C85E /* MapViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F0D77D0329FA71AF0061C85E /* Network */ = {
@@ -424,6 +456,41 @@
 				F0D70D0B29FD2C6B00CA4C39 /* NetworkAPIConstant.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		F0EE77992A052BF7007BF9A7 /* FloatingPanel */ = {
+			isa = PBXGroup;
+			children = (
+				F0D70D0029FD183700CA4C39 /* Model */,
+				F0EE779F2A052DF3007BF9A7 /* View */,
+				F0EE77A12A052E01007BF9A7 /* ViewModel */,
+			);
+			path = FloatingPanel;
+			sourceTree = "<group>";
+		};
+		F0EE779F2A052DF3007BF9A7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0EE77A42A0546DD007BF9A7 /* Cells */,
+				F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */,
+				F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0EE77A12A052E01007BF9A7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0EE77A52A054708007BF9A7 /* FloatingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0EE77A42A0546DD007BF9A7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,6 +516,7 @@
 				F0D77CF229F668FB0061C85E /* RxDataSources */,
 				F0D77D0829FA724D0061C85E /* Alamofire */,
 				F0CA98192A0437ED00F996D8 /* Lottie */,
+				F0EE779B2A052DAE007BF9A7 /* FloatingPanel */,
 			);
 			productName = SaglikYerleri;
 			productReference = F072587729F284EC00F625CE /* SaglikYerleri.app */;
@@ -484,6 +552,7 @@
 				F0D77CF129F668FB0061C85E /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				F0D77D0729FA724D0061C85E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				F0CA98182A0437ED00F996D8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				F0EE779A2A052DAE007BF9A7 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 			);
 			productRefGroup = F072587829F284EC00F625CE /* Products */;
 			projectDirPath = "";
@@ -512,13 +581,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F061C2BF2A06540400D1E485 /* DialysisCenterModel.swift in Sources */,
+				F0EE779E2A052DEF007BF9A7 /* FloatingController.swift in Sources */,
 				F0D70D0629FD1DF800CA4C39 /* PharmacyModel.swift in Sources */,
 				F06BEE7C29FFD80E0013E22D /* DentalCenterModel.swift in Sources */,
 				F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */,
 				F0D77D0D29FA823B0061C85E /* NetworkConstants.swift in Sources */,
 				F0CA98172A03B3CD00F996D8 /* SelectedCityCountyCell.swift in Sources */,
 				F06BEE7829FFD63E0013E22D /* HospitalModel.swift in Sources */,
+				F061C2C52A0655D500D1E485 /* PrivateDentalCenterModel.swift in Sources */,
 				F06BEE7A29FFD70D0013E22D /* HealthCenterModel.swift in Sources */,
+				F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */,
 				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
 				F0D73A192A00CF5B00D4F58D /* SearchResultViewModel.swift in Sources */,
 				F072589829F2CF2800F625CE /* Coordinator.swift in Sources */,
@@ -527,6 +600,7 @@
 				F072589E29F2DFCE00F625CE /* MainView.swift in Sources */,
 				F0D70D0829FD1E3400CA4C39 /* NetworkEndPointCases.swift in Sources */,
 				F06BEE7629FFD4240013E22D /* ENCountyModel.swift in Sources */,
+				F0EE77A32A052EE1007BF9A7 /* FloatingView.swift in Sources */,
 				F072589C29F2D89A00F625CE /* MainCoordinator.swift in Sources */,
 				F0D70D0A29FD219900CA4C39 /* NetworkEndPoint.swift in Sources */,
 				F0D70D0429FD1B9600CA4C39 /* TRCountyModel.swift in Sources */,
@@ -535,27 +609,33 @@
 				F06BEE8429FFDAEE0013E22D /* PsychologyCenterModel.swift in Sources */,
 				F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */,
 				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
+				F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,
 				F0CA98202A0438C800F996D8 /* LoadingView.swift in Sources */,
-				F0D77D0229F930280061C85E /* MapViewModel.swift in Sources */,
 				F0D77CFD29F929D30061C85E /* MapView.swift in Sources */,
 				F06BEE8229FFDA7C0013E22D /* AnimalHospitalModel.swift in Sources */,
 				F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */,
 				F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */,
+				F0EE77A82A054C04007BF9A7 /* MapCoordinator.swift in Sources */,
 				F0D70D0C29FD2C6B00CA4C39 /* NetworkAPIConstant.swift in Sources */,
 				F06BEE8629FFDB470013E22D /* GynecologyCenterModel.swift in Sources */,
 				F06BEE8029FFDA020013E22D /* RadiologyCenterModel.swift in Sources */,
+				F061C2C12A06545C00D1E485 /* EmergencyCenterModel.swift in Sources */,
+				F061C2BD2A06539400D1E485 /* PhysiotheraphyCenterModel.swift in Sources */,
 				F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */,
 				F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */,
+				F0EE77A62A054708007BF9A7 /* FloatingViewModel.swift in Sources */,
+				F061C2C32A06550C00D1E485 /* MedicalShopCenterModel.swift in Sources */,
 				F07258A629F2E3FF00F625CE /* UIColor+HEXColor.swift in Sources */,
 				F06BEE8829FFDBC00013E22D /* OptikCenterModel.swift in Sources */,
-				F07258C229F3416400F625CE /* MainModel.swift in Sources */,
+				F07258C229F3416400F625CE /* MainCollectionModel.swift in Sources */,
 				F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */,
 				F072589529F285F600F625CE /* MainController.swift in Sources */,
 				F072587D29F284EC00F625CE /* SceneDelegate.swift in Sources */,
 				F0D73A172A00CCEC00D4F58D /* SearchResultController.swift in Sources */,
 				F0CDE30629F51EDD0050D81B /* VerticalCollectionCell.swift in Sources */,
+				F061C2BB2A06530700D1E485 /* SpaCenterModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -815,6 +895,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F0EE779A2A052DAE007BF9A7 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -847,6 +935,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F0D77D0729FA724D0061C85E /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		F0EE779B2A052DAE007BF9A7 /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0EE779A2A052DAE007BF9A7 /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

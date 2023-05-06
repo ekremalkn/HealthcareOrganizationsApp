@@ -13,16 +13,23 @@ protocol NetworkConstantsProtocol {
 }
 
 public enum NetworkConstants: NetworkConstantsProtocol {
-    case hospitals
-    case healthCenters
-    case dentalCenters
     case pharmacy
+    case healthCenters
+    case hospitals
+    case dentalCenters
+    case privateDentalCenters
     case medicalLaboratories
     case radiologyCenters
-    case animalHospitals
+    case spaCenters
     case psychologistCenters
     case gynecologyCenters
-    case optikCenters 
+    case opticCenters
+    case animalHospitals
+    case dialysisCenters
+    case emergencyCenters
+    case medicalShopCenters
+    case physiotheraphyCenters
+    
     
     var cityConstant: String {
         switch self {
@@ -44,8 +51,20 @@ public enum NetworkConstants: NetworkConstantsProtocol {
             return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=60704"
         case .gynecologyCenters:
             return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=48626"
-        case .optikCenters:
+        case .opticCenters:
             return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=56968"
+        case .privateDentalCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=99373"
+        case .spaCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=32148"
+        case .dialysisCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=90607"
+        case .emergencyCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkey?id=24590"
+        case .medicalShopCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=79448"
+        case .physiotheraphyCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=43049"
         }
     }
     
@@ -69,8 +88,20 @@ public enum NetworkConstants: NetworkConstantsProtocol {
             return "https://www.nosyapi.com/apiv2/getTurkey?id=60704"
         case .gynecologyCenters:
             return "https://www.nosyapi.com/apiv2/getTurkey?id=48626"
-        case .optikCenters:
+        case .opticCenters:
             return "https://www.nosyapi.com/apiv2/getTurkey?id=56968"
+        case .privateDentalCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkey?id=99373"
+        case .spaCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkey?id=32148"
+        case .dialysisCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkey?id=90607"
+        case .emergencyCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkey?id=24590"
+        case .medicalShopCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkey?id=79448"
+        case .physiotheraphyCenters:
+            return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=43049"
         }
     }
     

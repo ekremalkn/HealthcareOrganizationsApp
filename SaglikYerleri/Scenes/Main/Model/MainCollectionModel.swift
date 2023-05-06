@@ -7,94 +7,27 @@
 
 import UIKit
 
-indirect enum MainHorizontalCollectionData {
-    case dutyPharmacies(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-    case allPharmacies(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-    case healthCenters(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-    case hospitals(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-    case dentalCenters(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-}
 
-extension MainHorizontalCollectionData {
-    var image: UIImage {
-        switch self {
-        case .dutyPharmacies(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        case .allPharmacies(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        case .healthCenters(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        case .hospitals(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        case .dentalCenters(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        }
-    }
-    
-    var categoryTitle: String {
-        switch self {
-        case .dutyPharmacies( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        case .allPharmacies( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        case .healthCenters( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        case .hospitals( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        case .dentalCenters( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        }
-    }
-    
-    var tintAndBackgroundColor: UIColor {
-        switch self {
-        case .dutyPharmacies(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        case .allPharmacies(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        case .healthCenters(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        case .hospitals(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        case .dentalCenters(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        }
-    }
-    
-    var categoryType: NetworkConstants {
-        switch self {
-        case .dutyPharmacies(_, _, _, let type):
-            return type
-        case .allPharmacies(_, _, _, let type):
-            return type
-        case .healthCenters(_, _, _, let type):
-            return type
-        case .hospitals(_, _, _, let type):
-            return type
-        case .dentalCenters(_, _, _, let type):
-            return type
-        }
-    }
-    
-}
 
 enum MainCollectionData {
-
+    
     case dutyPharmacies(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case allPharmacies(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case healthCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case hospitals(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case dentalCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
+    case privateDentalCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case medicalLaboratories(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case radiologyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case spaCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case psychologistCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case gynecologyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case physicalTherapyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case opticalCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
+    case physiotheraphyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
+    case opticCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case animalHospitals(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case dialysisCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
     case emergencyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
+    case medicalShopCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
 }
 
 extension MainCollectionData {
@@ -120,9 +53,9 @@ extension MainCollectionData {
             return title
         case .gynecologyCenters(let title, _, _):
             return title
-        case .physicalTherapyCenters(let title, _, _):
+        case .physiotheraphyCenters(let title, _, _):
             return title
-        case .opticalCenters(let title, _, _):
+        case .opticCenters(let title, _, _):
             return title
         case .animalHospitals(let title, _, _):
             return title
@@ -130,10 +63,14 @@ extension MainCollectionData {
             return title
         case .emergencyCenters(let title, _, _):
             return title
+        case .privateDentalCenters(title: let title, _, _):
+            return title
+        case .medicalShopCenters(title: let title, _, _):
+            return title
         }
     }
     
-    var bacgroundColor: UIColor {
+    var backgroundColor: UIColor {
         switch self {
         case .dutyPharmacies(_, let backgroundColor, _):
             return backgroundColor
@@ -155,15 +92,19 @@ extension MainCollectionData {
             return backgroundColor
         case .gynecologyCenters(_, let backgroundColor, _):
             return backgroundColor
-        case .physicalTherapyCenters(_, let backgroundColor, _):
+        case .physiotheraphyCenters(_, let backgroundColor, _):
             return backgroundColor
-        case .opticalCenters(_, let backgroundColor, _):
+        case .opticCenters(_, let backgroundColor, _):
             return backgroundColor
         case .animalHospitals(_, let backgroundColor, _):
             return backgroundColor
         case .dialysisCenters(_, let backgroundColor, _):
             return backgroundColor
         case .emergencyCenters(_, let backgroundColor, _):
+            return backgroundColor
+        case .privateDentalCenters(_, let backgroundColor, _):
+            return backgroundColor
+        case .medicalShopCenters(_, let backgroundColor, _):
             return backgroundColor
         }
     }
@@ -190,15 +131,19 @@ extension MainCollectionData {
             return type
         case .gynecologyCenters(_, _, let type):
             return type
-        case .physicalTherapyCenters(_, _, let type):
+        case .physiotheraphyCenters(_, _, let type):
             return type
-        case .opticalCenters(_, _, let type):
+        case .opticCenters(_, _, let type):
             return type
         case .animalHospitals(_, _, let type):
             return type
         case .dialysisCenters(_, _, let type):
             return type
         case .emergencyCenters(_, _, let type):
+            return type
+        case .privateDentalCenters(_,  _, type: let type):
+            return type
+        case .medicalShopCenters(_,  _, type: let type):
             return type
         }
     }

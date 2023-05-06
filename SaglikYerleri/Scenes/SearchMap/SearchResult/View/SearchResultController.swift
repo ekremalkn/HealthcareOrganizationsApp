@@ -15,12 +15,13 @@ final class SearchResultController: UIViewController {
     var viewModel: SearchResultViewModel?
     
     //MARK: - Variables
-    var city: String?
-    var selectedCountySlug = PublishSubject<String>()
+    var selectedCitySlug: String?
+    var selectedCountySlug: String?
     var selectedCountyName = PublishSubject<String>()
-    var selectedCityCounty = BehaviorSubject<[String]>(value: [])
+    var selectedCityName = BehaviorSubject<[String]>(value: [])
     var tableCollectionAnimateState: SearchResultAnimateState = .toBottom
-    var searchControllerDissmissed = PublishSubject<Void>()
+    var searchControllerViewDidAppear = PublishSubject<Void>()
+    var searchControllerDissmissed = PublishSubject<(String, String)>()
     
     //MARK: - Dispose Bag
     let disposeBag = DisposeBag()
@@ -44,6 +45,11 @@ final class SearchResultController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.searchControllerViewDidAppear.onNext(())
     }
     
     private func configureViewController() {
@@ -83,26 +89,32 @@ extension SearchResultController {
             switch city {
             case let city as ENCity:
                 guard let self, let citySlug = city.citySlug, let cityName = city.cityName else { return }
-                self.city = citySlug
-                self.viewModel?.fetchCounties(city: citySlug)
-                self.selectedCityCounty.onNext([cityName])
-                self.searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState)
+                self.selectedCitySlug = citySlug
+                self.selectedCityName.onNext([cityName])
+                self.searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
+                    self?.viewModel?.fetchCounties(city: citySlug)
+                }
             case let county as ENCounty:
                 guard let countySlug = county.citySlug, let countyName = county.cityName else { return }
-                self?.selectedCountySlug.onNext(countySlug)
+                self?.selectedCountySlug = countySlug
                 self?.selectedCountyName.onNext(countyName)
                 self?.dismiss(animated: true, completion: { [weak self] in
-                    self?.searchControllerDissmissed.onNext(())
+                    guard let selectedCitySlug = self?.selectedCitySlug , let selectedCountySlug = self?.selectedCountySlug else { return }
+                    self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug))
                 })
             case let city as TRCity:
-                guard let citySlug = city.sehirSlug else { return }
-                self?.city = citySlug
-                self?.viewModel?.fetchCounties(city: citySlug)
+                guard let self, let citySlug = city.sehirSlug, let cityName = city.sehirAd  else { return }
+                self.selectedCitySlug = citySlug
+                self.selectedCityName.onNext([cityName])
+                self.searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
+                    self?.viewModel?.fetchCounties(city: citySlug)
+                }
             case let county as TRCounty:
                 guard let countySlug = county.ilceSlug else { return }
-                self?.selectedCountySlug.onNext(countySlug)
+                self?.selectedCountySlug = countySlug
                 self?.dismiss(animated: true, completion: { [weak self] in
-                    self?.searchControllerDissmissed.onNext(())
+                    guard let selectedCitySlug = self?.selectedCitySlug , let selectedCountySlug = self?.selectedCountySlug else { return }
+                    self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug))
                 })
             default:
                 return
@@ -123,7 +135,7 @@ extension SearchResultController {
 extension SearchResultController: UICollectionViewDelegateFlowLayout {
     private func configureSelectedCollectionView() {
         // Bind data
-        selectedCityCounty.bind(to: self.searchResultView.selectedCityCountyCollectionView.rx.items(cellIdentifier: SelectedCityCountyCell.identifier, cellType: SelectedCityCountyCell.self)) { row, cityCountyName, cell in
+        selectedCityName.bind(to: self.searchResultView.selectedCityCountyCollectionView.rx.items(cellIdentifier: SelectedCityCountyCell.identifier, cellType: SelectedCityCountyCell.self)) { row, cityCountyName, cell in
             cell.configure(cityCountyName)
         }.disposed(by: disposeBag)
         
@@ -133,10 +145,12 @@ extension SearchResultController: UICollectionViewDelegateFlowLayout {
             guard let self else { return }
             self.deleteSelectedItem(indexPath: indexPath) { [weak self] selectedItems  in
                 guard let self, let selectedItems else { return }
-                self.selectedCityCounty.onNext(selectedItems)
+                self.selectedCityName.onNext(selectedItems)
                 self.viewModel?.fetchCities()
-                self.searchResultView.needSelectedItemCollectionView(animateState: .toTop)
-                self.tableCollectionAnimateState = .toBottom
+                self.searchResultView.needSelectedItemCollectionView(animateState: .toTop) { [weak self] in
+                    self?.tableCollectionAnimateState = .toBottom
+                }
+                
             }
         }.disposed(by: disposeBag)
         
@@ -145,7 +159,7 @@ extension SearchResultController: UICollectionViewDelegateFlowLayout {
     }
     
     private func deleteSelectedItem(indexPath: IndexPath, completion: (([String]?) -> Void)) {
-        var data = try? self.selectedCityCounty.value()
+        var data = try? self.selectedCityName.value()
         data?.remove(at: indexPath.row)
         
         completion(data)
@@ -161,7 +175,7 @@ extension SearchResultController: UICollectionViewDelegateFlowLayout {
         
         // Dynamic cell width according to label text length
         do {
-            let citiesCounties = try? selectedCityCounty.value()
+            let citiesCounties = try? selectedCityName.value()
             guard let citiesCounties else { return CGSize() }
             let cityCountyName = citiesCounties[indexPath.row]
             let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 15)

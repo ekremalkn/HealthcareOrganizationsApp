@@ -8,24 +8,27 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import MapKit
 
 final class MapController: UIViewController {
     
     //MARK: - References
-    private let mapView = MapView()
-    var viewModel: MapViewModel?
+    var mapCoordinator: MapCoordinator?
+    let mapView = MapView()
     
     var categoryType: NetworkConstants?
     var searchController : UISearchController?
     var searchResultController: SearchResultController?
+    var customTopViewBC: UIColor?
     
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
-
+    
     
     //MARK: - Life Cycle Methods
-    init(categoryType: NetworkConstants) {
+    init(categoryType: NetworkConstants, customTopViewBC: UIColor) {
         self.categoryType = categoryType
+        self.customTopViewBC = customTopViewBC
         self.searchResultController = SearchResultController(categoryType: categoryType)
         self.searchController = UISearchController(searchResultsController: searchResultController)
         super.init(nibName: nil, bundle: nil)
@@ -45,8 +48,16 @@ final class MapController: UIViewController {
         configureViewController()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    }
+    
     private func configureViewController() {
         self.navigationItem.searchController = self.searchController
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = self.mapView.backButton
+        self.mapView.mapView.delegate = self
+        self.mapView.configureCustomTopView(customTopViewBColor: customTopViewBC!)
         subscribeTo()
     }
     
@@ -62,14 +73,16 @@ final class MapController: UIViewController {
 extension MapController {
     
     private func subscribeToSearchResultControllerVariables() {
-        searchResultController?.selectedCountySlug.subscribe(onNext: { [weak self] countySlug in
-            guard let city = self?.searchResultController?.city else { return }
-            self?.viewModel?.fetchOrganizations(city: city, county: countySlug)
+        searchResultController?.searchControllerViewDidAppear.subscribe(onNext: { [weak self] _ in
+            self?.mapCoordinator?.moveFloatingPanelToTip()
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
-        searchResultController?.searchControllerDissmissed.subscribe(onNext: { [weak self] _ in
-            guard let self else { return }
-            self.mapView.congfigureAlphaView(hideAlphaView: true)
+        searchResultController?.searchControllerDissmissed.subscribe(onNext: { [weak self] selectedCitySlug, selectedCountySlug in
+            self?.mapView.configureAlphaView(hideAlphaView: true, completion: { [weak self] in
+                guard let categoryType = self?.categoryType, let self else { return }
+                self.mapCoordinator?.openFloatingController(categoryType: categoryType, citySlug: selectedCitySlug, countySlug: selectedCountySlug, parentVC: self)
+            })
+            
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
         searchResultController?.selectedCountyName.subscribe(onNext: { [weak self] countyName in
@@ -99,49 +112,87 @@ extension MapController {
         
         searchController?.searchBar.rx.textDidBeginEditing.subscribe(onNext: { [weak self] _ in
             guard let self else { return }
-            self.mapView.congfigureAlphaView(hideAlphaView: false)
+            self.mapView.configureAlphaView(hideAlphaView: false)
         }).disposed(by: disposeBag)
     }
 }
 
-//MARK: - Configure Search Bar Placeholder
-
-extension MapController {
+//MARK: - MapView delegate methods
+extension MapController:  MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        self.animateNavBarAndTopView(toTop: true)
+    }
     
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        self.animateNavBarAndTopView(toTop: false)
+    }
+    
+    private func animateNavBarAndTopView(toTop top: Bool) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let self else { return }
+            if top {
+                self.mapView.customTopView.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.width / 2)
+                self.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.width / 2)
+                if self.mapCoordinator?.floatingPanel?.state != .tip {
+                    self.mapCoordinator?.moveFloatingPanelToTip()
+                }
+                
+            } else {
+                self.mapView.customTopView.transform = .identity
+                self.navigationController?.navigationBar.transform = .identity
+            }
+        }
+        
+        
+    }
+}
+
+
+//MARK: - Configure Search Bar Placeholder
+extension MapController {
     private func configureSearchBarPlaceHolder(categoryType: NetworkConstants?) {
         guard let categoryType else { return }
-        let searchBarPlaceholder: String = "Bulunduğunuz şehiri arayınız..."
+        
         switch categoryType {
         case .hospitals:
-            self.title = "Hastaneler"
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Hastaneler")
         case .healthCenters:
-            self.title = "Sağlık Ocakları"
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Sağlık Ocakları")
         case .dentalCenters:
-            self.title = "Diş Klinikleri"
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Diş Klinikleri")
         case .pharmacy:
-            self.title = "Eczaneler"
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Eczaneler")
         case .medicalLaboratories:
-            self.title = "Tıbbi Lab."
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Tıbbi Lab.")
         case .radiologyCenters:
-            self.title = "Radyoloji Merk."
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Radyoloji Merk.")
         case .animalHospitals:
-            self.title = "Hayvan Hastaneleri"
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Hayvan Hastaneleri")
         case .psychologistCenters:
-            self.title = "Psikologlar"
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Psikologlar")
         case .gynecologyCenters:
-            self.title = "Jinekolog Merk."
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
-        case .optikCenters:
-            self.title = "Optik Merk."
-            self.searchController?.searchBar.placeholder = searchBarPlaceholder
+            self.changeSearchBarProperties(title: "Jinekoloji Merkezleri")
+        case .opticCenters:
+            self.changeSearchBarProperties(title: "Optik Merkezleri")
+        case .privateDentalCenters:
+            self.changeSearchBarProperties(title: "Ozel Diş Klinikleri")
+        case .spaCenters:
+            self.changeSearchBarProperties(title: "Spa Merkezleri")
+        case .dialysisCenters:
+            self.changeSearchBarProperties(title: "Diyaliz Merkezleri")
+        case .emergencyCenters:
+            self.changeSearchBarProperties(title: "Acil Servisler")
+        case .medicalShopCenters:
+            self.changeSearchBarProperties(title: "Medikal Alışveriş Merk.")
+        case .physiotheraphyCenters:
+            self.changeSearchBarProperties(title: "Fizik Tedavi Merk.")
         }
+    }
+    
+    private func changeSearchBarProperties(title: String) {
+        let searchBarPlaceholder: String = "Bulunduğunuz şehiri arayınız..."
+        self.title = title
+        self.searchController?.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: searchBarPlaceholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.5)])
+        self.searchController?.searchBar.searchTextField.leftView?.tintColor = .white.withAlphaComponent(0.5)
     }
 }
