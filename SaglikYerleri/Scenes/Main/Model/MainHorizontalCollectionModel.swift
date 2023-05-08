@@ -8,72 +8,183 @@
 import UIKit
 
 enum MainHorizontalCollectionData {
-    case dutyPharmacies(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-    case allPharmacies(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-    case healthCenters(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-    case hospitals(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
-    case dentalCenters(image: UIImage, categoryTitle: String, tintAndBackgroundColor: UIColor, type: NetworkConstants)
+    case categoryType(NetworkConstants)
+    
+    var selectedCategoryType: NetworkConstants {
+        switch self {
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .pharmacy:
+                return networkConstants
+            case .healthCenters:
+                return networkConstants
+            case .hospitals:
+                return networkConstants
+            case .dentalCenters:
+                return networkConstants
+            case .privateDentalCenters:
+                return networkConstants
+            case .medicalLaboratories:
+                return networkConstants
+            case .radiologyCenters:
+                return networkConstants
+            case .spaCenters:
+                return networkConstants
+            case .psychologistCenters:
+                return networkConstants
+            case .gynecologyCenters:
+                return networkConstants
+            case .opticCenters:
+                return networkConstants
+            case .animalHospitals:
+                return networkConstants
+            case .dialysisCenters:
+                return networkConstants
+            case .emergencyCenters:
+                return networkConstants
+            case .medicalShopCenters:
+                return networkConstants
+            case .physiotheraphyCenters:
+                return networkConstants
+            case .dutyPharmacy:
+                return networkConstants
+            }
+        }
+    }
+    
 }
 
 extension MainHorizontalCollectionData {
     var image: UIImage {
         switch self {
-        case .dutyPharmacies(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        case .allPharmacies(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        case .healthCenters(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        case .hospitals(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
-        case .dentalCenters(image: let image, categoryTitle: _, tintAndBackgroundColor:_, type: _):
-            return image
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .dutyPharmacy:
+                return UIImage(named: "duty")!
+            case .pharmacy:
+                break
+            case .healthCenters:
+                return UIImage(systemName: "bandage")!
+            case .hospitals:
+                return UIImage(named: "hospital")!
+            case .dentalCenters:
+                return UIImage(named: "dental")!
+            case .privateDentalCenters:
+                break
+            case .medicalLaboratories:
+                break
+            case .radiologyCenters:
+                break
+            case .spaCenters:
+                break
+            case .psychologistCenters:
+                break
+            case .gynecologyCenters:
+                break
+            case .opticCenters:
+                break
+            case .animalHospitals:
+                break
+            case .dialysisCenters:
+                break
+            case .emergencyCenters:
+                break
+            case .medicalShopCenters:
+                break
+            case .physiotheraphyCenters:
+                break
+                
+            }
         }
+        return UIImage()
     }
     
     var categoryTitle: String {
         switch self {
-        case .dutyPharmacies( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        case .allPharmacies( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        case .healthCenters( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        case .hospitals( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
-        case .dentalCenters( _, let categoryTitle, tintAndBackgroundColor:_, type: _):
-            return categoryTitle
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .dutyPharmacy:
+                return "Nöbetçi Eczaneler"
+            case .pharmacy:
+                break
+            case .healthCenters:
+                return "Sağlık Ocakları"
+            case .hospitals:
+                return "Tüm Hastaneler"
+            case .dentalCenters:
+                return "Diş Sağlığı Merkezleri"
+            case .privateDentalCenters:
+                break
+            case .medicalLaboratories:
+                break
+            case .radiologyCenters:
+                break
+            case .spaCenters:
+                break
+            case .psychologistCenters:
+                break
+            case .gynecologyCenters:
+                break
+            case .opticCenters:
+                break
+            case .animalHospitals:
+                break
+            case .dialysisCenters:
+                break
+            case .emergencyCenters:
+                break
+            case .medicalShopCenters:
+                break
+            case .physiotheraphyCenters:
+                break
+                
+            }
         }
+        return ""
     }
     
     var tintAndBackgroundColor: UIColor {
         switch self {
-        case .dutyPharmacies(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        case .allPharmacies(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        case .healthCenters(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        case .hospitals(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
-        case .dentalCenters(_, _, let tintAndBackgroundColor, type: _):
-            return tintAndBackgroundColor
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .dutyPharmacy:
+                return UIColor(hex: "FAAC7E")
+            case .pharmacy:
+                break
+            case .healthCenters:
+                return UIColor(hex: "3CB5B7")
+            case .hospitals:
+                return UIColor(hex: "5D9AFF")
+            case .dentalCenters:
+                return UIColor(hex: "F87EB7")
+            case .privateDentalCenters:
+                break
+            case .medicalLaboratories:
+                break
+            case .radiologyCenters:
+                break
+            case .spaCenters:
+                break
+            case .psychologistCenters:
+                break
+            case .gynecologyCenters:
+                break
+            case .opticCenters:
+                break
+            case .animalHospitals:
+                break
+            case .dialysisCenters:
+                break
+            case .emergencyCenters:
+                break
+            case .medicalShopCenters:
+                break
+            case .physiotheraphyCenters:
+                break
+                
+            }
         }
+        return UIColor()
     }
-    
-    var categoryType: NetworkConstants {
-        switch self {
-        case .dutyPharmacies(_, _, _, let type):
-            return type
-        case .allPharmacies(_, _, _, let type):
-            return type
-        case .healthCenters(_, _, _, let type):
-            return type
-        case .hospitals(_, _, _, let type):
-            return type
-        case .dentalCenters(_, _, _, let type):
-            return type
-        }
-    }
-    
 }
+

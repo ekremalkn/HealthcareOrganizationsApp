@@ -10,141 +10,133 @@ import UIKit
 
 
 enum MainCollectionData {
+    case categoryType(NetworkConstants)
     
-    case dutyPharmacies(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case allPharmacies(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case healthCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case hospitals(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case dentalCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case privateDentalCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case medicalLaboratories(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case radiologyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case spaCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case psychologistCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case gynecologyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case physiotheraphyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case opticCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case animalHospitals(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case dialysisCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case emergencyCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
-    case medicalShopCenters(title: String, backgroundColor: UIColor, type: NetworkConstants)
+    var selectedCategoryType: NetworkConstants {
+        switch self {
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .pharmacy:
+                return networkConstants
+            case .dutyPharmacy:
+                return networkConstants
+            case .healthCenters:
+                return networkConstants
+            case .dentalCenters:
+                return networkConstants
+            case .privateDentalCenters:
+                return networkConstants
+            case .medicalLaboratories:
+                return networkConstants
+            case .radiologyCenters:
+                return networkConstants
+            case .spaCenters:
+                return networkConstants
+            case .psychologistCenters:
+                return networkConstants
+            case .gynecologyCenters:
+                return networkConstants
+            case .opticCenters:
+                return networkConstants
+            case .animalHospitals:
+                return networkConstants
+            case .dialysisCenters:
+                return networkConstants
+            case .emergencyCenters:
+                return networkConstants
+            case .medicalShopCenters:
+                return networkConstants
+            case .physiotheraphyCenters:
+                return networkConstants
+            case .hospitals:
+                return networkConstants
+            }
+        }
+    }
 }
 
 extension MainCollectionData {
     var categoryTitle: String {
         switch self {
-        case .dutyPharmacies(let title, _, _):
-            return title
-        case .allPharmacies(let title, _, _):
-            return title
-        case .healthCenters(let title, _, _):
-            return title
-        case .hospitals(let title, _, _):
-            return title
-        case .dentalCenters(let title, _, _):
-            return title
-        case .medicalLaboratories(let title, _, _):
-            return title
-        case .radiologyCenters(let title, _, _):
-            return title
-        case .spaCenters(let title, _, _):
-            return title
-        case .psychologistCenters(let title, _, _):
-            return title
-        case .gynecologyCenters(let title, _, _):
-            return title
-        case .physiotheraphyCenters(let title, _, _):
-            return title
-        case .opticCenters(let title, _, _):
-            return title
-        case .animalHospitals(let title, _, _):
-            return title
-        case .dialysisCenters(let title, _, _):
-            return title
-        case .emergencyCenters(let title, _, _):
-            return title
-        case .privateDentalCenters(title: let title, _, _):
-            return title
-        case .medicalShopCenters(title: let title, _, _):
-            return title
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .pharmacy:
+                return "Tüm Eczaneler"
+            case .dutyPharmacy:
+                return "Nöbetçi Eczaneler"
+            case .healthCenters:
+                return "Sağlık Ocakları"
+            case .hospitals:
+                return "Hastaneler"
+            case .dentalCenters:
+                return "Diş Klinikleri"
+            case .privateDentalCenters:
+                return "Ozel Diş Klinikleri"
+            case .medicalLaboratories:
+                return "Tıbbi Laboratuvarlar"
+            case .radiologyCenters:
+                return "Radiyoloji Merkezleri"
+            case .spaCenters:
+                return "Spa Merkezleri"
+            case .psychologistCenters:
+                return "Psikologlar"
+            case .gynecologyCenters:
+                return "Jinekologlar"
+            case .opticCenters:
+                return "Optik Merkezleri"
+            case .animalHospitals:
+                return "Hayvan Hastaneleri"
+            case .dialysisCenters:
+                return "Diyaliz Merkzleri"
+            case .emergencyCenters:
+                return "Acil Servisler"
+            case .medicalShopCenters:
+                return "Medikal Alışveriş Merkezleri"
+            case .physiotheraphyCenters:
+                return "Fizik Tedavi Merkezleri"
+            }
         }
     }
     
     var backgroundColor: UIColor {
         switch self {
-        case .dutyPharmacies(_, let backgroundColor, _):
-            return backgroundColor
-        case .allPharmacies(_, let backgroundColor, _):
-            return backgroundColor
-        case .healthCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .hospitals(_, let backgroundColor, _):
-            return backgroundColor
-        case .dentalCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .medicalLaboratories(_, let backgroundColor, _):
-            return backgroundColor
-        case .radiologyCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .spaCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .psychologistCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .gynecologyCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .physiotheraphyCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .opticCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .animalHospitals(_, let backgroundColor, _):
-            return backgroundColor
-        case .dialysisCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .emergencyCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .privateDentalCenters(_, let backgroundColor, _):
-            return backgroundColor
-        case .medicalShopCenters(_, let backgroundColor, _):
-            return backgroundColor
-        }
-    }
-    
-    var categoryType: NetworkConstants {
-        switch self {
-        case .dutyPharmacies(_,  _, let type):
-            return type
-        case .allPharmacies(_, _, let type):
-            return type
-        case .healthCenters(_, _, let type):
-            return type
-        case .hospitals(_, _, let type):
-            return type
-        case .dentalCenters(_, _, let type):
-            return type
-        case .medicalLaboratories(_, _, let type):
-            return type
-        case .radiologyCenters(_, _,  let type):
-            return type
-        case .spaCenters(_, _, let type):
-            return type
-        case .psychologistCenters(_, _, let type):
-            return type
-        case .gynecologyCenters(_, _, let type):
-            return type
-        case .physiotheraphyCenters(_, _, let type):
-            return type
-        case .opticCenters(_, _, let type):
-            return type
-        case .animalHospitals(_, _, let type):
-            return type
-        case .dialysisCenters(_, _, let type):
-            return type
-        case .emergencyCenters(_, _, let type):
-            return type
-        case .privateDentalCenters(_,  _, type: let type):
-            return type
-        case .medicalShopCenters(_,  _, type: let type):
-            return type
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .pharmacy:
+                return UIColor(hex: "F98B8B")
+            case .dutyPharmacy:
+                return UIColor(hex: "FAAC7E")
+            case .healthCenters:
+                return UIColor(hex: "3CB5B7")
+            case .hospitals:
+                return UIColor(hex: "5D9AFF")
+            case .dentalCenters:
+                return UIColor(hex: "F87EB7")
+            case .privateDentalCenters:
+                return UIColor(hex: "00AEDB")
+            case .medicalLaboratories:
+                return UIColor(hex: "7879F1")
+            case .radiologyCenters:
+                return UIColor(hex: "5D9AFF")
+            case .spaCenters:
+                return UIColor(hex: "C5b9CD")
+            case .psychologistCenters:
+                return UIColor(hex: "65D6B8")
+            case .gynecologyCenters:
+                return UIColor(hex: "F392C3")
+            case .opticCenters:
+                return UIColor(hex: "FFC425")
+            case .animalHospitals:
+                return UIColor(hex: "FBC134")
+            case .dialysisCenters:
+                return UIColor(hex: "B4C468")
+            case .emergencyCenters:
+                return UIColor(hex: "D11141")
+            case .medicalShopCenters:
+                return UIColor(hex: "92A8D1")
+            case .physiotheraphyCenters:
+                return UIColor(hex: "ABB1CF")
+            }
         }
     }
 }

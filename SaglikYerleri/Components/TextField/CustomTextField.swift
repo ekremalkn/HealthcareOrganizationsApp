@@ -60,7 +60,6 @@ extension CustomTextField: ViewProtocol {
         self.layer.borderColor = UIColor.systemGray3.cgColor
         addSubview()
         setupConstraints()
-        
     }
     
     func addSubview() {

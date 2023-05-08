@@ -60,6 +60,8 @@ public enum NetworkEndPointCases: NetworkEndPoint {
                 return type.cityConstant
             case .physiotheraphyCenters:
                 return type.cityConstant
+            case .dutyPharmacy:
+                return type.cityConstant
             }
             
         case .getCountyList(let type, let city):
@@ -94,6 +96,8 @@ public enum NetworkEndPointCases: NetworkEndPoint {
                 return type.cityConstant + "&city=\(city)"
             case .medicalShopCenters:
                 return type.cityConstant + "&city=\(city)"
+            case .dutyPharmacy:
+                return type.cityConstant + "?city=\(city)"
             case .physiotheraphyCenters:
                 return type.cityConstant + "&city=\(city)"
             }
@@ -132,6 +136,8 @@ public enum NetworkEndPointCases: NetworkEndPoint {
                 return type.orgnizationConstant + "&city=\(city)&country=\(county)"
             case .physiotheraphyCenters:
                 return type.orgnizationConstant + "&city=\(city)&country=\(county)"
+            case .dutyPharmacy:
+                return type.orgnizationConstant + "?city=\(city)&county=\(county)"
             }
         }
     }

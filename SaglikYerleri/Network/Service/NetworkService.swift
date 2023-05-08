@@ -95,6 +95,9 @@ final class NetworkService: NetworkServiceProtocol {
         case .physiotheraphyCenters:
             let observable: Observable<PhysiotheraphyCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
             return observable.map { $0 as? T}
+        case .dutyPharmacy:
+            let observable: Observable<PharmacyModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
+            return observable.map{ $0 as? T}
         }
        
 

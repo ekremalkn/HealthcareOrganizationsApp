@@ -5,7 +5,7 @@
 //  Created by Ekrem Alkan on 1.05.2023.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - PsychologyCenterModel
 struct PsychologyCenterModel: Codable {
@@ -19,4 +19,8 @@ struct PsychologistCenter: Codable, OrganizationModel {
     let name, city, country, street: String?
     let streetv2, phone, fax, website: String?
     let latitude, longitude: Double?
+    
+    var psychologistCenterImageBackgroundColor: UIColor {
+        return MainCollectionData.categoryType(.psychologistCenters).backgroundColor
+    }
 }

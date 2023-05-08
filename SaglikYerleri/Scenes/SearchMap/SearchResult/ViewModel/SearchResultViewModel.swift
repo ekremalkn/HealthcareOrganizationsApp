@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 class SearchResultViewModel {
-
+    
     //MARK: - Category Type
     let categoryType: NetworkConstants?
     
@@ -130,6 +130,10 @@ class SearchResultViewModel {
             NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
+        case .dutyPharmacy:
+            NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
+                self?.handleTRCityModel(event)
+            }.disposed(by: disposeBag)
         }
     }
     
@@ -162,7 +166,7 @@ class SearchResultViewModel {
             print("success")
         }
     }
-
+    
     //MARK: - Fetch Counties
     func fetchCounties(city: String) {
         guard let categoryType else { return }
@@ -231,6 +235,10 @@ class SearchResultViewModel {
         case .physiotheraphyCenters:
             NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
+            }.disposed(by: disposeBag)
+        case .dutyPharmacy:
+            NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
+                self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         }
     }

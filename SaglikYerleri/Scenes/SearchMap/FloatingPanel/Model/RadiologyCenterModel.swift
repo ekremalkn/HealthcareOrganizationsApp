@@ -5,7 +5,7 @@
 //  Created by Ekrem Alkan on 1.05.2023.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - RadiologyCenterModel
 struct RadiologyCenterModel: Codable {
@@ -31,5 +31,9 @@ struct RadiologyCenter: Codable, OrganizationModel {
         case website = "Website"
         case sehir = "Sehir"
         case ilce, latitude, longitude
+    }
+    
+    var radiologyCenterImageBackgroundColor: UIColor {
+        return MainCollectionData.categoryType(.radiologyCenters).backgroundColor
     }
 }

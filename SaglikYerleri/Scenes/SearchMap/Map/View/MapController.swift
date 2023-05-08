@@ -186,6 +186,8 @@ extension MapController {
             self.changeSearchBarProperties(title: "Medikal Alışveriş Merk.")
         case .physiotheraphyCenters:
             self.changeSearchBarProperties(title: "Fizik Tedavi Merk.")
+        case .dutyPharmacy:
+            self.changeSearchBarProperties(title: "Nöbetçi Eczaneler")
         }
     }
     

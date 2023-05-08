@@ -16,6 +16,7 @@
 		F061C2C32A06550C00D1E485 /* MedicalShopCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C22A06550C00D1E485 /* MedicalShopCenterModel.swift */; };
 		F061C2C52A0655D500D1E485 /* PrivateDentalCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */; };
 		F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */; };
+		F06458602A0956EE00B17BF1 /* PharmacyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */; };
 		F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7329FFD2690013E22D /* ENCityModel.swift */; };
 		F06BEE7629FFD4240013E22D /* ENCountyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7529FFD4240013E22D /* ENCountyModel.swift */; };
 		F06BEE7829FFD63E0013E22D /* HospitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7729FFD63E0013E22D /* HospitalModel.swift */; };
@@ -84,6 +85,7 @@
 		F061C2C22A06550C00D1E485 /* MedicalShopCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalShopCenterModel.swift; sourceTree = "<group>"; };
 		F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateDentalCenterModel.swift; sourceTree = "<group>"; };
 		F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHorizontalCollectionModel.swift; sourceTree = "<group>"; };
+		F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyCell.swift; sourceTree = "<group>"; };
 		F06BEE7329FFD2690013E22D /* ENCityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENCityModel.swift; sourceTree = "<group>"; };
 		F06BEE7529FFD4240013E22D /* ENCountyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENCountyModel.swift; sourceTree = "<group>"; };
 		F06BEE7729FFD63E0013E22D /* HospitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalModel.swift; sourceTree = "<group>"; };
@@ -431,8 +433,8 @@
 		F0D77CF929F929AB0061C85E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F0D77CF729F929160061C85E /* MapController.swift */,
 				F0D77CFC29F929D30061C85E /* MapView.swift */,
+				F0D77CF729F929160061C85E /* MapController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -472,8 +474,8 @@
 			isa = PBXGroup;
 			children = (
 				F0EE77A42A0546DD007BF9A7 /* Cells */,
-				F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */,
 				F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */,
+				F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -489,6 +491,7 @@
 		F0EE77A42A0546DD007BF9A7 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 				F061C2C32A06550C00D1E485 /* MedicalShopCenterModel.swift in Sources */,
 				F07258A629F2E3FF00F625CE /* UIColor+HEXColor.swift in Sources */,
 				F06BEE8829FFDBC00013E22D /* OptikCenterModel.swift in Sources */,
+				F06458602A0956EE00B17BF1 /* PharmacyCell.swift in Sources */,
 				F07258C229F3416400F625CE /* MainCollectionModel.swift in Sources */,
 				F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */,
 				F072589529F285F600F625CE /* MainController.swift in Sources */,

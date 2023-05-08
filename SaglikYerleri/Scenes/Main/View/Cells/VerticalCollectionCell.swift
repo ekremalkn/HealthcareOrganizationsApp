@@ -37,7 +37,7 @@ final class VerticalCollectionCell: UICollectionViewCell {
         layer.cornerRadius = 12
         contentView.layer.cornerRadius = 12
     }
-
+    
     
     func configure(with data: MainCollectionData) {
         self.categoryTitleLabel.text = data.categoryTitle

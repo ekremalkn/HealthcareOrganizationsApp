@@ -11,35 +11,43 @@ import RxSwift
 final class FloatingViewModel {
     
     //MARK: - Category Type
-    let categoryType: NetworkConstants
-
+    let categoryType: NetworkConstants?
+    
     //MARK: - Variables
     let citySlug: String?
     let countySlug: String?
-
+    
     let organizations = PublishSubject<[OrganizationModel]>()
-
+    let pharmacies = PublishSubject<[Pharmacy]>()
+    let hospitals = PublishSubject<[Hospital]>()
+    let emergencyCenters = PublishSubject<[EmergencyCenter]>()
+    let healthCenters = PublishSubject<[HealthCenter]>()
+    let privateDentalClinic = PublishSubject<[PrivateDentalCenter]>()
+    
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
-
+    
     //MARK: - Init Methods
     init(categoryType: NetworkConstants, citySlug: String, countySlug: String) {
         self.categoryType = categoryType
         self.citySlug = citySlug
         self.countySlug = countySlug
     }
-
+    
+    deinit {
+        print("floating viewmodel deinitr")
+    }
     
     //MARK: - Fetch Organizations
     func fetchOrganizations() {
-        guard let citySlug, let countySlug else { return }
+        guard let categoryType, let citySlug, let countySlug else { return }
         switch categoryType {
         case .hospitals:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (hospitalModel: Event<HospitalModel?>) in
                 switch hospitalModel {
-                case .next(let hospitals):
-                    guard let hospitals = hospitals?.data else { return }
-                    self?.organizations.onNext(hospitals)
+                case .next(let hospitalModel):
+                    guard let hospitals = hospitalModel?.data else { return }
+                    self?.hospitals.onNext(hospitals)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -49,9 +57,10 @@ final class FloatingViewModel {
         case .healthCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (healthCenterModel: Event<HealthCenterModel?>) in
                 switch healthCenterModel {
-                case .next(let healthCenters):
-                    guard let healthCenters = healthCenters?.data else { return }
-                    self?.organizations.onNext(healthCenters)
+                case .next(let healthCenterModel):
+                    guard let healthCenters = healthCenterModel?.data else { return }
+                    print("alkan")
+                    self?.healthCenters.onNext(healthCenters)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -61,8 +70,8 @@ final class FloatingViewModel {
         case .dentalCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dentalCenterModel: Event<DentalCenterModel?>) in
                 switch dentalCenterModel {
-                case .next(let dentalCenters):
-                    guard let dentalCenters = dentalCenters?.data else { return }
+                case .next(let dentalCenterModel):
+                    guard let dentalCenters = dentalCenterModel?.data else { return }
                     self?.organizations.onNext(dentalCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -73,10 +82,9 @@ final class FloatingViewModel {
         case .pharmacy:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (pharmacyModel: Event<PharmacyModel?>) in
                 switch pharmacyModel {
-                case .next(let pharmacies):
-                    guard let pharmacies = pharmacies?.data else { return }
-                    self?.organizations.onNext(pharmacies)
-                    print(pharmacies)
+                case .next(let pharmacyModel):
+                    guard let pharmacies = pharmacyModel?.data else { return }
+                    self?.pharmacies.onNext(pharmacies)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -86,8 +94,8 @@ final class FloatingViewModel {
         case .medicalLaboratories:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (medicalLaboratoryModel: Event<MedicalLaboratoryModel?>) in
                 switch medicalLaboratoryModel {
-                case .next(let medicalLaboratories):
-                    guard let medicalLaboratories = medicalLaboratories?.data else { return }
+                case .next(let medicalLaboratoryModel):
+                    guard let medicalLaboratories = medicalLaboratoryModel?.data else { return }
                     self?.organizations.onNext(medicalLaboratories)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -98,8 +106,8 @@ final class FloatingViewModel {
         case .radiologyCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (radiologyCenterModel: Event<RadiologyCenterModel?>) in
                 switch radiologyCenterModel {
-                case .next(let radiologyCenters):
-                    guard let radiologyCenters = radiologyCenters?.data else { return }
+                case .next(let radiologyCenterModel):
+                    guard let radiologyCenters = radiologyCenterModel?.data else { return }
                     self?.organizations.onNext(radiologyCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -110,8 +118,8 @@ final class FloatingViewModel {
         case .animalHospitals:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (animalHospitalModel: Event<AnimalHospitalModel?>) in
                 switch animalHospitalModel {
-                case .next(let animalHospitals):
-                    guard let animalHospitals = animalHospitals?.data else { return }
+                case .next(let animalHospitalModel):
+                    guard let animalHospitals = animalHospitalModel?.data else { return }
                     self?.organizations.onNext(animalHospitals)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -122,8 +130,8 @@ final class FloatingViewModel {
         case .psychologistCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (psychologistCenterModel: Event<PsychologyCenterModel?>) in
                 switch psychologistCenterModel {
-                case .next(let psychologistCenters):
-                    guard let psychologistCenters = psychologistCenters?.data else { return }
+                case .next(let psychologistCenterModel):
+                    guard let psychologistCenters = psychologistCenterModel?.data else { return }
                     self?.organizations.onNext(psychologistCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -134,8 +142,8 @@ final class FloatingViewModel {
         case .gynecologyCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (gynecologyCenterModel: Event<GynecologyCenterModel?>) in
                 switch gynecologyCenterModel {
-                case .next(let gynecologyCenters):
-                    guard let gynecologyCenters = gynecologyCenters?.data else { return }
+                case .next(let gynecologyCenterModel):
+                    guard let gynecologyCenters = gynecologyCenterModel?.data else { return }
                     self?.organizations.onNext(gynecologyCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -146,8 +154,8 @@ final class FloatingViewModel {
         case .opticCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (optikCenterModel: Event<OptikCenterModel?>) in
                 switch optikCenterModel {
-                case .next(let optikCenters):
-                    guard let optikCenters = optikCenters?.data else { return }
+                case .next(let optikCenterModel):
+                    guard let optikCenters = optikCenterModel?.data else { return }
                     self?.organizations.onNext(optikCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -158,9 +166,9 @@ final class FloatingViewModel {
         case .privateDentalCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (privateDentalCenterModel: Event<PrivateDentalCenterModel?>) in
                 switch privateDentalCenterModel {
-                case .next(let privateDentalCenters):
-                    guard let privateDentalCenters = privateDentalCenters?.data else { return }
-                    self?.organizations.onNext(privateDentalCenters)
+                case .next(let privateDentalCenterModel):
+                    guard let privateDentalCenters = privateDentalCenterModel?.data else { return }
+                    self?.privateDentalClinic.onNext(privateDentalCenters)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -170,8 +178,8 @@ final class FloatingViewModel {
         case .spaCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (spaCenterModel: Event<SpaCenterModel?>) in
                 switch spaCenterModel {
-                case .next(let spaCenters):
-                    guard let spaCenters = spaCenters?.data else { return }
+                case .next(let spaCenterModel):
+                    guard let spaCenters = spaCenterModel?.data else { return }
                     self?.organizations.onNext(spaCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -182,8 +190,8 @@ final class FloatingViewModel {
         case .dialysisCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dialysisCenterModel: Event<DialysisCenterModel?>) in
                 switch dialysisCenterModel {
-                case .next(let dialysisCenters):
-                    guard let dialysisCenters = dialysisCenters?.data else { return }
+                case .next(let dialysisCenterModel):
+                    guard let dialysisCenters = dialysisCenterModel?.data else { return }
                     self?.organizations.onNext(dialysisCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -194,9 +202,9 @@ final class FloatingViewModel {
         case .emergencyCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (emergencyCenterModel: Event<EmergencyCenterModel?>) in
                 switch emergencyCenterModel {
-                case .next(let emergencyCenters):
-                    guard let emergencyCenters = emergencyCenters?.data else { return }
-                    self?.organizations.onNext(emergencyCenters)
+                case .next(let emergencyCenterModel):
+                    guard let emergencyCenters = emergencyCenterModel?.data else { return }
+                    self?.emergencyCenters.onNext(emergencyCenters)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -206,8 +214,8 @@ final class FloatingViewModel {
         case .medicalShopCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (medicalCenterShopModel: Event<MedicalShopCenterModel?>) in
                 switch medicalCenterShopModel {
-                case .next(let medicalCenters):
-                    guard let medicalCenters = medicalCenters?.data else { return }
+                case .next(let medicalCenterShopModel):
+                    guard let medicalCenters = medicalCenterShopModel?.data else { return }
                     self?.organizations.onNext(medicalCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -218,9 +226,21 @@ final class FloatingViewModel {
         case .physiotheraphyCenters:
             NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (physiotheraphyCenterModel: Event<PhysiotheraphyCenterModel?>) in
                 switch physiotheraphyCenterModel {
-                case .next(let physiotheraphyCenters):
-                    guard let physiotheraphyCenters = physiotheraphyCenters?.data else { return }
+                case .next(let physiotheraphyCenterModel):
+                    guard let physiotheraphyCenters = physiotheraphyCenterModel?.data else { return }
                     self?.organizations.onNext(physiotheraphyCenters)
+                case .error(let error):
+                    print(error.localizedDescription)
+                case .completed:
+                    print("success")
+                }
+            }.disposed(by: disposeBag)
+        case .dutyPharmacy:
+            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { (dutyPharmacyModel: Event<PharmacyModel?>) in
+                switch dutyPharmacyModel {
+                case .next(let dutyPharmacyModel):
+                    guard let dutyPharmacies = dutyPharmacyModel?.data else { return }
+                    self.pharmacies.onNext(dutyPharmacies)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -229,5 +249,5 @@ final class FloatingViewModel {
             }.disposed(by: disposeBag)
         }
     }
-
+    
 }

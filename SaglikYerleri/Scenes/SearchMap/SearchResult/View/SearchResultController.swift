@@ -161,7 +161,6 @@ extension SearchResultController: UICollectionViewDelegateFlowLayout {
     private func deleteSelectedItem(indexPath: IndexPath, completion: (([String]?) -> Void)) {
         var data = try? self.selectedCityName.value()
         data?.remove(at: indexPath.row)
-        
         completion(data)
     }
     

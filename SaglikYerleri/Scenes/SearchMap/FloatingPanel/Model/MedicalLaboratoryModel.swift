@@ -5,7 +5,7 @@
 //  Created by Ekrem Alkan on 1.05.2023.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - MedicalLaboratoryModel
 struct MedicalLaboratoryModel: Codable {
@@ -31,5 +31,9 @@ struct MedicalLaboratory: Codable, OrganizationModel {
         case website = "Website"
         case sehir = "Sehir"
         case ilce, latitude, longitude
+    }
+    
+    var medicalLaboratoryImageBackgroundColor: UIColor {
+        return MainCollectionData.categoryType(.medicalLaboratories).backgroundColor
     }
 }

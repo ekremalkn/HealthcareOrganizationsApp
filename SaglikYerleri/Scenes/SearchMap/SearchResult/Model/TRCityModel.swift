@@ -11,8 +11,8 @@ protocol CityModel {}
 
 // MARK: - CityModel
 struct TRCityModel: Codable  {
-    var status, message: String
-    var systemTime, rowCount: Int
+    var status, message: String?
+    var systemTime, rowCount: Int?
     let data: [TRCity]?
 }
 

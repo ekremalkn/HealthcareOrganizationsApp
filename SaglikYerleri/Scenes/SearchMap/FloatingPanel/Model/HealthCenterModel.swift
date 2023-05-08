@@ -5,7 +5,7 @@
 //  Created by Ekrem Alkan on 1.05.2023.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - HealthCenterModel
 struct HealthCenterModel: Codable {
@@ -30,5 +30,13 @@ struct HealthCenter: Codable, OrganizationModel {
         case website = "Website"
         case sehir = "Sehir"
         case ilce, latitude, longitude
+    }
+    
+    var healthCenterImageBackgroundColor: UIColor {
+        return MainCollectionData.categoryType(.healthCenters).backgroundColor
+    }
+    
+    var healthCenterImage: UIImage {
+        return MainHorizontalCollectionData.categoryType(.healthCenters).image
     }
 }

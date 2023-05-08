@@ -12,7 +12,8 @@ final class FloatingView: UIView {
     //MARK: - Creating UI Elements
     lazy var placesTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(PharmacyCell.self, forCellReuseIdentifier: PharmacyCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell1")
         return tableView
     }()
     
@@ -25,6 +26,11 @@ final class FloatingView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
     }
     
     

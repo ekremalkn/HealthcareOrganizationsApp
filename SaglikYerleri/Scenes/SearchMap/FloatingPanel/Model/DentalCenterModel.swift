@@ -5,7 +5,7 @@
 //  Created by Ekrem Alkan on 1.05.2023.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - DentalCenterModel
 struct DentalCenterModel: Codable {
@@ -19,4 +19,12 @@ struct Dental: Codable, OrganizationModel {
     let name, city, country, street: String?
     let streetv2, phone, fax, website: String?
     let latitude, longitude: Double?
+    
+    var dentalImageBackgroundColor: UIColor {
+        return MainCollectionData.categoryType(.dentalCenters).backgroundColor
+    }
+    
+    var dentalImage: UIImage {
+        return MainHorizontalCollectionData.categoryType(.dentalCenters).image
+    }
 }

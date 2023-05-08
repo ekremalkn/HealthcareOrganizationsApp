@@ -108,7 +108,7 @@ extension SearchResultView: ViewProtocol {
             tableView.snp.updateConstraints { make in
                 make.top.equalTo(safeAreaLayoutGuide.snp.top)
             }
-                        
+            
             tableFrame.origin.y -= 55
         case .toBottom:
             tableView.snp.updateConstraints { make in

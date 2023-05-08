@@ -14,6 +14,7 @@ protocol NetworkConstantsProtocol {
 
 public enum NetworkConstants: NetworkConstantsProtocol {
     case pharmacy
+    case dutyPharmacy
     case healthCenters
     case hospitals
     case dentalCenters
@@ -60,11 +61,13 @@ public enum NetworkConstants: NetworkConstantsProtocol {
         case .dialysisCenters:
             return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=90607"
         case .emergencyCenters:
-            return "https://www.nosyapi.com/apiv2/getTurkey?id=24590"
+            return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=24590"
         case .medicalShopCenters:
             return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=79448"
         case .physiotheraphyCenters:
             return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=43049"
+        case .dutyPharmacy:
+            return "https://www.nosyapi.com/apiv2/pharmacy/city"
         }
     }
     
@@ -77,7 +80,7 @@ public enum NetworkConstants: NetworkConstantsProtocol {
         case .dentalCenters:
             return "https://www.nosyapi.com/apiv2/getTurkey?id=80051"
         case .pharmacy:
-            return "https://www.nosyapi.com/apiv2/pharmacy"
+            return "https://www.nosyapi.com/apiv2/pharmacy/list"
         case .medicalLaboratories:
             return "https://www.nosyapi.com/apiv2/lab"
         case .radiologyCenters:
@@ -102,6 +105,8 @@ public enum NetworkConstants: NetworkConstantsProtocol {
             return "https://www.nosyapi.com/apiv2/getTurkey?id=79448"
         case .physiotheraphyCenters:
             return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=43049"
+        case .dutyPharmacy:
+            return "https://www.nosyapi.com/apiv2/pharmacy"
         }
     }
     

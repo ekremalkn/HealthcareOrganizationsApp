@@ -59,6 +59,7 @@ final class HorizontalCollectionCell: UICollectionViewCell {
         self.categoryImageView.image = data.image
         self.categoryImageView.tintColor = data.tintAndBackgroundColor
         self.categoryLabel.text = data.categoryTitle
+        
     }
     
     private func addShadow() {

@@ -5,7 +5,7 @@
 //  Created by Ekrem Alkan on 1.05.2023.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - HospitalModel
 struct HospitalModel: Codable {
@@ -30,5 +30,14 @@ struct Hospital: Codable, OrganizationModel {
         case sehir = "Sehir"
         case ilce, latitude, longitude
     }
+    
+    var hospitalImageBackgroundColor: UIColor {
+        return MainHorizontalCollectionData.categoryType(.hospitals).tintAndBackgroundColor
+    }
+    
+    var hospitalImage: UIImage {
+        return MainHorizontalCollectionData.categoryType(.hospitals).image
+    }
+    
 }
 

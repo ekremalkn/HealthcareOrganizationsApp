@@ -24,7 +24,6 @@ final class MapCoordinator: MapCoordinatorProtocol {
         if let floatingPanel {
             let floatingController = FloatingController(categoryType: categoryType, citySlug: citySlug, countySlug: countySlug)
             floatingPanel.set(contentViewController: floatingController)
-            floatingPanel.addPanel(toParent: parentVC)
             floatingPanel.move(to: .half, animated: true)
         } else {
             self.floatingPanel = FloatingPanelController()

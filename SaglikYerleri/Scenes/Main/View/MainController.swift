@@ -34,9 +34,9 @@ final class MainController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-
+        
     }
- 
+    
     
     //MARK: - Configure ViewController
     private func configureViewController() {
@@ -64,7 +64,7 @@ extension MainController {
         // Handle DidSelect
         mainView.mainCollectionView.rx.modelSelected(MainCollectionData.self).bind { [weak self] mainCollectionData in
             guard let self else { return }
-            self.mainCoordinator?.openMapController(categoryType: mainCollectionData.categoryType, customTopViewBC: mainCollectionData.backgroundColor)
+            self.mainCoordinator?.openMapController(categoryType: mainCollectionData.selectedCategoryType, customTopViewBC: mainCollectionData.backgroundColor)
         }.disposed(by: disposeBag)
         
         
@@ -92,7 +92,7 @@ extension MainController {
             // Handle DidSelect
             headerView.horizontalCollectionView.rx.modelSelected(MainHorizontalCollectionData.self).bind { [weak self] mainHorizontalCollectionData in
                 guard let self else { return }
-                self.mainCoordinator?.openMapController(categoryType: mainHorizontalCollectionData.categoryType, customTopViewBC: mainHorizontalCollectionData.tintAndBackgroundColor)
+                self.mainCoordinator?.openMapController(categoryType: mainHorizontalCollectionData.selectedCategoryType, customTopViewBC: mainHorizontalCollectionData.tintAndBackgroundColor)
             }.disposed(by: headerView.disposeBag)
             
             // Delegate for horizontalCollection cell size
