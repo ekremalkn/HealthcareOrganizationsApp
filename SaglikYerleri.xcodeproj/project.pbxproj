@@ -68,6 +68,7 @@
 		F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0529FA72390061C85E /* NetworkManager.swift */; };
 		F0D77D0929FA724D0061C85E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77D0829FA724D0061C85E /* Alamofire */; };
 		F0D77D0D29FA823B0061C85E /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */; };
+		F0DEB6CC2A0A34F000E07D24 /* MRHHCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DEB6CB2A0A34F000E07D24 /* MRHHCell.swift */; };
 		F0EE779C2A052DAE007BF9A7 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = F0EE779B2A052DAE007BF9A7 /* FloatingPanel */; };
 		F0EE779E2A052DEF007BF9A7 /* FloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */; };
 		F0EE77A32A052EE1007BF9A7 /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */; };
@@ -133,6 +134,7 @@
 		F0D77CFC29F929D30061C85E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F0D77D0529FA72390061C85E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
+		F0DEB6CB2A0A34F000E07D24 /* MRHHCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRHHCell.swift; sourceTree = "<group>"; };
 		F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingController.swift; sourceTree = "<group>"; };
 		F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
 		F0EE77A52A054708007BF9A7 /* FloatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewModel.swift; sourceTree = "<group>"; };
@@ -364,10 +366,10 @@
 			isa = PBXGroup;
 			children = (
 				F0D70D0529FD1DF800CA4C39 /* PharmacyModel.swift */,
-				F06BEE7729FFD63E0013E22D /* HospitalModel.swift */,
-				F06BEE7929FFD70D0013E22D /* HealthCenterModel.swift */,
 				F06BEE7D29FFD9010013E22D /* MedicalLaboratoryModel.swift */,
 				F06BEE7F29FFDA020013E22D /* RadiologyCenterModel.swift */,
+				F06BEE7729FFD63E0013E22D /* HospitalModel.swift */,
+				F06BEE7929FFD70D0013E22D /* HealthCenterModel.swift */,
 				F06BEE7B29FFD80E0013E22D /* DentalCenterModel.swift */,
 				F06BEE8129FFDA7C0013E22D /* AnimalHospitalModel.swift */,
 				F06BEE8329FFDAEE0013E22D /* PsychologyCenterModel.swift */,
@@ -465,7 +467,6 @@
 			children = (
 				F0D70D0029FD183700CA4C39 /* Model */,
 				F0EE779F2A052DF3007BF9A7 /* View */,
-				F0EE77A12A052E01007BF9A7 /* ViewModel */,
 			);
 			path = FloatingPanel;
 			sourceTree = "<group>";
@@ -476,6 +477,7 @@
 				F0EE77A42A0546DD007BF9A7 /* Cells */,
 				F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */,
 				F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */,
+				F0EE77A12A052E01007BF9A7 /* ViewModel */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -492,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */,
+				F0DEB6CB2A0A34F000E07D24 /* MRHHCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				F06BEE8829FFDBC00013E22D /* OptikCenterModel.swift in Sources */,
 				F06458602A0956EE00B17BF1 /* PharmacyCell.swift in Sources */,
 				F07258C229F3416400F625CE /* MainCollectionModel.swift in Sources */,
+				F0DEB6CC2A0A34F000E07D24 /* MRHHCell.swift in Sources */,
 				F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */,
 				F072589529F285F600F625CE /* MainController.swift in Sources */,
 				F072587D29F284EC00F625CE /* SceneDelegate.swift in Sources */,

@@ -104,6 +104,7 @@ extension MapController {
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
     }
     
+    // SearchBar callbacks
     private func subscribeToSearchBarText() {
         searchController?.searchBar.rx.text.subscribe(onNext: { [weak self] text in
             guard let text else { return }

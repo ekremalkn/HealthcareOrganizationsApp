@@ -62,18 +62,23 @@ extension FloatingController: UITableViewDelegate {
             viewModel.pharmacies.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: PharmacyCell.identifier, cellType: PharmacyCell.self)) { index, pharmacy, cell in
                 cell.configure(with: pharmacy)
             }.disposed(by: disposeBag)
+        case .medicalLaboratories:
+            viewModel.medicalLaboratories.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: MRHHCell.identifier, cellType: MRHHCell.self)) { index, medicalLaboratory, cell in
+                cell.configure(with: medicalLaboratory)
+            }.disposed(by: disposeBag)
+        case .radiologyCenters:
+            viewModel.radiologyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: MRHHCell.identifier, cellType: MRHHCell.self)) { index, radiologyCenter, cell in
+                cell.configure(with: radiologyCenter)
+            }.disposed(by: disposeBag)
         case .healthCenters:
-            viewModel.healthCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { index, healthCenter, cell in
+            viewModel.healthCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: MRHHCell.identifier, cellType: MRHHCell.self)) { index, healthCenter, cell in
+                cell.configure(with: healthCenter)
             }.disposed(by: disposeBag)
         case .hospitals:
             break
         case .dentalCenters:
             break
         case .privateDentalCenters:
-            break
-        case .medicalLaboratories:
-            break
-        case .radiologyCenters:
             break
         case .spaCenters:
             break
@@ -103,8 +108,9 @@ extension FloatingController: UITableViewDelegate {
         viewModel.fetchOrganizations()
         
         // Set delegate for TableView Cell Height
-        
         floatingView.placesTableView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        
         
     }
     
@@ -116,17 +122,21 @@ extension FloatingController: UITableViewDelegate {
         case .pharmacy:
             let pharmacyCellHeight: CGFloat = tableView.frame.height / 4
             cellHeight = pharmacyCellHeight
+        case .medicalLaboratories:
+            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
+            cellHeight = pharmacyCellHeight
+        case .radiologyCenters:
+            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
+            cellHeight = pharmacyCellHeight
         case .healthCenters:
-            break
+            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
+            cellHeight = pharmacyCellHeight
         case .hospitals:
-            break
+            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
+            cellHeight = pharmacyCellHeight
         case .dentalCenters:
             break
         case .privateDentalCenters:
-            break
-        case .medicalLaboratories:
-            break
-        case .radiologyCenters:
             break
         case .spaCenters:
             break

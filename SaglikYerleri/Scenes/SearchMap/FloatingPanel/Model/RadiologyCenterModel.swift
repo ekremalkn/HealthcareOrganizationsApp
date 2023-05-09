@@ -15,7 +15,7 @@ struct RadiologyCenterModel: Codable {
 }
 
 // MARK: - RadiologyCenter
-struct RadiologyCenter: Codable, OrganizationModel {
+struct RadiologyCenter: Codable, OrganizationModel, MRHHCellDataProtocol {
     let ad, aciklama, adres, tel: String?
     let email: String?
     let website: String?
@@ -32,8 +32,47 @@ struct RadiologyCenter: Codable, OrganizationModel {
         case sehir = "Sehir"
         case ilce, latitude, longitude
     }
-    
-    var radiologyCenterImageBackgroundColor: UIColor {
+ 
+    var mrhhImageBackgroundColor: UIColor {
         return MainCollectionData.categoryType(.radiologyCenters).backgroundColor
+    }
+    
+    var mrhhImage: UIImage {
+        return UIImage(named: "duty")!
+    }
+    
+    var mrhhName: String {
+        if let ad {
+            return ad
+        }
+        return "Kurum adı bulunamadı"
+    }
+    
+    var mrhhCityCountyName: String {
+        if let sehir, let ilce {
+            return "\(sehir)/\(ilce)"
+        }
+        return "Il/Ilçe bilgisi yok"
+    }
+    
+    var mrhhAddress: String {
+        if let adres {
+            return adres
+        }
+        return "Adres bilgisi yok"
+    }
+    
+    var mrhhPhone: String {
+        if let tel {
+            return tel
+        }
+        return "Telefon bilgisi yok"
+    }
+    
+    var mrhhEmail: String {
+        if let email {
+            return email
+        }
+        return "Email bilgisi yok"
     }
 }

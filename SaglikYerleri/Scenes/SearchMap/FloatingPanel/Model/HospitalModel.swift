@@ -15,7 +15,7 @@ struct HospitalModel: Codable {
 }
 
 // MARK: - Hospital
-struct Hospital: Codable, OrganizationModel {
+struct Hospital: Codable, OrganizationModel, MRHHCellDataProtocol {
     let ad, adres, tel, email: String?
     let website: String?
     let sehir, ilce: String?
@@ -31,12 +31,47 @@ struct Hospital: Codable, OrganizationModel {
         case ilce, latitude, longitude
     }
     
-    var hospitalImageBackgroundColor: UIColor {
-        return MainHorizontalCollectionData.categoryType(.hospitals).tintAndBackgroundColor
+    var mrhhImageBackgroundColor: UIColor {
+        return MainCollectionData.categoryType(.hospitals).backgroundColor
     }
     
-    var hospitalImage: UIImage {
+    var mrhhImage: UIImage {
         return MainHorizontalCollectionData.categoryType(.hospitals).image
+    }
+    
+    var mrhhName: String {
+        if let ad {
+            return ad
+        }
+        return "Kurum adı bulunamadı"
+    }
+    
+    var mrhhCityCountyName: String {
+        if let sehir, let ilce {
+            return "\(sehir)/\(ilce)"
+        }
+        return "Il/Ilçe bilgisi yok"
+    }
+    
+    var mrhhAddress: String {
+        if let adres {
+            return adres
+        }
+        return "Adres bilgisi yok"
+    }
+    
+    var mrhhPhone: String {
+        if let tel {
+            return tel
+        }
+        return "Telefon bilgisi yok"
+    }
+    
+    var mrhhEmail: String {
+        if let email {
+            return email
+        }
+        return "Email bilgisi yok"
     }
     
 }

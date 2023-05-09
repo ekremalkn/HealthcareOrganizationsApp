@@ -11,11 +11,11 @@ import UIKit
 struct DentalCenterModel: Codable {
     let status, message: String?
     let rowCount: Int?
-    let data: [Dental]?
+    let data: [DentalCenter]?
 }
 
-// MARK: - Dental
-struct Dental: Codable, OrganizationModel {
+// MARK: - DentalCenter
+struct DentalCenter: Codable, OrganizationModel {
     let name, city, country, street: String?
     let streetv2, phone, fax, website: String?
     let latitude, longitude: Double?

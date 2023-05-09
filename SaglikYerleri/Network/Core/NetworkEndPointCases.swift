@@ -75,7 +75,7 @@ public enum NetworkEndPointCases: NetworkEndPoint {
             case .pharmacy:
                 return type.cityConstant + "?city=\(city)"
             case .medicalLaboratories:
-                return type.cityConstant + "&city=\(city)"
+                return type.cityConstant + "?city=\(city)"
             case .radiologyCenters:
                 return type.cityConstant + "?city=\(city)"
             case .animalHospitals:
@@ -113,7 +113,7 @@ public enum NetworkEndPointCases: NetworkEndPoint {
             case .pharmacy:
                 return type.orgnizationConstant + "?city=\(city)&county=\(county)"
             case .medicalLaboratories:
-                return type.orgnizationConstant + "&city=\(city)&country=\(county)"
+                return type.orgnizationConstant + "?city=\(city)&country=\(county)"
             case .radiologyCenters:
                 return type.orgnizationConstant + "?city=\(city)&county=\(county)"
             case .animalHospitals:

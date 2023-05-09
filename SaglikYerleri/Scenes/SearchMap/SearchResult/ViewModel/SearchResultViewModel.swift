@@ -83,8 +83,8 @@ class SearchResultViewModel {
                 self?.handleTRCityModel(event)
             }.disposed(by: disposeBag)
         case .medicalLaboratories:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
-                self?.handleENCityModel(event)
+            NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
+                self?.handleTRCityModel(event)
             }.disposed(by: disposeBag)
         case .radiologyCenters:
             NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
@@ -189,8 +189,8 @@ class SearchResultViewModel {
                 self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         case .medicalLaboratories:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
-                self?.handleENCountyModel(event)
+            NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
+                self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         case .radiologyCenters:
             NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in

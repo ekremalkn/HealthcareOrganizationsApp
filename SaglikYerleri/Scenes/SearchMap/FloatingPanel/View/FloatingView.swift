@@ -12,8 +12,9 @@ final class FloatingView: UIView {
     //MARK: - Creating UI Elements
     lazy var placesTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = UIColor(hex: "FBFCFE")
         tableView.register(PharmacyCell.self, forCellReuseIdentifier: PharmacyCell.identifier)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell1")
+        tableView.register(MRHHCell.self, forCellReuseIdentifier: MRHHCell.identifier)
         return tableView
     }()
     
@@ -30,7 +31,9 @@ final class FloatingView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        clipsToBounds = true
+        layer.cornerRadius = 12
+        layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner] // Only Top Left-Right
     }
     
     
@@ -41,6 +44,7 @@ final class FloatingView: UIView {
 //MARK: - UI Elements AddSubview / SetupConstraints
 extension FloatingView: ViewProtocol {
     func configureView() {
+        backgroundColor = UIColor(hex: "FBFCFE")
         addSubview()
         setupConstraints()
     }
