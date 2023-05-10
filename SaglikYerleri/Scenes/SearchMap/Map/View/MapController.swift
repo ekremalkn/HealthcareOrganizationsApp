@@ -11,6 +11,11 @@ import RxSwift
 import MapKit
 
 final class MapController: UIViewController {
+    //MARK: - Animate Nav Bar to
+    enum AnimateNavBarTo {
+        case top
+        case bottom
+    }
     
     //MARK: - References
     var mapCoordinator: MapCoordinator?
@@ -77,10 +82,10 @@ extension MapController {
             self?.mapCoordinator?.moveFloatingPanelToTip()
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
-        searchResultController?.searchControllerDissmissed.subscribe(onNext: { [weak self] selectedCitySlug, selectedCountySlug in
+        searchResultController?.searchControllerDissmissed.subscribe(onNext: { [weak self] selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName in
             self?.mapView.configureAlphaView(hideAlphaView: true, completion: { [weak self] in
                 guard let categoryType = self?.categoryType, let self else { return }
-                self.mapCoordinator?.openFloatingController(categoryType: categoryType, citySlug: selectedCitySlug, countySlug: selectedCountySlug, parentVC: self)
+                self.mapCoordinator?.openFloatingController(categoryType: categoryType, citySlug: selectedCitySlug, countySlug: selectedCountySlug, cityName: selectedCityName, countyName: selectedCountyName, parentVC: self)
             })
             
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
@@ -120,25 +125,26 @@ extension MapController {
 
 //MARK: - MapView delegate methods
 extension MapController:  MKMapViewDelegate {
+
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        self.animateNavBarAndTopView(toTop: true)
+        self.animateNavBarAndTopView(to: .top)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        self.animateNavBarAndTopView(toTop: false)
+        self.animateNavBarAndTopView(to: .bottom)
     }
     
-    private func animateNavBarAndTopView(toTop top: Bool) {
+    private func animateNavBarAndTopView(to aim: AnimateNavBarTo) {
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self else { return }
-            if top {
+            switch aim {
+            case .top:
                 self.mapView.customTopView.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.width / 2)
                 self.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.width / 2)
                 if self.mapCoordinator?.floatingPanel?.state != .tip {
                     self.mapCoordinator?.moveFloatingPanelToTip()
                 }
-                
-            } else {
+            case .bottom:
                 self.mapView.customTopView.transform = .identity
                 self.navigationController?.navigationBar.transform = .identity
             }
@@ -149,7 +155,7 @@ extension MapController:  MKMapViewDelegate {
 }
 
 
-//MARK: - Configure Search Bar Placeholder
+//MARK: - Configure Search Controller Search Bar Placeholder
 extension MapController {
     private func configureSearchBarPlaceHolder(categoryType: NetworkConstants?) {
         guard let categoryType else { return }

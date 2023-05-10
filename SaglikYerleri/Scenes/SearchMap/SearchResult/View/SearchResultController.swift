@@ -17,11 +17,13 @@ final class SearchResultController: UIViewController {
     //MARK: - Variables
     var selectedCitySlug: String?
     var selectedCountySlug: String?
+    var selectedCityName1: String?
+    var selectedCountyName1: String?
     var selectedCountyName = PublishSubject<String>()
     var selectedCityName = BehaviorSubject<[String]>(value: [])
     var tableCollectionAnimateState: SearchResultAnimateState = .toBottom
     var searchControllerViewDidAppear = PublishSubject<Void>()
-    var searchControllerDissmissed = PublishSubject<(String, String)>()
+    var searchControllerDissmissed = PublishSubject<(String, String, String, String)>()
     
     //MARK: - Dispose Bag
     let disposeBag = DisposeBag()
@@ -90,6 +92,7 @@ extension SearchResultController {
             case let city as ENCity:
                 guard let self, let citySlug = city.citySlug, let cityName = city.cityName else { return }
                 self.selectedCitySlug = citySlug
+                self.selectedCityName1 = cityName
                 self.selectedCityName.onNext([cityName])
                 self.searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
                     self?.viewModel?.fetchCounties(city: citySlug)
@@ -97,24 +100,39 @@ extension SearchResultController {
             case let county as ENCounty:
                 guard let countySlug = county.citySlug, let countyName = county.cityName else { return }
                 self?.selectedCountySlug = countySlug
+                self?.selectedCountyName1 = countyName
                 self?.selectedCountyName.onNext(countyName)
                 self?.dismiss(animated: true, completion: { [weak self] in
                     guard let selectedCitySlug = self?.selectedCitySlug , let selectedCountySlug = self?.selectedCountySlug else { return }
-                    self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug))
+                    if let selectedCityName = self?.selectedCityName1, let selectedCountyName = self?.selectedCountyName1 {
+                        self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName))
+
+                    } else {
+                        self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, "",""))
+
+                    }
                 })
             case let city as TRCity:
                 guard let self, let citySlug = city.sehirSlug, let cityName = city.sehirAd  else { return }
                 self.selectedCitySlug = citySlug
+                self.selectedCityName1 = cityName
                 self.selectedCityName.onNext([cityName])
                 self.searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
                     self?.viewModel?.fetchCounties(city: citySlug)
                 }
             case let county as TRCounty:
-                guard let countySlug = county.ilceSlug else { return }
+                guard let countySlug = county.ilceSlug, let countyName = county.ilceAd else { return }
                 self?.selectedCountySlug = countySlug
+                self?.selectedCountyName1 = countyName
                 self?.dismiss(animated: true, completion: { [weak self] in
                     guard let selectedCitySlug = self?.selectedCitySlug , let selectedCountySlug = self?.selectedCountySlug else { return }
-                    self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug))
+                    if let selectedCityName = self?.selectedCityName1, let selectedCountyName = self?.selectedCountyName1 {
+                        self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName))
+
+                    } else {
+                        self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, "", ""))
+
+                    }
                 })
             default:
                 return

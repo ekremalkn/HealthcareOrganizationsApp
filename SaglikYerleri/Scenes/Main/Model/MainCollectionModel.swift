@@ -139,4 +139,47 @@ extension MainCollectionData {
             }
         }
     }
+    
+    var image: UIImage {
+        switch self {
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .dutyPharmacy:
+                return UIImage(named: "dutyPharmacy2") ?? UIImage()
+            case .pharmacy:
+                return UIImage(named: "pharmacy") ?? UIImage()
+            case .healthCenters:
+                return UIImage(systemName: "bandage") ?? UIImage()
+            case .hospitals:
+                return UIImage(named: "hospital") ?? UIImage()
+            case .dentalCenters:
+                return UIImage(named: "dentalCenter") ?? UIImage()
+            case .privateDentalCenters:
+                return UIImage(named: "dentalCenter") ?? UIImage()
+            case .medicalLaboratories:
+                return UIImage(named: "medicalLaboratory") ?? UIImage()
+            case .radiologyCenters:
+                return UIImage(named: "radiologyCenter") ?? UIImage()
+            case .spaCenters:
+                return UIImage(named: "spaCenter") ?? UIImage()
+            case .psychologistCenters:
+                return UIImage(named: "psychologyCenter") ?? UIImage()
+            case .gynecologyCenters:
+                return UIImage(named: "gynecologyCenter") ?? UIImage()
+            case .opticCenters:
+                return UIImage(named: "opticCenter") ?? UIImage()
+            case .animalHospitals:
+                return UIImage(named: "animalHospital") ?? UIImage()
+            case .dialysisCenters:
+                return UIImage(named: "dialysisCenter") ?? UIImage()
+            case .emergencyCenters:
+                return UIImage(named: "emergencyCenter") ?? UIImage()
+            case .medicalShopCenters:
+                return UIImage(named: "medicalShopCenter") ?? UIImage()
+            case .physiotheraphyCenters:
+                return UIImage(named: "physiotherapyCenter") ?? UIImage()
+                
+            }
+        }
+    }
 }

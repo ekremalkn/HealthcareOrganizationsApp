@@ -55,10 +55,10 @@ final class HorizontalCollectionCell: UICollectionViewCell {
     }
     
     func configure(with data: MainHorizontalCollectionData) {
-        self.imageBackgroundView.backgroundColor = data.tintAndBackgroundColor.withAlphaComponent(0.2)
-        self.categoryImageView.image = data.image
-        self.categoryImageView.tintColor = data.tintAndBackgroundColor
-        self.categoryLabel.text = data.categoryTitle
+        imageBackgroundView.backgroundColor = data.tintAndBackgroundColor.withAlphaComponent(0.2)
+        categoryImageView.image = data.image
+        categoryImageView.tintColor = data.tintAndBackgroundColor
+        categoryLabel.text = data.categoryTitle
         
     }
     

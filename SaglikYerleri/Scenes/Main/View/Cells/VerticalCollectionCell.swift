@@ -7,15 +7,29 @@
 
 import UIKit
 
+
 final class VerticalCollectionCell: UICollectionViewCell {
     static let identifier = "VerticalCollectionCell"
     
+    //MARK: - Update or Make Constraints
+    enum ConstraintsUpdateMake {
+        case make
+        case update
+    }
+    
     //MARK: - Creating UI Elements
+    private lazy var categoryImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     private lazy var categoryTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 17)
         label.adjustsFontSizeToFitWidth = true
         label.textColor = .white
         return label
@@ -36,12 +50,15 @@ final class VerticalCollectionCell: UICollectionViewCell {
         super.layoutSubviews()
         layer.cornerRadius = 12
         contentView.layer.cornerRadius = 12
+        categoryImageViewConstraints(do: .update)
     }
     
     
     func configure(with data: MainCollectionData) {
-        self.categoryTitleLabel.text = data.categoryTitle
-        self.contentView.backgroundColor = data.backgroundColor
+        categoryTitleLabel.text = data.categoryTitle
+        contentView.backgroundColor = data.backgroundColor
+        categoryImageView.image = data.image
+        categoryImageView.tintColor = .white
     }
     
     
@@ -55,13 +72,49 @@ extension VerticalCollectionCell: CellProtocol {
     }
     
     func addSubview() {
+        contentView.addSubview(categoryImageView)
         contentView.addSubview(categoryTitleLabel)
     }
     
     func setupConstraints() {
+        categoryImageViewConstraints(do: .make)
         categoryTitleLabelConstraints()
     }
     
+    private func categoryImageViewConstraints(do type: ConstraintsUpdateMake) {
+        switch type {
+        case .make:
+            categoryImageView.snp.makeConstraints { make in
+                if frame.height < 100 {
+                    make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+                    make.top.equalTo(contentView.snp.top).offset(5)
+                    make.height.width.equalTo(contentView.snp.height).multipliedBy(0.30)
+                } else {
+                    make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+                    make.top.equalTo(contentView.snp.top).offset(10)
+                    make.height.width.equalTo(contentView.snp.height).multipliedBy(0.20)
+                }
+
+            }
+        case .update:
+            categoryImageView.snp.removeConstraints()
+            categoryImageView.snp.updateConstraints { make in
+                if frame.height < 100 {
+                    make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+                    make.top.equalTo(contentView.snp.top).offset(5)
+                    make.height.width.equalTo(contentView.snp.height).multipliedBy(0.30)
+                } else {
+                    make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+                    make.top.equalTo(contentView.snp.top).offset(10)
+                    make.height.width.equalTo(contentView.snp.height).multipliedBy(0.20)
+                }
+
+            }
+        }
+        
+    }
+    
+        
     private func categoryTitleLabelConstraints() {
         categoryTitleLabel.snp.makeConstraints { make in
             make.top.leading.equalTo(contentView).offset(10)

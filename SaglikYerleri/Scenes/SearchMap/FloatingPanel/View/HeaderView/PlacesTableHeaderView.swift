@@ -1,0 +1,85 @@
+//
+//  PlacesTableHeaderView.swift
+//  SaglikYerleri
+//
+//  Created by Ekrem Alkan on 10.05.2023.
+//
+
+import UIKit
+
+final class PlacesTableHeaderView: UIView {
+    
+    //MARK: - Creating UI Elements
+    private lazy var labelStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        return stackView
+    }()
+    
+    private lazy var leftLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = .darkGray
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private lazy var rightLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .darkGray
+        label.textAlignment = .right
+        return label
+    }()
+    
+    //MARK: - Init Methods
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureView()
+    }
+   
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with numberOfItems: Int, cityName: String, countySlug: String) {
+        leftLabel.text = "\(cityName.localizedCapitalized)/\(countySlug.localizedCapitalized) bölgesinde"
+        rightLabel.text = "\(numberOfItems)"
+    }
+    
+
+}
+
+//MARK: - UI Elements AddSubview / SetupConstraints
+extension PlacesTableHeaderView: ViewProtocol {
+    func configureView() {
+        backgroundColor = UIColor(hex: "FBFCFE")
+        addSubview()
+        setupConstraints()
+    }
+    
+    func addSubview() {
+        addSubview(labelStackView)
+        labelsToStackView()
+    }
+    
+    private func labelsToStackView() {
+        labelStackView.addArrangedSubview(leftLabel)
+        labelStackView.addArrangedSubview(rightLabel)
+    }
+    
+    func setupConstraints() {
+        labelStackViewConstraints()
+    }
+    
+    private func labelStackViewConstraints() {
+        labelStackView.snp.makeConstraints { make in
+            make.centerY.equalTo(self.snp.centerY)
+            make.leading.equalTo(self.snp.leading).offset(10)
+            make.trailing.equalTo(self.snp.trailing).offset(-10)
+        }
+    }
+    
+    
+}

@@ -37,7 +37,7 @@ final class PharmacyCell: UITableViewCell {
     private lazy var cityStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         stackView.spacing = 2
         return stackView
     }()
@@ -124,7 +124,7 @@ final class PharmacyCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        leftImageBackgroundView.layer.cornerRadius = (contentView.frame.height * 0.5) / 2
+        makeCornerRadius()
     }
     
     func configure(with data: PharmacyCellDataProtocol) {
@@ -139,6 +139,18 @@ final class PharmacyCell: UITableViewCell {
         directionsLabel.text = data.pharmacyDirections
     }
     
+    private func addShadow() {
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOpacity = 0.1
+        contentView.layer.shadowOffset = CGSize.init(width: 3, height: 5)
+    }
+    
+    private func makeCornerRadius() {
+        leftImageBackgroundView.layer.cornerRadius = (contentView.frame.height * 0.5) / 2
+        
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10))
+        contentView.layer.cornerRadius = 12
+    }
     
     
 }
@@ -146,6 +158,9 @@ final class PharmacyCell: UITableViewCell {
 //MARK: - UI Element AddSubview / SetupConstraints
 extension PharmacyCell: CellProtocol {
     func configureCell() {
+        backgroundColor = .white
+        contentView.backgroundColor = UIColor(hex: "FBFCFE")
+        addShadow()
         addSubview()
         setupConstraints()
     }

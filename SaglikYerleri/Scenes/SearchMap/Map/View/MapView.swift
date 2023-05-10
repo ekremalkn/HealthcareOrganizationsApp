@@ -57,6 +57,7 @@ final class MapView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         customTopView.layer.cornerRadius = 12
+        customTopView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner] // Only Top Left-Right
     }
     
     func configureCustomTopView(customTopViewBColor: UIColor) {

@@ -60,43 +60,42 @@ extension MainHorizontalCollectionData {
         case .categoryType(let networkConstants):
             switch networkConstants {
             case .dutyPharmacy:
-                return UIImage(named: "duty")!
+                return UIImage(named: "dutyPharmacy") ?? UIImage()
             case .pharmacy:
-                break
+                return UIImage(named: "pharmacy") ?? UIImage()
             case .healthCenters:
-                return UIImage(systemName: "bandage")!
+                return UIImage(systemName: "bandage") ?? UIImage()
             case .hospitals:
-                return UIImage(named: "hospital")!
+                return UIImage(named: "hospital") ?? UIImage()
             case .dentalCenters:
-                return UIImage(named: "dental")!
+                return UIImage(named: "dentalCenter") ?? UIImage()
             case .privateDentalCenters:
-                break
+                return UIImage(named: "dentalCenter") ?? UIImage()
             case .medicalLaboratories:
-                break
+                return UIImage(named: "medicalLaboratory") ?? UIImage()
             case .radiologyCenters:
-                break
+                return UIImage(named: "radiologyCenter") ?? UIImage()
             case .spaCenters:
-                break
+                return UIImage(named: "spaCenter") ?? UIImage()
             case .psychologistCenters:
-                break
+                return UIImage(named: "psychologyCenter") ?? UIImage()
             case .gynecologyCenters:
-                break
+                return UIImage(named: "gynecologyCenter") ?? UIImage()
             case .opticCenters:
-                break
+                return UIImage(named: "opticCenter") ?? UIImage()
             case .animalHospitals:
-                break
+                return UIImage(named: "animalHospital") ?? UIImage()
             case .dialysisCenters:
-                break
+                return UIImage(named: "dialysisCenter") ?? UIImage()
             case .emergencyCenters:
-                break
+                return UIImage(named: "emergencyCenter") ?? UIImage()
             case .medicalShopCenters:
-                break
+                return UIImage(named: "medicalShopCenter") ?? UIImage()
             case .physiotheraphyCenters:
-                break
+                return UIImage(named: "physiotherapyCenter") ?? UIImage()
                 
             }
         }
-        return UIImage()
     }
     
     var categoryTitle: String {

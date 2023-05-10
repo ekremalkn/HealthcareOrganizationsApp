@@ -1,28 +1,30 @@
 //
-//  MRHHCell.swift
+//  SharedCell2.swift
 //  SaglikYerleri
 //
-//  Created by Ekrem Alkan on 9.05.2023.
+//  Created by Ekrem Alkan on 10.05.2023.
 //
 
 import UIKit
 
-protocol MRHHCellDataProtocol {
-    var mrhhImageBackgroundColor: UIColor { get }
-    var mrhhImage: UIImage { get }
-    var mrhhName: String { get }
-    var mrhhCityCountyName: String { get }
-    var mrhhAddress: String { get }
-    var mrhhPhone: String { get }
-    var mrhhEmail: String { get }
+protocol SharedCell2DataProtocol where Self: Codable {
+    var sharedCell2ImageBackgroundColor: UIColor { get }
+    var sharedCell2Image: UIImage { get }
+    var sharedCell2Name: String { get }
+    var sharedCell2CityCountyName: String { get }
+    var sharedCell2Street: String { get }
+    var sharedCell2Phone: String { get }
+    var sharedCell2Fax: String { get }
+    var sharedCell2WebSite: String { get }
 }
 
-final class MRHHCell: UITableViewCell {
-    static let identifier = "MRHHCell"
+final class SharedCell2: UITableViewCell {
+    static let identifier = "SharedCell2"
     
     //MARK: - Creating UI Elements
     private lazy var leftImageBackgroundView: UIView = {
         let view = UIView()
+        
         return view
     }()
     
@@ -50,7 +52,7 @@ final class MRHHCell: UITableViewCell {
         return label
     }()
     
-    private lazy var addressLabel: UILabel = {
+    private lazy var streetLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
         label.numberOfLines = 3
@@ -59,32 +61,42 @@ final class MRHHCell: UITableViewCell {
         return label
     }()
     
-    private lazy var phoneMailStackView: UIStackView = {
+    private lazy var bottomStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        stackView.spacing = 5
+        stackView.spacing = 7
         return stackView
     }()
     
     private lazy var phoneLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 1
         label.textColor = .black
         label.textAlignment = .center
         return label
     }()
     
-    private lazy var emailLabel: UILabel = {
+    private lazy var faxLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 1
         label.textColor = .black
         label.textAlignment = .center
         return label
     }()
-
+    
+    private lazy var webSiteLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.numberOfLines = 1
+        label.textColor = .black
+        label.textAlignment = .center
+        return label
+    }()
+    
+    
     //MARK: - Init Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -97,24 +109,42 @@ final class MRHHCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        makeCornerRadius()
+    }
+    
+    func configure(with data: SharedCell2DataProtocol) {
+        leftImageBackgroundView.backgroundColor = data.sharedCell2ImageBackgroundColor.withAlphaComponent(0.2)
+        leftImageView.tintColor = data.sharedCell2ImageBackgroundColor
+        leftImageView.image = data.sharedCell2Image
+        cityCountyLabel.text = data.sharedCell2CityCountyName
+        nameLabel.text = data.sharedCell2Name
+        streetLabel.text = data.sharedCell2Street
+        phoneLabel.text = data.sharedCell2Phone
+        faxLabel.text = data.sharedCell2Fax
+        webSiteLabel.text = data.sharedCell2WebSite
+    }
+    
+    private func addShadow() {
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOpacity = 0.1
+        contentView.layer.shadowOffset = CGSize.init(width: 3, height: 5)
+    }
+    
+    private func makeCornerRadius() {
         leftImageBackgroundView.layer.cornerRadius = (contentView.frame.height * 0.5) / 2
+        
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10))
+        contentView.layer.cornerRadius = 12
     }
-    
-    func configure(with data: MRHHCellDataProtocol) {
-        leftImageBackgroundView.backgroundColor = data.mrhhImageBackgroundColor.withAlphaComponent(0.2)
-        leftImageView.image = data.mrhhImage
-        cityCountyLabel.text = data.mrhhCityCountyName
-        nameLabel.text = data.mrhhName
-        phoneLabel.text = data.mrhhPhone
-        emailLabel.text = data.mrhhEmail
-    }
-    
     
 }
 
-//MARK: - UI Element AddSubview / SetupConstraints
-extension MRHHCell: CellProtocol {
+//MARK: - UI Elements AddSubview / SetupConstraints
+extension SharedCell2: CellProtocol {
     func configureCell() {
+        backgroundColor = .white
+        contentView.backgroundColor = UIColor(hex: "FBFCFE")
+        addShadow()
         addSubview()
         setupConstraints()
     }
@@ -124,14 +154,15 @@ extension MRHHCell: CellProtocol {
         leftImageBackgroundView.addSubview(leftImageView)
         contentView.addSubview(cityCountyLabel)
         contentView.addSubview(nameLabel)
-        contentView.addSubview(addressLabel)
-        contentView.addSubview(phoneMailStackView)
-        phoneMailLabelToStackView()
+        contentView.addSubview(streetLabel)
+        contentView.addSubview(bottomStackView)
+        labelsToBottomStackView()
     }
     
-    private func phoneMailLabelToStackView() {
-        phoneMailStackView.addArrangedSubview(phoneLabel)
-        phoneMailStackView.addArrangedSubview(emailLabel)
+    private func labelsToBottomStackView() {
+        bottomStackView.addArrangedSubview(phoneLabel)
+        bottomStackView.addArrangedSubview(faxLabel)
+        bottomStackView.addArrangedSubview(webSiteLabel)
     }
     
     func setupConstraints() {
@@ -139,8 +170,8 @@ extension MRHHCell: CellProtocol {
         leftImageViewConstraints()
         cityCountyLabelConstraints()
         nameLabelConstraints()
-        addressLabelConstraints()
-        phoneMailStackViewConstraints()
+        streetLabelConstraints()
+        bottomStackViewConstraints()
     }
     
     private func leftImageBackgroundViewConstraints() {
@@ -176,20 +207,23 @@ extension MRHHCell: CellProtocol {
         }
     }
     
-    private func addressLabelConstraints() {
-        addressLabel.snp.makeConstraints { make in
+    private func streetLabelConstraints() {
+        streetLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(10)
-            make.height.equalTo(addressLabel.font.lineHeight)
+            make.height.equalTo(streetLabel.font.lineHeight)
             make.leading.trailing.equalTo(nameLabel)
         }
     }
     
-    private func phoneMailStackViewConstraints() {
-        phoneMailStackView.snp.makeConstraints { make in
-            make.top.equalTo(addressLabel.snp.bottom).offset(10)
-            make.height.equalTo(phoneLabel.font.lineHeight)
-            make.leading.trailing.equalTo(addressLabel)
+    private func bottomStackViewConstraints() {
+        bottomStackView.snp.makeConstraints { make in
+            make.top.equalTo(streetLabel.snp.bottom).offset(10)
+            make.height.equalTo(streetLabel.font.lineHeight)
+            make.leading.trailing.equalTo(streetLabel)
             
         }
     }
+    
+    
 }
+

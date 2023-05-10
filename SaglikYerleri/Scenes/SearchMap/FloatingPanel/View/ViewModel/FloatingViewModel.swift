@@ -16,6 +16,9 @@ final class FloatingViewModel {
     //MARK: - Variables
     let citySlug: String?
     let countySlug: String?
+    let cityName: String?
+    let countyName: String?
+    var numberOfItems: Int?
     
     let pharmacies = PublishSubject<[Pharmacy]>()
     
@@ -28,11 +31,11 @@ final class FloatingViewModel {
     let animalHospitals = PublishSubject<[AnimalHospital]>()
     let psychologistCenters = PublishSubject<[PsychologistCenter]>()
     let gynecologyCenters = PublishSubject<[GynecologyCenter]>()
-    let optikCenters = PublishSubject<[OptikCenter]>()
+    let opticCenters = PublishSubject<[OptikCenter]>()
     let physiotheraphyCenters = PublishSubject<[PhysiotheraphyCenter]>()
     let dialysisCenters = PublishSubject<[DialysisCenter]>()
     let emergencyCenters = PublishSubject<[EmergencyCenter]>()
-    let privateDentalClinic = PublishSubject<[PrivateDentalCenter]>()
+    let privateDentalCenters = PublishSubject<[PrivateDentalCenter]>()
     let medicalShopCenters = PublishSubject<[MedicalShopCenter]>()
     let spaCenters = PublishSubject<[SpaCenter]>()
     
@@ -40,10 +43,12 @@ final class FloatingViewModel {
     private let disposeBag = DisposeBag()
     
     //MARK: - Init Methods
-    init(categoryType: NetworkConstants, citySlug: String, countySlug: String) {
+    init(categoryType: NetworkConstants, citySlug: String, countySlug: String, cityName: String, countyName: String) {
         self.categoryType = categoryType
         self.citySlug = citySlug
         self.countySlug = countySlug
+        self.cityName = cityName
+        self.countyName = countyName
     }
     
     deinit {
@@ -59,6 +64,7 @@ final class FloatingViewModel {
                 switch hospitalModel {
                 case .next(let hospitalModel):
                     guard let hospitals = hospitalModel?.data else { return }
+                    self?.numberOfItems = hospitals.count
                     self?.hospitals.onNext(hospitals)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -71,7 +77,7 @@ final class FloatingViewModel {
                 switch healthCenterModel {
                 case .next(let healthCenterModel):
                     guard let healthCenters = healthCenterModel?.data else { return }
-                    print("alkan")
+                    self?.numberOfItems = healthCenters.count
                     self?.healthCenters.onNext(healthCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -84,6 +90,7 @@ final class FloatingViewModel {
                 switch dentalCenterModel {
                 case .next(let dentalCenterModel):
                     guard let dentalCenters = dentalCenterModel?.data else { return }
+                    self?.numberOfItems = dentalCenters.count
                     self?.dentalCenters.onNext(dentalCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -96,6 +103,7 @@ final class FloatingViewModel {
                 switch pharmacyModel {
                 case .next(let pharmacyModel):
                     guard let pharmacies = pharmacyModel?.data else { return }
+                    self?.numberOfItems = pharmacies.count
                     self?.pharmacies.onNext(pharmacies)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -108,6 +116,7 @@ final class FloatingViewModel {
                 switch medicalLaboratoryModel {
                 case .next(let medicalLaboratoryModel):
                     guard let medicalLaboratories = medicalLaboratoryModel?.data else { return }
+                    self?.numberOfItems = medicalLaboratories.count
                     self?.medicalLaboratories.onNext(medicalLaboratories)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -120,6 +129,7 @@ final class FloatingViewModel {
                 switch radiologyCenterModel {
                 case .next(let radiologyCenterModel):
                     guard let radiologyCenters = radiologyCenterModel?.data else { return }
+                    self?.numberOfItems = radiologyCenters.count
                     self?.radiologyCenters.onNext(radiologyCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -132,6 +142,7 @@ final class FloatingViewModel {
                 switch animalHospitalModel {
                 case .next(let animalHospitalModel):
                     guard let animalHospitals = animalHospitalModel?.data else { return }
+                    self?.numberOfItems = animalHospitals.count
                     self?.animalHospitals.onNext(animalHospitals)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -144,6 +155,7 @@ final class FloatingViewModel {
                 switch psychologistCenterModel {
                 case .next(let psychologistCenterModel):
                     guard let psychologistCenters = psychologistCenterModel?.data else { return }
+                    self?.numberOfItems = psychologistCenters.count
                     self?.psychologistCenters.onNext(psychologistCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -156,6 +168,7 @@ final class FloatingViewModel {
                 switch gynecologyCenterModel {
                 case .next(let gynecologyCenterModel):
                     guard let gynecologyCenters = gynecologyCenterModel?.data else { return }
+                    self?.numberOfItems = gynecologyCenters.count
                     self?.gynecologyCenters.onNext(gynecologyCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -168,7 +181,8 @@ final class FloatingViewModel {
                 switch optikCenterModel {
                 case .next(let optikCenterModel):
                     guard let optikCenters = optikCenterModel?.data else { return }
-                    self?.optikCenters.onNext(optikCenters)
+                    self?.numberOfItems = optikCenters.count
+                    self?.opticCenters.onNext(optikCenters)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -180,7 +194,8 @@ final class FloatingViewModel {
                 switch privateDentalCenterModel {
                 case .next(let privateDentalCenterModel):
                     guard let privateDentalCenters = privateDentalCenterModel?.data else { return }
-                    self?.privateDentalClinic.onNext(privateDentalCenters)
+                    self?.numberOfItems = privateDentalCenters.count
+                    self?.privateDentalCenters.onNext(privateDentalCenters)
                 case .error(let error):
                     print(error.localizedDescription)
                 case .completed:
@@ -192,6 +207,7 @@ final class FloatingViewModel {
                 switch spaCenterModel {
                 case .next(let spaCenterModel):
                     guard let spaCenters = spaCenterModel?.data else { return }
+                    self?.numberOfItems = spaCenters.count
                     self?.spaCenters.onNext(spaCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -204,6 +220,7 @@ final class FloatingViewModel {
                 switch dialysisCenterModel {
                 case .next(let dialysisCenterModel):
                     guard let dialysisCenters = dialysisCenterModel?.data else { return }
+                    self?.numberOfItems = dialysisCenters.count
                     self?.dialysisCenters.onNext(dialysisCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -216,6 +233,7 @@ final class FloatingViewModel {
                 switch emergencyCenterModel {
                 case .next(let emergencyCenterModel):
                     guard let emergencyCenters = emergencyCenterModel?.data else { return }
+                    self?.numberOfItems = emergencyCenters.count
                     self?.emergencyCenters.onNext(emergencyCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -228,6 +246,7 @@ final class FloatingViewModel {
                 switch medicalCenterShopModel {
                 case .next(let medicalCenterShopModel):
                     guard let medicalShopCenters = medicalCenterShopModel?.data else { return }
+                    self?.numberOfItems = medicalShopCenters.count
                     self?.medicalShopCenters.onNext(medicalShopCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -240,6 +259,7 @@ final class FloatingViewModel {
                 switch physiotheraphyCenterModel {
                 case .next(let physiotheraphyCenterModel):
                     guard let physiotheraphyCenters = physiotheraphyCenterModel?.data else { return }
+                    self?.numberOfItems = physiotheraphyCenters.count
                     self?.physiotheraphyCenters.onNext(physiotheraphyCenters)
                 case .error(let error):
                     print(error.localizedDescription)
@@ -252,6 +272,7 @@ final class FloatingViewModel {
                 switch dutyPharmacyModel {
                 case .next(let dutyPharmacyModel):
                     guard let dutyPharmacies = dutyPharmacyModel?.data else { return }
+                    self.numberOfItems = dutyPharmacies.count
                     self.pharmacies.onNext(dutyPharmacies)
                 case .error(let error):
                     print(error.localizedDescription)

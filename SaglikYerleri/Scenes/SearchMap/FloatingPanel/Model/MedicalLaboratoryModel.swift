@@ -15,7 +15,7 @@ struct MedicalLaboratoryModel: Codable {
 }
 
 // MARK: - Datum
-struct MedicalLaboratory: Codable, OrganizationModel, MRHHCellDataProtocol {
+struct MedicalLaboratory: Codable, OrganizationModel, SharedCell1DataProtocol {
     let ad, aciklama, adres, tel: String?
     let email: String?
     let website: String?
@@ -33,43 +33,43 @@ struct MedicalLaboratory: Codable, OrganizationModel, MRHHCellDataProtocol {
         case ilce, latitude, longitude
     }
     
-    var mrhhImageBackgroundColor: UIColor {
+    var sharedCell1ImageBackgroundColor: UIColor {
         return MainCollectionData.categoryType(.medicalLaboratories).backgroundColor
     }
     
-    var mrhhImage: UIImage {
-        return UIImage(named: "duty")!
+    var sharedCell1Image: UIImage {
+        return MainCollectionData.categoryType(.medicalLaboratories).image
     }
     
-    var mrhhName: String {
+    var sharedCell1Name: String {
         if let ad {
             return ad
         }
         return "Kurum adı bulunamadı"
     }
     
-    var mrhhCityCountyName: String {
+    var sharedCell1CityCountyName: String {
         if let sehir, let ilce {
             return "\(sehir)/\(ilce)"
         }
         return "Il/Ilçe bilgisi yok"
     }
     
-    var mrhhAddress: String {
+    var sharedCell1Address: String {
         if let adres {
             return adres
         }
         return "Adres bilgisi yok"
     }
     
-    var mrhhPhone: String {
+    var sharedCell1Phone: String {
         if let tel {
             return tel
         }
         return "Telefon bilgisi yok"
     }
     
-    var mrhhEmail: String {
+    var sharedCell1Email: String {
         if let email {
             return email
         }
