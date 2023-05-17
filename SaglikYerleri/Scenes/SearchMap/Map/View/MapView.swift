@@ -41,7 +41,11 @@ final class MapView: UIView {
         return view
     }()
     
-    lazy var loadingView = LoadingView()
+    lazy var loadingView: AnimationView = {
+        let animationView = AnimationView(animationType: .loadingAnimation)
+        animationView.isHidden = true
+        return animationView
+    }()
     
     //MARK: - Init Methods
     override init(frame: CGRect) {
@@ -67,11 +71,9 @@ final class MapView: UIView {
     func configureAlphaView(hideAlphaView: Bool, completion: (() -> Void)? = nil) {
         if hideAlphaView {
             self.alphaView.isHidden = true
-            self.loadingView.animationView?.stop()
             completion?()
         } else {
             self.alphaView.isHidden = false
-            self.loadingView.animationView?.play()
             completion?()
         }
     }
@@ -88,7 +90,7 @@ extension MapView: ViewProtocol {
         addSubview(mapView)
         mapView.addSubview(alphaView)
         mapView.addSubview(customTopView)
-        alphaView.addSubview(loadingView)
+        mapView.addSubview(loadingView)
         
     }
     
@@ -105,19 +107,20 @@ extension MapView: ViewProtocol {
         }
     }
     
-    private func loadingViewConstraints() {
-        loadingView.snp.makeConstraints { make in
-            make.center.equalTo(alphaView.snp.center)
-            make.height.width.equalTo(64)
-        }
-    }
-    
     private func alphaViewConstraints() {
         alphaView.snp.makeConstraints { make in
             make.edges.equalTo(self)
         }
     }
     
+    private func loadingViewConstraints() {
+        loadingView.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.centerY)
+            make.bottom.equalTo(self.snp.bottom)
+            make.leading.trailing.equalTo(self)
+        }
+    }
+  
     func customTopViewConstraints() {
         customTopView.snp.makeConstraints { make in
             make.top.equalTo(self)

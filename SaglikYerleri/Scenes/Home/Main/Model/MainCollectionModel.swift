@@ -103,39 +103,81 @@ extension MainCollectionData {
         case .categoryType(let networkConstants):
             switch networkConstants {
             case .pharmacy:
-                return UIColor(hex: "F98B8B")
+                return UIColor(hex: "FF5C5C")
             case .dutyPharmacy:
-                return UIColor(hex: "FAAC7E")
+                return UIColor(hex: "FF9556")
             case .healthCenters:
-                return UIColor(hex: "3CB5B7")
+                return UIColor(hex: "56CBCC")
             case .hospitals:
-                return UIColor(hex: "5D9AFF")
+                return UIColor(hex: "498EFF")
             case .dentalCenters:
-                return UIColor(hex: "F87EB7")
+                return UIColor(hex: "FF60AA")
             case .privateDentalCenters:
-                return UIColor(hex: "00AEDB")
+                return UIColor(hex: "0098BF")
             case .medicalLaboratories:
-                return UIColor(hex: "7879F1")
+                return UIColor(hex: "5657EF")
             case .radiologyCenters:
-                return UIColor(hex: "5D9AFF")
+                return UIColor(hex: "4B75BA")
             case .spaCenters:
-                return UIColor(hex: "C5b9CD")
+                return UIColor(hex: "BD97D7")
             case .psychologistCenters:
-                return UIColor(hex: "65D6B8")
+                return UIColor(hex: "44DEB5")
             case .gynecologyCenters:
-                return UIColor(hex: "F392C3")
+                return UIColor(hex: "F269CC")
             case .opticCenters:
-                return UIColor(hex: "FFC425")
+                return UIColor(hex: "F5CB58")
             case .animalHospitals:
-                return UIColor(hex: "FBC134")
+                return UIColor(hex: "FF8900")
             case .dialysisCenters:
-                return UIColor(hex: "B4C468")
+                return UIColor(hex: "D3FF00")
             case .emergencyCenters:
                 return UIColor(hex: "D11141")
             case .medicalShopCenters:
-                return UIColor(hex: "92A8D1")
+                return UIColor(hex: "477AD9")
             case .physiotheraphyCenters:
-                return UIColor(hex: "ABB1CF")
+                return UIColor(hex: "5D52A5")
+            }
+        }
+    }
+    
+    var secondBackgroundColor: UIColor {
+        switch self {
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .pharmacy:
+                return UIColor(hex: "FF1212")
+            case .dutyPharmacy:
+                return UIColor(hex: "FC7221")
+            case .healthCenters:
+                return UIColor(hex: "00C1C3")
+            case .hospitals:
+                return UIColor(hex: "0061FF")
+            case .dentalCenters:
+                return UIColor(hex: "FF0077")
+            case .privateDentalCenters:
+                return UIColor(hex: "005B73")
+            case .medicalLaboratories:
+                return UIColor(hex: "3E40EA")
+            case .radiologyCenters:
+                return UIColor(hex: "0046BA")
+            case .spaCenters:
+                return UIColor(hex: "891AD6")
+            case .psychologistCenters:
+                return UIColor(hex: "00B86B")
+            case .gynecologyCenters:
+                return UIColor(hex: "FF00B8")
+            case .opticCenters:
+                return UIColor(hex: "FFA800")
+            case .animalHospitals:
+                return UIColor(hex: "D6790D")
+            case .dialysisCenters:
+                return UIColor(hex: "91AF00")
+            case .emergencyCenters:
+                return UIColor(hex: "7A001F")
+            case .medicalShopCenters:
+                return UIColor(hex: "0059FF")
+            case .physiotheraphyCenters:
+                return UIColor(hex: "1700AB")
             }
         }
     }

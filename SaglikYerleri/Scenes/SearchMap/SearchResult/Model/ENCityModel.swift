@@ -15,6 +15,20 @@ struct ENCityModel: Codable {
 }
 
 // MARK: - ENCity
-struct ENCity: Codable, CityModel {
+struct ENCity: Codable, CityCountyModel {
+ 
     let cityName, citySlug: String?
+    
+    var name: String? {
+        cityName
+    }
+    
+    var slugName: String? {
+        citySlug
+    }
+    
+    var type: CityCountyType {
+        .city
+    }
+    
 }

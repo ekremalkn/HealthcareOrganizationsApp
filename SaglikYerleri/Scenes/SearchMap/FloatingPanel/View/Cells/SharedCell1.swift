@@ -85,6 +85,12 @@ final class SharedCell1: UITableViewCell {
         return label
     }()
     
+    var isExpanded: Bool = false {
+        didSet {
+            
+        }
+    }
+    
     //MARK: - Init Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -116,10 +122,10 @@ final class SharedCell1: UITableViewCell {
     }
     
     private func makeCornerRadius() {
-        leftImageBackgroundView.layer.cornerRadius = (contentView.frame.height * 0.5) / 2
-        
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10))
         contentView.layer.cornerRadius = 12
+        
+        leftImageBackgroundView.layer.cornerRadius = (contentView.frame.height * 0.5) / 2
     }
     
 }

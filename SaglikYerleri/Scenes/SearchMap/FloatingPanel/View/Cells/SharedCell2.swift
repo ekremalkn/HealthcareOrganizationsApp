@@ -24,7 +24,6 @@ final class SharedCell2: UITableViewCell {
     //MARK: - Creating UI Elements
     private lazy var leftImageBackgroundView: UIView = {
         let view = UIView()
-        
         return view
     }()
     
@@ -34,18 +33,17 @@ final class SharedCell2: UITableViewCell {
         return imageView
     }()
     
-    private lazy var cityCountyLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.numberOfLines = 1
-        label.textColor = .gray
-        label.textAlignment = .right
-        return label
+    private lazy var expandImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.down")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.numberOfLines = 2
         label.textColor = .black
         label.textAlignment = .left
@@ -54,48 +52,52 @@ final class SharedCell2: UITableViewCell {
     
     private lazy var streetLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 3
         label.textColor = .black
         label.textAlignment = .left
         return label
     }()
     
-    private lazy var bottomStackView: UIStackView = {
+    private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 7
+        stackView.distribution = .fillEqually
+        stackView.distribution = .equalSpacing
+        stackView.alpha = 0
+        stackView.alignment = .center
         return stackView
     }()
     
-    private lazy var phoneLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.textAlignment = .center
-        return label
+    private lazy var callButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "callButton"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
     }()
     
-    private lazy var faxLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.textAlignment = .center
-        return label
+    private lazy var sendMailButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "sendMailButton"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
     }()
     
-    private lazy var webSiteLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.textAlignment = .center
-        return label
+    private lazy var locationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "locationButton"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
     }()
     
+    var isExpanded: Bool = false {
+        didSet {
+            UIView.animate(withDuration: 0.2) { [unowned self] in
+                self.buttonStackView.alpha = self.isExpanded ? 1 : 0
+                self.expandImageView.transform = self.isExpanded ? CGAffineTransform(rotationAngle: CGFloat.pi) : .identity
+            }
+        }
+    }
     
     //MARK: - Init Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -116,12 +118,9 @@ final class SharedCell2: UITableViewCell {
         leftImageBackgroundView.backgroundColor = data.sharedCell2ImageBackgroundColor.withAlphaComponent(0.2)
         leftImageView.tintColor = data.sharedCell2ImageBackgroundColor
         leftImageView.image = data.sharedCell2Image
-        cityCountyLabel.text = data.sharedCell2CityCountyName
         nameLabel.text = data.sharedCell2Name
         streetLabel.text = data.sharedCell2Street
-        phoneLabel.text = data.sharedCell2Phone
-        faxLabel.text = data.sharedCell2Fax
-        webSiteLabel.text = data.sharedCell2WebSite
+
     }
     
     private func addShadow() {
@@ -131,10 +130,10 @@ final class SharedCell2: UITableViewCell {
     }
     
     private func makeCornerRadius() {
-        leftImageBackgroundView.layer.cornerRadius = (contentView.frame.height * 0.5) / 2
-        
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10))
         contentView.layer.cornerRadius = 12
+        
+        leftImageBackgroundView.layer.cornerRadius = 29
     }
     
 }
@@ -152,33 +151,23 @@ extension SharedCell2: CellProtocol {
     func addSubview() {
         contentView.addSubview(leftImageBackgroundView)
         leftImageBackgroundView.addSubview(leftImageView)
-        contentView.addSubview(cityCountyLabel)
+        contentView.addSubview(expandImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(streetLabel)
-        contentView.addSubview(bottomStackView)
-        labelsToBottomStackView()
-    }
-    
-    private func labelsToBottomStackView() {
-        bottomStackView.addArrangedSubview(phoneLabel)
-        bottomStackView.addArrangedSubview(faxLabel)
-        bottomStackView.addArrangedSubview(webSiteLabel)
     }
     
     func setupConstraints() {
         leftImageBackgroundViewConstraints()
         leftImageViewConstraints()
-        cityCountyLabelConstraints()
+        expandImageViewConstraints()
         nameLabelConstraints()
         streetLabelConstraints()
-        bottomStackViewConstraints()
     }
     
     private func leftImageBackgroundViewConstraints() {
         leftImageBackgroundView.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(10)
-            make.centerY.equalTo(contentView.snp.centerY)
-            make.height.width.equalTo(contentView.snp.height).multipliedBy(0.5)
+            make.leading.top.equalTo(contentView).offset(10)
+            make.height.width.equalTo(58)
         }
     }
     
@@ -189,12 +178,11 @@ extension SharedCell2: CellProtocol {
         }
     }
     
-    private func cityCountyLabelConstraints() {
-        cityCountyLabel.snp.makeConstraints { make in
+    private func expandImageViewConstraints() {
+        expandImageView.snp.makeConstraints { make in
             make.trailing.equalTo(contentView.snp.trailing).offset(-10)
-            make.top.equalTo(contentView.snp.top).offset(10)
-            make.height.equalTo(cityCountyLabel.font.lineHeight)
-            
+            make.top.equalTo(leftImageBackgroundView.snp.top)
+            make.height.equalTo(17)
         }
     }
     
@@ -212,15 +200,6 @@ extension SharedCell2: CellProtocol {
             make.top.equalTo(nameLabel.snp.bottom).offset(10)
             make.height.equalTo(streetLabel.font.lineHeight)
             make.leading.trailing.equalTo(nameLabel)
-        }
-    }
-    
-    private func bottomStackViewConstraints() {
-        bottomStackView.snp.makeConstraints { make in
-            make.top.equalTo(streetLabel.snp.bottom).offset(10)
-            make.height.equalTo(streetLabel.font.lineHeight)
-            make.leading.trailing.equalTo(streetLabel)
-            
         }
     }
     

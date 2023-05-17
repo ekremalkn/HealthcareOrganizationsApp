@@ -24,6 +24,7 @@ final class SearchResultController: UIViewController {
     var tableCollectionAnimateState: SearchResultAnimateState = .toBottom
     var searchControllerViewDidAppear = PublishSubject<Void>()
     var searchControllerDissmissed = PublishSubject<(String, String, String, String)>()
+    var clearSearchBarText = PublishSubject<Void>()
     
     //MARK: - Dispose Bag
     let disposeBag = DisposeBag()
@@ -67,76 +68,38 @@ final class SearchResultController: UIViewController {
 extension SearchResultController {
     private func configureTableView() {
         // Bind data
-        viewModel?.citiesCounties.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, city, cell in
-            
-            switch city {
-            case let city as ENCity:
-                cell.textLabel?.text = city.cityName
-            case let county as ENCounty:
-                cell.textLabel?.text = county.cityName
-            case let city as TRCity:
-                cell.textLabel?.text = city.sehirAd
-            case let county as TRCounty:
-                cell.textLabel?.text = county.ilceAd
-            default:
-                return
-            }
+        viewModel?.citiesCounties.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, cityCounty, cell in
+            cell.textLabel?.text = cityCounty.name
         }.disposed(by: disposeBag)
         
         // Make Request
         viewModel?.fetchCities()
         
         // Handle did select
-        searchResultView.tableView.rx.modelSelected(CityModel.self).bind { [weak self] city in
-            switch city {
-            case let city as ENCity:
-                guard let self, let citySlug = city.citySlug, let cityName = city.cityName else { return }
-                self.selectedCitySlug = citySlug
-                self.selectedCityName1 = cityName
-                self.selectedCityName.onNext([cityName])
+        searchResultView.tableView.rx.modelSelected(CityCountyModel.self).bind { [weak self] city in
+            guard let self, let name = city.name, let slugName = city.slugName else { return }
+            switch city.type {
+            case .city:
+                self.selectedCitySlug = slugName
+                self.selectedCityName1 = name
+                self.selectedCityName.onNext([name])
                 self.searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
-                    self?.viewModel?.fetchCounties(city: citySlug)
+                    self?.viewModel?.fetchCounties(city: slugName)
                 }
-            case let county as ENCounty:
-                guard let countySlug = county.citySlug, let countyName = county.cityName else { return }
-                self?.selectedCountySlug = countySlug
-                self?.selectedCountyName1 = countyName
-                self?.selectedCountyName.onNext(countyName)
-                self?.dismiss(animated: true, completion: { [weak self] in
-                    guard let selectedCitySlug = self?.selectedCitySlug , let selectedCountySlug = self?.selectedCountySlug else { return }
+            case .county:
+                self.selectedCountySlug = slugName
+                self.selectedCountyName1 = name
+                self.selectedCountyName.onNext(name)
+                self.dismiss(animated: true) { [weak self] in
+                    guard let selectedCitySlug = self?.selectedCitySlug, let selectedCountySlug = self?.selectedCountySlug else { return }
                     if let selectedCityName = self?.selectedCityName1, let selectedCountyName = self?.selectedCountyName1 {
                         self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName))
-
-                    } else {
-                        self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, "",""))
-
-                    }
-                })
-            case let city as TRCity:
-                guard let self, let citySlug = city.sehirSlug, let cityName = city.sehirAd  else { return }
-                self.selectedCitySlug = citySlug
-                self.selectedCityName1 = cityName
-                self.selectedCityName.onNext([cityName])
-                self.searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
-                    self?.viewModel?.fetchCounties(city: citySlug)
-                }
-            case let county as TRCounty:
-                guard let countySlug = county.ilceSlug, let countyName = county.ilceAd else { return }
-                self?.selectedCountySlug = countySlug
-                self?.selectedCountyName1 = countyName
-                self?.dismiss(animated: true, completion: { [weak self] in
-                    guard let selectedCitySlug = self?.selectedCitySlug , let selectedCountySlug = self?.selectedCountySlug else { return }
-                    if let selectedCityName = self?.selectedCityName1, let selectedCountyName = self?.selectedCountyName1 {
-                        self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName))
-
                     } else {
                         self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, "", ""))
-
                     }
-                })
-            default:
-                return
+                }
             }
+            
         }.disposed(by: disposeBag)
         
         searchResultView.tableView.rx.itemSelected.subscribe { [weak self] indexPath in
@@ -163,6 +126,7 @@ extension SearchResultController: UICollectionViewDelegateFlowLayout {
             guard let self else { return }
             self.deleteSelectedItem(indexPath: indexPath) { [weak self] selectedItems  in
                 guard let self, let selectedItems else { return }
+                self.clearSearchBarText.onNext(())
                 self.selectedCityName.onNext(selectedItems)
                 self.viewModel?.fetchCities()
                 self.searchResultView.needSelectedItemCollectionView(animateState: .toTop) { [weak self] in

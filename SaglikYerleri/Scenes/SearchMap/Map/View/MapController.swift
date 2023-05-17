@@ -95,17 +95,22 @@ extension MapController {
             self.searchController?.searchBar.text = countyName
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
+        searchResultController?.clearSearchBarText.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            self.searchController?.searchBar.text?.removeAll()
+        }).disposed(by: disposeBag)
+        
         // Search Controller ViewModel Loading States
         searchResultController?.viewModel?.fetchingCities.subscribe(onNext: { [weak self] value in
-            value ? self?.mapView.loadingView.animationView?.play() : self?.mapView.loadingView.animationView?.stop()
+            self?.mapView.loadingView.isHidden = value ? false : true
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
         searchResultController?.viewModel?.fetchedCities.subscribe(onNext: { [weak self] _ in
-            self?.mapView.loadingView.animationView?.stop()
+            self?.mapView.loadingView.isHidden = true
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
         searchResultController?.viewModel?.errorMsg.subscribe(onNext: { [weak self] errorMsg in
-            self?.mapView.loadingView.animationView?.play()
+            self?.mapView.loadingView.isHidden = false
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
     }
     
@@ -119,6 +124,11 @@ extension MapController {
         searchController?.searchBar.rx.textDidBeginEditing.subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             self.mapView.configureAlphaView(hideAlphaView: false)
+        }).disposed(by: disposeBag)
+        
+        searchController?.searchBar.rx.cancelButtonClicked.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            self.mapView.configureAlphaView(hideAlphaView: true)
         }).disposed(by: disposeBag)
     }
 }
@@ -135,7 +145,7 @@ extension MapController:  MKMapViewDelegate {
     }
     
     private func animateNavBarAndTopView(to aim: AnimateNavBarTo) {
-        UIView.animate(withDuration: 0.3) { [weak self] in
+        UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
             switch aim {
             case .top:

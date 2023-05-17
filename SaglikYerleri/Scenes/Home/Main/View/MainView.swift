@@ -11,6 +11,8 @@ import SnapKit
 final class MainView: UIView {
     
     //MARK: - Creating UI Elements
+    lazy var loadingView = AnimationView(animationType: .loadingAnimation)
+    
     lazy var navBarLeftButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .black
@@ -119,10 +121,12 @@ extension MainView: ViewProtocol {
     
     func addSubview() {
         addSubview(mainCollectionView)
+//        addSubview(loadingView)
     }
     
     func setupConstraints() {
         collectionViewConstraints()
+//        loadingViewConstraints()
     }
     
     private func collectionViewConstraints() {
@@ -131,6 +135,12 @@ extension MainView: ViewProtocol {
             make.leading.bottom.trailing.equalTo(self)
         }
         
+    }
+    
+    private func loadingViewConstraints() {
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalTo(self)
+        }
     }
     
     

@@ -17,6 +17,21 @@ struct TRCountyModel: Codable {
 }
 
 // MARK: - TRCounty
-struct TRCounty: Codable, CityModel {
+struct TRCounty: Codable, CityCountyModel {
     let ilceAd, ilceSlug: String?
+    
+    var name: String? {
+        ilceAd
+    }
+    
+    var slugName: String? {
+        ilceSlug
+    }
+    
+    var type: CityCountyType {
+        .county
+    }
+    
+
+    
 }

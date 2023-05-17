@@ -7,7 +7,16 @@
 
 import Foundation
 
-protocol CityModel {}
+enum CityCountyType {
+    case city
+    case county
+}
+
+protocol CityCountyModel where Self: Codable {
+    var name: String? { get }
+    var slugName: String? { get }
+    var type: CityCountyType { get }
+}
 
 // MARK: - CityModel
 struct TRCityModel: Codable  {
@@ -17,11 +26,26 @@ struct TRCityModel: Codable  {
 }
 
 // MARK: - TRCity
-struct TRCity: Codable, CityModel {
+struct TRCity: Codable, CityCountyModel {
     let sehirAd, sehirSlug: String?
 
     enum CodingKeys: String, CodingKey {
         case sehirAd = "SehirAd"
         case sehirSlug = "SehirSlug"
     }
+    
+    var name: String? {
+        sehirAd
+    }
+    
+    var slugName: String? {
+        sehirSlug
+    }
+    
+    var type: CityCountyType {
+        .city
+    }
+    
+
+        
 }

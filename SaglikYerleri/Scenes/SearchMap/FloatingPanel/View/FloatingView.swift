@@ -14,10 +14,18 @@ final class FloatingView: UIView {
         let tableView = UITableView()
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(hex: "FBFCFE")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(PharmacyCell.self, forCellReuseIdentifier: PharmacyCell.identifier)
         tableView.register(SharedCell1.self, forCellReuseIdentifier: SharedCell1.identifier)
         tableView.register(SharedCell2.self, forCellReuseIdentifier: SharedCell2.identifier)
         return tableView
+    }()
+    
+    lazy var loadingView: AnimationView = {
+        let animationView = AnimationView(animationType: .loadingAnimation)
+        animationView.isHidden = true
+        animationView.backgroundColor = .black.withAlphaComponent(0.2)
+        return animationView
     }()
     
     //MARK: - Init Methods
@@ -55,15 +63,23 @@ extension FloatingView: ViewProtocol {
     
     func addSubview() {
         addSubview(placesTableView)
+        placesTableView.addSubview(loadingView)
     }
     
     func setupConstraints() {
         placesTableViewConstraints()
+        loadingViewConstraints()
     }
     
     private func placesTableViewConstraints() {
         placesTableView.snp.makeConstraints { make in
             make.edges.equalTo(self)
+        }
+    }
+    
+    private func loadingViewConstraints() {
+        loadingView.snp.makeConstraints { make in
+            make.center.equalTo(placesTableView)
         }
     }
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 final class FloatingViewModel {
     
@@ -19,6 +20,10 @@ final class FloatingViewModel {
     let cityName: String?
     let countyName: String?
     var numberOfItems: Int?
+
+    let fetchingOrganizations = PublishSubject<Bool>()
+    let fetchedOrganizations = PublishSubject<Void>()
+    let errorMsg = PublishSubject<String>()
     
     let pharmacies = PublishSubject<[Pharmacy]>()
     
@@ -39,6 +44,7 @@ final class FloatingViewModel {
     let medicalShopCenters = PublishSubject<[MedicalShopCenter]>()
     let spaCenters = PublishSubject<[SpaCenter]>()
     
+    
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
     
@@ -52,11 +58,12 @@ final class FloatingViewModel {
     }
     
     deinit {
-        print("floating viewmodel deinitr")
+        print("floating viewmodel deinit")
     }
     
     //MARK: - Fetch Organizations
     func fetchOrganizations() {
+        self.setLoadingAnimateState(fetchingOrganizations: true)
         guard let categoryType, let citySlug, let countySlug else { return }
         switch categoryType {
         case .hospitals:
@@ -64,12 +71,13 @@ final class FloatingViewModel {
                 switch hospitalModel {
                 case .next(let hospitalModel):
                     guard let hospitals = hospitalModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = hospitals.count
                     self?.hospitals.onNext(hospitals)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .healthCenters:
@@ -77,12 +85,13 @@ final class FloatingViewModel {
                 switch healthCenterModel {
                 case .next(let healthCenterModel):
                     guard let healthCenters = healthCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = healthCenters.count
                     self?.healthCenters.onNext(healthCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .dentalCenters:
@@ -90,12 +99,13 @@ final class FloatingViewModel {
                 switch dentalCenterModel {
                 case .next(let dentalCenterModel):
                     guard let dentalCenters = dentalCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = dentalCenters.count
                     self?.dentalCenters.onNext(dentalCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .pharmacy:
@@ -103,12 +113,13 @@ final class FloatingViewModel {
                 switch pharmacyModel {
                 case .next(let pharmacyModel):
                     guard let pharmacies = pharmacyModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = pharmacies.count
                     self?.pharmacies.onNext(pharmacies)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .medicalLaboratories:
@@ -116,12 +127,13 @@ final class FloatingViewModel {
                 switch medicalLaboratoryModel {
                 case .next(let medicalLaboratoryModel):
                     guard let medicalLaboratories = medicalLaboratoryModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = medicalLaboratories.count
                     self?.medicalLaboratories.onNext(medicalLaboratories)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .radiologyCenters:
@@ -129,12 +141,13 @@ final class FloatingViewModel {
                 switch radiologyCenterModel {
                 case .next(let radiologyCenterModel):
                     guard let radiologyCenters = radiologyCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = radiologyCenters.count
                     self?.radiologyCenters.onNext(radiologyCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .animalHospitals:
@@ -142,12 +155,13 @@ final class FloatingViewModel {
                 switch animalHospitalModel {
                 case .next(let animalHospitalModel):
                     guard let animalHospitals = animalHospitalModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = animalHospitals.count
                     self?.animalHospitals.onNext(animalHospitals)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .psychologistCenters:
@@ -155,12 +169,13 @@ final class FloatingViewModel {
                 switch psychologistCenterModel {
                 case .next(let psychologistCenterModel):
                     guard let psychologistCenters = psychologistCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = psychologistCenters.count
                     self?.psychologistCenters.onNext(psychologistCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .gynecologyCenters:
@@ -168,12 +183,13 @@ final class FloatingViewModel {
                 switch gynecologyCenterModel {
                 case .next(let gynecologyCenterModel):
                     guard let gynecologyCenters = gynecologyCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = gynecologyCenters.count
                     self?.gynecologyCenters.onNext(gynecologyCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .opticCenters:
@@ -181,12 +197,13 @@ final class FloatingViewModel {
                 switch optikCenterModel {
                 case .next(let optikCenterModel):
                     guard let optikCenters = optikCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = optikCenters.count
                     self?.opticCenters.onNext(optikCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .privateDentalCenters:
@@ -194,12 +211,13 @@ final class FloatingViewModel {
                 switch privateDentalCenterModel {
                 case .next(let privateDentalCenterModel):
                     guard let privateDentalCenters = privateDentalCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = privateDentalCenters.count
                     self?.privateDentalCenters.onNext(privateDentalCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .spaCenters:
@@ -207,12 +225,13 @@ final class FloatingViewModel {
                 switch spaCenterModel {
                 case .next(let spaCenterModel):
                     guard let spaCenters = spaCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = spaCenters.count
                     self?.spaCenters.onNext(spaCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .dialysisCenters:
@@ -220,12 +239,13 @@ final class FloatingViewModel {
                 switch dialysisCenterModel {
                 case .next(let dialysisCenterModel):
                     guard let dialysisCenters = dialysisCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = dialysisCenters.count
                     self?.dialysisCenters.onNext(dialysisCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .emergencyCenters:
@@ -233,12 +253,13 @@ final class FloatingViewModel {
                 switch emergencyCenterModel {
                 case .next(let emergencyCenterModel):
                     guard let emergencyCenters = emergencyCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = emergencyCenters.count
                     self?.emergencyCenters.onNext(emergencyCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .medicalShopCenters:
@@ -246,12 +267,13 @@ final class FloatingViewModel {
                 switch medicalCenterShopModel {
                 case .next(let medicalCenterShopModel):
                     guard let medicalShopCenters = medicalCenterShopModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = medicalShopCenters.count
                     self?.medicalShopCenters.onNext(medicalShopCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .physiotheraphyCenters:
@@ -259,28 +281,40 @@ final class FloatingViewModel {
                 switch physiotheraphyCenterModel {
                 case .next(let physiotheraphyCenterModel):
                     guard let physiotheraphyCenters = physiotheraphyCenterModel?.data else { return }
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
                     self?.numberOfItems = physiotheraphyCenters.count
                     self?.physiotheraphyCenters.onNext(physiotheraphyCenters)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         case .dutyPharmacy:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { (dutyPharmacyModel: Event<PharmacyModel?>) in
+            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dutyPharmacyModel: Event<PharmacyModel?>) in
                 switch dutyPharmacyModel {
                 case .next(let dutyPharmacyModel):
                     guard let dutyPharmacies = dutyPharmacyModel?.data else { return }
-                    self.numberOfItems = dutyPharmacies.count
-                    self.pharmacies.onNext(dutyPharmacies)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: (), errorMsg: nil)
+                    self?.numberOfItems = dutyPharmacies.count
+                    self?.pharmacies.onNext(dutyPharmacies)
                 case .error(let error):
-                    print(error.localizedDescription)
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: error.localizedDescription)
                 case .completed:
-                    print("success")
+                    self?.setLoadingAnimateState(fetchingOrganizations: false, fetchedOrganizations: nil, errorMsg: nil)
                 }
             }.disposed(by: disposeBag)
         }
     }
     
+    //MARK: - Set Loading Animate State
+    private func setLoadingAnimateState(fetchingOrganizations: Bool? = nil, fetchedOrganizations: Void? = nil, errorMsg: String? = nil) {
+        if let fetchingOrganizations {
+            self.fetchingOrganizations.onNext(fetchingOrganizations)
+        } else if let fetchedOrganizations {
+            self.fetchedOrganizations.onNext(fetchedOrganizations)
+        } else if let errorMsg {
+            self.errorMsg.onNext(errorMsg)
+        }
+    }
 }

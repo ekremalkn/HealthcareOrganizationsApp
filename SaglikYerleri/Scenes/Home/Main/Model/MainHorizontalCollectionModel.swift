@@ -111,7 +111,7 @@ extension MainHorizontalCollectionData {
             case .hospitals:
                 return "Tüm Hastaneler"
             case .dentalCenters:
-                return "Diş Sağlığı Merkezleri"
+                return "Diş Klinikleri"
             case .privateDentalCenters:
                 break
             case .medicalLaboratories:
@@ -146,44 +146,42 @@ extension MainHorizontalCollectionData {
         switch self {
         case .categoryType(let networkConstants):
             switch networkConstants {
-            case .dutyPharmacy:
-                return UIColor(hex: "FAAC7E")
             case .pharmacy:
-                break
+                return UIColor(hex: "FF5C5C")
+            case .dutyPharmacy:
+                return UIColor(hex: "FF9556")
             case .healthCenters:
-                return UIColor(hex: "3CB5B7")
+                return UIColor(hex: "32BDBF")
             case .hospitals:
-                return UIColor(hex: "5D9AFF")
+                return UIColor(hex: "498EFF")
             case .dentalCenters:
-                return UIColor(hex: "F87EB7")
+                return UIColor(hex: "FF60AA")
             case .privateDentalCenters:
-                break
+                return UIColor(hex: "0098BF")
             case .medicalLaboratories:
-                break
+                return UIColor(hex: "696AE5")
             case .radiologyCenters:
-                break
+                return UIColor(hex: "4B75BA")
             case .spaCenters:
-                break
+                return UIColor(hex: "BD97D7")
             case .psychologistCenters:
-                break
+                return UIColor(hex: "44DEB5")
             case .gynecologyCenters:
-                break
+                return UIColor(hex: "F63C9A")
             case .opticCenters:
-                break
+                return UIColor(hex: "FFBC08")
             case .animalHospitals:
-                break
+                return UIColor(hex: "D6790D")
             case .dialysisCenters:
-                break
+                return UIColor(hex: "91AF00")
             case .emergencyCenters:
-                break
+                return UIColor(hex: "D11141")
             case .medicalShopCenters:
-                break
+                return UIColor(hex: "2966D7")
             case .physiotheraphyCenters:
-                break
-                
+                return UIColor(hex: "5D52A5")
             }
         }
-        return UIColor()
     }
 }
 

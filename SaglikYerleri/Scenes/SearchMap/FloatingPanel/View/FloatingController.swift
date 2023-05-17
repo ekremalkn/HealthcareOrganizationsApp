@@ -12,6 +12,12 @@ import RxDataSources
 
 final class FloatingController: UIViewController {
     
+    enum SelectedCellType {
+        case pharmacyCell
+        case sharedCell1
+        case sharedCell2
+    }
+    
     //MARK: - References
     let viewModel: FloatingViewModel?
     private let floatingView = FloatingView()
@@ -22,6 +28,10 @@ final class FloatingController: UIViewController {
     
     //MARK: - Variables
     let categoryType: NetworkConstants?
+    var selectedCellType: SelectedCellType?
+    
+    var selectedCellIndexPath: IndexPath?
+    var isExpanded: Bool = false
     
     //MARK: - Life Cycle Methods
     init(categoryType: NetworkConstants, citySlug: String, countySlug: String, cityName: String, countyName: String) {
@@ -47,6 +57,7 @@ final class FloatingController: UIViewController {
     
     //MARK: - Configure ViewController
     private func configureViewController() {
+        subscribeToViewModelFetcingStates()
         configureTableView()
     }
     
@@ -60,71 +71,88 @@ extension FloatingController: UITableViewDelegate {
         // Bind data
         switch categoryType {
         case .pharmacy:
-            viewModel.pharmacies.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: PharmacyCell.identifier, cellType: PharmacyCell.self)) { index, pharmacy, cell in
+            viewModel.pharmacies.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: PharmacyCell.identifier, cellType: PharmacyCell.self)) { [weak self] index, pharmacy, cell in
+                self?.selectedCellType = .pharmacyCell
                 cell.configure(with: pharmacy)
             }.disposed(by: disposeBag)
         case .medicalLaboratories:
-            viewModel.medicalLaboratories.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { index, medicalLaboratory, cell in
+            viewModel.medicalLaboratories.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { [weak self] index, medicalLaboratory, cell in
+                self?.selectedCellType = .sharedCell1
                 cell.configure(with: medicalLaboratory)
             }.disposed(by: disposeBag)
         case .radiologyCenters:
-            viewModel.radiologyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { index, radiologyCenter, cell in
+            viewModel.radiologyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { [weak self] index, radiologyCenter, cell in
+                self?.selectedCellType = .sharedCell1
                 cell.configure(with: radiologyCenter)
             }.disposed(by: disposeBag)
         case .healthCenters:
-            viewModel.healthCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { index, healthCenter, cell in
+            viewModel.healthCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { [weak self] index, healthCenter, cell in
+                self?.selectedCellType = .sharedCell1
                 cell.configure(with: healthCenter)
             }.disposed(by: disposeBag)
         case .hospitals:
-            viewModel.hospitals.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { index, hospital, cell in
+            viewModel.hospitals.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { [weak self] index, hospital, cell in
+                self?.selectedCellType = .sharedCell1
                 cell.configure(with: hospital)
             }.disposed(by: disposeBag)
         case .dentalCenters:
-            viewModel.dentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, dentalCenter, cell in
+            viewModel.dentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, dentalCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: dentalCenter)
             }.disposed(by: disposeBag)
         case .privateDentalCenters:
-            viewModel.privateDentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, privateDentalCenter, cell in
+            viewModel.privateDentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, privateDentalCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: privateDentalCenter)
             }.disposed(by: disposeBag)
         case .spaCenters:
-            viewModel.spaCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, spaCenter, cell in
+            viewModel.spaCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, spaCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: spaCenter)
             }.disposed(by: disposeBag)
         case .psychologistCenters:
-            viewModel.psychologistCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, psychologistCenter, cell in
+            viewModel.psychologistCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, psychologistCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: psychologistCenter)
             }.disposed(by: disposeBag)
         case .gynecologyCenters:
-            viewModel.dentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, gynecologyCenter, cell in
+            viewModel.dentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, gynecologyCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: gynecologyCenter)
             }.disposed(by: disposeBag)
         case .opticCenters:
-            viewModel.opticCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, opticCenter, cell in
+            viewModel.opticCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, opticCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: opticCenter)
             }.disposed(by: disposeBag)
         case .animalHospitals:
-            viewModel.animalHospitals.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, animalHospital, cell in
+            viewModel.animalHospitals.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, animalHospital, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: animalHospital)
             }.disposed(by: disposeBag)
         case .dialysisCenters:
-            viewModel.dialysisCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, dialysisCenter, cell in
+            viewModel.dialysisCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, dialysisCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: dialysisCenter)
             }.disposed(by: disposeBag)
         case .emergencyCenters:
-            viewModel.emergencyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, emergencyCenter, cell in
+            viewModel.emergencyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, emergencyCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: emergencyCenter)
             }.disposed(by: disposeBag)
         case .medicalShopCenters:
-            viewModel.medicalShopCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, medicalShopCenter, cell in
+            viewModel.medicalShopCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, medicalShopCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: medicalShopCenter)
             }.disposed(by: disposeBag)
         case .physiotheraphyCenters:
-            viewModel.physiotheraphyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { index, physiotheraphyCenter, cell in
+            viewModel.physiotheraphyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, physiotheraphyCenter, cell in
+                self?.selectedCellType = .sharedCell2
                 cell.configure(with: physiotheraphyCenter)
             }.disposed(by: disposeBag)
         case .dutyPharmacy:
-            viewModel.pharmacies.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: PharmacyCell.identifier, cellType: PharmacyCell.self)) { index, pharmacy, cell in
+            viewModel.pharmacies.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: PharmacyCell.identifier, cellType: PharmacyCell.self)) { [weak self] index, pharmacy, cell in
+                self?.selectedCellType = .pharmacyCell
                 cell.configure(with: pharmacy)
             }.disposed(by: disposeBag)
         }
@@ -132,81 +160,124 @@ extension FloatingController: UITableViewDelegate {
         // Fetch Organizations
         viewModel.fetchOrganizations()
         
+        floatingView.placesTableView.rx.itemSelected.subscribe { [weak self] indexPath in
+            self?.whenCellSelected(indexPath: indexPath, completion: { tableView in
+                tableView.deselectRow(at: indexPath, animated: true)
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            })
+            
+            
+        }.disposed(by: disposeBag)
         // Set delegate for TableView Cell Height / Header Height
         floatingView.placesTableView.rx.setDelegate(self).disposed(by: disposeBag)
         
-        // Set header view
-        
-        
     }
- 
-    // Cell Height
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var cellHeight: CGFloat = 30
-        guard let categoryType else { return cellHeight}
-        
-        switch categoryType {
-        case .pharmacy:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 4
-            cellHeight = pharmacyCellHeight
-        case .medicalLaboratories:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .radiologyCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .healthCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .hospitals:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .dentalCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .privateDentalCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .spaCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .psychologistCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .gynecologyCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .opticCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .animalHospitals:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .dialysisCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .emergencyCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .medicalShopCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .physiotheraphyCenters:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 5
-            cellHeight = pharmacyCellHeight
-        case .dutyPharmacy:
-            let pharmacyCellHeight: CGFloat = tableView.frame.height / 4
-            cellHeight = pharmacyCellHeight
+    
+    //MARK: - Expand cell When Selected
+    private func whenCellSelected(indexPath: IndexPath, completion: @escaping (UITableView) -> Void) {
+        let tableView = self.floatingView.placesTableView
+        self.selectedCellIndexPath = indexPath
+        self.cellForRow(tableView, at: indexPath) {
+            completion(tableView)
         }
         
-        return cellHeight
+        
     }
     
-    // Header Height
+    private func cellForRow(_ tableView: UITableView, at indexPath: IndexPath, completion: @escaping () -> Void) {
+        guard let selectedCellType else { return }
+        switch selectedCellType {
+        case .pharmacyCell:
+            self.checkIfSelectedCellPharmacyCell(tableView, at: indexPath, selectedCellType: selectedCellType) {
+                completion()
+            }
+        case .sharedCell1:
+            self.checkIfSelectedCellSharedCell1(tableView, at: indexPath, selectedCellType: selectedCellType) {
+                completion()
+            }
+        case .sharedCell2:
+            self.checkIfSelectedCellSharedCell2(tableView, at: indexPath, selectedCellType: selectedCellType) {
+                completion()
+            }
+
+        }
+    }
     
+    private func checkIfSelectedCellPharmacyCell(_ tableView: UITableView, at indexPath: IndexPath, selectedCellType: SelectedCellType, completion: @escaping () -> Void) {
+        guard let selectedCell = tableView.cellForRow(at: indexPath) as? PharmacyCell else { return }
+        tableView.visibleCells.forEach { [weak self] cell in
+            if cell == selectedCell {
+                selectedCell.isExpanded.toggle()
+                self?.isExpanded = selectedCell.isExpanded
+            } else {
+                self?.nonSelectedCells(cell: cell, selectedCellType: selectedCellType)
+            }
+            self?.isExpanded = selectedCell.isExpanded
+            completion()
+        }
+    }
+    
+    private func checkIfSelectedCellSharedCell1(_ tableView: UITableView, at indexPath: IndexPath, selectedCellType: SelectedCellType, completion: @escaping () -> Void) {
+        guard let selectedCell = tableView.cellForRow(at: indexPath) as? SharedCell1 else { return }
+        tableView.visibleCells.forEach { [weak self] cell in
+            if cell == selectedCell {
+                selectedCell.isExpanded.toggle()
+                self?.isExpanded = selectedCell.isExpanded
+            } else {
+                self?.nonSelectedCells(cell: cell, selectedCellType: selectedCellType)
+            }
+            self?.isExpanded = selectedCell.isExpanded
+            completion()
+        }
+    }
+    
+    private func checkIfSelectedCellSharedCell2(_ tableView: UITableView, at indexPath: IndexPath, selectedCellType: SelectedCellType, completion: @escaping () -> Void) {
+        guard let selectedCell = tableView.cellForRow(at: indexPath) as? SharedCell2 else { return }
+        
+        tableView.visibleCells.forEach { [weak self] cell in
+            if cell == selectedCell {
+                selectedCell.isExpanded.toggle()
+                self?.isExpanded = selectedCell.isExpanded
+            } else {
+                self?.nonSelectedCells(cell: cell, selectedCellType: selectedCellType)
+            }
+            self?.isExpanded = selectedCell.isExpanded
+            completion()
+        }
+    }
+    
+    private func nonSelectedCells(cell: UITableViewCell, selectedCellType: SelectedCellType) {
+        guard categoryType != nil else { return }
+        switch selectedCellType {
+        case .pharmacyCell:
+            guard let cell = cell as? PharmacyCell else { return }
+            cell.isExpanded ? cell.isExpanded.toggle() : nil
+        case .sharedCell1:
+            guard let cell = cell as? SharedCell1 else { return }
+            cell.isExpanded ? cell.isExpanded.toggle() : nil
+        case .sharedCell2:
+            guard let cell = cell as? SharedCell2 else { return }
+            cell.isExpanded ? cell.isExpanded.toggle() : nil
+        }
+    }
+    
+    // Cell Height
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard categoryType != nil else { return CGFloat() }
+        if let selectedCellIndexPath {
+            if selectedCellIndexPath == indexPath {
+                return isExpanded ? 215 : 94
+            }
+        }
+        return 94
+    }
+    
+    //MARK: - TableViewHeader
+    // Header Height
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let numberOfItems = viewModel?.numberOfItems ,let cityName = viewModel?.citySlug, let countyName = viewModel?.countySlug else { return UIView() }
-        tableHeaderView.configure(with: numberOfItems, cityName: cityName, countySlug: countyName)
+        guard let numberOfItems = viewModel?.numberOfItems ,let cityName = viewModel?.cityName, let countyName = viewModel?.countyName else { return UIView() }
+        tableHeaderView.configure(with: numberOfItems, cityName: cityName, countyName: countyName)
         
         return tableHeaderView
     }
@@ -215,4 +286,23 @@ extension FloatingController: UITableViewDelegate {
         return 50
     }
     
+}
+
+//MARK: - ViewModel Fetching States
+extension FloatingController {
+    func subscribeToViewModelFetcingStates() {
+        viewModel?.fetchingOrganizations.subscribe(onNext: { [weak self] value in
+            self?.floatingView.loadingView.isHidden = value ? false : true
+            print("fetching")
+        }).disposed(by: disposeBag)
+        
+        viewModel?.fetchedOrganizations.subscribe(onNext: { [weak self] _ in
+            self?.floatingView.loadingView.isHidden = true
+            print("fetched")
+        }).disposed(by: disposeBag)
+        
+        viewModel?.errorMsg.subscribe(onNext: { errorMsg in
+            print(errorMsg)
+        }).disposed(by: disposeBag)
+    }
 }

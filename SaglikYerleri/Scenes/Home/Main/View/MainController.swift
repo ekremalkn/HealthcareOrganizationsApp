@@ -13,7 +13,7 @@ import RxDataSources
 final class MainController: UIViewController {
     
     //MARK: - References
-    weak var mainCoordinator: MainCoordinator?
+    var mainCoordinator: MainCoordinator?
     let mainView = MainView()
     let viewModel = MainViewModel()
     
@@ -42,6 +42,7 @@ final class MainController: UIViewController {
     private func configureViewController() {
         configureMainCollectionView()
         configureNavigationBar()
+        configureLeftNavButton()
     }
     
     private func configureNavigationBar() {
@@ -50,6 +51,16 @@ final class MainController: UIViewController {
     }
     
 }
+
+//MARK: - Left NavButton Action
+extension MainController {
+    private func configureLeftNavButton() {
+        mainView.navBarLeftButton.rx.tap.subscribe { [unowned self] _ in
+            mainCoordinator?.openSideMenuController(from: self)
+        }.disposed(by: disposeBag)
+    }
+}
+
 
 //MARK: - Configure MainCollectionView
 extension MainController {
@@ -66,7 +77,6 @@ extension MainController {
             guard let self else { return }
             self.mainCoordinator?.openMapController(categoryType: mainCollectionData.selectedCategoryType, customTopViewBC: mainCollectionData.backgroundColor)
         }.disposed(by: disposeBag)
-        
         
     }
     
@@ -118,13 +128,20 @@ extension MainController {
 //MARK: - Configure Header's HorizontalCollectionView Cell Size / Padding
 extension MainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.frame.height
-        let cellHeight = collectionView.frame.height - 20
-        return CGSize(width: cellWidth, height: cellHeight)
+        if collectionView == mainView.mainCollectionView {
+            
+        } else {
+            let cellWidth = collectionView.frame.height
+            let cellHeight = collectionView.frame.height - 20
+            return CGSize(width: cellWidth, height: cellHeight)
+        }
+        return CGSize()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
     }
     
+    
 }
+

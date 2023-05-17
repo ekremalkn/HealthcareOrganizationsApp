@@ -7,7 +7,12 @@
 
 import UIKit
 
-protocol PharmacyCellDataProtocol {
+enum ConstraintsType {
+    case updateConstraints(Bool)
+    case makeConstraints
+}
+
+protocol PharmacyCellDataProtocol where Self: Codable {
     var pharmacyImageBackgroundColor: UIColor { get }
     var pharmacyImage: UIImage { get }
     var pharmacyName: String { get }
@@ -34,35 +39,17 @@ final class PharmacyCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var cityStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 2
-        return stackView
-    }()
-    
-    private lazy var cityCountyLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.numberOfLines = 1
-        label.textColor = .gray
-        label.textAlignment = .right
-        return label
-    }()
-    
-    private lazy var districtLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.numberOfLines = 1
-        label.textColor = .gray
-        label.textAlignment = .right
-        return label
+    private lazy var expandImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.down")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.numberOfLines = 2
         label.textColor = .black
         label.textAlignment = .left
@@ -71,47 +58,67 @@ final class PharmacyCell: UITableViewCell {
     
     private lazy var addressLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 3
         label.textColor = .black
-        label.textAlignment = .center
-        return label
-    }()
-    
-    private lazy var phoneStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        return stackView
-    }()
-    
-    private lazy var phoneNumber1Label: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.textAlignment = .right
-        return label
-    }()
-    
-    private lazy var phoneNumber2Label: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.textAlignment = .right
+        label.textAlignment = .left
+        label.isHidden = true
         return label
     }()
     
     private lazy var directionsLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.numberOfLines = 3
         label.textColor = .black
-        label.textAlignment = .center
+        label.textAlignment = .left
         return label
     }()
+    
+    private lazy var buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.distribution = .equalSpacing
+        stackView.alpha = 0
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    private lazy var callButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "callButton"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
+    }()
+    
+    private lazy var sendMailButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "sendMailButton"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
+    }()
+    
+    private lazy var locationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "locationButton"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
+    }()
+    
+    var isExpanded: Bool = false {
+        didSet {
+            UIView.animate(withDuration: 0.2) { [unowned self] in
+                self.buttonStackView.alpha = self.isExpanded ? 1 : 0
+                self.expandImageView.transform = self.isExpanded ? CGAffineTransform(rotationAngle: CGFloat.pi) : .identity
+            }
+            self.isExpanded ? self.nameLabelConstraints(type: .updateConstraints(true)) : self.nameLabelConstraints(type: .updateConstraints(false))
+            self.isExpanded ? self.addressLabelConstraints() : self.addressLabel.snp.removeConstraints()
+            self.isExpanded ? self.directionsLabelConstraints() : self.directionsLabel.snp.removeConstraints()
+            self.directionsLabel.isHidden = self.isExpanded ? false : true
+            self.addressLabel.isHidden = self.isExpanded ? false : true
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -125,6 +132,7 @@ final class PharmacyCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         makeCornerRadius()
+        nameLabel.layoutIfNeeded()
     }
     
     func configure(with data: PharmacyCellDataProtocol) {
@@ -132,11 +140,8 @@ final class PharmacyCell: UITableViewCell {
         leftImageView.image = data.pharmacyImage
         nameLabel.text = data.pharmacyName
         addressLabel.text = data.pharmacyAddress
-        cityCountyLabel.text = data.pharmacyCityCountyName
-        districtLabel.text = data.pharmacyDistrictName
-        phoneNumber1Label.text = data.pharmacyPhone1
-        phoneNumber2Label.text = data.pharmacyPhone2
         directionsLabel.text = data.pharmacyDirections
+        buttonStackViewConstraints()
     }
     
     private func addShadow() {
@@ -146,10 +151,10 @@ final class PharmacyCell: UITableViewCell {
     }
     
     private func makeCornerRadius() {
-        leftImageBackgroundView.layer.cornerRadius = (contentView.frame.height * 0.5) / 2
-        
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10))
         contentView.layer.cornerRadius = 12
+        
+        leftImageBackgroundView.layer.cornerRadius = 29
     }
     
     
@@ -168,40 +173,31 @@ extension PharmacyCell: CellProtocol {
     func addSubview() {
         contentView.addSubview(leftImageBackgroundView)
         leftImageBackgroundView.addSubview(leftImageView)
+        contentView.addSubview(expandImageView)
         contentView.addSubview(nameLabel)
-        contentView.addSubview(cityStackView)
         contentView.addSubview(addressLabel)
-        cityCountyDistrictLabelToStackView()
-        contentView.addSubview(phoneStackView)
-        phoneNumberToStackView()
         contentView.addSubview(directionsLabel)
+        contentView.addSubview(buttonStackView)
+        buttonsToStackView()
     }
     
-    private func cityCountyDistrictLabelToStackView() {
-        cityStackView.addArrangedSubview(cityCountyLabel)
-        cityStackView.addArrangedSubview(districtLabel)
-    }
-    
-    private func phoneNumberToStackView() {
-        phoneStackView.addArrangedSubview(phoneNumber1Label)
-        phoneStackView.addArrangedSubview(phoneNumber2Label)
+    func buttonsToStackView() {
+        buttonStackView.addArrangedSubview(callButton)
+        buttonStackView.addArrangedSubview(sendMailButton)
+        buttonStackView.addArrangedSubview(locationButton)
     }
     
     func setupConstraints() {
         leftImageBackgroundViewConstraints()
         leftImageViewConstraints()
-        cityStackViewConstraints()
-        nameLabelConstraints()
-        addressLabelConstraints()
-        phoneStackViewConstraints()
-        directionsLabelConstraints()
+        expandImageViewConstraints()
+        nameLabelConstraints(type: .makeConstraints)
     }
     
     private func leftImageBackgroundViewConstraints() {
         leftImageBackgroundView.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(10)
-            make.centerY.equalTo(contentView.snp.centerY)
-            make.height.width.equalTo(contentView.snp.height).multipliedBy(0.5)
+            make.leading.top.equalTo(contentView).offset(10)
+            make.height.width.equalTo(58)
         }
     }
     
@@ -212,48 +208,80 @@ extension PharmacyCell: CellProtocol {
         }
     }
     
-    private func cityStackViewConstraints() {
-        cityStackView.snp.makeConstraints { make in
+    private func expandImageViewConstraints() {
+        expandImageView.snp.makeConstraints { make in
             make.trailing.equalTo(contentView.snp.trailing).offset(-10)
-            make.top.equalTo(contentView.snp.top).offset(10)
-            make.height.equalTo(leftImageBackgroundView.snp.height).multipliedBy(0.5)
-            
+            make.top.equalTo(leftImageBackgroundView.snp.top)
+            make.height.equalTo(17)
         }
     }
     
-    private func nameLabelConstraints() {
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(leftImageBackgroundView.snp.top)
-            make.height.equalTo(nameLabel.font.lineHeight)
-            make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
-            make.trailing.equalTo(cityStackView.snp.leading).offset(-10)
+    private func nameLabelConstraints(type constraintsType: ConstraintsType) {
+        switch constraintsType {
+        case .updateConstraints(let bool):
+            nameLabel.snp.removeConstraints()
+            if bool {
+                nameLabel.snp.updateConstraints { make in
+                    make.top.equalTo(leftImageBackgroundView.snp.top)
+                    make.height.equalTo(nameLabel.font.lineHeight)
+                    make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
+                    make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+                }
+            } else {
+                nameLabel.snp.updateConstraints { make in
+                    make.centerY.equalTo(leftImageBackgroundView.snp.centerY)
+                    make.height.equalTo(nameLabel.font.lineHeight)
+                    make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
+                    make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+                }
+            }
+            
+            
+        case .makeConstraints:
+            nameLabel.snp.makeConstraints { make in
+                make.centerY.equalTo(leftImageBackgroundView.snp.centerY)
+                make.height.equalTo(nameLabel.font.lineHeight)
+                make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
+                make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+            }
         }
+        
     }
     
     private func addressLabelConstraints() {
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(10)
-            make.height.equalTo(addressLabel.font.lineHeight)
             make.leading.equalTo(nameLabel.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-10)
         }
     }
     
-    private func phoneStackViewConstraints() {
-        phoneStackView.snp.makeConstraints { make in
-            make.top.equalTo(addressLabel.snp.bottom).offset(10)
-            make.height.equalTo(addressLabel.font.lineHeight)
-            make.leading.trailing.equalTo(addressLabel)
-            
-        }
-    }
     
     private func directionsLabelConstraints() {
         directionsLabel.snp.makeConstraints { make in
-            make.top.equalTo(phoneStackView.snp.bottom).offset(10)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
+            make.top.equalTo(addressLabel.snp.bottom).offset(10)
             make.leading.trailing.equalTo(addressLabel)
         }
+    }
+    
+    private func buttonStackViewConstraints() {
+        if directionsLabel.text == "" {
+            buttonStackView.snp.makeConstraints { make in
+                make.width.equalTo(contentView.snp.width)
+                make.top.equalTo(addressLabel.snp.bottom).offset(addressLabel.font.lineHeight)
+                make.bottom.equalTo(contentView.snp.bottom).offset(-10)
+                make.centerX.equalTo(contentView.snp.centerX)
+            }
+        } else {
+            buttonStackView.snp.makeConstraints { make in
+                make.width.equalTo(contentView.snp.width)
+                make.bottom.equalTo(contentView.snp.bottom).offset(-10)
+                make.top.equalTo(directionsLabel.snp.bottom).offset(20)
+                make.centerX.equalTo(contentView.snp.centerX)
+            }
+            
+        }
+        
     }
     
     

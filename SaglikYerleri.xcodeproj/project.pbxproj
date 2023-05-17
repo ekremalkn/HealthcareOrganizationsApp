@@ -47,10 +47,18 @@
 		F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BB29F338B200F625CE /* CellProtocol.swift */; };
 		F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BE29F33F9800F625CE /* MainViewModel.swift */; };
 		F07258C229F3416400F625CE /* MainCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258C129F3416400F625CE /* MainCollectionModel.swift */; };
+		F096A2882A13A7230084947F /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = F096A2872A13A7230084947F /* SideMenu */; };
+		F096A28D2A13A78E0084947F /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A28C2A13A78E0084947F /* SideMenuView.swift */; };
+		F096A2902A13A7AE0084947F /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A28F2A13A7AE0084947F /* SideMenuController.swift */; };
+		F096A2922A13C2580084947F /* UIView+GradiantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2912A13C2580084947F /* UIView+GradiantView.swift */; };
+		F096A2962A14AB420084947F /* SplashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2952A14AB420084947F /* SplashController.swift */; };
+		F096A2982A14AB500084947F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2972A14AB500084947F /* SplashView.swift */; };
+		F096A29A2A14ABE60084947F /* SplashAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F096A2992A14ABE60084947F /* SplashAnimation.json */; };
+		F096A29C2A14AF1D0084947F /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A29B2A14AF1D0084947F /* SplashCoordinator.swift */; };
+		F096A2A42A14BD130084947F /* LoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F096A2A32A14BD130084947F /* LoadingAnimation.json */; };
 		F0CA98172A03B3CD00F996D8 /* SelectedCityCountyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */; };
 		F0CA981A2A0437ED00F996D8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F0CA98192A0437ED00F996D8 /* Lottie */; };
-		F0CA981D2A04380900F996D8 /* LoadingView.json in Resources */ = {isa = PBXBuildFile; fileRef = F0CA981C2A04380900F996D8 /* LoadingView.json */; };
-		F0CA98202A0438C800F996D8 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA981F2A0438C800F996D8 /* LoadingView.swift */; };
+		F0CA98202A0438C800F996D8 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA981F2A0438C800F996D8 /* AnimationView.swift */; };
 		F0CDE30629F51EDD0050D81B /* VerticalCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */; };
 		F0D70D0229FD1B6900CA4C39 /* TRCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */; };
 		F0D70D0429FD1B9600CA4C39 /* TRCountyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */; };
@@ -120,9 +128,16 @@
 		F07258BB29F338B200F625CE /* CellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellProtocol.swift; sourceTree = "<group>"; };
 		F07258BE29F33F9800F625CE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F07258C129F3416400F625CE /* MainCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionModel.swift; sourceTree = "<group>"; };
+		F096A28C2A13A78E0084947F /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		F096A28F2A13A7AE0084947F /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
+		F096A2912A13C2580084947F /* UIView+GradiantView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+GradiantView.swift"; sourceTree = "<group>"; };
+		F096A2952A14AB420084947F /* SplashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashController.swift; sourceTree = "<group>"; };
+		F096A2972A14AB500084947F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		F096A2992A14ABE60084947F /* SplashAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SplashAnimation.json; sourceTree = "<group>"; };
+		F096A29B2A14AF1D0084947F /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
+		F096A2A32A14BD130084947F /* LoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimation.json; sourceTree = "<group>"; };
 		F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCityCountyCell.swift; sourceTree = "<group>"; };
-		F0CA981C2A04380900F996D8 /* LoadingView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingView.json; sourceTree = "<group>"; };
-		F0CA981F2A0438C800F996D8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		F0CA981F2A0438C800F996D8 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionCell.swift; sourceTree = "<group>"; };
 		F0D70D0129FD1B6900CA4C39 /* TRCityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCityModel.swift; sourceTree = "<group>"; };
 		F0D70D0329FD1B9600CA4C39 /* TRCountyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCountyModel.swift; sourceTree = "<group>"; };
@@ -152,6 +167,7 @@
 			files = (
 				F0D77D0929FA724D0061C85E /* Alamofire in Frameworks */,
 				F0D77CF029F668CF0061C85E /* RxSwift in Frameworks */,
+				F096A2882A13A7230084947F /* SideMenu in Frameworks */,
 				F0D77CF329F668FB0061C85E /* RxDataSources in Frameworks */,
 				F0D77CEE29F668CF0061C85E /* RxCocoa in Frameworks */,
 				F07258A329F2E19200F625CE /* SnapKit in Frameworks */,
@@ -251,21 +267,20 @@
 		F072589129F285DA00F625CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				F072589229F285E200F625CE /* Main */,
+				F096A2932A14AB2D0084947F /* Splash */,
+				F072589229F285E200F625CE /* Home */,
 				F0D77CF629F928ED0061C85E /* SearchMap */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		F072589229F285E200F625CE /* Main */ = {
+		F072589229F285E200F625CE /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				F072589B29F2D89900F625CE /* MainCoordinator.swift */,
-				F07258C029F3414300F625CE /* Model */,
-				F072589329F285E700F625CE /* View */,
-				F07258BD29F33F8000F625CE /* ViewModel */,
+				F096A2892A13A7440084947F /* Main */,
+				F096A28A2A13A7780084947F /* SideMenu */,
 			);
-			path = Main;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		F072589329F285E700F625CE /* View */ = {
@@ -293,6 +308,7 @@
 		F07258A429F2E3DD00F625CE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F096A2912A13C2580084947F /* UIView+GradiantView.swift */,
 				F07258A529F2E3FF00F625CE /* UIColor+HEXColor.swift */,
 			);
 			path = Extensions;
@@ -350,6 +366,52 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F096A2892A13A7440084947F /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F072589B29F2D89900F625CE /* MainCoordinator.swift */,
+				F07258C029F3414300F625CE /* Model */,
+				F072589329F285E700F625CE /* View */,
+				F07258BD29F33F8000F625CE /* ViewModel */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		F096A28A2A13A7780084947F /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				F096A28B2A13A7800084947F /* View */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		F096A28B2A13A7800084947F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F096A28C2A13A78E0084947F /* SideMenuView.swift */,
+				F096A28F2A13A7AE0084947F /* SideMenuController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F096A2932A14AB2D0084947F /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				F096A29B2A14AF1D0084947F /* SplashCoordinator.swift */,
+				F096A2942A14AB340084947F /* View */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		F096A2942A14AB340084947F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F096A2952A14AB420084947F /* SplashController.swift */,
+				F096A2972A14AB500084947F /* SplashView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		F0CA98152A03B39800F996D8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,7 +423,8 @@
 		F0CA981B2A0437F700F996D8 /* LottieAnimations */ = {
 			isa = PBXGroup;
 			children = (
-				F0CA981C2A04380900F996D8 /* LoadingView.json */,
+				F096A2A32A14BD130084947F /* LoadingAnimation.json */,
+				F096A2992A14ABE60084947F /* SplashAnimation.json */,
 			);
 			path = LottieAnimations;
 			sourceTree = "<group>";
@@ -369,7 +432,7 @@
 		F0CA981E2A04383E00F996D8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F0CA981F2A0438C800F996D8 /* LoadingView.swift */,
+				F0CA981F2A0438C800F996D8 /* AnimationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -537,6 +600,7 @@
 				F0D77D0829FA724D0061C85E /* Alamofire */,
 				F0CA98192A0437ED00F996D8 /* Lottie */,
 				F0EE779B2A052DAE007BF9A7 /* FloatingPanel */,
+				F096A2872A13A7230084947F /* SideMenu */,
 			);
 			productName = SaglikYerleri;
 			productReference = F072587729F284EC00F625CE /* SaglikYerleri.app */;
@@ -573,6 +637,7 @@
 				F0D77D0729FA724D0061C85E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				F0CA98182A0437ED00F996D8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				F0EE779A2A052DAE007BF9A7 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				F096A2862A13A7230084947F /* XCRemoteSwiftPackageReference "SideMenu" */,
 			);
 			productRefGroup = F072587829F284EC00F625CE /* Products */;
 			projectDirPath = "";
@@ -589,7 +654,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F072588729F284ED00F625CE /* LaunchScreen.storyboard in Resources */,
-				F0CA981D2A04380900F996D8 /* LoadingView.json in Resources */,
+				F096A29A2A14ABE60084947F /* SplashAnimation.json in Resources */,
+				F096A2A42A14BD130084947F /* LoadingAnimation.json in Resources */,
 				F072588429F284ED00F625CE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -615,24 +681,29 @@
 				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
 				F0D73A192A00CF5B00D4F58D /* SearchResultViewModel.swift in Sources */,
 				F072589829F2CF2800F625CE /* Coordinator.swift in Sources */,
+				F096A29C2A14AF1D0084947F /* SplashCoordinator.swift in Sources */,
 				F0D70D0229FD1B6900CA4C39 /* TRCityModel.swift in Sources */,
 				F0D73A152A00CCBB00D4F58D /* SearchResultView.swift in Sources */,
 				F072589E29F2DFCE00F625CE /* MainView.swift in Sources */,
+				F096A2922A13C2580084947F /* UIView+GradiantView.swift in Sources */,
 				F0D70D0829FD1E3400CA4C39 /* NetworkEndPointCases.swift in Sources */,
 				F06BEE7629FFD4240013E22D /* ENCountyModel.swift in Sources */,
 				F0EE77A32A052EE1007BF9A7 /* FloatingView.swift in Sources */,
 				F072589C29F2D89A00F625CE /* MainCoordinator.swift in Sources */,
+				F096A28D2A13A78E0084947F /* SideMenuView.swift in Sources */,
 				F0D70D0A29FD219900CA4C39 /* NetworkEndPoint.swift in Sources */,
 				F0D70D0429FD1B9600CA4C39 /* TRCountyModel.swift in Sources */,
 				F0D77CF529F680240061C85E /* MainCollectionSectionModel.swift in Sources */,
+				F096A2962A14AB420084947F /* SplashController.swift in Sources */,
 				F07258B829F32B2F00F625CE /* CustomTextField.swift in Sources */,
 				F06BEE8429FFDAEE0013E22D /* PsychologyCenterModel.swift in Sources */,
+				F096A2902A13A7AE0084947F /* SideMenuController.swift in Sources */,
 				F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */,
 				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
 				F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,
-				F0CA98202A0438C800F996D8 /* LoadingView.swift in Sources */,
+				F0CA98202A0438C800F996D8 /* AnimationView.swift in Sources */,
 				F0D77CFD29F929D30061C85E /* MapView.swift in Sources */,
 				F06BEE8229FFDA7C0013E22D /* AnimalHospitalModel.swift in Sources */,
 				F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */,
@@ -646,6 +717,7 @@
 				F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */,
 				F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */,
 				F0EE77A62A054708007BF9A7 /* FloatingViewModel.swift in Sources */,
+				F096A2982A14AB500084947F /* SplashView.swift in Sources */,
 				F061C2C32A06550C00D1E485 /* MedicalShopCenterModel.swift in Sources */,
 				F07258A629F2E3FF00F625CE /* UIColor+HEXColor.swift in Sources */,
 				F06BEE8829FFDBC00013E22D /* OptikCenterModel.swift in Sources */,
@@ -887,6 +959,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F096A2862A13A7230084947F /* XCRemoteSwiftPackageReference "SideMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jonkykong/SideMenu";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		F0CA98182A0437ED00F996D8 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -934,6 +1014,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F07258A129F2E19200F625CE /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		F096A2872A13A7230084947F /* SideMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F096A2862A13A7230084947F /* XCRemoteSwiftPackageReference "SideMenu" */;
+			productName = SideMenu;
 		};
 		F0CA98192A0437ED00F996D8 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

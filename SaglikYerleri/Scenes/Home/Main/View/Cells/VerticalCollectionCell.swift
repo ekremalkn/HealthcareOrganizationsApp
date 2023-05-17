@@ -18,6 +18,8 @@ final class VerticalCollectionCell: UICollectionViewCell {
     }
     
     //MARK: - Creating UI Elements
+    var gradientLayer = CAGradientLayer()
+    
     private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
@@ -48,18 +50,23 @@ final class VerticalCollectionCell: UICollectionViewCell {
     //MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = 12
-        contentView.layer.cornerRadius = 12
+        layer.cornerRadius = 8
+        contentView.layer.cornerRadius = 8
+        self.layer.sublayers?.forEach({ layer in
+            layer.cornerRadius = 8
+        })
         categoryImageViewConstraints(do: .update)
     }
     
-    
     func configure(with data: MainCollectionData) {
         categoryTitleLabel.text = data.categoryTitle
-        contentView.backgroundColor = data.backgroundColor
+        applyGradient(colors: [data.secondBackgroundColor.cgColor, data.backgroundColor.cgColor])
         categoryImageView.image = data.image
         categoryImageView.tintColor = .white
+        
     }
+    
+    
     
     
 }
@@ -94,7 +101,7 @@ extension VerticalCollectionCell: CellProtocol {
                     make.top.equalTo(contentView.snp.top).offset(10)
                     make.height.width.equalTo(contentView.snp.height).multipliedBy(0.20)
                 }
-
+                
             }
         case .update:
             categoryImageView.snp.removeConstraints()
@@ -108,13 +115,13 @@ extension VerticalCollectionCell: CellProtocol {
                     make.top.equalTo(contentView.snp.top).offset(10)
                     make.height.width.equalTo(contentView.snp.height).multipliedBy(0.20)
                 }
-
+                
             }
         }
         
     }
     
-        
+    
     private func categoryTitleLabelConstraints() {
         categoryTitleLabel.snp.makeConstraints { make in
             make.top.leading.equalTo(contentView).offset(10)

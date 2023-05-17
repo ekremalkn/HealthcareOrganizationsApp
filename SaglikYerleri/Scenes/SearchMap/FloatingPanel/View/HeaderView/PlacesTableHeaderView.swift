@@ -19,7 +19,7 @@ final class PlacesTableHeaderView: UIView {
     
     private lazy var leftLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont(name: "Avenir-Black", size: 15)
         label.textColor = .darkGray
         label.textAlignment = .left
         return label
@@ -27,7 +27,7 @@ final class PlacesTableHeaderView: UIView {
     
     private lazy var rightLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont(name: "Avenir", size: 15)
         label.textColor = .darkGray
         label.textAlignment = .right
         return label
@@ -38,23 +38,29 @@ final class PlacesTableHeaderView: UIView {
         super.init(frame: frame)
         configureView()
     }
-   
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with numberOfItems: Int, cityName: String, countySlug: String) {
-        leftLabel.text = "\(cityName.localizedCapitalized)/\(countySlug.localizedCapitalized) bölgesinde"
-        rightLabel.text = "\(numberOfItems)"
+    func configure(with numberOfItems: Int, cityName: String, countyName: String) {
+        leftLabel.text = "\(cityName)/\(countyName)"
+        rightLabel.text = "\(numberOfItems) sonuç bulundu"
     }
     
-
+    private func addShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.1
+        layer.shadowOffset = CGSize.init(width: 3, height: 3)
+    }
+    
 }
 
 //MARK: - UI Elements AddSubview / SetupConstraints
 extension PlacesTableHeaderView: ViewProtocol {
     func configureView() {
         backgroundColor = UIColor(hex: "FBFCFE")
+        addShadow()
         addSubview()
         setupConstraints()
     }

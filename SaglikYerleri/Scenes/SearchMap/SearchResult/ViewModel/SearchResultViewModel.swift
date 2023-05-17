@@ -14,8 +14,8 @@ class SearchResultViewModel {
     let categoryType: NetworkConstants?
     
     //MARK: - Variables
-    let citiesCounties = PublishSubject<[CityModel]>()
-    var cityCountyArray = [CityModel]()
+    let citiesCounties = PublishSubject<[CityCountyModel]>()
+    var cityCountyArray = [CityCountyModel]()
     
     let fetchingCities = PublishSubject<Bool>()
     let fetchedCities = PublishSubject<Void>()

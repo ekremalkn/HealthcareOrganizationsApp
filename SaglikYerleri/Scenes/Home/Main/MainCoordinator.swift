@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SideMenu
 
 final class MainCoordinator: Coordinator {
     var childCoordinator: [Coordinator] = []
@@ -14,15 +15,20 @@ final class MainCoordinator: Coordinator {
     
     
     func startCoordinator() {
-        let mainControler = MainController()
-        mainControler.mainCoordinator = self
-        navigationController.pushViewController(mainControler, animated: false)
     }
     
     func openMapController(categoryType: NetworkConstants, customTopViewBC: UIColor) {
         let mapController = MapController(categoryType: categoryType, customTopViewBC: customTopViewBC)
         mapController.mapCoordinator = MapCoordinator()
         navigationController.pushViewController(mapController, animated: true)
+    }
+    
+    func openSideMenuController(from controller: UIViewController) {
+        let sideMenuController = SideMenuController()
+        let leftMenuNavController = SideMenuNavigationController(rootViewController: sideMenuController)
+        SideMenuManager.default.leftMenuNavigationController = leftMenuNavController
+        SideMenuManager.default.addPanGestureToPresent(toView: controller.navigationController!.navigationBar)
+        controller.present(leftMenuNavController, animated: true)
     }
     
 }
