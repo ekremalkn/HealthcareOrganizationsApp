@@ -28,10 +28,12 @@ final class SearchResultController: UIViewController {
     
     //MARK: - Dispose Bag
     let disposeBag = DisposeBag()
+    let backgroundColor: UIColor?
     
     //MARK: - Lifecycle Methods
-    init(categoryType: NetworkConstants) {
+    init(categoryType: NetworkConstants, backgroundColor: UIColor) {
         self.viewModel = SearchResultViewModel(categoryType: categoryType)
+        self.backgroundColor = backgroundColor
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,6 +58,9 @@ final class SearchResultController: UIViewController {
     }
     
     private func configureViewController() {
+        if let backgroundColor {
+            searchResultView.tableView.backgroundColor = backgroundColor.withAlphaComponent(0.8)
+        }
         configureTableView()
         configureSelectedCollectionView()
     }
@@ -69,6 +74,9 @@ extension SearchResultController {
     private func configureTableView() {
         // Bind data
         viewModel?.citiesCounties.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, cityCounty, cell in
+            cell.backgroundColor = .clear
+            cell.textLabel?.textColor = .white
+            cell.textLabel?.font = UIFont(name: "Avenir-Medium", size: 17)
             cell.textLabel?.text = cityCounty.name
         }.disposed(by: disposeBag)
         
@@ -105,8 +113,7 @@ extension SearchResultController {
         searchResultView.tableView.rx.itemSelected.subscribe { [weak self] indexPath in
             self?.searchResultView.tableView.deselectRow(at: indexPath, animated: true)
         }.disposed(by: disposeBag)
-        
-        
+
     }
     
     

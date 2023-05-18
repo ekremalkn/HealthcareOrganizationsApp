@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol NetworkServiceProtocol {
+protocol NetworkServiceProtocol: AnyObject {
     func getTRCities(type: NetworkConstants) -> Observable<TRCityModel?>
     func getENCities(type: NetworkConstants) -> Observable<ENCityModel?>
     func getTRCounties(type: NetworkConstants, city: String) -> Observable<TRCountyModel?>
@@ -90,7 +90,7 @@ final class NetworkService: NetworkServiceProtocol {
             let obseravble: Observable<EmergencyCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
             return obseravble.map { $0 as? T}
         case .medicalShopCenters:
-            let observable: Observable<EmergencyCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
+            let observable: Observable<MedicalShopCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
             return observable.map { $0 as? T}
         case .physiotheraphyCenters:
             let observable: Observable<PhysiotheraphyCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)

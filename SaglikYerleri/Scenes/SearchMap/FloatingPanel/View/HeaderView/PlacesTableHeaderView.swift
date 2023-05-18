@@ -19,7 +19,7 @@ final class PlacesTableHeaderView: UIView {
     
     private lazy var leftLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Black", size: 15)
+        label.font = UIFont(name: "Avenir-Medium", size: 17)
         label.textColor = .darkGray
         label.textAlignment = .left
         return label
@@ -27,7 +27,7 @@ final class PlacesTableHeaderView: UIView {
     
     private lazy var rightLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir", size: 15)
+        label.font = UIFont(name: "Avenir-Medium", size: 15)
         label.textColor = .darkGray
         label.textAlignment = .right
         return label

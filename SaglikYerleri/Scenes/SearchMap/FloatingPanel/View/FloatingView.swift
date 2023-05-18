@@ -24,7 +24,7 @@ final class FloatingView: UIView {
     lazy var loadingView: AnimationView = {
         let animationView = AnimationView(animationType: .loadingAnimation)
         animationView.isHidden = true
-        animationView.backgroundColor = .black.withAlphaComponent(0.2)
+        animationView.backgroundColor = .black.withAlphaComponent(0.1)
         return animationView
     }()
     
@@ -80,6 +80,7 @@ extension FloatingView: ViewProtocol {
     private func loadingViewConstraints() {
         loadingView.snp.makeConstraints { make in
             make.center.equalTo(placesTableView)
+            make.edges.equalTo(placesTableView)
         }
     }
     

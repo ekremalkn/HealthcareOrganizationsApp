@@ -27,7 +27,7 @@ final class SearchResultView: UIView {
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        table.backgroundColor = UIColor(hex: "FBFCFE")
+//        table.backgroundColor = UIColor(hex: "FBFCFE")
         return table
     }()
     

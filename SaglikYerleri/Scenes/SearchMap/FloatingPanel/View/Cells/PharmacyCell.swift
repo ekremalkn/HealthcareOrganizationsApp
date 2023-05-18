@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 enum ConstraintsType {
     case updateConstraints(Bool)
@@ -16,19 +17,19 @@ protocol PharmacyCellDataProtocol where Self: Codable {
     var pharmacyImageBackgroundColor: UIColor { get }
     var pharmacyImage: UIImage { get }
     var pharmacyName: String { get }
-    var pharmacyCityCountyName: String { get }
-    var pharmacyDistrictName: String { get }
     var pharmacyAddress: String { get }
     var pharmacyPhone1: String { get }
     var pharmacyPhone2: String { get }
     var pharmacyDirections: String { get}
+    var pharmacyLat: Double { get }
+    var pharmacyLng: Double { get }
 }
 
 final class PharmacyCell: UITableViewCell {
     static let identifier = "PharmacyCell"
     
     //MARK: - Creating UI Elements
-    private lazy var leftImageBackgroundView: UIView = {
+    lazy var leftImageBackgroundView: UIView = {
         let view = UIView()
         return view
     }()
@@ -47,7 +48,7 @@ final class PharmacyCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.numberOfLines = 2
@@ -56,26 +57,27 @@ final class PharmacyCell: UITableViewCell {
         return label
     }()
     
-    private lazy var addressLabel: UILabel = {
+    lazy var addressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
-        label.numberOfLines = 3
         label.textColor = .black
+        label.numberOfLines = 0
         label.textAlignment = .left
-        label.isHidden = true
+        label.alpha = 0
         return label
     }()
     
-    private lazy var directionsLabel: UILabel = {
+    lazy var directionsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 12)
         label.numberOfLines = 3
         label.textColor = .black
         label.textAlignment = .left
+        label.alpha = 0
         return label
     }()
     
-    private lazy var buttonStackView: UIStackView = {
+    lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -108,18 +110,48 @@ final class PharmacyCell: UITableViewCell {
     
     var isExpanded: Bool = false {
         didSet {
-            UIView.animate(withDuration: 0.2) { [unowned self] in
-                self.buttonStackView.alpha = self.isExpanded ? 1 : 0
-                self.expandImageView.transform = self.isExpanded ? CGAffineTransform(rotationAngle: CGFloat.pi) : .identity
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2) { [unowned self] in
+                    self.buttonStackView.alpha = self.isExpanded ? 1 : 0
+                    self.directionsLabel.alpha = self.isExpanded ? 1 : 0
+                    self.addressLabel.alpha = self.isExpanded ? 1 : 0
+                    
+                    self.expandImageView.transform = self.isExpanded ? CGAffineTransform(rotationAngle: CGFloat.pi) : .identity
+                    self.nameLabel.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: -15) : .identity
+                    self.addressLabel.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: -15) : .identity
+                    self.directionsLabel.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: -15) : .identity
+                }
+                
+                UIView.animate(withDuration: 0.4) {
+                    self.buttonStackView.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: 10) : .identity
+                }
             }
-            self.isExpanded ? self.nameLabelConstraints(type: .updateConstraints(true)) : self.nameLabelConstraints(type: .updateConstraints(false))
-            self.isExpanded ? self.addressLabelConstraints() : self.addressLabel.snp.removeConstraints()
-            self.isExpanded ? self.directionsLabelConstraints() : self.directionsLabel.snp.removeConstraints()
-            self.directionsLabel.isHidden = self.isExpanded ? false : true
-            self.addressLabel.isHidden = self.isExpanded ? false : true
+            self.isExpanded ? self.nameLabelConstraints(type: .updateConstraints(true)) : nil
         }
     }
     
+    //MARK: - Dispose Bag
+    private (set) var disposeBag = DisposeBag()
+
+    
+    //MARK: - Variables
+    var lat = PublishSubject<Double>()
+    var lng: Double?
+    var phoneNumber: String?
+    
+    //MARK: - Observables
+    var didTapCallButton: Observable<(Void)> {
+            return self.callButton.rx.tap.asObservable()
+        }
+    
+    var didtapMailButton: Observable<Void> {
+            return self.sendMailButton.rx.tap.asObservable()
+        }
+    
+    var didtapLocationButton: Observable<Void> {
+            return self.locationButton.rx.tap.asObservable()
+        }
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureCell()
@@ -129,19 +161,26 @@ final class PharmacyCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         makeCornerRadius()
-        nameLabel.layoutIfNeeded()
     }
     
     func configure(with data: PharmacyCellDataProtocol) {
         leftImageBackgroundView.backgroundColor = data.pharmacyImageBackgroundColor.withAlphaComponent(0.2)
         leftImageView.image = data.pharmacyImage
-        nameLabel.text = data.pharmacyName
+        nameLabel.text = data.pharmacyName.localizedCapitalized
         addressLabel.text = data.pharmacyAddress
         directionsLabel.text = data.pharmacyDirections
+        phoneNumber = data.pharmacyPhone1
+        lng = data.pharmacyLng
         buttonStackViewConstraints()
+        nameLabelConstraints(type: .updateConstraints(true))
     }
     
     private func addShadow() {
@@ -219,28 +258,22 @@ extension PharmacyCell: CellProtocol {
     private func nameLabelConstraints(type constraintsType: ConstraintsType) {
         switch constraintsType {
         case .updateConstraints(let bool):
-            nameLabel.snp.removeConstraints()
             if bool {
-                nameLabel.snp.updateConstraints { make in
-                    make.top.equalTo(leftImageBackgroundView.snp.top)
-                    make.height.equalTo(nameLabel.font.lineHeight)
-                    make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
+                addressLabel.snp.updateConstraints { make in
+                    make.top.equalTo(nameLabel.snp.bottom).offset(10)
+                    make.leading.equalTo(nameLabel.snp.leading)
                     make.trailing.equalTo(contentView.snp.trailing).offset(-10)
                 }
-            } else {
-                nameLabel.snp.updateConstraints { make in
-                    make.centerY.equalTo(leftImageBackgroundView.snp.centerY)
-                    make.height.equalTo(nameLabel.font.lineHeight)
-                    make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
-                    make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+                
+                directionsLabel.snp.updateConstraints { make in
+                    make.top.equalTo(addressLabel.snp.bottom).offset(10)
+                    make.leading.trailing.equalTo(addressLabel)
                 }
+                
             }
-            
-            
         case .makeConstraints:
             nameLabel.snp.makeConstraints { make in
                 make.centerY.equalTo(leftImageBackgroundView.snp.centerY)
-                make.height.equalTo(nameLabel.font.lineHeight)
                 make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
                 make.trailing.equalTo(contentView.snp.trailing).offset(-10)
             }
@@ -248,35 +281,19 @@ extension PharmacyCell: CellProtocol {
         
     }
     
-    private func addressLabelConstraints() {
-        addressLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(10)
-            make.leading.equalTo(nameLabel.snp.leading)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-10)
-        }
-    }
-    
-    
-    private func directionsLabelConstraints() {
-        directionsLabel.snp.makeConstraints { make in
-            make.top.equalTo(addressLabel.snp.bottom).offset(10)
-            make.leading.trailing.equalTo(addressLabel)
-        }
-    }
-    
     private func buttonStackViewConstraints() {
-        if directionsLabel.text == "" {
+        if directionsLabel.text == "" || directionsLabel.text == nil {
             buttonStackView.snp.makeConstraints { make in
                 make.width.equalTo(contentView.snp.width)
-                make.top.equalTo(addressLabel.snp.bottom).offset(addressLabel.font.lineHeight)
-                make.bottom.equalTo(contentView.snp.bottom).offset(-10)
+                make.top.equalTo(addressLabel.snp.bottom)
+                make.height.equalTo(50)
                 make.centerX.equalTo(contentView.snp.centerX)
             }
         } else {
             buttonStackView.snp.makeConstraints { make in
                 make.width.equalTo(contentView.snp.width)
-                make.bottom.equalTo(contentView.snp.bottom).offset(-10)
-                make.top.equalTo(directionsLabel.snp.bottom).offset(20)
+                make.top.equalTo(directionsLabel.snp.bottom)
+                make.height.equalTo(50)
                 make.centerX.equalTo(contentView.snp.centerX)
             }
             

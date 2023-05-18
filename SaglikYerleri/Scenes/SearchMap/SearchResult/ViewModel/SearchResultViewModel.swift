@@ -23,8 +23,7 @@ class SearchResultViewModel {
     
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
-    
-    
+        
     //MARK: - Init Methods
     init(categoryType: NetworkConstants) {
         self.categoryType = categoryType

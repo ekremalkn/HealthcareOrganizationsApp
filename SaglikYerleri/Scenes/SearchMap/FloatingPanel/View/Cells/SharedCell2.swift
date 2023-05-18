@@ -41,25 +41,25 @@ final class SharedCell2: UITableViewCell {
         return imageView
     }()
     
-    private lazy var nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.textColor = .black
         label.textAlignment = .left
         return label
     }()
     
-    private lazy var streetLabel: UILabel = {
+    lazy var streetLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
-        label.numberOfLines = 3
         label.textColor = .black
         label.textAlignment = .left
+        label.alpha = 0
         return label
     }()
     
-    private lazy var buttonStackView: UIStackView = {
+    lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -92,10 +92,23 @@ final class SharedCell2: UITableViewCell {
     
     var isExpanded: Bool = false {
         didSet {
-            UIView.animate(withDuration: 0.2) { [unowned self] in
-                self.buttonStackView.alpha = self.isExpanded ? 1 : 0
-                self.expandImageView.transform = self.isExpanded ? CGAffineTransform(rotationAngle: CGFloat.pi) : .identity
+            
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2) { [unowned self] in
+                    self.streetLabel.alpha = self.isExpanded ? 1 : 0
+                    self.buttonStackView.alpha = self.isExpanded ? 1 : 0
+                    self.expandImageView.transform = self.isExpanded ? CGAffineTransform(rotationAngle: CGFloat.pi) : .identity
+                    self.nameLabel.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: -15) : .identity
+                    self.streetLabel.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: -15) : .identity
+                    
+                }
+                
+                UIView.animate(withDuration: 0.4) {
+                    self.buttonStackView.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: 15) : .identity
+                }
             }
+            self.isExpanded ? self.nameLabelConstraints(type: .updateConstraints(true)) : nil
+            
         }
     }
     
@@ -118,9 +131,9 @@ final class SharedCell2: UITableViewCell {
         leftImageBackgroundView.backgroundColor = data.sharedCell2ImageBackgroundColor.withAlphaComponent(0.2)
         leftImageView.tintColor = data.sharedCell2ImageBackgroundColor
         leftImageView.image = data.sharedCell2Image
-        nameLabel.text = data.sharedCell2Name
+        nameLabel.text = data.sharedCell2Name.localizedCapitalized
         streetLabel.text = data.sharedCell2Street
-
+        nameLabelConstraints(type: .updateConstraints(true))
     }
     
     private func addShadow() {
@@ -154,14 +167,22 @@ extension SharedCell2: CellProtocol {
         contentView.addSubview(expandImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(streetLabel)
+        contentView.addSubview(buttonStackView)
+        buttonsToStackView()
+    }
+    
+    private func buttonsToStackView() {
+        buttonStackView.addArrangedSubview(callButton)
+        buttonStackView.addArrangedSubview(sendMailButton)
+        buttonStackView.addArrangedSubview(locationButton)
     }
     
     func setupConstraints() {
         leftImageBackgroundViewConstraints()
         leftImageViewConstraints()
         expandImageViewConstraints()
-        nameLabelConstraints()
-        streetLabelConstraints()
+        nameLabelConstraints(type: .makeConstraints)
+        buttonStackViewConstraints()
     }
     
     private func leftImageBackgroundViewConstraints() {
@@ -186,21 +207,35 @@ extension SharedCell2: CellProtocol {
         }
     }
     
-    private func nameLabelConstraints() {
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(leftImageBackgroundView.snp.top)
-            make.height.equalTo(nameLabel.font.lineHeight)
-            make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+    private func nameLabelConstraints(type constraintsType: ConstraintsType) {
+        switch constraintsType {
+        case .updateConstraints(let bool):
+            if bool {
+                streetLabel.snp.updateConstraints { make in
+                    make.top.equalTo(nameLabel.snp.bottom).offset(10)
+                    make.height.equalTo(streetLabel.font.lineHeight)
+                    make.leading.trailing.equalTo(nameLabel)
+                }
+                
+            }
+        case .makeConstraints:
+            nameLabel.snp.makeConstraints { make in
+                make.centerY.equalTo(leftImageBackgroundView.snp.centerY)
+                make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
+                make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+            }
         }
+        
     }
     
-    private func streetLabelConstraints() {
-        streetLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(10)
-            make.height.equalTo(streetLabel.font.lineHeight)
-            make.leading.trailing.equalTo(nameLabel)
+    private func buttonStackViewConstraints() {
+        buttonStackView.snp.makeConstraints { make in
+            make.width.equalTo(contentView.snp.width)
+            make.top.equalTo(streetLabel.snp.bottom)
+            make.height.equalTo(50)
+            make.centerX.equalTo(contentView.snp.centerX)
         }
+        
     }
     
     

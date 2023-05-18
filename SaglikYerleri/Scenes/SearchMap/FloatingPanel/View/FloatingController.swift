@@ -22,6 +22,7 @@ final class FloatingController: UIViewController {
     let viewModel: FloatingViewModel?
     private let floatingView = FloatingView()
     private let tableHeaderView = PlacesTableHeaderView()
+    weak var mapController: MapController?
     
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
@@ -34,7 +35,8 @@ final class FloatingController: UIViewController {
     var isExpanded: Bool = false
     
     //MARK: - Life Cycle Methods
-    init(categoryType: NetworkConstants, citySlug: String, countySlug: String, cityName: String, countyName: String) {
+    init(categoryType: NetworkConstants, mapController: MapController, citySlug: String, countySlug: String, cityName: String, countyName: String) {
+        self.mapController = mapController
         self.viewModel = FloatingViewModel(categoryType: categoryType, citySlug: citySlug, countySlug: countySlug, cityName: cityName, countyName: countyName)
         self.categoryType = categoryType
         super.init(nibName: nil, bundle: nil)
@@ -265,13 +267,66 @@ extension FloatingController: UITableViewDelegate {
     // Cell Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard categoryType != nil else { return CGFloat() }
+        guard let selectedCellType else { return 96 }
         if let selectedCellIndexPath {
             if selectedCellIndexPath == indexPath {
-                return isExpanded ? 215 : 94
+                switch selectedCellType {
+                case .pharmacyCell:
+                    print(calculateCellHeight(tableView: tableView, at: indexPath))
+                    return isExpanded ? calculateCellHeight(tableView: tableView, at: indexPath) : 96
+                case .sharedCell1:
+                    return isExpanded ? calculateCellHeight(tableView: tableView, at: indexPath) : 96
+                case .sharedCell2:
+                    return isExpanded ? calculateCellHeight(tableView: tableView, at: indexPath) : 96
+                }
+                
             }
         }
-        return 94
+        return 96
     }
+    
+    private func calculateCellHeight(tableView: UITableView ,at indexPath: IndexPath) -> CGFloat {
+        guard let selectedCellType else { return 100 }
+        switch selectedCellType {
+        case .pharmacyCell:
+            var totalHeight: CGFloat = 81 // UI öğeleri arasındaki toplam boşluk miktarı
+            guard let cell = tableView.cellForRow(at: indexPath) as? PharmacyCell else { return 100 }
+            totalHeight += cell.nameLabel.frame.height
+            totalHeight += cell.addressLabel.frame.height
+            if cell.directionsLabel.text == "" || cell.directionsLabel.text == nil {
+                print(cell.directionsLabel.font.lineHeight)
+                totalHeight -= cell.directionsLabel.font.lineHeight
+            } else {
+                totalHeight += cell.directionsLabel.frame.height
+            }
+            totalHeight += cell.buttonStackView.frame.height
+            let minimumHeight: CGFloat = 96
+            return max(totalHeight, minimumHeight)
+        case .sharedCell1:
+            var totalHeight: CGFloat = 76 // UI öğeleri arasındaki toplam boşluk miktarı
+            guard let cell = tableView.cellForRow(at: indexPath) as? SharedCell1 else { return 100 }
+            totalHeight += cell.nameLabel.frame.height
+            totalHeight += cell.addressLabel.frame.height
+            totalHeight += cell.buttonStackView.frame.height
+
+            let minimumHeight: CGFloat = 96
+                    
+            return max(totalHeight, minimumHeight)
+        case .sharedCell2:
+            var totalHeight: CGFloat = 76 // UI öğeleri arasındaki toplam boşluk miktarı
+            guard let cell = tableView.cellForRow(at: indexPath) as? SharedCell2 else { return 100 }
+            totalHeight += cell.nameLabel.frame.height
+            totalHeight += cell.streetLabel.frame.height
+            totalHeight += cell.buttonStackView.frame.height
+            let minimumHeight: CGFloat = 96
+                    
+            return max(totalHeight, minimumHeight)
+        }
+       
+    }
+
+    
+    
     
     //MARK: - TableViewHeader
     // Header Height

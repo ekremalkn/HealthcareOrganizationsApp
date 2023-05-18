@@ -34,7 +34,7 @@ final class MapController: UIViewController {
     init(categoryType: NetworkConstants, customTopViewBC: UIColor) {
         self.categoryType = categoryType
         self.customTopViewBC = customTopViewBC
-        self.searchResultController = SearchResultController(categoryType: categoryType)
+        self.searchResultController = SearchResultController(categoryType: categoryType, backgroundColor: customTopViewBC)
         self.searchController = UISearchController(searchResultsController: searchResultController)
         super.init(nibName: nil, bundle: nil)
     }
@@ -61,6 +61,7 @@ final class MapController: UIViewController {
     private func configureViewController() {
         self.navigationItem.searchController = self.searchController
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = self.mapView.backButton
+        configureSearchBarCancelButton()
         self.mapView.mapView.delegate = self
         self.mapView.configureCustomTopView(customTopViewBColor: customTopViewBC!)
         subscribeTo()
@@ -85,7 +86,7 @@ extension MapController {
         searchResultController?.searchControllerDissmissed.subscribe(onNext: { [weak self] selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName in
             self?.mapView.configureAlphaView(hideAlphaView: true, completion: { [weak self] in
                 guard let categoryType = self?.categoryType, let self else { return }
-                self.mapCoordinator?.openFloatingController(categoryType: categoryType, citySlug: selectedCitySlug, countySlug: selectedCountySlug, cityName: selectedCityName, countyName: selectedCountyName, parentVC: self)
+                self.mapCoordinator?.openFloatingController(categoryType: categoryType, mapController: self, citySlug: selectedCitySlug, countySlug: selectedCountySlug, cityName: selectedCityName, countyName: selectedCountyName, parentVC: self)
             })
             
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
@@ -99,6 +100,11 @@ extension MapController {
             guard let self else { return }
             self.searchController?.searchBar.text?.removeAll()
         }).disposed(by: disposeBag)
+        
+        searchController?.searchBar.rx.cancelButtonClicked.subscribe(onNext: { _ in
+            print("ekrem")
+        }).disposed(by: disposeBag)
+        
         
         // Search Controller ViewModel Loading States
         searchResultController?.viewModel?.fetchingCities.subscribe(onNext: { [weak self] value in
@@ -135,7 +141,6 @@ extension MapController {
 
 //MARK: - MapView delegate methods
 extension MapController:  MKMapViewDelegate {
-
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         self.animateNavBarAndTopView(to: .top)
     }
@@ -165,8 +170,17 @@ extension MapController:  MKMapViewDelegate {
 }
 
 
-//MARK: - Configure Search Controller Search Bar Placeholder
+//MARK: - Configure Search Controller and Search Bar Placeholder
 extension MapController {
+    
+    private func configureSearchBarCancelButton() {
+        let barButtonAppearanceInSearchBar: UIBarButtonItem?
+        barButtonAppearanceInSearchBar = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+        barButtonAppearanceInSearchBar?.image = UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate)
+        barButtonAppearanceInSearchBar?.tintColor = .white
+        barButtonAppearanceInSearchBar?.title = nil
+    }
+    
     private func configureSearchBarPlaceHolder(categoryType: NetworkConstants?) {
         guard let categoryType else { return }
         

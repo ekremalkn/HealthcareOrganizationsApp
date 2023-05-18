@@ -20,7 +20,7 @@ final class FloatingViewModel {
     let cityName: String?
     let countyName: String?
     var numberOfItems: Int?
-
+    
     let fetchingOrganizations = PublishSubject<Bool>()
     let fetchedOrganizations = PublishSubject<Void>()
     let errorMsg = PublishSubject<String>()
@@ -309,12 +309,17 @@ final class FloatingViewModel {
     
     //MARK: - Set Loading Animate State
     private func setLoadingAnimateState(fetchingOrganizations: Bool? = nil, fetchedOrganizations: Void? = nil, errorMsg: String? = nil) {
-        if let fetchingOrganizations {
-            self.fetchingOrganizations.onNext(fetchingOrganizations)
-        } else if let fetchedOrganizations {
-            self.fetchedOrganizations.onNext(fetchedOrganizations)
-        } else if let errorMsg {
-            self.errorMsg.onNext(errorMsg)
+        if let fetching = fetchingOrganizations {
+            self.fetchingOrganizations.onNext(fetching)
+            
+            if !fetching {
+                if let fetched = fetchedOrganizations {
+                    self.fetchedOrganizations.onNext(fetched)
+                } else if let errorMsg = errorMsg {
+                    self.errorMsg.onNext(errorMsg)
+                }
+            }
         }
+        
     }
 }

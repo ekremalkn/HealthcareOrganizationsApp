@@ -90,5 +90,18 @@ struct Pharmacy: Codable, OrganizationModel, PharmacyCellDataProtocol {
         return ""
     }
     
+    var pharmacyLat: Double {
+        if let latitude {
+            return latitude
+        }
+        return 0.0
+    }
+    
+    var pharmacyLng: Double {
+        if let longitude {
+            return longitude
+        }
+        return 0.0
+    }
     
 }

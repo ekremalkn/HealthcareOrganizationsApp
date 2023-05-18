@@ -8,6 +8,6 @@
 import UIKit
 
 protocol MapCoordinatorProtocol: Coordinator {
-    func openFloatingController(categoryType: NetworkConstants, citySlug: String, countySlug: String, cityName: String, countyName: String, parentVC: UIViewController)
+    func openFloatingController(categoryType: NetworkConstants, mapController: MapController, citySlug: String, countySlug: String, cityName: String, countyName: String, parentVC: UIViewController)
     func moveFloatingPanelToTip()
 }
