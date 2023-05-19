@@ -74,4 +74,18 @@ struct DentalCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
         return "Website bilgisi yok"
     }
     
+    var sharedCell2Lat: Double {
+        if let latitude {
+            return latitude
+        }
+        return 1.0
+    }
+    
+    var sharedCell2Lng: Double {
+        if let longitude {
+            return longitude
+        }
+        return 1.0
+    }
+    
 }

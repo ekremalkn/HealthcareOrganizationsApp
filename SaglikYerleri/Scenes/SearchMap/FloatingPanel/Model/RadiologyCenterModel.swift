@@ -75,4 +75,19 @@ struct RadiologyCenter: Codable, OrganizationModel, SharedCell1DataProtocol {
         }
         return "Email bilgisi yok"
     }
+    
+    var sharedCell1Lat: Double {
+        if let latitude {
+            return latitude
+        }
+        return 1.0
+    }
+    
+    var sharedCell1Lng: Double {
+        if let longitude  {
+            return longitude
+        }
+        return 1.0
+    }
+    
 }

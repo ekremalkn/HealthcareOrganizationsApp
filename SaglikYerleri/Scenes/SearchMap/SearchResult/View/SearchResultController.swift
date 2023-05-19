@@ -76,7 +76,7 @@ extension SearchResultController {
         viewModel?.citiesCounties.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, cityCounty, cell in
             cell.backgroundColor = .clear
             cell.textLabel?.textColor = .white
-            cell.textLabel?.font = UIFont(name: "Avenir-Medium", size: 17)
+            cell.textLabel?.font = .systemFont(ofSize: 17)
             cell.textLabel?.text = cityCounty.name
         }.disposed(by: disposeBag)
         

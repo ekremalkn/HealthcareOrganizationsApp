@@ -34,12 +34,6 @@ final class SelectedCityCountyCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureCell()
-        for familyName in UIFont.familyNames {
-                print("Font Family: \(familyName)")
-                for fontName in UIFont.fontNames(forFamilyName: familyName) {
-                    print("  - \(fontName)")
-                }
-            }
     }
     
     required init?(coder: NSCoder) {

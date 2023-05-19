@@ -76,86 +76,154 @@ extension FloatingController: UITableViewDelegate {
             viewModel.pharmacies.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: PharmacyCell.identifier, cellType: PharmacyCell.self)) { [weak self] index, pharmacy, cell in
                 self?.selectedCellType = .pharmacyCell
                 cell.configure(with: pharmacy)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .medicalLaboratories:
             viewModel.medicalLaboratories.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { [weak self] index, medicalLaboratory, cell in
                 self?.selectedCellType = .sharedCell1
                 cell.configure(with: medicalLaboratory)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .radiologyCenters:
             viewModel.radiologyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { [weak self] index, radiologyCenter, cell in
                 self?.selectedCellType = .sharedCell1
                 cell.configure(with: radiologyCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .healthCenters:
             viewModel.healthCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { [weak self] index, healthCenter, cell in
                 self?.selectedCellType = .sharedCell1
                 cell.configure(with: healthCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .hospitals:
             viewModel.hospitals.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell1.identifier, cellType: SharedCell1.self)) { [weak self] index, hospital, cell in
                 self?.selectedCellType = .sharedCell1
                 cell.configure(with: hospital)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .dentalCenters:
             viewModel.dentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, dentalCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: dentalCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .privateDentalCenters:
             viewModel.privateDentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, privateDentalCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: privateDentalCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .spaCenters:
             viewModel.spaCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, spaCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: spaCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .psychologistCenters:
             viewModel.psychologistCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, psychologistCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: psychologistCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .gynecologyCenters:
             viewModel.dentalCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, gynecologyCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: gynecologyCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .opticCenters:
             viewModel.opticCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, opticCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: opticCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .animalHospitals:
             viewModel.animalHospitals.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, animalHospital, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: animalHospital)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .dialysisCenters:
             viewModel.dialysisCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, dialysisCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: dialysisCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .emergencyCenters:
             viewModel.emergencyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, emergencyCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: emergencyCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .medicalShopCenters:
             viewModel.medicalShopCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, medicalShopCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: medicalShopCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .physiotheraphyCenters:
             viewModel.physiotheraphyCenters.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: SharedCell2.identifier, cellType: SharedCell2.self)) { [weak self] index, physiotheraphyCenter, cell in
                 self?.selectedCellType = .sharedCell2
                 cell.configure(with: physiotheraphyCenter)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         case .dutyPharmacy:
             viewModel.pharmacies.bind(to: floatingView.placesTableView.rx.items(cellIdentifier: PharmacyCell.identifier, cellType: PharmacyCell.self)) { [weak self] index, pharmacy, cell in
                 self?.selectedCellType = .pharmacyCell
                 cell.configure(with: pharmacy)
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let organizationCoordinates = cell.organizationInfo else { return }
+                    self?.mapController?.viewModel.organizations.onNext(organizationCoordinates)
+                }.disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
         }
         

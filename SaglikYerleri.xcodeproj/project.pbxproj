@@ -17,6 +17,9 @@
 		F061C2C52A0655D500D1E485 /* PrivateDentalCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */; };
 		F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */; };
 		F06458602A0956EE00B17BF1 /* PharmacyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */; };
+		F06552852A17F7B7008897A7 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06552842A17F7B7008897A7 /* CustomAnnotationView.swift */; };
+		F06552892A181059008897A7 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06552882A181059008897A7 /* UIViewController+ShowToast.swift */; };
+		F065528C2A1817E0008897A7 /* MapAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F065528B2A1817E0008897A7 /* MapAlertController.swift */; };
 		F06773BB2A0BBA5100B4BFC4 /* SharedCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06773BA2A0BBA5100B4BFC4 /* SharedCell2.swift */; };
 		F06773BE2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06773BD2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift */; };
 		F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7329FFD2690013E22D /* ENCityModel.swift */; };
@@ -79,6 +82,9 @@
 		F0D77D0929FA724D0061C85E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F0D77D0829FA724D0061C85E /* Alamofire */; };
 		F0D77D0D29FA823B0061C85E /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */; };
 		F0DEB6CC2A0A34F000E07D24 /* SharedCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DEB6CB2A0A34F000E07D24 /* SharedCell1.swift */; };
+		F0E975DE2A1753E300C5A607 /* UIButton+CellButtonActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E975DD2A1753E300C5A607 /* UIButton+CellButtonActions.swift */; };
+		F0E975E02A1762BC00C5A607 /* UIApplication+TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E975DF2A1762BC00C5A607 /* UIApplication+TopViewController.swift */; };
+		F0E975E32A1786FF00C5A607 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E975E22A1786FF00C5A607 /* MapViewModel.swift */; };
 		F0EE779C2A052DAE007BF9A7 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = F0EE779B2A052DAE007BF9A7 /* FloatingPanel */; };
 		F0EE779E2A052DEF007BF9A7 /* FloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */; };
 		F0EE77A32A052EE1007BF9A7 /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */; };
@@ -97,6 +103,9 @@
 		F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateDentalCenterModel.swift; sourceTree = "<group>"; };
 		F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHorizontalCollectionModel.swift; sourceTree = "<group>"; };
 		F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyCell.swift; sourceTree = "<group>"; };
+		F06552842A17F7B7008897A7 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
+		F06552882A181059008897A7 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
+		F065528B2A1817E0008897A7 /* MapAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAlertController.swift; sourceTree = "<group>"; };
 		F06773BA2A0BBA5100B4BFC4 /* SharedCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCell2.swift; sourceTree = "<group>"; };
 		F06773BD2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableHeaderView.swift; sourceTree = "<group>"; };
 		F06BEE7329FFD2690013E22D /* ENCityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENCityModel.swift; sourceTree = "<group>"; };
@@ -154,6 +163,9 @@
 		F0D77D0529FA72390061C85E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F0D77D0C29FA823B0061C85E /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		F0DEB6CB2A0A34F000E07D24 /* SharedCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCell1.swift; sourceTree = "<group>"; };
+		F0E975DD2A1753E300C5A607 /* UIButton+CellButtonActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+CellButtonActions.swift"; sourceTree = "<group>"; };
+		F0E975DF2A1762BC00C5A607 /* UIApplication+TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+TopViewController.swift"; sourceTree = "<group>"; };
+		F0E975E22A1786FF00C5A607 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		F0EE779D2A052DEF007BF9A7 /* FloatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingController.swift; sourceTree = "<group>"; };
 		F0EE77A22A052EE1007BF9A7 /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
 		F0EE77A52A054708007BF9A7 /* FloatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewModel.swift; sourceTree = "<group>"; };
@@ -196,6 +208,14 @@
 				F06BEE7529FFD4240013E22D /* ENCountyModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F065528A2A1817C2008897A7 /* AlertController */ = {
+			isa = PBXGroup;
+			children = (
+				F065528B2A1817E0008897A7 /* MapAlertController.swift */,
+			);
+			path = AlertController;
 			sourceTree = "<group>";
 		};
 		F06773BC2A0C00F200B4BFC4 /* HeaderView */ = {
@@ -310,6 +330,9 @@
 			children = (
 				F096A2912A13C2580084947F /* UIView+GradiantView.swift */,
 				F07258A529F2E3FF00F625CE /* UIColor+HEXColor.swift */,
+				F0E975DD2A1753E300C5A607 /* UIButton+CellButtonActions.swift */,
+				F0E975DF2A1762BC00C5A607 /* UIApplication+TopViewController.swift */,
+				F06552882A181059008897A7 /* UIViewController+ShowToast.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -334,6 +357,7 @@
 		F07258B529F32B0000F625CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F065528A2A1817C2008897A7 /* AlertController */,
 				F0CA981E2A04383E00F996D8 /* View */,
 				F07258B629F32B0E00F625CE /* TextField */,
 			);
@@ -433,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				F0CA981F2A0438C800F996D8 /* AnimationView.swift */,
+				F06552842A17F7B7008897A7 /* CustomAnnotationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -475,6 +500,7 @@
 			children = (
 				F0EE77A72A054C04007BF9A7 /* MapCoordinator.swift */,
 				F0D77CF929F929AB0061C85E /* View */,
+				F0E975E12A1786E500C5A607 /* ViewModel */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -535,6 +561,14 @@
 				F0D70D0B29FD2C6B00CA4C39 /* NetworkAPIConstant.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		F0E975E12A1786E500C5A607 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0E975E22A1786FF00C5A607 /* MapViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F0EE77992A052BF7007BF9A7 /* FloatingPanel */ = {
@@ -672,6 +706,7 @@
 				F0D70D0629FD1DF800CA4C39 /* PharmacyModel.swift in Sources */,
 				F06BEE7C29FFD80E0013E22D /* DentalCenterModel.swift in Sources */,
 				F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */,
+				F0E975E02A1762BC00C5A607 /* UIApplication+TopViewController.swift in Sources */,
 				F0D77D0D29FA823B0061C85E /* NetworkConstants.swift in Sources */,
 				F0CA98172A03B3CD00F996D8 /* SelectedCityCountyCell.swift in Sources */,
 				F06BEE7829FFD63E0013E22D /* HospitalModel.swift in Sources */,
@@ -694,12 +729,14 @@
 				F0D70D0A29FD219900CA4C39 /* NetworkEndPoint.swift in Sources */,
 				F0D70D0429FD1B9600CA4C39 /* TRCountyModel.swift in Sources */,
 				F0D77CF529F680240061C85E /* MainCollectionSectionModel.swift in Sources */,
+				F06552852A17F7B7008897A7 /* CustomAnnotationView.swift in Sources */,
 				F096A2962A14AB420084947F /* SplashController.swift in Sources */,
 				F07258B829F32B2F00F625CE /* CustomTextField.swift in Sources */,
 				F06BEE8429FFDAEE0013E22D /* PsychologyCenterModel.swift in Sources */,
 				F096A2902A13A7AE0084947F /* SideMenuController.swift in Sources */,
 				F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */,
 				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
+				F0E975DE2A1753E300C5A607 /* UIButton+CellButtonActions.swift in Sources */,
 				F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,
@@ -712,9 +749,12 @@
 				F0D70D0C29FD2C6B00CA4C39 /* NetworkAPIConstant.swift in Sources */,
 				F06BEE8629FFDB470013E22D /* GynecologyCenterModel.swift in Sources */,
 				F06BEE8029FFDA020013E22D /* RadiologyCenterModel.swift in Sources */,
+				F06552892A181059008897A7 /* UIViewController+ShowToast.swift in Sources */,
+				F0E975E32A1786FF00C5A607 /* MapViewModel.swift in Sources */,
 				F061C2C12A06545C00D1E485 /* EmergencyCenterModel.swift in Sources */,
 				F061C2BD2A06539400D1E485 /* PhysiotheraphyCenterModel.swift in Sources */,
 				F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */,
+				F065528C2A1817E0008897A7 /* MapAlertController.swift in Sources */,
 				F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */,
 				F0EE77A62A054708007BF9A7 /* FloatingViewModel.swift in Sources */,
 				F096A2982A14AB500084947F /* SplashView.swift in Sources */,

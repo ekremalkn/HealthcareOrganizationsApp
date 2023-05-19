@@ -20,6 +20,7 @@ final class MapController: UIViewController {
     //MARK: - References
     var mapCoordinator: MapCoordinator?
     let mapView = MapView()
+    let viewModel = MapViewModel()
     
     var categoryType: NetworkConstants?
     var searchController : UISearchController?
@@ -68,6 +69,7 @@ final class MapController: UIViewController {
     }
     
     private func subscribeTo() {
+        subscribeToMapViewModel()
         configureSearchBarPlaceHolder(categoryType: categoryType)
         subscribeToSearchBarText()
         subscribeToSearchResultControllerVariables()
@@ -102,7 +104,7 @@ extension MapController {
         }).disposed(by: disposeBag)
         
         searchController?.searchBar.rx.cancelButtonClicked.subscribe(onNext: { _ in
-            print("ekrem")
+            
         }).disposed(by: disposeBag)
         
         
@@ -149,6 +151,19 @@ extension MapController:  MKMapViewDelegate {
         self.animateNavBarAndTopView(to: .bottom)
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let categoryType else { return nil }
+        let customAnnotationView = CustomAnnotationView(annotation: annotation, categoryType: categoryType, name: "123")
+        
+        customAnnotationView.leftCalloutAccessoryButtonTapped.subscribe { _ in
+            let mapAlertController = MapAlertController(title: "Apple Maps'te göster", message: nil, preferredStyle: .alert)
+            mapAlertController.showAlert(on: self, useWhenOkTapped: annotation)
+        }.disposed(by: customAnnotationView.disposeBag)
+        
+        return customAnnotationView
+    }
+    
+    
     private func animateNavBarAndTopView(to aim: AnimateNavBarTo) {
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
@@ -167,6 +182,23 @@ extension MapController:  MKMapViewDelegate {
         
         
     }
+}
+
+//MARK: - MapViewModelSubscribes
+extension MapController {
+    private func subscribeToMapViewModel() {
+        // Set Region
+        viewModel.organizations.subscribe(onNext: { [ weak self] organizationInfo in
+            let pin = MKPointAnnotation()
+            pin.coordinate = organizationInfo.0
+            pin.title = organizationInfo.1
+            self?.mapView.mapView.addAnnotation(pin)
+            self?.mapView.mapView.setRegion(MKCoordinateRegion(center: organizationInfo.0, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)), animated: true)
+        }).disposed(by: disposeBag)
+        
+    }
+    
+    
 }
 
 

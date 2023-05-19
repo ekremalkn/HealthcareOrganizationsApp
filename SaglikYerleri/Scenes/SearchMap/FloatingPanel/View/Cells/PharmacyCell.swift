@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import CoreLocation
 
 enum ConstraintsType {
     case updateConstraints(Bool)
@@ -94,7 +95,7 @@ final class PharmacyCell: UITableViewCell {
         return button
     }()
     
-    private lazy var sendMailButton: UIButton = {
+    private lazy var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "sendMailButton"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
@@ -132,26 +133,17 @@ final class PharmacyCell: UITableViewCell {
     
     //MARK: - Dispose Bag
     private (set) var disposeBag = DisposeBag()
-
     
-    //MARK: - Variables
-    var lat = PublishSubject<Double>()
-    var lng: Double?
-    var phoneNumber: String?
     
     //MARK: - Observables
-    var didTapCallButton: Observable<(Void)> {
-            return self.callButton.rx.tap.asObservable()
-        }
-    
-    var didtapMailButton: Observable<Void> {
-            return self.sendMailButton.rx.tap.asObservable()
-        }
-    
+    var contentToShare = PublishSubject<(String, String, String ,String)>()
     var didtapLocationButton: Observable<Void> {
-            return self.locationButton.rx.tap.asObservable()
-        }
-
+        return self.locationButton.rx.tap.asObservable()
+    }
+    
+    //MARK: - Variables
+    var organizationInfo: (CLLocationCoordinate2D, String)?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureCell()
@@ -171,14 +163,23 @@ final class PharmacyCell: UITableViewCell {
         makeCornerRadius()
     }
     
+    func configureCell() {
+        backgroundColor = .white
+        contentView.backgroundColor = UIColor(hex: "FBFCFE")
+        addShadow()
+        addSubview()
+        setupConstraints()
+        setButtonActions()
+    }
+    
     func configure(with data: PharmacyCellDataProtocol) {
+        organizationInfo = (CLLocationCoordinate2D(latitude: data.pharmacyLat, longitude: data.pharmacyLng), data.pharmacyName)
+        contentToShare.onNext((data.pharmacyName, data.pharmacyAddress, data.pharmacyDirections, data.pharmacyPhone1))
         leftImageBackgroundView.backgroundColor = data.pharmacyImageBackgroundColor.withAlphaComponent(0.2)
         leftImageView.image = data.pharmacyImage
         nameLabel.text = data.pharmacyName.localizedCapitalized
         addressLabel.text = data.pharmacyAddress
         directionsLabel.text = data.pharmacyDirections
-        phoneNumber = data.pharmacyPhone1
-        lng = data.pharmacyLng
         buttonStackViewConstraints()
         nameLabelConstraints(type: .updateConstraints(true))
     }
@@ -196,19 +197,16 @@ final class PharmacyCell: UITableViewCell {
         leftImageBackgroundView.layer.cornerRadius = 29
     }
     
+    //MARK: - Button Actions
+    private func setButtonActions() {
+        callButton.rx.makePhoneCall(phoneObservable: contentToShare, disposeBag: disposeBag)
+        shareButton.rx.shareContent(contentObservable: contentToShare, disposeBag: disposeBag)
+    }
     
 }
 
 //MARK: - UI Element AddSubview / SetupConstraints
 extension PharmacyCell: CellProtocol {
-    func configureCell() {
-        backgroundColor = .white
-        contentView.backgroundColor = UIColor(hex: "FBFCFE")
-        addShadow()
-        addSubview()
-        setupConstraints()
-    }
-    
     func addSubview() {
         contentView.addSubview(leftImageBackgroundView)
         leftImageBackgroundView.addSubview(leftImageView)
@@ -222,7 +220,7 @@ extension PharmacyCell: CellProtocol {
     
     func buttonsToStackView() {
         buttonStackView.addArrangedSubview(callButton)
-        buttonStackView.addArrangedSubview(sendMailButton)
+        buttonStackView.addArrangedSubview(shareButton)
         buttonStackView.addArrangedSubview(locationButton)
     }
     

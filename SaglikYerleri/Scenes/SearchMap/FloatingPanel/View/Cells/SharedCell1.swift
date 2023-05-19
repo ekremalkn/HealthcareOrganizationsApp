@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import CoreLocation
 
 protocol SharedCell1DataProtocol where Self: Codable {
     var sharedCell1ImageBackgroundColor: UIColor { get }
@@ -15,6 +17,8 @@ protocol SharedCell1DataProtocol where Self: Codable {
     var sharedCell1Address: String { get }
     var sharedCell1Phone: String { get }
     var sharedCell1Email: String { get }
+    var sharedCell1Lat: Double { get }
+    var sharedCell1Lng: Double { get }
 }
 
 final class SharedCell1: UITableViewCell {
@@ -77,7 +81,7 @@ final class SharedCell1: UITableViewCell {
         return button
     }()
     
-    private lazy var sendMailButton: UIButton = {
+    private lazy var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "sendMailButton"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
@@ -111,6 +115,19 @@ final class SharedCell1: UITableViewCell {
         }
     }
     
+    //MARK: - Dispose Bag
+    private (set) var disposeBag = DisposeBag()
+    
+    
+    //MARK: - Observables
+    var contentToShare = PublishSubject<(String, String, String ,String)>()
+    var didtapLocationButton: Observable<Void> {
+        return self.locationButton.rx.tap.asObservable()
+    }
+    
+    //MARK: - Variables
+    var organizationInfo: (CLLocationCoordinate2D, String)?
+    
     //MARK: - Init Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -126,7 +143,18 @@ final class SharedCell1: UITableViewCell {
         makeCornerRadius()
     }
     
+    func configureCell() {
+        backgroundColor = .white
+        contentView.backgroundColor = UIColor(hex: "FBFCFE")
+        addShadow()
+        addSubview()
+        setupConstraints()
+        setButtonActions()
+    }
+    
     func configure(with data: SharedCell1DataProtocol) {
+        organizationInfo = (CLLocationCoordinate2D(latitude: data.sharedCell1Lat, longitude: data.sharedCell1Lng), data.sharedCell1Name)
+        contentToShare.onNext((data.sharedCell1Name, data.sharedCell1Address, data.sharedCell1Email, data.sharedCell1Phone))
         leftImageBackgroundView.backgroundColor = data.sharedCell1ImageBackgroundColor.withAlphaComponent(0.2)
         leftImageView.image = data.sharedCell1Image
         nameLabel.text = data.sharedCell1Name.localizedCapitalized
@@ -147,18 +175,16 @@ final class SharedCell1: UITableViewCell {
         leftImageBackgroundView.layer.cornerRadius = 29
     }
     
+    //MARK: - Button Actions
+    private func setButtonActions() {
+        callButton.rx.makePhoneCall(phoneObservable: contentToShare, disposeBag: disposeBag)
+        shareButton.rx.shareContent(contentObservable: contentToShare, disposeBag: disposeBag)
+    }
+    
 }
 
 //MARK: - UI Element AddSubview / SetupConstraints
 extension SharedCell1: CellProtocol {
-    func configureCell() {
-        backgroundColor = .white
-        contentView.backgroundColor = UIColor(hex: "FBFCFE")
-        addShadow()
-        addSubview()
-        setupConstraints()
-    }
-    
     func addSubview() {
         contentView.addSubview(leftImageBackgroundView)
         leftImageBackgroundView.addSubview(leftImageView)
@@ -171,7 +197,7 @@ extension SharedCell1: CellProtocol {
     
     private func buttonsToStackView() {
         buttonStackView.addArrangedSubview(callButton)
-        buttonStackView.addArrangedSubview(sendMailButton)
+        buttonStackView.addArrangedSubview(shareButton)
         buttonStackView.addArrangedSubview(locationButton)
     }
     

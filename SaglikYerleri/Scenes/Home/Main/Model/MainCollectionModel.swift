@@ -75,7 +75,7 @@ extension MainCollectionData {
             case .medicalLaboratories:
                 return "Tıbbi Laboratuvarlar"
             case .radiologyCenters:
-                return "Radiyoloji Merkezleri"
+                return "Radyoloji Merkezleri"
             case .spaCenters:
                 return "Spa Merkezleri"
             case .psychologistCenters:
