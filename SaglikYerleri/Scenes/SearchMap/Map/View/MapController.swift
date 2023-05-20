@@ -155,8 +155,8 @@ extension MapController:  MKMapViewDelegate {
         guard let categoryType else { return nil }
         let customAnnotationView = CustomAnnotationView(annotation: annotation, categoryType: categoryType, name: "123")
         
-        customAnnotationView.leftCalloutAccessoryButtonTapped.subscribe { _ in
-            let mapAlertController = MapAlertController(title: "Apple Maps'te göster", message: nil, preferredStyle: .alert)
+        customAnnotationView.leftCalloutAccessoryButtonTapped.subscribe { [unowned self] _ in
+            let mapAlertController = MapAlertController(title: "Yol tarifi al", message: nil, preferredStyle: .alert)
             mapAlertController.showAlert(on: self, useWhenOkTapped: annotation)
         }.disposed(by: customAnnotationView.disposeBag)
         

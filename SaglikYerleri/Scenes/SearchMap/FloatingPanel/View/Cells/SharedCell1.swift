@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import CoreLocation
+import MapKit
 
 protocol SharedCell1DataProtocol where Self: Codable {
     var sharedCell1ImageBackgroundColor: UIColor { get }
@@ -67,7 +68,6 @@ final class SharedCell1: UITableViewCell {
     lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
         stackView.distribution = .equalSpacing
         stackView.alpha = 0
         stackView.alignment = .center
@@ -83,7 +83,7 @@ final class SharedCell1: UITableViewCell {
     
     private lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "sendMailButton"), for: .normal)
+        button.setImage(UIImage(named: "shareButton"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
@@ -107,8 +107,11 @@ final class SharedCell1: UITableViewCell {
                     
                 }
                 
-                UIView.animate(withDuration: 0.4) {
-                    self.buttonStackView.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: 15) : .identity
+                UIView.animate(withDuration: 0.8) {
+                    self.buttonStackView.transform = self.isExpanded ? CGAffineTransform(translationX: -self.contentView.frame.width * 0.875, y: 10) : .identity
+                    self.callButton.transform = self.isExpanded ? CGAffineTransform(rotationAngle: -.pi ) : .identity
+                    self.locationButton.transform = self.isExpanded ? CGAffineTransform(rotationAngle: -.pi ) : .identity
+                    self.shareButton.transform = self.isExpanded ? CGAffineTransform(rotationAngle: -.pi ) : .identity
                 }
             }
             self.isExpanded ? self.nameLabelConstraints(type: .updateConstraints(true)) : nil
@@ -120,7 +123,7 @@ final class SharedCell1: UITableViewCell {
     
     
     //MARK: - Observables
-    var contentToShare = PublishSubject<(String, String, String ,String)>()
+    var contentToShare = PublishSubject<(String, String, String ,String, MKMapItem)>()
     var didtapLocationButton: Observable<Void> {
         return self.locationButton.rx.tap.asObservable()
     }
@@ -154,7 +157,7 @@ final class SharedCell1: UITableViewCell {
     
     func configure(with data: SharedCell1DataProtocol) {
         organizationInfo = (CLLocationCoordinate2D(latitude: data.sharedCell1Lat, longitude: data.sharedCell1Lng), data.sharedCell1Name)
-        contentToShare.onNext((data.sharedCell1Name, data.sharedCell1Address, data.sharedCell1Email, data.sharedCell1Phone))
+        createContentToShare(with: data)
         leftImageBackgroundView.backgroundColor = data.sharedCell1ImageBackgroundColor.withAlphaComponent(0.2)
         leftImageView.image = data.sharedCell1Image
         nameLabel.text = data.sharedCell1Name.localizedCapitalized
@@ -181,6 +184,14 @@ final class SharedCell1: UITableViewCell {
         shareButton.rx.shareContent(contentObservable: contentToShare, disposeBag: disposeBag)
     }
     
+    //MARK: - Create MKMapItem
+    private func createContentToShare(with data: SharedCell1DataProtocol) {
+        let coordinate = CLLocationCoordinate2D(latitude: data.sharedCell1Lat, longitude: data.sharedCell1Lng)
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        contentToShare.onNext((data.sharedCell1Name, data.sharedCell1Address, data.sharedCell1Email, data.sharedCell1Phone, mapItem))
+    }
+    
 }
 
 //MARK: - UI Element AddSubview / SetupConstraints
@@ -197,8 +208,8 @@ extension SharedCell1: CellProtocol {
     
     private func buttonsToStackView() {
         buttonStackView.addArrangedSubview(callButton)
-        buttonStackView.addArrangedSubview(shareButton)
         buttonStackView.addArrangedSubview(locationButton)
+        buttonStackView.addArrangedSubview(shareButton)
     }
     
     func setupConstraints() {
@@ -245,7 +256,7 @@ extension SharedCell1: CellProtocol {
             nameLabel.snp.makeConstraints { make in
                 make.centerY.equalTo(leftImageBackgroundView.snp.centerY)
                 make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
-                make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+                make.trailing.equalTo(contentView.snp.trailing).offset(-27)
             }
         }
         
@@ -253,7 +264,7 @@ extension SharedCell1: CellProtocol {
     
     private func buttonStackViewConstraints() {
         buttonStackView.snp.makeConstraints { make in
-            make.width.equalTo(contentView.snp.width)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.75)
             make.top.equalTo(addressLabel.snp.bottom)
             make.height.equalTo(50)
             make.centerX.equalTo(contentView.snp.centerX)

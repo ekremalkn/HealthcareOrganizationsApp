@@ -19,7 +19,7 @@ final class PlacesTableHeaderView: UIView {
     
     private lazy var leftLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Medium", size: 17)
+        label.font = UIFont(name: "Avenir-Medium", size: 15)
         label.textColor = .darkGray
         label.textAlignment = .left
         return label
@@ -27,7 +27,7 @@ final class PlacesTableHeaderView: UIView {
     
     private lazy var rightLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Medium", size: 15)
+        label.font = UIFont(name: "Avenir-Medium", size: 13)
         label.textColor = .darkGray
         label.textAlignment = .right
         return label
@@ -82,8 +82,8 @@ extension PlacesTableHeaderView: ViewProtocol {
     private func labelStackViewConstraints() {
         labelStackView.snp.makeConstraints { make in
             make.centerY.equalTo(self.snp.centerY)
-            make.leading.equalTo(self.snp.leading).offset(10)
-            make.trailing.equalTo(self.snp.trailing).offset(-10)
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.trailing.equalTo(self.snp.trailing).offset(-20)
         }
     }
     

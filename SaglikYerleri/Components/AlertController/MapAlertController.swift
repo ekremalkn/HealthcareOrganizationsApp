@@ -21,7 +21,9 @@ final class MapAlertController: UIAlertController {
             self?.openAppleMaps(with: annotation)
         }
         
-        let secondAction = UIAlertAction(title: "Geri Dön", style: .cancel) //Cancel Style
+        let secondAction = UIAlertAction(title: "Geri Dön", style: .default) { [weak self] _ in
+            self?.dismiss(animated: true)
+        } //Cancel Style
         
         addAction(firstAction)
         addAction(secondAction)

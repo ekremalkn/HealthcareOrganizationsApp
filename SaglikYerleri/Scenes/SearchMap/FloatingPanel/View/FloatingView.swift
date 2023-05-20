@@ -13,6 +13,7 @@ final class FloatingView: UIView {
     lazy var placesTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
+        tableView.bounces = false
         tableView.backgroundColor = UIColor(hex: "FBFCFE")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(PharmacyCell.self, forCellReuseIdentifier: PharmacyCell.identifier)

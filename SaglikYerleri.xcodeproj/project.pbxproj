@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F00E6BB82A18F8AB00633FC4 /* PayWallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BB72A18F8AB00633FC4 /* PayWallView.swift */; };
+		F00E6BBB2A18FA5700633FC4 /* PayWallPlanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */; };
+		F00E6BBD2A19054900633FC4 /* PayWallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BBC2A19054900633FC4 /* PayWallController.swift */; };
 		F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03B830E29FBD716006C5AFC /* NetworkService.swift */; };
 		F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */; };
 		F061C2BB2A06530700D1E485 /* SpaCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */; };
@@ -93,6 +96,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F00E6BB72A18F8AB00633FC4 /* PayWallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallView.swift; sourceTree = "<group>"; };
+		F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallPlanButton.swift; sourceTree = "<group>"; };
+		F00E6BBC2A19054900633FC4 /* PayWallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallController.swift; sourceTree = "<group>"; };
 		F03B830E29FBD716006C5AFC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaCenterModel.swift; sourceTree = "<group>"; };
@@ -191,6 +197,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F00E6BB52A18F89700633FC4 /* PayWall */ = {
+			isa = PBXGroup;
+			children = (
+				F00E6BB62A18F89C00633FC4 /* View */,
+			);
+			path = PayWall;
+			sourceTree = "<group>";
+		};
+		F00E6BB62A18F89C00633FC4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F00E6BB72A18F8AB00633FC4 /* PayWallView.swift */,
+				F00E6BBC2A19054900633FC4 /* PayWallController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F00E6BB92A18FA4000633FC4 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		F03B830B29FBD6F2006C5AFC /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +318,7 @@
 		F072589129F285DA00F625CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				F00E6BB52A18F89700633FC4 /* PayWall */,
 				F096A2932A14AB2D0084947F /* Splash */,
 				F072589229F285E200F625CE /* Home */,
 				F0D77CF629F928ED0061C85E /* SearchMap */,
@@ -357,6 +389,7 @@
 		F07258B529F32B0000F625CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F00E6BB92A18FA4000633FC4 /* Buttons */,
 				F065528A2A1817C2008897A7 /* AlertController */,
 				F0CA981E2A04383E00F996D8 /* View */,
 				F07258B629F32B0E00F625CE /* TextField */,
@@ -743,6 +776,7 @@
 				F0CA98202A0438C800F996D8 /* AnimationView.swift in Sources */,
 				F0D77CFD29F929D30061C85E /* MapView.swift in Sources */,
 				F06BEE8229FFDA7C0013E22D /* AnimalHospitalModel.swift in Sources */,
+				F00E6BBB2A18FA5700633FC4 /* PayWallPlanButton.swift in Sources */,
 				F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */,
 				F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */,
 				F0EE77A82A054C04007BF9A7 /* MapCoordinator.swift in Sources */,
@@ -766,7 +800,9 @@
 				F0DEB6CC2A0A34F000E07D24 /* SharedCell1.swift in Sources */,
 				F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */,
 				F06773BE2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift in Sources */,
+				F00E6BB82A18F8AB00633FC4 /* PayWallView.swift in Sources */,
 				F072589529F285F600F625CE /* MainController.swift in Sources */,
+				F00E6BBD2A19054900633FC4 /* PayWallController.swift in Sources */,
 				F072587D29F284EC00F625CE /* SceneDelegate.swift in Sources */,
 				F0D73A172A00CCEC00D4F58D /* SearchResultController.swift in Sources */,
 				F06773BB2A0BBA5100B4BFC4 /* SharedCell2.swift in Sources */,

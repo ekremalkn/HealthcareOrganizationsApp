@@ -56,7 +56,7 @@ final class MainController: UIViewController {
 extension MainController {
     private func configureLeftNavButton() {
         mainView.navBarLeftButton.rx.tap.subscribe { [unowned self] _ in
-            mainCoordinator?.openSideMenuController(from: self)
+            mainCoordinator?.openSideMenuController(from: self) 
         }.disposed(by: disposeBag)
     }
 }

@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import CoreLocation
+import MapKit
 
 protocol SharedCell2DataProtocol where Self: Codable {
     var sharedCell2ImageBackgroundColor: UIColor { get }
@@ -66,7 +67,6 @@ final class SharedCell2: UITableViewCell {
     lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
         stackView.distribution = .equalSpacing
         stackView.alpha = 0
         stackView.alignment = .center
@@ -75,22 +75,31 @@ final class SharedCell2: UITableViewCell {
     
     private lazy var callButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "callButton"), for: .normal)
+        button.setBackgroundImage(UIImage(named: "callButton"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.1
+        button.layer.shadowOffset = CGSize.init(width: 3, height: 5)
         return button
     }()
     
     private lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "sendMailButton"), for: .normal)
+        button.setBackgroundImage(UIImage(named: "shareButton"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.1
+        button.layer.shadowOffset = CGSize.init(width: 3, height: 5)
         return button
     }()
     
     private lazy var locationButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "locationButton"), for: .normal)
+        button.setBackgroundImage(UIImage(named: "locationButton"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.1
+        button.layer.shadowOffset = CGSize.init(width: 3, height: 5)
         return button
     }()
     
@@ -107,8 +116,11 @@ final class SharedCell2: UITableViewCell {
                     
                 }
                 
-                UIView.animate(withDuration: 0.4) {
-                    self.buttonStackView.transform = self.isExpanded ? CGAffineTransform(translationX: 0, y: 15) : .identity
+                UIView.animate(withDuration: 0.8) {
+                    self.buttonStackView.transform = self.isExpanded ? CGAffineTransform(translationX: -self.contentView.frame.width * 0.875, y: 10) : .identity
+                    self.callButton.transform = self.isExpanded ? CGAffineTransform(rotationAngle: -.pi ) : .identity
+                    self.locationButton.transform = self.isExpanded ? CGAffineTransform(rotationAngle: -.pi ) : .identity
+                    self.shareButton.transform = self.isExpanded ? CGAffineTransform(rotationAngle: -.pi ) : .identity
                 }
             }
             self.isExpanded ? self.nameLabelConstraints(type: .updateConstraints(true)) : nil
@@ -121,7 +133,7 @@ final class SharedCell2: UITableViewCell {
     
     
     //MARK: - Observables
-    var contentToShare = PublishSubject<(String, String, String ,String)>()
+    var contentToShare = PublishSubject<(String, String, String ,String, MKMapItem)>()
     var didtapLocationButton: Observable<Void> {
         return self.locationButton.rx.tap.asObservable()
     }
@@ -155,7 +167,7 @@ final class SharedCell2: UITableViewCell {
     
     func configure(with data: SharedCell2DataProtocol) {
         organizationInfo = (CLLocationCoordinate2D(latitude: data.sharedCell2Lat, longitude: data.sharedCell2Lng), data.sharedCell2Name)
-        contentToShare.onNext((data.sharedCell2Name, data.sharedCell2Street, data.sharedCell2WebSite, data.sharedCell2Phone))
+        createContentToShare(with: data)
         leftImageBackgroundView.backgroundColor = data.sharedCell2ImageBackgroundColor.withAlphaComponent(0.2)
         leftImageView.tintColor = data.sharedCell2ImageBackgroundColor
         leftImageView.image = data.sharedCell2Image
@@ -183,6 +195,13 @@ final class SharedCell2: UITableViewCell {
         shareButton.rx.shareContent(contentObservable: contentToShare, disposeBag: disposeBag)
     }
     
+    //MARK: - Create MKMapItem
+    private func createContentToShare(with data: SharedCell2DataProtocol) {
+        let coordinate = CLLocationCoordinate2D(latitude: data.sharedCell2Lat, longitude: data.sharedCell2Lng)
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        contentToShare.onNext((data.sharedCell2Name, data.sharedCell2Street, data.sharedCell2WebSite, data.sharedCell2Phone, mapItem))
+    }
 }
 
 //MARK: - UI Elements AddSubview / SetupConstraints
@@ -199,8 +218,8 @@ extension SharedCell2: CellProtocol {
     
     private func buttonsToStackView() {
         buttonStackView.addArrangedSubview(callButton)
-        buttonStackView.addArrangedSubview(shareButton)
         buttonStackView.addArrangedSubview(locationButton)
+        buttonStackView.addArrangedSubview(shareButton)
     }
     
     func setupConstraints() {
@@ -229,7 +248,7 @@ extension SharedCell2: CellProtocol {
         expandImageView.snp.makeConstraints { make in
             make.trailing.equalTo(contentView.snp.trailing).offset(-10)
             make.top.equalTo(leftImageBackgroundView.snp.top)
-            make.height.equalTo(17)
+            make.height.width.equalTo(17)
         }
     }
     
@@ -248,7 +267,7 @@ extension SharedCell2: CellProtocol {
             nameLabel.snp.makeConstraints { make in
                 make.centerY.equalTo(leftImageBackgroundView.snp.centerY)
                 make.leading.equalTo(leftImageBackgroundView.snp.trailing).offset(10)
-                make.trailing.equalTo(contentView.snp.trailing).offset(-10)
+                make.trailing.equalTo(contentView.snp.trailing).offset(-27)
             }
         }
         
@@ -256,7 +275,7 @@ extension SharedCell2: CellProtocol {
     
     private func buttonStackViewConstraints() {
         buttonStackView.snp.makeConstraints { make in
-            make.width.equalTo(contentView.snp.width)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.75)
             make.top.equalTo(streetLabel.snp.bottom)
             make.height.equalTo(50)
             make.centerX.equalTo(contentView.snp.centerX)

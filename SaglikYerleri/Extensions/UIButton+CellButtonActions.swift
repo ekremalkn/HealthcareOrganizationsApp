@@ -8,12 +8,13 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import MapKit
 
 extension Reactive where Base: UIButton {
     
     // Make Phone Call
-    func makePhoneCall(phoneObservable: PublishSubject<(String ,String ,String ,String)>, disposeBag: DisposeBag) {
-        phoneObservable.subscribe(onNext: { [weak base] _, _, _, phoneNumber in
+    func makePhoneCall(phoneObservable: PublishSubject<(String ,String ,String ,String, MKMapItem)>, disposeBag: DisposeBag) {
+        phoneObservable.subscribe(onNext: { [weak base] _, _, _, phoneNumber, _ in
             base?.rx.tap.subscribe(onNext: { _ in
                 if !phoneNumber.isEmpty {
                     self.callPhoneNumber(with: phoneNumber)
@@ -37,11 +38,16 @@ extension Reactive where Base: UIButton {
     }
     
     // Share Content
-    func shareContent(contentObservable: PublishSubject<(String ,String ,String ,String)>, disposeBag: DisposeBag) {
-        contentObservable.subscribe(onNext: { [weak base] name, address, directions, phoneNumber in
+    func shareContent(contentObservable: PublishSubject<(String ,String ,String ,String, MKMapItem)>, disposeBag: DisposeBag) {
+        contentObservable.subscribe(onNext: { [weak base] name, address, directions, phoneNumber, mapItem in
             base?.rx.tap.subscribe(onNext: { _ in
                 // Create content
-                let activityItems: [Any] = [name, address, directions, phoneNumber]
+                let nameItem = "Adı: \(name)"
+                let addressItem = "Adresi: \(address)"
+                let directionsItem = directions
+                let phoneNumberItem = "Telefon: \(phoneNumber)"
+                
+                let activityItems: [Any] = [nameItem, "\n", addressItem, "\n", directionsItem, "\n", phoneNumberItem, "\n\n", mapItem]
                 
                 let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
                 
@@ -52,7 +58,7 @@ extension Reactive where Base: UIButton {
                         viewController.present(activityViewController, animated: true)
                     }
                 }
-
+                
             }).disposed(by: disposeBag)
         }).disposed(by: disposeBag)
         

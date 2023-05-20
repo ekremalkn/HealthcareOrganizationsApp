@@ -28,7 +28,7 @@ final class MainCoordinator: Coordinator {
         let leftMenuNavController = SideMenuNavigationController(rootViewController: sideMenuController)
         SideMenuManager.default.leftMenuNavigationController = leftMenuNavController
         SideMenuManager.default.addPanGestureToPresent(toView: controller.navigationController!.navigationBar)
-        controller.present(leftMenuNavController, animated: true)
+        controller.present(leftMenuNavController, animated: true) 
     }
     
 }

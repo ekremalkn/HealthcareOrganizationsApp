@@ -18,8 +18,6 @@ final class VerticalCollectionCell: UICollectionViewCell {
     }
     
     //MARK: - Creating UI Elements
-    var gradientLayer = CAGradientLayer()
-    
     private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
