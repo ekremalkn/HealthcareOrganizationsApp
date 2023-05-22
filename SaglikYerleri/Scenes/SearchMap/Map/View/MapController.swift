@@ -11,6 +11,9 @@ import RxSwift
 import MapKit
 
 final class MapController: UIViewController {
+    deinit {
+        print("deinit map controller")
+    }
     //MARK: - Animate Nav Bar to
     enum AnimateNavBarTo {
         case top
@@ -32,10 +35,10 @@ final class MapController: UIViewController {
     
     
     //MARK: - Life Cycle Methods
-    init(categoryType: NetworkConstants, customTopViewBC: UIColor) {
+    init(categoryType: NetworkConstants, networkService: CityCountyService, customTopViewBC: UIColor) {
         self.categoryType = categoryType
         self.customTopViewBC = customTopViewBC
-        self.searchResultController = SearchResultController(categoryType: categoryType, backgroundColor: customTopViewBC)
+        self.searchResultController = SearchResultController(categoryType: categoryType, networkService: networkService, backgroundColor: customTopViewBC)
         self.searchController = UISearchController(searchResultsController: searchResultController)
         super.init(nibName: nil, bundle: nil)
     }

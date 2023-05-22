@@ -9,7 +9,11 @@ import UIKit
 import RxSwift
 
 final class MainViewModel {
+ 
+    //MARK: - Google Sign In
+
     
+    //MARK: - CollectionView Datas
     let horizontalCollectionData = Observable.just([
         MainHorizontalCollectionData.categoryType(.dutyPharmacy),
         MainHorizontalCollectionData.categoryType(.hospitals),
@@ -36,5 +40,4 @@ final class MainViewModel {
         MainCollectionData.categoryType(.psychologistCenters),
         MainCollectionData.categoryType(.gynecologyCenters)
     ])
-    
 }

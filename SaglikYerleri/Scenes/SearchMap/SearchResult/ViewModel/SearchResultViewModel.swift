@@ -8,8 +8,13 @@
 import Foundation
 import RxSwift
 
-class SearchResultViewModel {
-    
+final class SearchResultViewModel {
+    deinit {
+        print("deinit SearchResultViewModel")
+    }
+    //MARK: - Network Service
+    var networkService: CityCountyService?
+
     //MARK: - Category Type
     let categoryType: NetworkConstants?
     
@@ -25,8 +30,9 @@ class SearchResultViewModel {
     private let disposeBag = DisposeBag()
         
     //MARK: - Init Methods
-    init(categoryType: NetworkConstants) {
+    init(categoryType: NetworkConstants, networkService: CityCountyService) {
         self.categoryType = categoryType
+        self.networkService = networkService
     }
     
     //MARK: - Handle City Event
@@ -61,76 +67,76 @@ class SearchResultViewModel {
     
     //MARK: - Fetch Cities
     func fetchCities() {
-        guard let categoryType else { return }
+        guard let categoryType, let networkService else { return }
         self.setLoadingAnimateState(fetchingCities: true)
         
         switch categoryType {
         case .hospitals:
-            NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getTRCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleTRCityModel(event)
             }.disposed(by: disposeBag)
         case .healthCenters:
-            NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getTRCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleTRCityModel(event)
             }.disposed(by: disposeBag)
         case .dentalCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .pharmacy:
-            NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getTRCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleTRCityModel(event)
             }.disposed(by: disposeBag)
         case .medicalLaboratories:
-            NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getTRCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleTRCityModel(event)
             }.disposed(by: disposeBag)
         case .radiologyCenters:
-            NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getTRCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleTRCityModel(event)
             }.disposed(by: disposeBag)
         case .animalHospitals:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .psychologistCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .gynecologyCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .opticCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .privateDentalCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .spaCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .dialysisCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .emergencyCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .medicalShopCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .physiotheraphyCenters:
-            NetworkService.shared.getENCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getENCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleENCityModel(event)
             }.disposed(by: disposeBag)
         case .dutyPharmacy:
-            NetworkService.shared.getTRCities(type: categoryType).subscribe { [weak self] event in
+            networkService.getTRCities(type: categoryType).subscribe { [weak self] event in
                 self?.handleTRCityModel(event)
             }.disposed(by: disposeBag)
         }
@@ -168,75 +174,75 @@ class SearchResultViewModel {
     
     //MARK: - Fetch Counties
     func fetchCounties(city: String) {
-        guard let categoryType else { return }
+        guard let categoryType, let networkService else { return }
         
         switch categoryType {
         case .hospitals:
-            NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         case .healthCenters:
-            NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         case .dentalCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .pharmacy:
-            NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         case .medicalLaboratories:
-            NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         case .radiologyCenters:
-            NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         case .animalHospitals:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .psychologistCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .gynecologyCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .opticCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .privateDentalCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .spaCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .dialysisCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .emergencyCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .medicalShopCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .physiotheraphyCenters:
-            NetworkService.shared.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getENcounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleENCountyModel(event)
             }.disposed(by: disposeBag)
         case .dutyPharmacy:
-            NetworkService.shared.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
+            networkService.getTRCounties(type: categoryType, city: city).subscribe { [weak self] event in
                 self?.handleTRCountyModel(event)
             }.disposed(by: disposeBag)
         }

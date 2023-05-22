@@ -10,6 +10,14 @@
 		F00E6BB82A18F8AB00633FC4 /* PayWallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BB72A18F8AB00633FC4 /* PayWallView.swift */; };
 		F00E6BBB2A18FA5700633FC4 /* PayWallPlanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */; };
 		F00E6BBD2A19054900633FC4 /* PayWallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BBC2A19054900633FC4 /* PayWallController.swift */; };
+		F00E6BBF2A194EE300633FC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F00E6BBE2A194EE300633FC4 /* GoogleService-Info.plist */; };
+		F00E6BC22A1952BB00633FC4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F00E6BC12A1952BB00633FC4 /* FirebaseAuth */; };
+		F00E6BC42A1952BB00633FC4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F00E6BC32A1952BB00633FC4 /* FirebaseFirestore */; };
+		F00E6BC72A1954E100633FC4 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F00E6BC62A1954E100633FC4 /* GoogleSignIn */; };
+		F00E6BCD2A19583C00633FC4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BCC2A19583C00633FC4 /* SignInViewModel.swift */; };
+		F00E6BCF2A195DE000633FC4 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */; };
+		F00E6BD12A195F1F00633FC4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BD02A195F1F00633FC4 /* SignInView.swift */; };
+		F00E6BD42A19656300633FC4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BD32A19656300633FC4 /* SignInViewController.swift */; };
 		F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03B830E29FBD716006C5AFC /* NetworkService.swift */; };
 		F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */; };
 		F061C2BB2A06530700D1E485 /* SpaCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */; };
@@ -62,6 +70,7 @@
 		F096A29A2A14ABE60084947F /* SplashAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F096A2992A14ABE60084947F /* SplashAnimation.json */; };
 		F096A29C2A14AF1D0084947F /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A29B2A14AF1D0084947F /* SplashCoordinator.swift */; };
 		F096A2A42A14BD130084947F /* LoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F096A2A32A14BD130084947F /* LoadingAnimation.json */; };
+		F0B73F8F2A1B6A900057BDF4 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B73F8E2A1B6A900057BDF4 /* UserService.swift */; };
 		F0CA98172A03B3CD00F996D8 /* SelectedCityCountyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */; };
 		F0CA981A2A0437ED00F996D8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F0CA98192A0437ED00F996D8 /* Lottie */; };
 		F0CA98202A0438C800F996D8 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA981F2A0438C800F996D8 /* AnimationView.swift */; };
@@ -99,6 +108,11 @@
 		F00E6BB72A18F8AB00633FC4 /* PayWallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallView.swift; sourceTree = "<group>"; };
 		F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallPlanButton.swift; sourceTree = "<group>"; };
 		F00E6BBC2A19054900633FC4 /* PayWallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallController.swift; sourceTree = "<group>"; };
+		F00E6BBE2A194EE300633FC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F00E6BCC2A19583C00633FC4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
+		F00E6BD02A195F1F00633FC4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		F00E6BD32A19656300633FC4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F03B830E29FBD716006C5AFC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaCenterModel.swift; sourceTree = "<group>"; };
@@ -151,6 +165,7 @@
 		F096A2992A14ABE60084947F /* SplashAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SplashAnimation.json; sourceTree = "<group>"; };
 		F096A29B2A14AF1D0084947F /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
 		F096A2A32A14BD130084947F /* LoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimation.json; sourceTree = "<group>"; };
+		F0B73F8E2A1B6A900057BDF4 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCityCountyCell.swift; sourceTree = "<group>"; };
 		F0CA981F2A0438C800F996D8 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionCell.swift; sourceTree = "<group>"; };
@@ -185,8 +200,11 @@
 			files = (
 				F0D77D0929FA724D0061C85E /* Alamofire in Frameworks */,
 				F0D77CF029F668CF0061C85E /* RxSwift in Frameworks */,
+				F00E6BC72A1954E100633FC4 /* GoogleSignIn in Frameworks */,
 				F096A2882A13A7230084947F /* SideMenu in Frameworks */,
+				F00E6BC42A1952BB00633FC4 /* FirebaseFirestore in Frameworks */,
 				F0D77CF329F668FB0061C85E /* RxDataSources in Frameworks */,
+				F00E6BC22A1952BB00633FC4 /* FirebaseAuth in Frameworks */,
 				F0D77CEE29F668CF0061C85E /* RxCocoa in Frameworks */,
 				F07258A329F2E19200F625CE /* SnapKit in Frameworks */,
 				F0EE779C2A052DAE007BF9A7 /* FloatingPanel in Frameworks */,
@@ -218,14 +236,50 @@
 			isa = PBXGroup;
 			children = (
 				F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */,
+				F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		F00E6BC82A19581800633FC4 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F00E6BC92A19581D00633FC4 /* SignIn */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		F00E6BC92A19581D00633FC4 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				F00E6BCB2A19582700633FC4 /* ViewModel */,
+				F00E6BCA2A19582300633FC4 /* View */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		F00E6BCA2A19582300633FC4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F00E6BD02A195F1F00633FC4 /* SignInView.swift */,
+				F00E6BD32A19656300633FC4 /* SignInViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F00E6BCB2A19582700633FC4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F00E6BCC2A19583C00633FC4 /* SignInViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F03B830B29FBD6F2006C5AFC /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				F03B830E29FBD716006C5AFC /* NetworkService.swift */,
+				F0B73F8E2A1B6A900057BDF4 /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -301,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				F072588829F284ED00F625CE /* Info.plist */,
+				F00E6BBE2A194EE300633FC4 /* GoogleService-Info.plist */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -318,6 +373,7 @@
 		F072589129F285DA00F625CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				F00E6BC82A19581800633FC4 /* Auth */,
 				F00E6BB52A18F89700633FC4 /* PayWall */,
 				F096A2932A14AB2D0084947F /* Splash */,
 				F072589229F285E200F625CE /* Home */,
@@ -668,6 +724,9 @@
 				F0CA98192A0437ED00F996D8 /* Lottie */,
 				F0EE779B2A052DAE007BF9A7 /* FloatingPanel */,
 				F096A2872A13A7230084947F /* SideMenu */,
+				F00E6BC12A1952BB00633FC4 /* FirebaseAuth */,
+				F00E6BC32A1952BB00633FC4 /* FirebaseFirestore */,
+				F00E6BC62A1954E100633FC4 /* GoogleSignIn */,
 			);
 			productName = SaglikYerleri;
 			productReference = F072587729F284EC00F625CE /* SaglikYerleri.app */;
@@ -705,6 +764,8 @@
 				F0CA98182A0437ED00F996D8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				F0EE779A2A052DAE007BF9A7 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				F096A2862A13A7230084947F /* XCRemoteSwiftPackageReference "SideMenu" */,
+				F00E6BC02A1952BB00633FC4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F00E6BC52A1954E100633FC4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = F072587829F284EC00F625CE /* Products */;
 			projectDirPath = "";
@@ -722,6 +783,7 @@
 			files = (
 				F072588729F284ED00F625CE /* LaunchScreen.storyboard in Resources */,
 				F096A29A2A14ABE60084947F /* SplashAnimation.json in Resources */,
+				F00E6BBF2A194EE300633FC4 /* GoogleService-Info.plist in Resources */,
 				F096A2A42A14BD130084947F /* LoadingAnimation.json in Resources */,
 				F072588429F284ED00F625CE /* Assets.xcassets in Resources */,
 			);
@@ -748,6 +810,7 @@
 				F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */,
 				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
 				F0D73A192A00CF5B00D4F58D /* SearchResultViewModel.swift in Sources */,
+				F00E6BCD2A19583C00633FC4 /* SignInViewModel.swift in Sources */,
 				F072589829F2CF2800F625CE /* Coordinator.swift in Sources */,
 				F096A29C2A14AF1D0084947F /* SplashCoordinator.swift in Sources */,
 				F0D70D0229FD1B6900CA4C39 /* TRCityModel.swift in Sources */,
@@ -757,6 +820,7 @@
 				F0D70D0829FD1E3400CA4C39 /* NetworkEndPointCases.swift in Sources */,
 				F06BEE7629FFD4240013E22D /* ENCountyModel.swift in Sources */,
 				F0EE77A32A052EE1007BF9A7 /* FloatingView.swift in Sources */,
+				F00E6BCF2A195DE000633FC4 /* GoogleSignInButton.swift in Sources */,
 				F072589C29F2D89A00F625CE /* MainCoordinator.swift in Sources */,
 				F096A28D2A13A78E0084947F /* SideMenuView.swift in Sources */,
 				F0D70D0A29FD219900CA4C39 /* NetworkEndPoint.swift in Sources */,
@@ -776,6 +840,7 @@
 				F0CA98202A0438C800F996D8 /* AnimationView.swift in Sources */,
 				F0D77CFD29F929D30061C85E /* MapView.swift in Sources */,
 				F06BEE8229FFDA7C0013E22D /* AnimalHospitalModel.swift in Sources */,
+				F00E6BD42A19656300633FC4 /* SignInViewController.swift in Sources */,
 				F00E6BBB2A18FA5700633FC4 /* PayWallPlanButton.swift in Sources */,
 				F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */,
 				F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */,
@@ -785,6 +850,7 @@
 				F06BEE8029FFDA020013E22D /* RadiologyCenterModel.swift in Sources */,
 				F06552892A181059008897A7 /* UIViewController+ShowToast.swift in Sources */,
 				F0E975E32A1786FF00C5A607 /* MapViewModel.swift in Sources */,
+				F0B73F8F2A1B6A900057BDF4 /* UserService.swift in Sources */,
 				F061C2C12A06545C00D1E485 /* EmergencyCenterModel.swift in Sources */,
 				F061C2BD2A06539400D1E485 /* PhysiotheraphyCenterModel.swift in Sources */,
 				F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */,
@@ -796,6 +862,7 @@
 				F07258A629F2E3FF00F625CE /* UIColor+HEXColor.swift in Sources */,
 				F06BEE8829FFDBC00013E22D /* OptikCenterModel.swift in Sources */,
 				F06458602A0956EE00B17BF1 /* PharmacyCell.swift in Sources */,
+				F00E6BD12A195F1F00633FC4 /* SignInView.swift in Sources */,
 				F07258C229F3416400F625CE /* MainCollectionModel.swift in Sources */,
 				F0DEB6CC2A0A34F000E07D24 /* SharedCell1.swift in Sources */,
 				F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */,
@@ -1027,6 +1094,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F00E6BC02A1952BB00633FC4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+		F00E6BC52A1954E100633FC4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		F07258A129F2E19200F625CE /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1086,6 +1169,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F00E6BC12A1952BB00633FC4 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F00E6BC02A1952BB00633FC4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		F00E6BC32A1952BB00633FC4 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F00E6BC02A1952BB00633FC4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		F00E6BC62A1954E100633FC4 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F00E6BC52A1954E100633FC4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
 		F07258A229F2E19200F625CE /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F07258A129F2E19200F625CE /* XCRemoteSwiftPackageReference "SnapKit" */;

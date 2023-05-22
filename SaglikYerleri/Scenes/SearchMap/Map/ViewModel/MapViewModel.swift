@@ -10,7 +10,9 @@ import CoreLocation
 import RxSwift
 
 final class MapViewModel {
-    
+    deinit {
+        print("deinit MapViewModel")
+    }
     //MARK: - Variables
     var organizations = PublishSubject<(CLLocationCoordinate2D, String)>()
 

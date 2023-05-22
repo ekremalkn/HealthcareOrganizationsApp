@@ -35,9 +35,9 @@ final class FloatingController: UIViewController {
     var isExpanded: Bool = false
     
     //MARK: - Life Cycle Methods
-    init(categoryType: NetworkConstants, mapController: MapController, citySlug: String, countySlug: String, cityName: String, countyName: String) {
+    init(categoryType: NetworkConstants, mapController: MapController, networkService: OrganizationsService, citySlug: String, countySlug: String, cityName: String, countyName: String) {
         self.mapController = mapController
-        self.viewModel = FloatingViewModel(categoryType: categoryType, citySlug: citySlug, countySlug: countySlug, cityName: cityName, countyName: countyName)
+        self.viewModel = FloatingViewModel(categoryType: categoryType, networkService: networkService, citySlug: citySlug, countySlug: countySlug, cityName: cityName, countyName: countyName)
         self.categoryType = categoryType
         super.init(nibName: nil, bundle: nil)
     }

@@ -8,16 +8,21 @@
 import Foundation
 import RxSwift
 
-protocol NetworkServiceProtocol: AnyObject {
+protocol CityCountyService: AnyObject {
     func getTRCities(type: NetworkConstants) -> Observable<TRCityModel?>
     func getENCities(type: NetworkConstants) -> Observable<ENCityModel?>
     func getTRCounties(type: NetworkConstants, city: String) -> Observable<TRCountyModel?>
     func getENcounties(type: NetworkConstants, city: String) -> Observable<ENCountyModel?>
+}
+
+protocol OrganizationsService: AnyObject {
     func getHealthOrganizations<T: Decodable>(type: NetworkConstants, city: String, county: String) -> Observable<T?>
 }
 
-final class NetworkService: NetworkServiceProtocol {
-    static let shared = NetworkService()
+final class NetworkService: CityCountyService, OrganizationsService {
+    deinit {
+        print("deinit network service")
+    }
     
     func getTRCities(type: NetworkConstants) -> Observable<TRCityModel?>{
         let endpoint = NetworkEndPointCases.getCityList(type: type)

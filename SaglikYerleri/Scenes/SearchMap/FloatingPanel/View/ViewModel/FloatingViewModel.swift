@@ -7,10 +7,14 @@
 
 import Foundation
 import RxSwift
-import RxRelay
 
 final class FloatingViewModel {
-    
+    deinit {
+        print("deinit FloatingViewModel")
+    }
+    //MARK: - Network Service
+    var networkSerivce: OrganizationsService?
+
     //MARK: - Category Type
     let categoryType: NetworkConstants?
     
@@ -49,25 +53,24 @@ final class FloatingViewModel {
     private let disposeBag = DisposeBag()
     
     //MARK: - Init Methods
-    init(categoryType: NetworkConstants, citySlug: String, countySlug: String, cityName: String, countyName: String) {
+    init(categoryType: NetworkConstants, networkService: OrganizationsService, citySlug: String, countySlug: String, cityName: String, countyName: String) {
         self.categoryType = categoryType
+        self.networkSerivce = networkService
         self.citySlug = citySlug
         self.countySlug = countySlug
         self.cityName = cityName
         self.countyName = countyName
     }
     
-    deinit {
-        print("floating viewmodel deinit")
-    }
+    
     
     //MARK: - Fetch Organizations
     func fetchOrganizations() {
         self.setLoadingAnimateState(fetchingOrganizations: true)
-        guard let categoryType, let citySlug, let countySlug else { return }
+        guard let categoryType, let networkSerivce, let citySlug, let countySlug else { return }
         switch categoryType {
         case .hospitals:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (hospitalModel: Event<HospitalModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (hospitalModel: Event<HospitalModel?>) in
                 switch hospitalModel {
                 case .next(let hospitalModel):
                     guard let hospitals = hospitalModel?.data else { return }
@@ -81,7 +84,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .healthCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (healthCenterModel: Event<HealthCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (healthCenterModel: Event<HealthCenterModel?>) in
                 switch healthCenterModel {
                 case .next(let healthCenterModel):
                     guard let healthCenters = healthCenterModel?.data else { return }
@@ -95,7 +98,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .dentalCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dentalCenterModel: Event<DentalCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dentalCenterModel: Event<DentalCenterModel?>) in
                 switch dentalCenterModel {
                 case .next(let dentalCenterModel):
                     guard let dentalCenters = dentalCenterModel?.data else { return }
@@ -109,7 +112,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .pharmacy:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (pharmacyModel: Event<PharmacyModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (pharmacyModel: Event<PharmacyModel?>) in
                 switch pharmacyModel {
                 case .next(let pharmacyModel):
                     guard let pharmacies = pharmacyModel?.data else { return }
@@ -123,7 +126,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .medicalLaboratories:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (medicalLaboratoryModel: Event<MedicalLaboratoryModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (medicalLaboratoryModel: Event<MedicalLaboratoryModel?>) in
                 switch medicalLaboratoryModel {
                 case .next(let medicalLaboratoryModel):
                     guard let medicalLaboratories = medicalLaboratoryModel?.data else { return }
@@ -137,7 +140,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .radiologyCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (radiologyCenterModel: Event<RadiologyCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (radiologyCenterModel: Event<RadiologyCenterModel?>) in
                 switch radiologyCenterModel {
                 case .next(let radiologyCenterModel):
                     guard let radiologyCenters = radiologyCenterModel?.data else { return }
@@ -151,7 +154,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .animalHospitals:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (animalHospitalModel: Event<AnimalHospitalModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (animalHospitalModel: Event<AnimalHospitalModel?>) in
                 switch animalHospitalModel {
                 case .next(let animalHospitalModel):
                     guard let animalHospitals = animalHospitalModel?.data else { return }
@@ -165,7 +168,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .psychologistCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (psychologistCenterModel: Event<PsychologyCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (psychologistCenterModel: Event<PsychologyCenterModel?>) in
                 switch psychologistCenterModel {
                 case .next(let psychologistCenterModel):
                     guard let psychologistCenters = psychologistCenterModel?.data else { return }
@@ -179,7 +182,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .gynecologyCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (gynecologyCenterModel: Event<GynecologyCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (gynecologyCenterModel: Event<GynecologyCenterModel?>) in
                 switch gynecologyCenterModel {
                 case .next(let gynecologyCenterModel):
                     guard let gynecologyCenters = gynecologyCenterModel?.data else { return }
@@ -193,7 +196,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .opticCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (optikCenterModel: Event<OptikCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (optikCenterModel: Event<OptikCenterModel?>) in
                 switch optikCenterModel {
                 case .next(let optikCenterModel):
                     guard let optikCenters = optikCenterModel?.data else { return }
@@ -207,7 +210,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .privateDentalCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (privateDentalCenterModel: Event<PrivateDentalCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (privateDentalCenterModel: Event<PrivateDentalCenterModel?>) in
                 switch privateDentalCenterModel {
                 case .next(let privateDentalCenterModel):
                     guard let privateDentalCenters = privateDentalCenterModel?.data else { return }
@@ -221,7 +224,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .spaCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (spaCenterModel: Event<SpaCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (spaCenterModel: Event<SpaCenterModel?>) in
                 switch spaCenterModel {
                 case .next(let spaCenterModel):
                     guard let spaCenters = spaCenterModel?.data else { return }
@@ -235,7 +238,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .dialysisCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dialysisCenterModel: Event<DialysisCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dialysisCenterModel: Event<DialysisCenterModel?>) in
                 switch dialysisCenterModel {
                 case .next(let dialysisCenterModel):
                     guard let dialysisCenters = dialysisCenterModel?.data else { return }
@@ -249,7 +252,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .emergencyCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (emergencyCenterModel: Event<EmergencyCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (emergencyCenterModel: Event<EmergencyCenterModel?>) in
                 switch emergencyCenterModel {
                 case .next(let emergencyCenterModel):
                     guard let emergencyCenters = emergencyCenterModel?.data else { return }
@@ -263,7 +266,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .medicalShopCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (medicalCenterShopModel: Event<MedicalShopCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (medicalCenterShopModel: Event<MedicalShopCenterModel?>) in
                 switch medicalCenterShopModel {
                 case .next(let medicalCenterShopModel):
                     guard let medicalShopCenters = medicalCenterShopModel?.data else { return }
@@ -277,7 +280,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .physiotheraphyCenters:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (physiotheraphyCenterModel: Event<PhysiotheraphyCenterModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (physiotheraphyCenterModel: Event<PhysiotheraphyCenterModel?>) in
                 switch physiotheraphyCenterModel {
                 case .next(let physiotheraphyCenterModel):
                     guard let physiotheraphyCenters = physiotheraphyCenterModel?.data else { return }
@@ -291,7 +294,7 @@ final class FloatingViewModel {
                 }
             }.disposed(by: disposeBag)
         case .dutyPharmacy:
-            NetworkService.shared.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dutyPharmacyModel: Event<PharmacyModel?>) in
+            networkSerivce.getHealthOrganizations(type: categoryType, city: citySlug, county: countySlug).subscribe { [weak self] (dutyPharmacyModel: Event<PharmacyModel?>) in
                 switch dutyPharmacyModel {
                 case .next(let dutyPharmacyModel):
                     guard let dutyPharmacies = dutyPharmacyModel?.data else { return }

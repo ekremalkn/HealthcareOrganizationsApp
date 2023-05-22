@@ -9,7 +9,9 @@ import UIKit
 import MapKit
 
 final class MapView: UIView {
-    
+    deinit {
+        print("deinit mapVİEW")
+    }
     //MARK: - Creating UI Elements
     lazy var backButton: UIBarButtonItem = {
         let backButton = UIBarButtonItem()

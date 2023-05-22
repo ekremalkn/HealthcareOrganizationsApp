@@ -31,8 +31,8 @@ final class SearchResultController: UIViewController {
     let backgroundColor: UIColor?
     
     //MARK: - Lifecycle Methods
-    init(categoryType: NetworkConstants, backgroundColor: UIColor) {
-        self.viewModel = SearchResultViewModel(categoryType: categoryType)
+    init(categoryType: NetworkConstants, networkService: CityCountyService, backgroundColor: UIColor) {
+        self.viewModel = SearchResultViewModel(categoryType: categoryType, networkService: networkService)
         self.backgroundColor = backgroundColor
         super.init(nibName: nil, bundle: nil)
     }
