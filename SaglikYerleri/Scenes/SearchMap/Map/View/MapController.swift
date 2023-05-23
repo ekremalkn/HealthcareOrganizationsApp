@@ -96,12 +96,12 @@ extension MapController {
             
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
-        searchResultController?.selectedCountyName.subscribe(onNext: { [weak self] countyName in
+        searchResultController?.viewModel?.selectedCountyName.subscribe(onNext: { [weak self] countyName in
             guard let self else { return }
             self.searchController?.searchBar.text = countyName
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
-        searchResultController?.clearSearchBarText.subscribe(onNext: { [weak self] _ in
+        searchResultController?.viewModel?.clearSearchBarText.subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             self.searchController?.searchBar.text?.removeAll()
         }).disposed(by: disposeBag)

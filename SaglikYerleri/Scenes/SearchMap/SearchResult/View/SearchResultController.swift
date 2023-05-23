@@ -15,20 +15,13 @@ final class SearchResultController: UIViewController {
     var viewModel: SearchResultViewModel?
     
     //MARK: - Variables
-    var selectedCitySlug: String?
-    var selectedCountySlug: String?
-    var selectedCityName1: String?
-    var selectedCountyName1: String?
-    var selectedCountyName = PublishSubject<String>()
-    var selectedCityName = BehaviorSubject<[String]>(value: [])
     var tableCollectionAnimateState: SearchResultAnimateState = .toBottom
     var searchControllerViewDidAppear = PublishSubject<Void>()
     var searchControllerDissmissed = PublishSubject<(String, String, String, String)>()
-    var clearSearchBarText = PublishSubject<Void>()
     
     //MARK: - Dispose Bag
     let disposeBag = DisposeBag()
-    let backgroundColor: UIColor?
+    let backgroundColor: UIColor
     
     //MARK: - Lifecycle Methods
     init(categoryType: NetworkConstants, networkService: CityCountyService, backgroundColor: UIColor) {
@@ -58,121 +51,87 @@ final class SearchResultController: UIViewController {
     }
     
     private func configureViewController() {
-        if let backgroundColor {
-            searchResultView.tableView.backgroundColor = backgroundColor.withAlphaComponent(0.8)
-        }
-        configureTableView()
-        configureSelectedCollectionView()
+        searchResultView.tableView.backgroundColor = backgroundColor.withAlphaComponent(0.8)
+        
+        configureTableViewCells()
+        viewModel?.configureTableView(tableView: searchResultView.tableView)
+        configureTableViewCellSelections()
+        
+        configureSelectedCollectionCells()
+        viewModel?.configureSelectedCollectionView(collectionView: searchResultView.selectedCityCountyCollectionView, searchResultController: self)
+        configureSelectedCollectionSelections()
+
     }
     
     
 }
 
 
-//MARK: - Configure TableView
+//MARK: - TableViewSelections and Configure Cell
 extension SearchResultController {
-    private func configureTableView() {
-        // Bind data
-        viewModel?.citiesCounties.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, cityCounty, cell in
-            cell.backgroundColor = .clear
-            cell.textLabel?.textColor = .white
-            cell.textLabel?.font = .systemFont(ofSize: 17)
-            cell.textLabel?.text = cityCounty.name
-        }.disposed(by: disposeBag)
-        
-        // Make Request
-        viewModel?.fetchCities()
-        
-        // Handle did select
-        searchResultView.tableView.rx.modelSelected(CityCountyModel.self).bind { [weak self] city in
-            guard let self, let name = city.name, let slugName = city.slugName else { return }
-            switch city.type {
+    private func configureTableViewCells() {
+        viewModel?.configureTableViewCell.subscribe(onNext: { cell, cityCountyName in
+            cell.textLabel?.text = cityCountyName
+        }).disposed(by: disposeBag)
+    }
+    
+    private func configureTableViewCellSelections() {
+        viewModel?.tableViewCellSelected.subscribe(onNext: { [weak self] selection in
+            switch selection.type {
+                
             case .city:
-                self.selectedCitySlug = slugName
-                self.selectedCityName1 = name
-                self.selectedCityName.onNext([name])
-                self.searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
+                guard let self, let slugName = selection.name else { return }
+                searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
                     self?.viewModel?.fetchCounties(city: slugName)
                 }
             case .county:
-                self.selectedCountySlug = slugName
-                self.selectedCountyName1 = name
-                self.selectedCountyName.onNext(name)
-                self.dismiss(animated: true) { [weak self] in
-                    guard let selectedCitySlug = self?.selectedCitySlug, let selectedCountySlug = self?.selectedCountySlug else { return }
-                    if let selectedCityName = self?.selectedCityName1, let selectedCountyName = self?.selectedCountyName1 {
+                self?.dismiss(animated: true) { [weak self] in
+                    guard let selectedCitySlug = self?.viewModel?.selectedCitySlug, let selectedCountySlug = self?.viewModel?.selectedCountySlug else { return }
+                    if let selectedCityName = self?.viewModel?.selectedCityName1, let selectedCountyName = self?.viewModel?.selectedCountyName1 {
                         self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName))
                     } else {
                         self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, "", ""))
                     }
                 }
             }
-            
-        }.disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
-        searchResultView.tableView.rx.itemSelected.subscribe { [weak self] indexPath in
+        viewModel?.tableViewCellDeselected.subscribe(onNext: { [weak self] indexPath in
             self?.searchResultView.tableView.deselectRow(at: indexPath, animated: true)
-        }.disposed(by: disposeBag)
-
+        }).disposed(by: disposeBag)
     }
     
     
 }
 
+
+//MARK: - CollectionViewSelections and Configure Cell
+extension SearchResultController {
+    private func configureSelectedCollectionCells() {
+        viewModel?.configureSelectedCollectionCell.subscribe(onNext: { cell, cityCountyName in
+            cell.configure(cityCountyName)
+        }).disposed(by: disposeBag)
+    }
+    
+    private func configureSelectedCollectionSelections() {
+        viewModel?.selectedCollectionCellSelected.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            self.searchResultView.needSelectedItemCollectionView(animateState: .toTop) { [weak self] in
+                guard let self else { return }
+                self.tableCollectionAnimateState = .toBottom
+            }
+        }).disposed(by: disposeBag)
+    }
+}
 //MARK: - Configure Selected CollectionView
 extension SearchResultController: UICollectionViewDelegateFlowLayout {
-    private func configureSelectedCollectionView() {
-        // Bind data
-        selectedCityName.bind(to: self.searchResultView.selectedCityCountyCollectionView.rx.items(cellIdentifier: SelectedCityCountyCell.identifier, cellType: SelectedCityCountyCell.self)) { row, cityCountyName, cell in
-            cell.configure(cityCountyName)
-        }.disposed(by: disposeBag)
-        
-        
-        // Handle Did Select
-        searchResultView.selectedCityCountyCollectionView.rx.itemSelected.subscribe { [weak self] indexPath in
-            guard let self else { return }
-            self.deleteSelectedItem(indexPath: indexPath) { [weak self] selectedItems  in
-                guard let self, let selectedItems else { return }
-                self.clearSearchBarText.onNext(())
-                self.selectedCityName.onNext(selectedItems)
-                self.viewModel?.fetchCities()
-                self.searchResultView.needSelectedItemCollectionView(animateState: .toTop) { [weak self] in
-                    self?.tableCollectionAnimateState = .toBottom
-                }
-                
-            }
-        }.disposed(by: disposeBag)
-        
-        // Set delegate for cell size
-        searchResultView.selectedCityCountyCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-    }
-    
-    private func deleteSelectedItem(indexPath: IndexPath, completion: (([String]?) -> Void)) {
-        var data = try? self.selectedCityName.value()
-        data?.remove(at: indexPath.row)
-        completion(data)
-    }
-    
-    
     
     // Configure Cell Size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellHeight = collectionView.frame.height / 2 + 10
-        var cellWidth = collectionView.frame.width / 3
-        let cellPadding: CGFloat = 15
+        guard let viewModel else { return CGSize() }
+        let cellSize = viewModel.calculateSelectedCollectionCellSize(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
         
-        // Dynamic cell width according to label text length
-        do {
-            let citiesCounties = try? selectedCityName.value()
-            guard let citiesCounties else { return CGSize() }
-            let cityCountyName = citiesCounties[indexPath.row]
-            let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 15)
-            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-            let estimatedsize = NSString(string: cityCountyName).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)], context: nil)
-            let width = estimatedsize.width + cellPadding * 2
-            cellWidth = width + 30 // xImageView width
-            return CGSize(width: cellWidth, height: cellHeight)
-        }
+        return cellSize
         
     }
     

@@ -49,6 +49,7 @@ final class UserNetworkService: UserService {
         }
     }
     
+    // Firbase Sign Out
     func signOut() -> Observable<Result<String, Error>> {
         return Observable.create { observer in
             do {

@@ -19,7 +19,8 @@ final class SplashCoordinator: Coordinator {
     }
     
     func openMainController(completion: @escaping () -> Void) {
-        let mainController = MainController()
+        let mainViewModel = MainViewModel()
+        let mainController = MainController(viewModel: mainViewModel)
         mainController.mainCoordinator = MainCoordinator()
         mainController.mainCoordinator?.navigationController = self.navigationController
         navigationController.pushViewController(mainController, animated: true)
