@@ -44,8 +44,8 @@ final class MainController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        checkUserSubscriptionStatus()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        
     }
     
     
@@ -56,12 +56,20 @@ final class MainController: UIViewController {
         configureCell()
         viewModel.configureMainCollectionView(mainView: mainView, viewController: self)
         configureCollectionViewSelections()
-
     }
     
     private func configureNavigationBar() {
         title = "Sağlık Kuruluşları"
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mainView.navBarLeftButton)
+    }
+    
+    //MARK: - Check User Subscription Status
+    private func checkUserSubscriptionStatus() {
+        viewModel.checkSubscriptionStatus().subscribe { [weak self] isUserSubscribe in
+            guard let self else { return }
+            isUserSubscribe ? self.showToast(message: "Premium bir kullanıcısın") : self.showToast(message: "Premium bir kullanıcı değilsin")
+        }.disposed(by: disposeBag)
+
     }
     
 }

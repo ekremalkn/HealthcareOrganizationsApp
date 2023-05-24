@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import GoogleSignIn
 import RxSwift
+import RevenueCat
 
 final class SignInViewModel {
     deinit {
@@ -25,28 +26,22 @@ final class SignInViewModel {
     }
     
     
-    func signInWithGoogle(showOn parentVC: UIViewController) {
-        userService.googleSignIn(parentVC: parentVC).subscribe(onNext: { result in
-            switch result {
-            case .success(let successMsg):
-                print(successMsg)
-            case .failure(let error):
-                print(error)
-            }
-            
-        }).disposed(by: disposeBag)
+    func googleSignInWithRC(showOn parentVC: UIViewController) {
+        userService.googleSignInWithRC(showOn: parentVC)
     }
     
     func signOut() {
-        userService.signOut().subscribe(onNext: { result in
+        userService.signOut().subscribe { result in
             switch result {
-            case .success(let successMsg):
-                print(successMsg)
-            case .failure(let error):
-                print(error)
+            case .next():
+                print("çıkış başarılı")
+            case .error(let error):
+                print("\(error) çıkış başarısız")
+            case .completed:
+                print("çıkış işlemi tamamlandı")
             }
             
-        }).disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
     }
     
     

@@ -32,19 +32,19 @@ extension UIViewController {
         window.addSubview(toastView)
         toastView.snp.makeConstraints { make in
             make.centerX.equalTo(window.snp.centerX)
-            make.bottom.equalTo(window.safeAreaLayoutGuide.snp.bottom).offset(40)
+            make.height.equalTo(65)
+            make.bottom.equalTo(window.safeAreaLayoutGuide.snp.bottom).offset(100)
             make.leading.greaterThanOrEqualTo(window.snp.leading).offset(20)
             make.trailing.lessThanOrEqualTo(window.snp.trailing).offset(-20)
         }
         
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-            toastView.transform = CGAffineTransform(translationX: 0, y: -120)
+            toastView.transform = CGAffineTransform(translationX: 0, y: -150)
         }) { _ in
             UIView.animate(withDuration: 0.5, delay: delay) {
-                toastView.transform = CGAffineTransform(translationX: 0, y: 240)
+                toastView.transform = .identity
             } completion: { _ in
                 toastView.removeFromSuperview()
-                
             }
             
         }

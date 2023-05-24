@@ -18,9 +18,9 @@ final class MainCoordinator: Coordinator {
     }
     
     func openMapController(categoryType: NetworkConstants, customTopViewBC: UIColor) {
-        //        let userService: UserService = UserNetworkService()
-        //        let signinvc = SignInViewController(userService: userService)
-        //        navigationController.pushViewController(signinvc, animated: true)
+//                let userService: UserService = UserNetworkService()
+//                let signinvc = SignInViewController(userService: userService)
+//                navigationController.pushViewController(signinvc, animated: true)
         let payWallViewModel = PayWallViewModel()
         let payWallVC = PayWallController(viewModel: payWallViewModel)
         payWallVC.modalPresentationStyle = .pageSheet

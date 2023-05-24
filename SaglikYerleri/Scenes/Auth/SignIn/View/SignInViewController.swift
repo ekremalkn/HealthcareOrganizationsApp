@@ -40,7 +40,7 @@ final class SignInViewController: UIViewController {
         super.viewDidLoad()
         signInView.contiuneWithGoogle.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
-            self.viewModel.signInWithGoogle(showOn: self)
+            self.viewModel.googleSignInWithRC(showOn: self)
         }.disposed(by: disposeBag)
     }
     

@@ -9,6 +9,8 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import RevenueCat
+import FirebaseAuth
+import FirebaseAnalytics
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +23,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         googleSingInFlow()
         Purchases.logLevel = .debug
         Purchases.configure(withAPIKey: IAPConstants.revenueCatApiKey.rawValue)
+            
+        Auth.auth().addStateDidChangeListener { auth, user in
+            
+            if let uid = user?.uid {
+                
+                // yeni firebase kullanıcısıyla satın alma sdksi tanımla
+                Purchases.shared.logIn(uid) { customerInfo, created, error in
+                    if let error = error {
+                        print("Giriş hatası: \(error.localizedDescription)")
+                    } else {
+                        print("Kullanıcı \(uid) giriş yaptı")
+                    }
+                }
+            }
+        }
+        
+        let instanceID = Analytics.appInstanceID()
+        
+        if let unwrappedID = instanceID {
+            print("Instance ID -> " + unwrappedID);
+                 print("Setting Attributes");
+               Purchases.shared.attribution.setFirebaseAppInstanceID(unwrappedID)
+        } else {
+            print("Instance ID -> NOT FOUND!");
+         }
+        
+        Purchases.shared.attribution.setFirebaseAppInstanceID(Analytics.appInstanceID())
         // Override point for customization after application launch.
         return true
     }

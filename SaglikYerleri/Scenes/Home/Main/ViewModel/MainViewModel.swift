@@ -50,6 +50,28 @@ final class MainViewModel {
     
 }
 
+//MARK: - Check Subscription Status
+extension MainViewModel {
+    func checkSubscriptionStatus() -> Observable<Bool> {
+        Observable.create { [unowned self] observer in
+            IAPManager.shared.getCustomerInfo().subscribe { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .next(let userSubscriptionStatus):
+                    observer.onNext(userSubscriptionStatus)
+                case .error(let error):
+                    print(error.localizedDescription)
+                case .completed:
+                    print("kullanıcı subscription status işlemi tamamlandı")
+                }
+            }.disposed(by: self.disposeBag)
+            return Disposables.create()
+        }
+        
+    }
+}
+
+
 //MARK: - Configure CollectionView
 extension MainViewModel {
     func configureMainCollectionView(mainView: MainView, viewController: MainController) {

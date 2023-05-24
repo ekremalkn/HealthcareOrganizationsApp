@@ -8,5 +8,6 @@
 import Foundation
 
 enum IAPConstants: String {
-case revenueCatApiKey = "YOUR API KEY"
+    case revenueCatApiKey = "YOUR API KEY"
+    case entitlementIdentifier = "premium"
 }

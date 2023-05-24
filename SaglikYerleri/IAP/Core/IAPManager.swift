@@ -12,7 +12,8 @@ import RevenueCat
 protocol IAPService {
     func getPackages() -> Observable<[Package]>
     func makePurchase(package: Package) -> Observable<(StoreTransaction, CustomerInfo, PublicError, Bool)>
-    
+    func restorePurchases()
+    func getCustomerInfo() -> Observable<Bool>
 }
 
 
@@ -37,7 +38,7 @@ final public class IAPManager: IAPService {
         }
     }
     
-    func getPackages() -> Observable<[Package]> {
+    public func getPackages() -> Observable<[Package]> {
         return Observable.create { [unowned self] observer in
             self.getOfferings().flatMap { offerings in
                 
@@ -59,14 +60,39 @@ final public class IAPManager: IAPService {
         
     }
     
-    func makePurchase(package: Package) -> Observable<(StoreTransaction, CustomerInfo, PublicError, Bool)> {
+    public func makePurchase(package: Package) -> Observable<(StoreTransaction, CustomerInfo, PublicError, Bool)> {
         Observable.create { observer in
             Purchases.shared.purchase(package: package) { transaction, customerInfo, error, isUserCancelled in
-                if customerInfo?.entitlements.all["premium"]?.isActive == true {
-                    print("BU KULLANICI ZATEN PREMİUM")
-                }
             }
             return Disposables.create()
+        }
+    }
+    
+    func restorePurchases() {
+        Purchases.shared.restorePurchases { (customerInfo, error) in
+            //UNUTMA APPLE BUNU ISTIYOR
+            //... check customerInfo to see if entitlement is now active
+        }
+    }
+    
+    public func getCustomerInfo() -> Observable<Bool> {
+        Observable.create { observer in
+            // Check User is subscribe or not
+            Purchases.shared.getCustomerInfo { customerInfo, error in
+                if let error {
+                    observer.onError(error)
+                } else {
+                    if customerInfo?.entitlements.all[IAPConstants.entitlementIdentifier.rawValue]?.isActive == true {
+                        observer.onNext(true)
+                    } else {
+                        observer.onNext(false)
+                    }
+                }
+                observer.onCompleted()
+                
+            }
+            return Disposables.create()
+            
         }
     }
     
