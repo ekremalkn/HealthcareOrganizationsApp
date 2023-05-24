@@ -15,7 +15,8 @@ extension Reactive where Base: UIButton {
     // Make Phone Call
     func makePhoneCall(phoneObservable: PublishSubject<(String ,String ,String ,String, MKMapItem)>, disposeBag: DisposeBag) {
         phoneObservable.subscribe(onNext: { [weak base] _, _, _, phoneNumber, _ in
-            base?.rx.tap.subscribe(onNext: { _ in
+            guard let base else { return }
+            base.rx.tap.subscribe(onNext: { _ in
                 if !phoneNumber.isEmpty {
                     self.callPhoneNumber(with: phoneNumber)
                 } else {
@@ -40,7 +41,8 @@ extension Reactive where Base: UIButton {
     // Share Content
     func shareContent(contentObservable: PublishSubject<(String ,String ,String ,String, MKMapItem)>, disposeBag: DisposeBag) {
         contentObservable.subscribe(onNext: { [weak base] name, address, directions, phoneNumber, mapItem in
-            base?.rx.tap.subscribe(onNext: { _ in
+            guard let base else { return }
+            base.rx.tap.subscribe(onNext: { _ in
                 // Create content
                 let nameItem = "Adı: \(name)"
                 let addressItem = "Adresi: \(address)"

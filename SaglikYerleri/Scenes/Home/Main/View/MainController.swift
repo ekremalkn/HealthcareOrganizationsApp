@@ -82,8 +82,9 @@ extension MainController {
 //MARK: - Button Taps
 extension MainController {
     private func configureLeftNavButton() {
-        mainView.navBarLeftButton.rx.tap.subscribe { [unowned self] _ in
-            mainCoordinator?.openSideMenuController(from: self) 
+        mainView.navBarLeftButton.rx.tap.subscribe { [weak self] _ in
+            guard let self else { return }
+            self.mainCoordinator?.openSideMenuController(from: self)
         }.disposed(by: disposeBag)
     }
     

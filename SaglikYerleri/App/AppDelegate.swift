@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import RevenueCat
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Configure Firebase
         FirebaseApp.configure()
         googleSingInFlow()
-        
+        Purchases.logLevel = .debug
+        Purchases.configure(withAPIKey: IAPConstants.revenueCatApiKey.rawValue)
         // Override point for customization after application launch.
         return true
     }

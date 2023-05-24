@@ -26,9 +26,11 @@ final class SplashController: UIViewController {
    
     private func configureViewController() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.splashView.loadingView.animationView2?.stop()
-            self?.splashCoordinator?.openMainController(completion: { [weak self] in
-                self?.removeFromParent()
+            guard let self else { return }
+            self.splashView.loadingView.animationView2?.stop()
+            self.splashCoordinator?.openMainController(completion: { [weak self] in
+                guard let self else { return }
+                self.removeFromParent()
             })
         }
     }

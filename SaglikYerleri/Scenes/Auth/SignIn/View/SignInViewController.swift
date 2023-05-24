@@ -38,7 +38,8 @@ final class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signInView.contiuneWithGoogle.rx.tap.subscribe { [unowned self] _ in
+        signInView.contiuneWithGoogle.rx.tap.subscribe { [weak self] _ in
+            guard let self else { return }
             self.viewModel.signInWithGoogle(showOn: self)
         }.disposed(by: disposeBag)
     }

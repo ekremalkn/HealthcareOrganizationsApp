@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import RevenueCat
+import RxSwift
 
 enum PayWallPlanButtonType {
-    case yearly
+    case annual
     case monthly
 }
 
 final class PayWallPlanButton: UIButton {
-    var type: PayWallPlanButtonType = .yearly
+    var type: PayWallPlanButtonType?
     
     //MARK: - Creating UI Elements
     private lazy var planTitleLabel: UILabel = {
@@ -46,6 +48,10 @@ final class PayWallPlanButton: UIButton {
         return label
     }()
     
+    //MARK: - Dispose Bag
+    private let disposeBag = DisposeBag()
+    
+    
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,16 +61,59 @@ final class PayWallPlanButton: UIButton {
     convenience init(type: PayWallPlanButtonType) {
         self.init(frame: .zero)
         setButtons(with: type)
+        getPackages()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    private func getPackages() {
+        IAPManager.shared.getPackages().subscribe { [weak self] packages in
+            switch packages {
+            case .next(let packages):
+                guard let self, let type = self.type else { return }
+                
+                switch type {
+                case .annual:
+                    packages.forEach {
+                        if $0.packageType == .annual {
+                            self.priceLabel.text = $0.localizedPriceString
+                            var priceString = $0.localizedPriceString
+                            if priceString.hasPrefix("$") {
+                                priceString.removeFirst()
+                            }
+                            if let priceValue = Double(priceString) {
+                                let monthlyPrice = priceValue / 12
+                                let formattedPrice = String(monthlyPrice)
+                                self.planOptionsLabel.text = formattedPrice
+                            } else {
+                                self.planOptionsLabel.text = ""
+                            }
+                        }
+                        
+                    }
+                case .monthly:
+                    packages.forEach {
+                        if $0.packageType == .monthly {
+                            self.priceLabel.text = $0.localizedPriceString
+                        }
+                     }
+                }
+            case .error(let error):
+                print(error)
+            case .completed:
+                print("Paketler alındı")
+            }
+        }.disposed(by: disposeBag)
+    }
+    
+    
     
     private func setButtons(with type: PayWallPlanButtonType) {
+        self.type = type
         switch type {
-        case .yearly:
+        case .annual:
             planTitleLabel.text = "1 Yıl"
             priceLabel.text = "150₺"
             planOptionsLabel.text = "• 12.5₺/Ay"
@@ -72,7 +121,7 @@ final class PayWallPlanButton: UIButton {
             planTitleLabel.text = "1 Ay"
             priceLabel.text = "20₺"
             planOptionsLabel.text = "• Aylık faturalandırılır"
-
+            
         }
     }
     

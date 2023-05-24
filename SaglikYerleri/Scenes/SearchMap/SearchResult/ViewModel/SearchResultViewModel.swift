@@ -60,10 +60,11 @@ extension SearchResultViewModel {
     func configureTableView(tableView: UITableView) {
         // Bind data
         citiesCounties.bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { [weak self] row, cityCounty, cell in
+            guard let self else { return }
             cell.backgroundColor = .clear
             cell.textLabel?.textColor = .white
             cell.textLabel?.font = .systemFont(ofSize: 17)
-            self?.configureTableViewCell.onNext((cell, cityCountyName: cityCounty.name))
+            self.configureTableViewCell.onNext((cell, cityCountyName: cityCounty.name))
         }.disposed(by: disposeBag)
         
         // Make Request

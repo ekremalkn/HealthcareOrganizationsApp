@@ -85,12 +85,14 @@ extension MapController {
     
     private func subscribeToSearchResultControllerVariables() {
         searchResultController?.searchControllerViewDidAppear.subscribe(onNext: { [weak self] _ in
-            self?.mapCoordinator?.moveFloatingPanelToTip()
+            guard let self else { return }
+            self.mapCoordinator?.moveFloatingPanelToTip()
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
         searchResultController?.searchControllerDissmissed.subscribe(onNext: { [weak self] selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName in
-            self?.mapView.configureAlphaView(hideAlphaView: true, completion: { [weak self] in
-                guard let categoryType = self?.categoryType, let self else { return }
+            guard let self else { return }
+            self.mapView.configureAlphaView(hideAlphaView: true, completion: { [weak self] in
+                guard let self, let categoryType = self.categoryType else { return }
                 self.mapCoordinator?.openFloatingController(categoryType: categoryType, mapController: self, citySlug: selectedCitySlug, countySlug: selectedCountySlug, cityName: selectedCityName, countyName: selectedCountyName, parentVC: self)
             })
             
@@ -113,23 +115,26 @@ extension MapController {
         
         // Search Controller ViewModel Loading States
         searchResultController?.viewModel?.fetchingCities.subscribe(onNext: { [weak self] value in
-            self?.mapView.loadingView.isHidden = value ? false : true
+            guard let self else { return }
+            self.mapView.loadingView.isHidden = value ? false : true
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
         searchResultController?.viewModel?.fetchedCities.subscribe(onNext: { [weak self] _ in
-            self?.mapView.loadingView.isHidden = true
+            guard let self else { return }
+            self.mapView.loadingView.isHidden = true
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
         searchResultController?.viewModel?.errorMsg.subscribe(onNext: { [weak self] errorMsg in
-            self?.mapView.loadingView.isHidden = false
+            guard let self else { return }
+            self.mapView.loadingView.isHidden = false
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
     }
     
     // SearchBar callbacks
     private func subscribeToSearchBarText() {
         searchController?.searchBar.rx.text.subscribe(onNext: { [weak self] text in
-            guard let text else { return }
-            self?.searchResultController?.viewModel?.filterCityCounty(character: text)
+            guard let self, let text else { return }
+            self.searchResultController?.viewModel?.filterCityCounty(character: text)
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)
         
         searchController?.searchBar.rx.textDidBeginEditing.subscribe(onNext: { [weak self] _ in

@@ -19,16 +19,18 @@ final class PayWallView: UIView {
         return imageView
     }()
     
-    lazy var grabberView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .init(hex: "181818")
-        return view
+    lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.init(systemName: "multiply"), for: .normal)
+        button.tintColor = .white.withAlphaComponent(0.5)
+        button.backgroundColor = .init(hex: "181818").withAlphaComponent(0.2)
+        return button
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Arial-BoldMT", size: 24)
-        label.text = "Her şehirde bütün sağlık kuruluşlarının adres bilgilerine sınırsızca erişin"
+        label.text = "Bütün sağlık kuruluşlarının adres bilgilerine sınırsızca erişin"
         label.textAlignment = .center
         label.numberOfLines = 0
         label.textColor = .white
@@ -57,11 +59,11 @@ final class PayWallView: UIView {
         return button
     }()
     
-    private lazy var yearlyButton = PayWallPlanButton(type: .yearly)
+    private lazy var yearlyButton = PayWallPlanButton(type: .annual)
     private lazy var monthlyButton = PayWallPlanButton(type: .monthly)
     
     
-    private lazy var continueButton: UIButton = {
+    lazy var continueButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Devam et", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -86,6 +88,11 @@ final class PayWallView: UIView {
         configureView()
     }
     
+    convenience init(selectedButton: PayWallPlanButton) {
+        self.init(frame: .zero)
+        self.selectedButton = selectedButton
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -94,8 +101,8 @@ final class PayWallView: UIView {
         super.layoutSubviews()
         applyGradient()
         
-        grabberView.layer.cornerRadius = 2.5
-        grabberView.layer.masksToBounds = true
+        closeButton.layer.cornerRadius = 12.5
+        closeButton.layer.masksToBounds = true
     }
     
     
@@ -140,8 +147,7 @@ final class PayWallView: UIView {
             
             completion?()
         }
-       
-        
+
     }
 
     private func applyGradient() {
@@ -167,7 +173,7 @@ extension PayWallView: ViewProtocol {
     
     func addSubview() {
         addSubview(backgroundImageView)
-        backgroundImageView.addSubview(grabberView)
+        addSubview(closeButton)
         backgroundImageView.addSubview(titleLabel)
         backgroundImageView.addSubview(subTitleLabel)
         addSubview(yearlyButton)
@@ -178,7 +184,7 @@ extension PayWallView: ViewProtocol {
     
     func setupConstraints() {
         backgroundImageViewConstraints()
-        grabberViewConstraints()
+        closeButtonConstraints()
         titleLabelConstraints()
         subTitleLabelConstraints()
         yearlyButtonConstraints()
@@ -194,12 +200,11 @@ extension PayWallView: ViewProtocol {
         }
     }
     
-    private func grabberViewConstraints() {
-        grabberView.snp.makeConstraints { make in
-            make.top.equalTo(backgroundImageView.snp.top).offset(5)
-            make.centerX.equalTo(backgroundImageView.snp.centerX)
-            make.width.equalTo(backgroundImageView.snp.width).multipliedBy(0.15)
-            make.height.equalTo(5)
+    private func closeButtonConstraints() {
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(15)
+            make.trailing.equalTo(self.snp.trailing).offset(-15)
+            make.width.height.equalTo(25)
         }
     }
     

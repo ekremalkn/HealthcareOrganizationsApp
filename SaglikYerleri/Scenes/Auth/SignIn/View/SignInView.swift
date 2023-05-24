@@ -93,7 +93,8 @@ final class SignInView: UIView {
         googleSignInButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
             self.buttonAnimationWhenSelected { [weak self] in
-                self?.isProviderSelected.onNext(true)
+                guard let self else { return }
+                self.isProviderSelected.onNext(true)
             }
         }.disposed(by: disposeBag)
     }
@@ -112,10 +113,12 @@ final class SignInView: UIView {
     
     private func subscribeToProvider() {
         isProviderSelected.subscribe { [weak self] value in
+            guard let self else { return }
             if value {
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
-                    self?.contiuneWithGoogle.alpha = 1
-                    self?.contiuneWithGoogle.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                    guard let self else { return }
+                    self.contiuneWithGoogle.alpha = 1
+                    self.contiuneWithGoogle.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                 }, completion: nil)
             }
         }.disposed(by: disposeBag)

@@ -17,12 +17,14 @@ final class MapAlertController: UIAlertController {
 
     func showAlert(on viewController: UIViewController, useWhenOkTapped annotation: MKAnnotation) {
         let firstAction = UIAlertAction(title: "Evet", style: .default) { [weak self] _ in
+            guard let self else { return }
             // Open Apple Maps
-            self?.openAppleMaps(with: annotation)
+            self.openAppleMaps(with: annotation)
         }
         
         let secondAction = UIAlertAction(title: "Geri Dön", style: .default) { [weak self] _ in
-            self?.dismiss(animated: true)
+            guard let self else { return }
+            self.dismiss(animated: true)
         } //Cancel Style
         
         addAction(firstAction)

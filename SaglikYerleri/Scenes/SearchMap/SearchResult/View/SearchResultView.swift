@@ -124,8 +124,9 @@ extension SearchResultView: ViewProtocol {
         }
         
         UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.tableView.frame = tableFrame
-            self?.selectedCityCountyCollectionView.layoutIfNeeded()
+            guard let self else { return }
+            self.tableView.frame = tableFrame
+            self.selectedCityCountyCollectionView.layoutIfNeeded()
             completion()
         }
         

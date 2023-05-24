@@ -77,27 +77,31 @@ extension SearchResultController {
     
     private func configureTableViewCellSelections() {
         viewModel?.tableViewCellSelected.subscribe(onNext: { [weak self] selection in
+            guard let self else { return }
             switch selection.type {
                 
             case .city:
-                guard let self, let slugName = selection.name else { return }
+                guard let slugName = selection.name else { return }
                 searchResultView.needSelectedItemCollectionView(animateState: self.tableCollectionAnimateState) { [weak self] in
-                    self?.viewModel?.fetchCounties(city: slugName)
+                    guard let self else { return }
+                    self.viewModel?.fetchCounties(city: slugName)
                 }
             case .county:
-                self?.dismiss(animated: true) { [weak self] in
-                    guard let selectedCitySlug = self?.viewModel?.selectedCitySlug, let selectedCountySlug = self?.viewModel?.selectedCountySlug else { return }
-                    if let selectedCityName = self?.viewModel?.selectedCityName1, let selectedCountyName = self?.viewModel?.selectedCountyName1 {
-                        self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName))
+                self.dismiss(animated: true) { [weak self] in
+                    guard let self else { return }
+                    guard let selectedCitySlug = self.viewModel?.selectedCitySlug, let selectedCountySlug = self.viewModel?.selectedCountySlug else { return }
+                    if let selectedCityName = self.viewModel?.selectedCityName1, let selectedCountyName = self.viewModel?.selectedCountyName1 {
+                        self.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, selectedCityName, selectedCountyName))
                     } else {
-                        self?.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, "", ""))
+                        self.searchControllerDissmissed.onNext((selectedCitySlug, selectedCountySlug, "", ""))
                     }
                 }
             }
         }).disposed(by: disposeBag)
         
         viewModel?.tableViewCellDeselected.subscribe(onNext: { [weak self] indexPath in
-            self?.searchResultView.tableView.deselectRow(at: indexPath, animated: true)
+            guard let self else { return }
+            self.searchResultView.tableView.deselectRow(at: indexPath, animated: true)
         }).disposed(by: disposeBag)
     }
     
