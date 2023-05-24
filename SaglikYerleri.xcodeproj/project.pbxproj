@@ -122,8 +122,8 @@
 		F03380AD2A1E52BF00B120E7 /* IAPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPConstants.swift; sourceTree = "<group>"; };
 		F03380AE2A1E52BF00B120E7 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		F03380B72A1E538B00B120E7 /* PayWallViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWallViewModel.swift; sourceTree = "<group>"; };
-		F03380B92A1E545F00B120E7 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = Configuration.storekit; path = ../../../../Configuration.storekit; sourceTree = "<group>"; };
-		F03380BB2A1E553400B120E7 /* StoreKitTestCertificate10.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate10.cer; path = ../../../../StoreKitTestCertificate10.cer; sourceTree = "<group>"; };
+		F03380B92A1E545F00B120E7 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		F03380BB2A1E553400B120E7 /* StoreKitTestCertificate10.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate10.cer; sourceTree = "<group>"; };
 		F03B830E29FBD716006C5AFC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaCenterModel.swift; sourceTree = "<group>"; };
