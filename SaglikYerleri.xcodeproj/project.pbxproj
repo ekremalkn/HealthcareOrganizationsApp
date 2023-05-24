@@ -114,14 +114,14 @@
 		F00E6BB72A18F8AB00633FC4 /* PayWallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallView.swift; sourceTree = "<group>"; };
 		F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallPlanButton.swift; sourceTree = "<group>"; };
 		F00E6BBC2A19054900633FC4 /* PayWallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallController.swift; sourceTree = "<group>"; };
-		F00E6BBE2A194EE300633FC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F00E6BBE2A194EE300633FC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F00E6BCC2A19583C00633FC4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		F00E6BD02A195F1F00633FC4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F00E6BD32A19656300633FC4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		F03380AD2A1E52BF00B120E7 /* IAPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IAPConstants.swift; path = ../../../../../IAPConstants.swift; sourceTree = "<group>"; };
-		F03380AE2A1E52BF00B120E7 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IAPManager.swift; path = ../../../../../IAPManager.swift; sourceTree = "<group>"; };
-		F03380B72A1E538B00B120E7 /* PayWallViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PayWallViewModel.swift; path = ../../../../../../PayWallViewModel.swift; sourceTree = "<group>"; };
+		F03380AD2A1E52BF00B120E7 /* IAPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPConstants.swift; sourceTree = "<group>"; };
+		F03380AE2A1E52BF00B120E7 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		F03380B72A1E538B00B120E7 /* PayWallViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWallViewModel.swift; sourceTree = "<group>"; };
 		F03380B92A1E545F00B120E7 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = Configuration.storekit; path = ../../../../Configuration.storekit; sourceTree = "<group>"; };
 		F03380BB2A1E553400B120E7 /* StoreKitTestCertificate10.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate10.cer; path = ../../../../StoreKitTestCertificate10.cer; sourceTree = "<group>"; };
 		F03B830E29FBD716006C5AFC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
