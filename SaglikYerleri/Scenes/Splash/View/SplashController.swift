@@ -8,7 +8,7 @@
 import UIKit
 
 final class SplashController: UIViewController {
-
+    
     //MARK: - References
     weak var splashCoordinator: SplashCoordinator?
     private let splashView = SplashView()
@@ -23,18 +23,44 @@ final class SplashController: UIViewController {
         super.viewDidLoad()
         configureViewController()
     }
-   
+    
     private func configureViewController() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+        RemoteConfigManager.shared.fetchAndUpdateRemoteConfig(duration: 0) { [weak self] mainHorizontalCollectionData in
             guard let self else { return }
-            self.splashView.loadingView.animationView2?.stop()
-            self.splashCoordinator?.openMainController(completion: { [weak self] in
-                guard let self else { return }
-                self.removeFromParent()
-            })
+            if let mainHorizontalCollectionData {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.splashView.loadingView.animationView2?.stop()
+                    self.splashCoordinator?.openMainController(mainHorizontalCollectionData: mainHorizontalCollectionData, completion: { [weak self] in
+                        guard let self else { return }
+                        self.removeFromParent()
+                    })
+                }
+            } else {
+                // default mainhorizontalcollectiondata ile aç gönder
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.splashView.loadingView.animationView2?.stop()
+                    self.splashCoordinator?.openMainController(mainHorizontalCollectionData: nil, completion: { [weak self] in
+                        guard let self else { return }
+                        self.removeFromParent()
+                    })
+                }
+            }
+            
+            
+            
+            
         }
+        
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+        //            guard let self else { return }
+        //            self.splashView.loadingView.animationView2?.stop()
+        //            self.splashCoordinator?.openMainController(completion: { [weak self] in
+        //                guard let self else { return }
+        //                self.removeFromParent()
+        //            })
+        //        }
     }
-
+    
 }
 
 

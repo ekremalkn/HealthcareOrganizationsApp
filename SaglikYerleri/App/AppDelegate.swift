@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          }
         
         Purchases.shared.attribution.setFirebaseAppInstanceID(Analytics.appInstanceID())
-        // Override point for customization after application launch.
+        
         return true
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum MainHorizontalCollectionData {
+public enum MainHorizontalCollectionData {
     case categoryType(NetworkConstants)
     
     var selectedCategoryType: NetworkConstants {
@@ -102,44 +102,42 @@ extension MainHorizontalCollectionData {
         switch self {
         case .categoryType(let networkConstants):
             switch networkConstants {
+            case .pharmacy:
+                return "Tüm Eczaneler"
             case .dutyPharmacy:
                 return "Nöbetçi Eczaneler"
-            case .pharmacy:
-                break
             case .healthCenters:
                 return "Sağlık Ocakları"
             case .hospitals:
-                return "Tüm Hastaneler"
+                return "Hastaneler"
             case .dentalCenters:
                 return "Diş Klinikleri"
             case .privateDentalCenters:
-                break
+                return "Ozel Diş Klinikleri"
             case .medicalLaboratories:
-                break
+                return "Tıbbi Laboratuvarlar"
             case .radiologyCenters:
-                break
+                return "Radyoloji Merkezleri"
             case .spaCenters:
-                break
+                return "Spa Merkezleri"
             case .psychologistCenters:
-                break
+                return "Psikologlar"
             case .gynecologyCenters:
-                break
+                return "Jinekologlar"
             case .opticCenters:
-                break
+                return "Optik Merkezleri"
             case .animalHospitals:
-                break
+                return "Hayvan Hastaneleri"
             case .dialysisCenters:
-                break
+                return "Diyaliz Merkzleri"
             case .emergencyCenters:
-                break
+                return "Acil Servisler"
             case .medicalShopCenters:
-                break
+                return "Medikal Alışveriş Merkezleri"
             case .physiotheraphyCenters:
-                break
-                
+                return "Fizik Tedavi Merkezleri"
             }
         }
-        return ""
     }
     
     var tintAndBackgroundColor: UIColor {

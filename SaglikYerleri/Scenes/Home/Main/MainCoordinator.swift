@@ -21,14 +21,14 @@ final class MainCoordinator: Coordinator {
 //                let userService: UserService = UserNetworkService()
 //                let signinvc = SignInViewController(userService: userService)
 //                navigationController.pushViewController(signinvc, animated: true)
-        let payWallViewModel = PayWallViewModel()
-        let payWallVC = PayWallController(viewModel: payWallViewModel)
-        payWallVC.modalPresentationStyle = .pageSheet
-        navigationController.present(payWallVC, animated: true)
-        //        let networkService: CityCountyService = NetworkService()
-        //        let mapController = MapController(categoryType: categoryType, networkService: networkService, customTopViewBC: customTopViewBC)
-        //        mapController.mapCoordinator = MapCoordinator()
-        //        navigationController.pushViewController(mapController, animated: true)
+//        let payWallViewModel = PayWallViewModel()
+//        let payWallVC = PayWallController(viewModel: payWallViewModel)
+//        payWallVC.modalPresentationStyle = .pageSheet
+//        navigationController.present(payWallVC, animated: true)
+                let networkService: CityCountyService = NetworkService()
+                let mapController = MapController(categoryType: categoryType, networkService: networkService, customTopViewBC: customTopViewBC)
+                mapController.mapCoordinator = MapCoordinator()
+                navigationController.pushViewController(mapController, animated: true)
     }
     
     func openSideMenuController(from controller: UIViewController) {

@@ -16,7 +16,7 @@ final class MainViewModel {
     
     
     //MARK: - CollectionView Datas
-    let horizontalCollectionData = Observable.just([
+    var horizontalCollectionData = Observable.just([
         MainHorizontalCollectionData.categoryType(.dutyPharmacy),
         MainHorizontalCollectionData.categoryType(.hospitals),
         MainHorizontalCollectionData.categoryType(.dentalCenters),
@@ -48,7 +48,12 @@ final class MainViewModel {
     let configureHorizontalCollectionCell = PublishSubject<(HorizontalCollectionCell, MainHorizontalCollectionData)>()
     let configureVerticalCollectionCell = PublishSubject<(VerticalCollectionCell, MainCollectionData)>()
     
+    init(mainHorizontalCollectionRemoteConfigData: Observable<[MainHorizontalCollectionData]>?) {
+        guard let mainHorizontalCollectionRemoteConfigData else { return }
+        self.horizontalCollectionData = mainHorizontalCollectionRemoteConfigData
+    }
 }
+
 
 //MARK: - Check Subscription Status
 extension MainViewModel {

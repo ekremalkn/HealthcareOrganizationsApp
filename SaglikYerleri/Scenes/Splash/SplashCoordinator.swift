@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class SplashCoordinator: Coordinator {
     var childCoordinator: [Coordinator] = []
@@ -18,8 +19,8 @@ final class SplashCoordinator: Coordinator {
         navigationController.pushViewController(splashcontroller, animated: false)
     }
     
-    func openMainController(completion: @escaping () -> Void) {
-        let mainViewModel = MainViewModel()
+    func openMainController(mainHorizontalCollectionData: Observable<[MainHorizontalCollectionData]>?, completion: @escaping () -> Void) {
+        let mainViewModel = MainViewModel(mainHorizontalCollectionRemoteConfigData: mainHorizontalCollectionData)
         let mainController = MainController(viewModel: mainViewModel)
         mainController.mainCoordinator = MainCoordinator()
         mainController.mainCoordinator?.navigationController = self.navigationController
