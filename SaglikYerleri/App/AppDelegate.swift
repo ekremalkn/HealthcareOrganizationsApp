@@ -11,11 +11,11 @@ import GoogleSignIn
 import RevenueCat
 import FirebaseAuth
 import FirebaseAnalytics
+import FirebaseMessaging
+import UserNotifications
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Configure Firebase
@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Purchases.logLevel = .debug
         Purchases.configure(withAPIKey: IAPConstants.revenueCatApiKey.rawValue)
             
+        //MARK: - Revenuecat in app purchase with firebase
         Auth.auth().addStateDidChangeListener { auth, user in
-            
             if let uid = user?.uid {
                 
                 // yeni firebase kullanıcısıyla satın alma sdksi tanımla
@@ -51,7 +51,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Purchases.shared.attribution.setFirebaseAppInstanceID(Analytics.appInstanceID())
         
+        //MARK: - Configure Push Notification
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { isSuccess, error in
+            guard isSuccess, error == nil else { return }
+            if isSuccess {
+                print("Success in APNS registry")
+
+            } else {
+                print("Unsuccess in APNS registry")
+            }
+            
+        }
+        
+        application.registerForRemoteNotifications()
+        
         return true
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        messaging.token { token, error in
+            guard let token, error == nil else { return }
+            print("Token\(token)")
+        }
     }
     
     private func googleSingInFlow() {

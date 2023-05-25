@@ -115,7 +115,6 @@ extension MainController: UICollectionViewDelegateFlowLayout {
         let cellSize = viewModel.calculateCellSize(mainView, collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
         
         return cellSize
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

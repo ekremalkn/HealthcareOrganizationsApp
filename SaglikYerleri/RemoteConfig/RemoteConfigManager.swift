@@ -77,7 +77,7 @@ final public class RemoteConfigManager {
                         .keys
                         .map { MainHorizontalCollectionData.categoryType($0) }
                     
-                    var mainHorizontalCollectionData = Observable<[MainHorizontalCollectionData]>.just(horizontalCollectionCategories)
+                    let mainHorizontalCollectionData = Observable<[MainHorizontalCollectionData]>.just(horizontalCollectionCategories)
 
                     
                     completion(mainHorizontalCollectionData)
