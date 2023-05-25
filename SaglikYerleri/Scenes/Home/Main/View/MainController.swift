@@ -52,10 +52,7 @@ final class MainController: UIViewController {
     //MARK: - Configure ViewController
     private func configureViewController() {
         configureNavigationBar()
-        configureLeftNavButton()
-        configureCell()
-        viewModel.configureMainCollectionView(mainView: mainView, viewController: self)
-        configureCollectionViewSelections()
+        configureMainCollectionView()
     }
     
     private func configureNavigationBar() {
@@ -69,58 +66,88 @@ final class MainController: UIViewController {
             guard let self else { return }
             isUserSubscribe ? self.showToast(message: "Premium bir kullanıcısın") : self.showToast(message: "Premium bir kullanıcı değilsin")
         }.disposed(by: disposeBag)
-
+        
     }
     
 }
 
-//MARK: - Configiure Cell
+//MARK: - Configure CollectionView
 extension MainController {
-    private func configureCell() {
-        viewModel.configureHorizontalCollectionCell.subscribe { horizontalCell, horizontalData in
-            horizontalCell.configure(with: horizontalData)
+    func configureMainCollectionView() {
+        let mainCollectionDataSource = self.mainCollectionDataSource()
+        
+        // Bind Data mainCollectionView
+        viewModel.mainCollectionData.asObservable().map { mainCollectionData -> [SectionModel<String, MainCollectionData>] in
+            return [SectionModel(model: "", items: mainCollectionData)]
+        }.bind(to: mainView.mainCollectionView.rx.items(dataSource: mainCollectionDataSource)).disposed(by: disposeBag)
+        
+        // Handle DidSelect
+        mainView.mainCollectionView.rx.modelSelected(MainCollectionData.self).bind { [weak self] mainCollectionData in
+            guard let self else { return }
+            self.mainCoordinator?.openMapController(categoryType: mainCollectionData.selectedCategoryType, customTopViewBC: mainCollectionData.backgroundColor)
         }.disposed(by: disposeBag)
         
-        viewModel.configureVerticalCollectionCell.subscribe { verticalCell, verticalData in
-            verticalCell.configure(with: verticalData)
-        }.disposed(by: disposeBag)
-    }
-}
-
-//MARK: - Button Taps
-extension MainController {
-    private func configureLeftNavButton() {
-        mainView.navBarLeftButton.rx.tap.subscribe { [weak self] _ in
-            guard let self else { return }
-            self.mainCoordinator?.openSideMenuController(from: self)
-        }.disposed(by: disposeBag)
     }
     
-    private func configureCollectionViewSelections() {
-        viewModel.horizontalCollectionCellSelected.subscribe { [weak self] categoryType, customTopViewBC in
-            guard let self else { return }
-            self.mainCoordinator?.openMapController(categoryType: categoryType, customTopViewBC: customTopViewBC)
-        }.disposed(by: disposeBag)
+    private func mainCollectionDataSource() -> RxCollectionViewSectionedReloadDataSource<SectionModel<String, MainCollectionData>> {
+        let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, MainCollectionData>> { dataSource, collectionView, indexPath, mainCollectionData in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VerticalCollectionCell.identifier, for: indexPath) as? VerticalCollectionCell else { return UICollectionViewCell()}
+            cell.configure(with: mainCollectionData)
+            return cell
+        } configureSupplementaryView: { [weak self] _, collectionView, item, indexPath in
+            guard let self = self, let headerView =
+                    collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier, for: indexPath) as? MainCollectionHeaderView else { return UICollectionReusableView() }
+            
+            // Configure Header's HorizontalCollectionView
+            let headerDataSource = self.headerDataSource()
+            
+            
+            // Bind Data to HorizontalCollectionView
+            viewModel.horizontalCollectionData.asObservable().map { mainHorizontalCollectionData ->
+                [SectionModel<String, MainHorizontalCollectionData>] in
+                return [SectionModel(model: "", items: mainHorizontalCollectionData)]
+            }.bind(to: headerView.horizontalCollectionView.rx.items(dataSource: headerDataSource)).disposed(by: headerView.disposeBag)
+            
+            // Handle DidSelect
+            headerView.horizontalCollectionView.rx.modelSelected(MainHorizontalCollectionData.self).bind { [weak self] mainHorizontalCollectionData in
+                guard let self else { return }
+                self.mainCoordinator?.openMapController(categoryType: mainHorizontalCollectionData.selectedCategoryType, customTopViewBC: mainHorizontalCollectionData.tintAndBackgroundColor)
+            }.disposed(by: headerView.disposeBag)
+            
+            // Delegate for horizontalCollection cell size
+            headerView.horizontalCollectionView.rx.setDelegate(self).disposed(by: headerView.disposeBag)
+            
+            return headerView
+        }
+        return dataSource
+    }
+    
+    private func headerDataSource() -> RxCollectionViewSectionedReloadDataSource<SectionModel<String, MainHorizontalCollectionData>> {
+        let headerDataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, MainHorizontalCollectionData>> (configureCell: { dataSource, collectionView, indexPath, horizontalCollectionData in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HorizontalCollectionCell.identifier, for: indexPath) as? HorizontalCollectionCell else { return UICollectionViewCell() }
+            cell.configure(with: horizontalCollectionData)
+            return cell
+        } )
         
-        viewModel.verticalCollectionCellSelected.subscribe { [weak self] categoryType, customTopViewBC in
-            guard let self else { return }
-            self.mainCoordinator?.openMapController(categoryType: categoryType, customTopViewBC: customTopViewBC)
-        }.disposed(by: disposeBag)
+        return headerDataSource
     }
 }
 
 //MARK: - Configure Header's HorizontalCollectionView Cell Size / Padding
 extension MainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellSize = viewModel.calculateCellSize(mainView, collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
-        
-        return cellSize
+        if collectionView == mainView.mainCollectionView {
+            
+        } else {
+            let cellWidth = collectionView.frame.height
+            let cellHeight = collectionView.frame.height - 20
+            return CGSize(width: cellWidth, height: cellHeight)
+        }
+        return CGSize()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let padding = viewModel.addPaddingToHorizontalCells(collectionView, layout: collectionViewLayout, insetForSectionAt: section)
-        
-        return padding
+        return UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
     }
     
     
