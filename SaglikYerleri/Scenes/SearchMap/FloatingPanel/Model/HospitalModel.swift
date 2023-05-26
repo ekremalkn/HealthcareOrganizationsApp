@@ -32,7 +32,7 @@ struct Hospital: Codable, OrganizationModel, SharedCell1DataProtocol {
     }
     
     var sharedCell1ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.hospitals).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.hospitals).tintAndBackgroundColor
     }
     
     var sharedCell1Image: UIImage {

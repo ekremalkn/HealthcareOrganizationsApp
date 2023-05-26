@@ -58,6 +58,7 @@ final class MainController: UIViewController {
     private func configureNavigationBar() {
         title = "Sağlık Kuruluşları"
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mainView.navBarLeftButton)
+        subsToLeftNavBarButton()
     }
     
     //MARK: - Check User Subscription Status
@@ -68,6 +69,15 @@ final class MainController: UIViewController {
         }.disposed(by: disposeBag)
         
     }
+    
+    //MARK: - Left Nav Bar Button Action
+    private func subsToLeftNavBarButton() {
+        mainView.navBarLeftButton.rx.tap.subscribe { [weak self] _ in
+            guard let self else { return }
+            self.mainCoordinator?.openSideMenuController(from: self)
+        }.disposed(by: disposeBag)
+    }
+
     
 }
 
@@ -84,7 +94,7 @@ extension MainController {
         // Handle DidSelect
         mainView.mainCollectionView.rx.modelSelected(MainCollectionData.self).bind { [weak self] mainCollectionData in
             guard let self else { return }
-            self.mainCoordinator?.openMapController(categoryType: mainCollectionData.selectedCategoryType, customTopViewBC: mainCollectionData.backgroundColor)
+            self.mainCoordinator?.openMapController(categoryType: mainCollectionData.selectedCategoryType, cellType: mainCollectionData.cellTypeAccorindToCategory, customTopViewBC: mainCollectionData.backgroundColor)
         }.disposed(by: disposeBag)
         
     }
@@ -111,7 +121,7 @@ extension MainController {
             // Handle DidSelect
             headerView.horizontalCollectionView.rx.modelSelected(MainHorizontalCollectionData.self).bind { [weak self] mainHorizontalCollectionData in
                 guard let self else { return }
-                self.mainCoordinator?.openMapController(categoryType: mainHorizontalCollectionData.selectedCategoryType, customTopViewBC: mainHorizontalCollectionData.tintAndBackgroundColor)
+                self.mainCoordinator?.openMapController(categoryType: mainHorizontalCollectionData.selectedCategoryType, cellType: mainHorizontalCollectionData.cellTypeAccorindToCategory, customTopViewBC: mainHorizontalCollectionData.tintAndBackgroundColor)
             }.disposed(by: headerView.disposeBag)
             
             // Delegate for horizontalCollection cell size

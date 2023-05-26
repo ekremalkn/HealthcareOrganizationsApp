@@ -21,7 +21,7 @@ struct PsychologistCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
     
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.psychologistCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.psychologistCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {

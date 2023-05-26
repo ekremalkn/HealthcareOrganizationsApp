@@ -21,7 +21,7 @@ struct MedicalShopCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
   
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.medicalShopCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.medicalShopCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {

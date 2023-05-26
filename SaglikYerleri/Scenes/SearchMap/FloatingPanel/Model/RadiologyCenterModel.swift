@@ -34,11 +34,11 @@ struct RadiologyCenter: Codable, OrganizationModel, SharedCell1DataProtocol {
     }
  
     var sharedCell1ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.radiologyCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.radiologyCenters).tintAndBackgroundColor
     }
     
     var sharedCell1Image: UIImage {
-        return MainCollectionData.categoryType(.radiologyCenters).image
+        return MainHorizontalCollectionData.categoryType(.radiologyCenters).image
     }
     
     var sharedCell1Name: String {

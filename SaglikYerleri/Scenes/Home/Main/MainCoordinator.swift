@@ -17,7 +17,7 @@ final class MainCoordinator: Coordinator {
     func startCoordinator() {
     }
     
-    func openMapController(categoryType: NetworkConstants, customTopViewBC: UIColor) {
+    func openMapController(categoryType: NetworkConstants, cellType: CellType, customTopViewBC: UIColor) {
 //                let userService: UserService = UserNetworkService()
 //                let signinvc = SignInViewController(userService: userService)
 //                navigationController.pushViewController(signinvc, animated: true)
@@ -26,7 +26,7 @@ final class MainCoordinator: Coordinator {
 //        payWallVC.modalPresentationStyle = .pageSheet
 //        navigationController.present(payWallVC, animated: true)
                 let networkService: CityCountyService = NetworkService()
-                let mapController = MapController(categoryType: categoryType, networkService: networkService, customTopViewBC: customTopViewBC)
+        let mapController = MapController(categoryType: categoryType, cellType: cellType, networkService: networkService, customTopViewBC: customTopViewBC)
                 mapController.mapCoordinator = MapCoordinator()
                 navigationController.pushViewController(mapController, animated: true)
     }

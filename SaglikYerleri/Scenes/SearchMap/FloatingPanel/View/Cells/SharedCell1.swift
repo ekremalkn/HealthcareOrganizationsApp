@@ -51,7 +51,6 @@ final class SharedCell1: UITableViewCell {
         label.numberOfLines = 0
         label.textColor = .black
         label.textAlignment = .left
-        label.backgroundColor = .blue
         return label
     }()
     
@@ -267,7 +266,7 @@ extension SharedCell1: CellProtocol {
             make.width.equalTo(contentView.snp.width).multipliedBy(0.75)
             make.top.equalTo(addressLabel.snp.bottom)
             make.height.equalTo(50)
-            make.centerX.equalTo(contentView.snp.centerX)
+            make.leading.equalTo(contentView.snp.trailing)
         }
         
     }

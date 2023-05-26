@@ -34,7 +34,7 @@ struct Pharmacy: Codable, OrganizationModel, PharmacyCellDataProtocol {
     }
     
     var pharmacyImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.dutyPharmacy).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.dutyPharmacy).tintAndBackgroundColor
     }
     
     var pharmacyImage: UIImage {

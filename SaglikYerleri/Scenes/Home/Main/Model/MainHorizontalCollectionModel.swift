@@ -52,6 +52,48 @@ public enum MainHorizontalCollectionData {
         }
     }
     
+    var cellTypeAccorindToCategory: CellType {
+        switch self {
+        case .categoryType(let networkConstants):
+            switch networkConstants {
+            case .pharmacy:
+                return .pharmacyCell
+            case .healthCenters:
+                return .sharedCell1
+            case .hospitals:
+                return .sharedCell1
+            case .dentalCenters:
+                return .sharedCell2
+            case .privateDentalCenters:
+                return .sharedCell2
+            case .medicalLaboratories:
+                return .sharedCell1
+            case .radiologyCenters:
+                return .sharedCell1
+            case .spaCenters:
+                return .sharedCell2
+            case .psychologistCenters:
+                return .sharedCell2
+            case .gynecologyCenters:
+                return .sharedCell2
+            case .opticCenters:
+                return .sharedCell2
+            case .animalHospitals:
+                return .sharedCell2
+            case .dialysisCenters:
+                return .sharedCell2
+            case .emergencyCenters:
+                return .sharedCell2
+            case .medicalShopCenters:
+                return .sharedCell2
+            case .physiotheraphyCenters:
+                return .sharedCell2
+            case .dutyPharmacy:
+                return .pharmacyCell
+            }
+        }
+    }
+    
 }
 
 extension MainHorizontalCollectionData {

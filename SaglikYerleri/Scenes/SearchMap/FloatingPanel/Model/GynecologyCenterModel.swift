@@ -21,7 +21,7 @@ struct GynecologyCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
 
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.gynecologyCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.gynecologyCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {

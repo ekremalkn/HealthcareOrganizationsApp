@@ -19,11 +19,15 @@ protocol OrganizationsService: AnyObject {
     func getHealthOrganizations<T: Decodable>(type: NetworkConstants, city: String, county: String) -> Observable<T?>
 }
 
-final class NetworkService: CityCountyService, OrganizationsService {
+final class NetworkService {
     deinit {
         print("deinit network service")
     }
     
+}
+
+//MARK: - CityCounty Service
+extension NetworkService: CityCountyService {
     func getTRCities(type: NetworkConstants) -> Observable<TRCityModel?>{
         let endpoint = NetworkEndPointCases.getCityList(type: type)
         
@@ -48,12 +52,16 @@ final class NetworkService: CityCountyService, OrganizationsService {
         return NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey).asObservable()
     }
     
+}
+
+//MARK: - Organizaton Service
+extension NetworkService: OrganizationsService {
     func getHealthOrganizations<T: Decodable>(type: NetworkConstants, city: String, county: String) -> Observable<T?> {
         let endpoint = NetworkEndPointCases.getHealthOrganizationList(type: type, city: city, county: county)
         
         switch type {
         case .hospitals:
-            let observable: Observable<HospitalModel> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey).asObservable()
+            let observable: Observable<HospitalModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey).asObservable()
             return observable.map { $0 as? T }
         case .healthCenters:
             let observable: Observable<HealthCenterModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey).asObservable()
@@ -104,8 +112,7 @@ final class NetworkService: CityCountyService, OrganizationsService {
             let observable: Observable<PharmacyModel?> = NetworkManager.shared.request(path: endpoint.path, headers: endpoint.headers, bearerToken: endpoint.apiKey)
             return observable.map{ $0 as? T}
         }
-       
-
+        
+        
     }
-    
 }

@@ -22,13 +22,13 @@ final class MapCoordinator: MapCoordinatorProtocol {
         
     }
     
-    func openFloatingController(categoryType: NetworkConstants, mapController: MapController, citySlug: String, countySlug: String, cityName: String, countyName: String, parentVC: UIViewController) {
+    func openFloatingController(categoryType: NetworkConstants, cellType: CellType, mapController: MapController, citySlug: String, countySlug: String, cityName: String, countyName: String, parentVC: UIViewController) {
         
         if let floatingPanel {
             let networkService: OrganizationsService = NetworkService()
             let surfaceView = floatingPanel.surfaceView
             surfaceView?.backgroundColor = .clear
-            let floatingController = FloatingController(categoryType: categoryType, mapController: mapController, networkService: networkService, citySlug: citySlug, countySlug: countySlug, cityName: cityName, countyName: countyName)
+            let floatingController = FloatingController(categoryType: categoryType, cellType: cellType, mapController: mapController, networkService: networkService, citySlug: citySlug, countySlug: countySlug, cityName: cityName, countyName: countyName)
             floatingPanel.set(contentViewController: floatingController)
             floatingPanel.move(to: .half, animated: true)
         } else {
@@ -36,7 +36,7 @@ final class MapCoordinator: MapCoordinatorProtocol {
             self.floatingPanel = FloatingPanelController()
             let surfaceView = floatingPanel?.surfaceView
             surfaceView?.backgroundColor = .clear
-            let floatingController = FloatingController(categoryType: categoryType, mapController: mapController, networkService: networkService, citySlug: citySlug, countySlug: countySlug, cityName: cityName, countyName: countyName)
+            let floatingController = FloatingController(categoryType: categoryType, cellType: cellType, mapController: mapController, networkService: networkService, citySlug: citySlug, countySlug: countySlug, cityName: cityName, countyName: countyName)
             floatingPanel?.set(contentViewController: floatingController)
             floatingPanel?.addPanel(toParent: parentVC)
             floatingPanel?.move(to: .half, animated: true)

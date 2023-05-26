@@ -21,7 +21,7 @@ struct DialysisCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
 
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.dialysisCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.dialysisCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {

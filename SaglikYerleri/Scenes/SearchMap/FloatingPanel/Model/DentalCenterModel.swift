@@ -21,7 +21,7 @@ struct DentalCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
 
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.dentalCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.dentalCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {

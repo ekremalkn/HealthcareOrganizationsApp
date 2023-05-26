@@ -34,11 +34,11 @@ struct MedicalLaboratory: Codable, OrganizationModel, SharedCell1DataProtocol {
     }
     
     var sharedCell1ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.medicalLaboratories).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.medicalLaboratories).tintAndBackgroundColor
     }
     
     var sharedCell1Image: UIImage {
-        return MainCollectionData.categoryType(.medicalLaboratories).image
+        return MainHorizontalCollectionData.categoryType(.medicalLaboratories).image
     }
     
     var sharedCell1Name: String {

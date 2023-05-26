@@ -30,13 +30,15 @@ final class MapController: UIViewController {
     var searchResultController: SearchResultController?
     var customTopViewBC: UIColor?
     
+    var cellType: CellType
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
     
     
     //MARK: - Life Cycle Methods
-    init(categoryType: NetworkConstants, networkService: CityCountyService, customTopViewBC: UIColor) {
+    init(categoryType: NetworkConstants, cellType: CellType, networkService: CityCountyService, customTopViewBC: UIColor) {
         self.categoryType = categoryType
+        self.cellType = cellType
         self.customTopViewBC = customTopViewBC
         self.searchResultController = SearchResultController(categoryType: categoryType, networkService: networkService, backgroundColor: customTopViewBC)
         self.searchController = UISearchController(searchResultsController: searchResultController)
@@ -93,7 +95,7 @@ extension MapController {
             guard let self else { return }
             self.mapView.configureAlphaView(hideAlphaView: true, completion: { [weak self] in
                 guard let self, let categoryType = self.categoryType else { return }
-                self.mapCoordinator?.openFloatingController(categoryType: categoryType, mapController: self, citySlug: selectedCitySlug, countySlug: selectedCountySlug, cityName: selectedCityName, countyName: selectedCountyName, parentVC: self)
+                self.mapCoordinator?.openFloatingController(categoryType: categoryType, cellType: cellType, mapController: self, citySlug: selectedCitySlug, countySlug: selectedCountySlug, cityName: selectedCityName, countyName: selectedCountyName, parentVC: self)
             })
             
         }).disposed(by: searchResultController?.disposeBag ?? disposeBag)

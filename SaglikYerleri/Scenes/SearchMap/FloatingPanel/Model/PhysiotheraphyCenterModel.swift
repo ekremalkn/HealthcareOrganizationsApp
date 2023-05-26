@@ -21,7 +21,7 @@ struct PhysiotheraphyCenter: Codable, OrganizationModel, SharedCell2DataProtocol
     let latitude, longitude: Double?
 
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.physiotheraphyCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.physiotheraphyCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {

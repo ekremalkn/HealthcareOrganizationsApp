@@ -21,11 +21,11 @@ struct AnimalHospital: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
     
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.animalHospitals).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.animalHospitals).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {
-        return MainCollectionData.categoryType(.animalHospitals).image
+        return MainHorizontalCollectionData.categoryType(.animalHospitals).image
     }
     
     var sharedCell2Name: String {

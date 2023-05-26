@@ -21,7 +21,7 @@ struct OptikCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
 
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.opticCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.opticCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {

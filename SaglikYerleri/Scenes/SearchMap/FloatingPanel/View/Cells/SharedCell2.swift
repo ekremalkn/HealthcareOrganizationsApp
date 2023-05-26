@@ -278,7 +278,7 @@ extension SharedCell2: CellProtocol {
             make.width.equalTo(contentView.snp.width).multipliedBy(0.75)
             make.top.equalTo(streetLabel.snp.bottom)
             make.height.equalTo(50)
-            make.centerX.equalTo(contentView.snp.centerX)
+            make.leading.equalTo(contentView.snp.trailing)
         }
         
     }

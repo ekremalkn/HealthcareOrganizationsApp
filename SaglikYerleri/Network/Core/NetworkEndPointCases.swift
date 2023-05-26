@@ -9,7 +9,6 @@ import Alamofire
 
 public enum NetworkEndPointCases: NetworkEndPoint {
 
-    
     case getCityList(type: NetworkConstants)
     case getCountyList(type: NetworkConstants ,city: String)
     case getHealthOrganizationList(type: NetworkConstants, city: String, county: String)

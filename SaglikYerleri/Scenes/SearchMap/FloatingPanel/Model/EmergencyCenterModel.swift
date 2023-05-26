@@ -21,7 +21,7 @@ struct EmergencyCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
 
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.emergencyCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.emergencyCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {

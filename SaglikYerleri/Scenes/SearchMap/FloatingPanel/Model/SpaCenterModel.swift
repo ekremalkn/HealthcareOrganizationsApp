@@ -21,7 +21,7 @@ struct SpaCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let latitude, longitude: Double?
 
     var sharedCell2ImageBackgroundColor: UIColor {
-        return MainCollectionData.categoryType(.spaCenters).backgroundColor
+        return MainHorizontalCollectionData.categoryType(.spaCenters).tintAndBackgroundColor
     }
     
     var sharedCell2Image: UIImage {
