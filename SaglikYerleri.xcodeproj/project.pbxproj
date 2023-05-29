@@ -15,14 +15,22 @@
 		F00E6BCF2A195DE000633FC4 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */; };
 		F00E6BD12A195F1F00633FC4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BD02A195F1F00633FC4 /* SignInView.swift */; };
 		F00E6BD42A19656300633FC4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BD32A19656300633FC4 /* SignInViewController.swift */; };
+		F0277C0F2A21412400A71771 /* RecentSearchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0277C0E2A21412400A71771 /* RecentSearchesViewModel.swift */; };
 		F03380AF2A1E52BF00B120E7 /* IAPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03380AD2A1E52BF00B120E7 /* IAPConstants.swift */; };
 		F03380B02A1E52BF00B120E7 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03380AE2A1E52BF00B120E7 /* IAPManager.swift */; };
 		F03380B52A1E535E00B120E7 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F03380B42A1E535E00B120E7 /* RevenueCat */; };
 		F03380B82A1E538B00B120E7 /* PayWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03380B72A1E538B00B120E7 /* PayWallViewModel.swift */; };
 		F03380BA2A1E545F00B120E7 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = F03380B92A1E545F00B120E7 /* Configuration.storekit */; };
-		F03380BC2A1E553400B120E7 /* StoreKitTestCertificate10.cer in Resources */ = {isa = PBXBuildFile; fileRef = F03380BB2A1E553400B120E7 /* StoreKitTestCertificate10.cer */; };
 		F03380C72A1EAF3900B120E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F03380C62A1EAF3900B120E7 /* GoogleService-Info.plist */; };
 		F03B830F29FBD716006C5AFC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03B830E29FBD716006C5AFC /* NetworkService.swift */; };
+		F04FF3662A248908001F0018 /* PharmacyCellData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF35E2A248908001F0018 /* PharmacyCellData+CoreDataClass.swift */; };
+		F04FF3672A248908001F0018 /* PharmacyCellData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF35F2A248908001F0018 /* PharmacyCellData+CoreDataProperties.swift */; };
+		F04FF3682A248908001F0018 /* SharedCell1Data+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3602A248908001F0018 /* SharedCell1Data+CoreDataClass.swift */; };
+		F04FF3692A248908001F0018 /* SharedCell1Data+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3612A248908001F0018 /* SharedCell1Data+CoreDataProperties.swift */; };
+		F04FF36A2A248908001F0018 /* CellData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3622A248908001F0018 /* CellData+CoreDataClass.swift */; };
+		F04FF36B2A248908001F0018 /* CellData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3632A248908001F0018 /* CellData+CoreDataProperties.swift */; };
+		F04FF36C2A248908001F0018 /* SharedCell2Data+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3642A248908001F0018 /* SharedCell2Data+CoreDataClass.swift */; };
+		F04FF36D2A248908001F0018 /* SharedCell2Data+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3652A248908001F0018 /* SharedCell2Data+CoreDataProperties.swift */; };
 		F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */; };
 		F061C2BB2A06530700D1E485 /* SpaCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */; };
 		F061C2BD2A06539400D1E485 /* PhysiotheraphyCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BC2A06539400D1E485 /* PhysiotheraphyCenterModel.swift */; };
@@ -65,6 +73,7 @@
 		F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BB29F338B200F625CE /* CellProtocol.swift */; };
 		F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258BE29F33F9800F625CE /* MainViewModel.swift */; };
 		F07258C229F3416400F625CE /* MainCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07258C129F3416400F625CE /* MainCollectionModel.swift */; };
+		F090A7942A213C62001B01A6 /* HealthOrganizations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F090A7922A213C62001B01A6 /* HealthOrganizations.xcdatamodeld */; };
 		F096A2882A13A7230084947F /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = F096A2872A13A7230084947F /* SideMenu */; };
 		F096A28D2A13A78E0084947F /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A28C2A13A78E0084947F /* SideMenuView.swift */; };
 		F096A2902A13A7AE0084947F /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A28F2A13A7AE0084947F /* SideMenuController.swift */; };
@@ -82,6 +91,12 @@
 		F09D12012A1F7F510015C000 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = F09D12002A1F7F510015C000 /* FirebaseRemoteConfig */; };
 		F09D12052A1F82250015C000 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09D12042A1F82250015C000 /* StoreKit.framework */; };
 		F0B73F8F2A1B6A900057BDF4 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B73F8E2A1B6A900057BDF4 /* UserService.swift */; };
+		F0C3D7F72A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer in Resources */ = {isa = PBXBuildFile; fileRef = F0C3D7F62A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer */; };
+		F0C3D7FF2A20FDF1003A6BE1 /* RecentSearchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C3D7FE2A20FDF1003A6BE1 /* RecentSearchesView.swift */; };
+		F0C3D8022A20FEA5003A6BE1 /* RecentSearchesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C3D8012A20FEA5003A6BE1 /* RecentSearchesHeaderView.swift */; };
+		F0C3D8052A2101AB003A6BE1 /* RecentSearchesFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C3D8042A2101AB003A6BE1 /* RecentSearchesFooterView.swift */; };
+		F0C3D8072A210458003A6BE1 /* RecentSearchesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C3D8062A210458003A6BE1 /* RecentSearchesController.swift */; };
+		F0C3D8092A21059A003A6BE1 /* SideMenuCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C3D8082A21059A003A6BE1 /* SideMenuCoordinator.swift */; };
 		F0CA98172A03B3CD00F996D8 /* SelectedCityCountyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */; };
 		F0CA981A2A0437ED00F996D8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F0CA98192A0437ED00F996D8 /* Lottie */; };
 		F0CA98202A0438C800F996D8 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA981F2A0438C800F996D8 /* AnimationView.swift */; };
@@ -123,13 +138,21 @@
 		F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		F00E6BD02A195F1F00633FC4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F00E6BD32A19656300633FC4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		F0277C0E2A21412400A71771 /* RecentSearchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesViewModel.swift; sourceTree = "<group>"; };
 		F03380AD2A1E52BF00B120E7 /* IAPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPConstants.swift; sourceTree = "<group>"; };
 		F03380AE2A1E52BF00B120E7 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		F03380B72A1E538B00B120E7 /* PayWallViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWallViewModel.swift; sourceTree = "<group>"; };
 		F03380B92A1E545F00B120E7 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
-		F03380BB2A1E553400B120E7 /* StoreKitTestCertificate10.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate10.cer; sourceTree = "<group>"; };
 		F03380C62A1EAF3900B120E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F03B830E29FBD716006C5AFC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		F04FF35E2A248908001F0018 /* PharmacyCellData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PharmacyCellData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F04FF35F2A248908001F0018 /* PharmacyCellData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PharmacyCellData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F04FF3602A248908001F0018 /* SharedCell1Data+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedCell1Data+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F04FF3612A248908001F0018 /* SharedCell1Data+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedCell1Data+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F04FF3622A248908001F0018 /* CellData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CellData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F04FF3632A248908001F0018 /* CellData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CellData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F04FF3642A248908001F0018 /* SharedCell2Data+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedCell2Data+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F04FF3652A248908001F0018 /* SharedCell2Data+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedCell2Data+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaCenterModel.swift; sourceTree = "<group>"; };
 		F061C2BC2A06539400D1E485 /* PhysiotheraphyCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysiotheraphyCenterModel.swift; sourceTree = "<group>"; };
@@ -173,6 +196,7 @@
 		F07258BB29F338B200F625CE /* CellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellProtocol.swift; sourceTree = "<group>"; };
 		F07258BE29F33F9800F625CE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F07258C129F3416400F625CE /* MainCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionModel.swift; sourceTree = "<group>"; };
+		F090A7932A213C62001B01A6 /* HealthOrganizations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HealthOrganizations.xcdatamodel; sourceTree = "<group>"; };
 		F096A28C2A13A78E0084947F /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		F096A28F2A13A7AE0084947F /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		F096A2912A13C2580084947F /* UIView+GradiantView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+GradiantView.swift"; sourceTree = "<group>"; };
@@ -185,6 +209,12 @@
 		F09D12022A1F81DE0015C000 /* SaglikYerleri.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SaglikYerleri.entitlements; sourceTree = "<group>"; };
 		F09D12042A1F82250015C000 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F0B73F8E2A1B6A900057BDF4 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		F0C3D7F62A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate11.cer; sourceTree = "<group>"; };
+		F0C3D7FE2A20FDF1003A6BE1 /* RecentSearchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesView.swift; sourceTree = "<group>"; };
+		F0C3D8012A20FEA5003A6BE1 /* RecentSearchesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesHeaderView.swift; sourceTree = "<group>"; };
+		F0C3D8042A2101AB003A6BE1 /* RecentSearchesFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesFooterView.swift; sourceTree = "<group>"; };
+		F0C3D8062A210458003A6BE1 /* RecentSearchesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesController.swift; sourceTree = "<group>"; };
+		F0C3D8082A21059A003A6BE1 /* SideMenuCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCoordinator.swift; sourceTree = "<group>"; };
 		F0CA98162A03B3CD00F996D8 /* SelectedCityCountyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCityCountyCell.swift; sourceTree = "<group>"; };
 		F0CA981F2A0438C800F996D8 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F0CDE30529F51EDD0050D81B /* VerticalCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionCell.swift; sourceTree = "<group>"; };
@@ -300,12 +330,48 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		F0277C0B2A21403700A71771 /* PharmacyCellModel */ = {
+			isa = PBXGroup;
+			children = (
+				F04FF35E2A248908001F0018 /* PharmacyCellData+CoreDataClass.swift */,
+				F04FF35F2A248908001F0018 /* PharmacyCellData+CoreDataProperties.swift */,
+			);
+			path = PharmacyCellModel;
+			sourceTree = "<group>";
+		};
+		F0277C0C2A21404B00A71771 /* SharedCell1Model */ = {
+			isa = PBXGroup;
+			children = (
+				F04FF3602A248908001F0018 /* SharedCell1Data+CoreDataClass.swift */,
+				F04FF3612A248908001F0018 /* SharedCell1Data+CoreDataProperties.swift */,
+			);
+			path = SharedCell1Model;
+			sourceTree = "<group>";
+		};
+		F0277C0D2A21406A00A71771 /* SharedCell2Model */ = {
+			isa = PBXGroup;
+			children = (
+				F04FF3642A248908001F0018 /* SharedCell2Data+CoreDataClass.swift */,
+				F04FF3652A248908001F0018 /* SharedCell2Data+CoreDataProperties.swift */,
+			);
+			path = SharedCell2Model;
+			sourceTree = "<group>";
+		};
+		F0277C202A2188A900A71771 /* CellDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				F04FF3622A248908001F0018 /* CellData+CoreDataClass.swift */,
+				F04FF3632A248908001F0018 /* CellData+CoreDataProperties.swift */,
+			);
+			path = CellDataModel;
+			sourceTree = "<group>";
+		};
 		F03380AB2A1E52A500B120E7 /* IAP */ = {
 			isa = PBXGroup;
 			children = (
 				F03380AC2A1E52B900B120E7 /* Core */,
 				F03380B92A1E545F00B120E7 /* Configuration.storekit */,
-				F03380BB2A1E553400B120E7 /* StoreKitTestCertificate10.cer */,
+				F0C3D7F62A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer */,
 			);
 			path = IAP;
 			sourceTree = "<group>";
@@ -392,6 +458,7 @@
 				F0D77D0329FA71AF0061C85E /* Network */,
 				F03380AB2A1E52A500B120E7 /* IAP */,
 				F09D11E92A1F3EFB0015C000 /* RemoteConfig */,
+				F090A7912A213BE2001B01A6 /* CoreData */,
 				F072588F29F2858400F625CE /* Support */,
 				F072589029F2859000F625CE /* Resources */,
 			);
@@ -433,6 +500,7 @@
 				F00E6BB52A18F89700633FC4 /* PayWall */,
 				F096A2932A14AB2D0084947F /* Splash */,
 				F072589229F285E200F625CE /* Home */,
+				F0C3D7FB2A20FDBB003A6BE1 /* RecentSearches */,
 				F0D77CF629F928ED0061C85E /* SearchMap */,
 			);
 			path = Scenes;
@@ -535,6 +603,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F090A7912A213BE2001B01A6 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				F0277C202A2188A900A71771 /* CellDataModel */,
+				F0277C0B2A21403700A71771 /* PharmacyCellModel */,
+				F0277C0C2A21404B00A71771 /* SharedCell1Model */,
+				F0277C0D2A21406A00A71771 /* SharedCell2Model */,
+				F090A7922A213C62001B01A6 /* HealthOrganizations.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		F096A2892A13A7440084947F /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +629,7 @@
 		F096A28A2A13A7780084947F /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				F0C3D8082A21059A003A6BE1 /* SideMenuCoordinator.swift */,
 				F096A28B2A13A7800084947F /* View */,
 			);
 			path = SideMenu;
@@ -595,6 +676,42 @@
 				F09D12042A1F82250015C000 /* StoreKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F0C3D7FB2A20FDBB003A6BE1 /* RecentSearches */ = {
+			isa = PBXGroup;
+			children = (
+				F0C3D7FC2A20FDD7003A6BE1 /* View */,
+				F0C3D7FD2A20FDDA003A6BE1 /* ViewModel */,
+			);
+			path = RecentSearches;
+			sourceTree = "<group>";
+		};
+		F0C3D7FC2A20FDD7003A6BE1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0C3D8002A20FE0F003A6BE1 /* HeaderFooter */,
+				F0C3D7FE2A20FDF1003A6BE1 /* RecentSearchesView.swift */,
+				F0C3D8062A210458003A6BE1 /* RecentSearchesController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0C3D7FD2A20FDDA003A6BE1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0277C0E2A21412400A71771 /* RecentSearchesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0C3D8002A20FE0F003A6BE1 /* HeaderFooter */ = {
+			isa = PBXGroup;
+			children = (
+				F0C3D8012A20FEA5003A6BE1 /* RecentSearchesHeaderView.swift */,
+				F0C3D8042A2101AB003A6BE1 /* RecentSearchesFooterView.swift */,
+			);
+			path = HeaderFooter;
 			sourceTree = "<group>";
 		};
 		F0CA98152A03B39800F996D8 /* Cells */ = {
@@ -861,8 +978,8 @@
 				F072588729F284ED00F625CE /* LaunchScreen.storyboard in Resources */,
 				F03380BA2A1E545F00B120E7 /* Configuration.storekit in Resources */,
 				F096A29A2A14ABE60084947F /* SplashAnimation.json in Resources */,
-				F03380BC2A1E553400B120E7 /* StoreKitTestCertificate10.cer in Resources */,
 				F096A2A42A14BD130084947F /* LoadingAnimation.json in Resources */,
+				F0C3D7F72A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer in Resources */,
 				F072588429F284ED00F625CE /* Assets.xcassets in Resources */,
 				F03380C72A1EAF3900B120E7 /* GoogleService-Info.plist in Resources */,
 			);
@@ -887,6 +1004,7 @@
 				F061C2C52A0655D500D1E485 /* PrivateDentalCenterModel.swift in Sources */,
 				F06BEE7A29FFD70D0013E22D /* HealthCenterModel.swift in Sources */,
 				F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */,
+				F04FF3662A248908001F0018 /* PharmacyCellData+CoreDataClass.swift in Sources */,
 				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
 				F0D73A192A00CF5B00D4F58D /* SearchResultViewModel.swift in Sources */,
 				F00E6BCD2A19583C00633FC4 /* SignInViewModel.swift in Sources */,
@@ -894,12 +1012,16 @@
 				F072589829F2CF2800F625CE /* Coordinator.swift in Sources */,
 				F096A29C2A14AF1D0084947F /* SplashCoordinator.swift in Sources */,
 				F0D70D0229FD1B6900CA4C39 /* TRCityModel.swift in Sources */,
+				F0277C0F2A21412400A71771 /* RecentSearchesViewModel.swift in Sources */,
 				F0D73A152A00CCBB00D4F58D /* SearchResultView.swift in Sources */,
 				F072589E29F2DFCE00F625CE /* MainView.swift in Sources */,
+				F0C3D8072A210458003A6BE1 /* RecentSearchesController.swift in Sources */,
 				F096A2922A13C2580084947F /* UIView+GradiantView.swift in Sources */,
 				F0D70D0829FD1E3400CA4C39 /* NetworkEndPointCases.swift in Sources */,
 				F06BEE7629FFD4240013E22D /* ENCountyModel.swift in Sources */,
 				F0EE77A32A052EE1007BF9A7 /* FloatingView.swift in Sources */,
+				F0C3D7FF2A20FDF1003A6BE1 /* RecentSearchesView.swift in Sources */,
+				F0C3D8052A2101AB003A6BE1 /* RecentSearchesFooterView.swift in Sources */,
 				F00E6BCF2A195DE000633FC4 /* GoogleSignInButton.swift in Sources */,
 				F072589C29F2D89A00F625CE /* MainCoordinator.swift in Sources */,
 				F096A28D2A13A78E0084947F /* SideMenuView.swift in Sources */,
@@ -912,6 +1034,7 @@
 				F03380B82A1E538B00B120E7 /* PayWallViewModel.swift in Sources */,
 				F06BEE8429FFDAEE0013E22D /* PsychologyCenterModel.swift in Sources */,
 				F096A2902A13A7AE0084947F /* SideMenuController.swift in Sources */,
+				F090A7942A213C62001B01A6 /* HealthOrganizations.xcdatamodeld in Sources */,
 				F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */,
 				F03380AF2A1E52BF00B120E7 /* IAPConstants.swift in Sources */,
 				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
@@ -927,9 +1050,12 @@
 				F00E6BBB2A18FA5700633FC4 /* PayWallPlanButton.swift in Sources */,
 				F0D77D0629FA72390061C85E /* NetworkManager.swift in Sources */,
 				F07258BC29F338B200F625CE /* CellProtocol.swift in Sources */,
+				F04FF36C2A248908001F0018 /* SharedCell2Data+CoreDataClass.swift in Sources */,
+				F04FF3692A248908001F0018 /* SharedCell1Data+CoreDataProperties.swift in Sources */,
 				F0EE77A82A054C04007BF9A7 /* MapCoordinator.swift in Sources */,
 				F0D70D0C29FD2C6B00CA4C39 /* NetworkAPIConstant.swift in Sources */,
 				F06BEE8629FFDB470013E22D /* GynecologyCenterModel.swift in Sources */,
+				F0C3D8092A21059A003A6BE1 /* SideMenuCoordinator.swift in Sources */,
 				F06BEE8029FFDA020013E22D /* RadiologyCenterModel.swift in Sources */,
 				F06552892A181059008897A7 /* UIViewController+ShowToast.swift in Sources */,
 				F0E975E32A1786FF00C5A607 /* MapViewModel.swift in Sources */,
@@ -938,15 +1064,20 @@
 				F061C2BD2A06539400D1E485 /* PhysiotheraphyCenterModel.swift in Sources */,
 				F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */,
 				F065528C2A1817E0008897A7 /* MapAlertController.swift in Sources */,
+				F04FF3672A248908001F0018 /* PharmacyCellData+CoreDataProperties.swift in Sources */,
 				F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */,
 				F0EE77A62A054708007BF9A7 /* FloatingViewModel.swift in Sources */,
 				F096A2982A14AB500084947F /* SplashView.swift in Sources */,
+				F0C3D8022A20FEA5003A6BE1 /* RecentSearchesHeaderView.swift in Sources */,
+				F04FF3682A248908001F0018 /* SharedCell1Data+CoreDataClass.swift in Sources */,
 				F061C2C32A06550C00D1E485 /* MedicalShopCenterModel.swift in Sources */,
 				F07258A629F2E3FF00F625CE /* UIColor+HEXColor.swift in Sources */,
 				F06BEE8829FFDBC00013E22D /* OptikCenterModel.swift in Sources */,
 				F06458602A0956EE00B17BF1 /* PharmacyCell.swift in Sources */,
 				F00E6BD12A195F1F00633FC4 /* SignInView.swift in Sources */,
+				F04FF36D2A248908001F0018 /* SharedCell2Data+CoreDataProperties.swift in Sources */,
 				F07258C229F3416400F625CE /* MainCollectionModel.swift in Sources */,
+				F04FF36B2A248908001F0018 /* CellData+CoreDataProperties.swift in Sources */,
 				F0DEB6CC2A0A34F000E07D24 /* SharedCell1.swift in Sources */,
 				F07258BA29F3386400F625CE /* HorizontalCollectionCell.swift in Sources */,
 				F06773BE2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift in Sources */,
@@ -955,6 +1086,7 @@
 				F00E6BBD2A19054900633FC4 /* PayWallController.swift in Sources */,
 				F072587D29F284EC00F625CE /* SceneDelegate.swift in Sources */,
 				F0D73A172A00CCEC00D4F58D /* SearchResultController.swift in Sources */,
+				F04FF36A2A248908001F0018 /* CellData+CoreDataClass.swift in Sources */,
 				F06773BB2A0BBA5100B4BFC4 /* SharedCell2.swift in Sources */,
 				F0CDE30629F51EDD0050D81B /* VerticalCollectionCell.swift in Sources */,
 				F061C2BB2A06530700D1E485 /* SpaCenterModel.swift in Sources */,
@@ -1104,9 +1236,9 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIStatusBarStyle = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1139,9 +1271,9 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIStatusBarStyle = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1342,6 +1474,19 @@
 			productName = FloatingPanel;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		F090A7922A213C62001B01A6 /* HealthOrganizations.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F090A7932A213C62001B01A6 /* HealthOrganizations.xcdatamodel */,
+			);
+			currentVersion = F090A7932A213C62001B01A6 /* HealthOrganizations.xcdatamodel */;
+			path = HealthOrganizations.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F072586F29F284EC00F625CE /* Project object */;
 }

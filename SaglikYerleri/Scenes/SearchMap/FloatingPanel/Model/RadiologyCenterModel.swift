@@ -33,11 +33,11 @@ struct RadiologyCenter: Codable, OrganizationModel, SharedCell1DataProtocol {
         case ilce, latitude, longitude
     }
  
-    var sharedCell1ImageBackgroundColor: UIColor {
+    var sharedCell1ImageBackgroundColor: String {
         return MainHorizontalCollectionData.categoryType(.radiologyCenters).tintAndBackgroundColor
     }
     
-    var sharedCell1Image: UIImage {
+    var sharedCell1Image: String {
         return MainHorizontalCollectionData.categoryType(.radiologyCenters).image
     }
     

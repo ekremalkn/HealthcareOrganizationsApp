@@ -33,11 +33,11 @@ struct Pharmacy: Codable, OrganizationModel, PharmacyCellDataProtocol {
         case ilce, latitude, longitude
     }
     
-    var pharmacyImageBackgroundColor: UIColor {
+    var pharmacyImageBackgroundColor: String {
         return MainHorizontalCollectionData.categoryType(.dutyPharmacy).tintAndBackgroundColor
     }
     
-    var pharmacyImage: UIImage {
+    var pharmacyImage: String {
         return MainHorizontalCollectionData.categoryType(.dutyPharmacy).image
     }
     

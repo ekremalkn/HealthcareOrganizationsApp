@@ -14,8 +14,7 @@ final class FloatingView: UIView {
         let tableView = UITableView()
         tableView.separatorStyle = .none
         tableView.bounces = false
-        tableView.backgroundColor = UIColor(hex: "FBFCFE")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.backgroundColor = .init(hex: "FBFCFE")
         tableView.register(PharmacyCell.self, forCellReuseIdentifier: PharmacyCell.identifier)
         tableView.register(SharedCell1.self, forCellReuseIdentifier: SharedCell1.identifier)
         tableView.register(SharedCell2.self, forCellReuseIdentifier: SharedCell2.identifier)

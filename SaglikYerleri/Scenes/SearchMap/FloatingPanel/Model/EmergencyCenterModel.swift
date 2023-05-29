@@ -20,11 +20,11 @@ struct EmergencyCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let streetv2, phone, fax, website: String?
     let latitude, longitude: Double?
 
-    var sharedCell2ImageBackgroundColor: UIColor {
+    var sharedCell2ImageBackgroundColor: String {
         return MainHorizontalCollectionData.categoryType(.emergencyCenters).tintAndBackgroundColor
     }
     
-    var sharedCell2Image: UIImage {
+    var sharedCell2Image: String {
         return MainHorizontalCollectionData.categoryType(.emergencyCenters).image
     }
     

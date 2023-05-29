@@ -97,44 +97,44 @@ public enum MainHorizontalCollectionData {
 }
 
 extension MainHorizontalCollectionData {
-    var image: UIImage {
+    var image: String {
         switch self {
         case .categoryType(let networkConstants):
             switch networkConstants {
             case .dutyPharmacy:
-                return UIImage(named: "dutyPharmacy") ?? UIImage()
+                return "dutyPharmacy"
             case .pharmacy:
-                return UIImage(named: "pharmacy") ?? UIImage()
+                return "pharmacy"
             case .healthCenters:
-                return UIImage(systemName: "bandage") ?? UIImage()
+                return "bandage"
             case .hospitals:
-                return UIImage(named: "hospital") ?? UIImage()
+                return "hospital"
             case .dentalCenters:
-                return UIImage(named: "dentalCenter") ?? UIImage()
+                return "dentalCenter"
             case .privateDentalCenters:
-                return UIImage(named: "dentalCenter") ?? UIImage()
+                return "dentalCenter"
             case .medicalLaboratories:
-                return UIImage(named: "medicalLaboratory") ?? UIImage()
+                return "medicalLaboratory"
             case .radiologyCenters:
-                return UIImage(named: "radiologyCenter") ?? UIImage()
+                return "radiologyCenter"
             case .spaCenters:
-                return UIImage(named: "spaCenter") ?? UIImage()
+                return "spaCenter"
             case .psychologistCenters:
-                return UIImage(named: "psychologyCenter") ?? UIImage()
+                return "psychologyCenter"
             case .gynecologyCenters:
-                return UIImage(named: "gynecologyCenter") ?? UIImage()
+                return "gynecologyCenter"
             case .opticCenters:
-                return UIImage(named: "opticCenter") ?? UIImage()
+                return "opticCenter"
             case .animalHospitals:
-                return UIImage(named: "animalHospital") ?? UIImage()
+                return "animalHospital"
             case .dialysisCenters:
-                return UIImage(named: "dialysisCenter") ?? UIImage()
+                return "dialysisCenter"
             case .emergencyCenters:
-                return UIImage(named: "emergencyCenter") ?? UIImage()
+                return "emergencyCenter"
             case .medicalShopCenters:
-                return UIImage(named: "medicalShopCenter") ?? UIImage()
+                return "medicalShopCenter"
             case .physiotheraphyCenters:
-                return UIImage(named: "physiotherapyCenter") ?? UIImage()
+                return "physiotherapyCenter"
                 
             }
         }
@@ -182,44 +182,44 @@ extension MainHorizontalCollectionData {
         }
     }
     
-    var tintAndBackgroundColor: UIColor {
+    var tintAndBackgroundColor: String {
         switch self {
         case .categoryType(let networkConstants):
             switch networkConstants {
             case .pharmacy:
-                return UIColor(hex: "FF5C5C")
+                return "FF5C5C"
             case .dutyPharmacy:
-                return UIColor(hex: "FF9556")
+                return "FF9556"
             case .healthCenters:
-                return UIColor(hex: "32BDBF")
+                return "32BDBF"
             case .hospitals:
-                return UIColor(hex: "498EFF")
+                return "498EFF"
             case .dentalCenters:
-                return UIColor(hex: "FF60AA")
+                return "FF60AA"
             case .privateDentalCenters:
-                return UIColor(hex: "0098BF")
+                return "0098BF"
             case .medicalLaboratories:
-                return UIColor(hex: "696AE5")
+                return "696AE5"
             case .radiologyCenters:
-                return UIColor(hex: "4B75BA")
+                return "4B75BA"
             case .spaCenters:
-                return UIColor(hex: "BD97D7")
+                return "BD97D7"
             case .psychologistCenters:
-                return UIColor(hex: "44DEB5")
+                return "44DEB5"
             case .gynecologyCenters:
-                return UIColor(hex: "F63C9A")
+                return "F63C9A"
             case .opticCenters:
-                return UIColor(hex: "FFBC08")
+                return "FFBC08"
             case .animalHospitals:
-                return UIColor(hex: "D6790D")
+                return "D6790D"
             case .dialysisCenters:
-                return UIColor(hex: "91AF00")
+                return "91AF00"
             case .emergencyCenters:
-                return UIColor(hex: "D11141")
+                return "D11141"
             case .medicalShopCenters:
-                return UIColor(hex: "2966D7")
+                return "2966D7"
             case .physiotheraphyCenters:
-                return UIColor(hex: "5D52A5")
+                return "5D52A5"
             }
         }
     }

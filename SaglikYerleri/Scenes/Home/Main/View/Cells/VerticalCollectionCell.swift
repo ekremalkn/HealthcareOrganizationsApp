@@ -58,8 +58,8 @@ final class VerticalCollectionCell: UICollectionViewCell {
     
     func configure(with data: MainCollectionData) {
         categoryTitleLabel.text = data.categoryTitle
-        applyGradient(colors: [data.secondBackgroundColor.cgColor, data.backgroundColor.cgColor])
-        categoryImageView.image = data.image
+        applyGradient(colors: [UIColor(hex: data.secondBackgroundColor).cgColor, UIColor(hex: data.backgroundColor).cgColor])
+        categoryImageView.image = .init(named: data.image)
         categoryImageView.tintColor = .white
         
     }

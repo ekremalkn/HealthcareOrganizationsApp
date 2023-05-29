@@ -10,11 +10,10 @@ import RxSwift
 import CoreLocation
 import MapKit
 
-protocol SharedCell1DataProtocol where Self: Codable {
-    var sharedCell1ImageBackgroundColor: UIColor { get }
-    var sharedCell1Image: UIImage { get }
+protocol SharedCell1DataProtocol {
+    var sharedCell1ImageBackgroundColor: String { get }
+    var sharedCell1Image: String { get }
     var sharedCell1Name: String { get }
-    var sharedCell1CityCountyName: String { get }
     var sharedCell1Address: String { get }
     var sharedCell1Phone: String { get }
     var sharedCell1Email: String { get }
@@ -157,8 +156,8 @@ final class SharedCell1: UITableViewCell {
     func configure(with data: SharedCell1DataProtocol) {
         organizationInfo = (CLLocationCoordinate2D(latitude: data.sharedCell1Lat, longitude: data.sharedCell1Lng), data.sharedCell1Name)
         createContentToShare(with: data)
-        leftImageBackgroundView.backgroundColor = data.sharedCell1ImageBackgroundColor.withAlphaComponent(0.2)
-        leftImageView.image = data.sharedCell1Image
+        leftImageBackgroundView.backgroundColor = .init(hex: data.sharedCell1ImageBackgroundColor).withAlphaComponent(0.2)
+        leftImageView.image = .init(named: data.sharedCell1Image)
         nameLabel.text = data.sharedCell1Name.localizedCapitalized
         addressLabel.text = data.sharedCell1Address
         nameLabelConstraints(type: .updateConstraints(true))

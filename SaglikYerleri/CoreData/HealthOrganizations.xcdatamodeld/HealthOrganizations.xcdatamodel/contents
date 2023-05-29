@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CellData" representedClassName="CellData" syncable="YES">
+        <relationship name="pharmayCells" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PharmacyCellData" inverseName="pharmacyCells" inverseEntity="PharmacyCellData"/>
+        <relationship name="shared1Cells" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SharedCell1Data" inverseName="shared1Cells" inverseEntity="SharedCell1Data"/>
+        <relationship name="shared2Cells" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SharedCell2Data" inverseName="shared2Cells" inverseEntity="SharedCell2Data"/>
+    </entity>
+    <entity name="PharmacyCellData" representedClassName="PharmacyCellData" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="directions" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="imageBackgroundColor" optional="YES" attributeType="String"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lng" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="phone1" optional="YES" attributeType="String"/>
+        <attribute name="phone2" optional="YES" attributeType="String"/>
+        <relationship name="pharmacyCells" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CellData" inverseName="pharmayCells" inverseEntity="CellData"/>
+    </entity>
+    <entity name="SharedCell1Data" representedClassName="SharedCell1Data" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="imageBackroundColor" optional="YES" attributeType="String"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lng" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="phone" optional="YES" attributeType="String"/>
+        <relationship name="shared1Cells" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CellData" inverseName="shared1Cells" inverseEntity="CellData"/>
+    </entity>
+    <entity name="SharedCell2Data" representedClassName="SharedCell2Data" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="imageBackgroundColor" optional="YES" attributeType="String"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lng" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="phone" optional="YES" attributeType="String"/>
+        <attribute name="street" optional="YES" attributeType="String"/>
+        <attribute name="webSite" optional="YES" attributeType="String"/>
+        <relationship name="shared2Cells" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CellData" inverseName="shared2Cells" inverseEntity="CellData"/>
+    </entity>
+</model>

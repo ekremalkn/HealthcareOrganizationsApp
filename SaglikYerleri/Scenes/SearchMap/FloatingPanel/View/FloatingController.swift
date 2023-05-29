@@ -91,6 +91,7 @@ extension FloatingController {
         // Fetch Organizations
         viewModel.fetchOrganizations()
         
+        // handle cell selected and animate
         tableView.rx.itemSelected.subscribe { [weak self] indexPath in
             guard let self else { return }
             self.whenCellSelected(tableView, indexPath: indexPath, completion: { tableView in
@@ -98,9 +99,27 @@ extension FloatingController {
                 tableView.beginUpdates()
                 tableView.endUpdates()
             })
-            
-            
         }.disposed(by: disposeBag)
+        
+        // handle cell selected with data
+        switch cellType {
+        case .pharmacyCell:
+            tableView.rx.modelSelected(PharmacyCellDataProtocol.self).subscribe { pharmacyCellData in
+                viewModel.savePharmacyCellDataToCoreData.onNext(pharmacyCellData)
+            }.disposed(by: disposeBag)
+        case .sharedCell1:
+            tableView.rx.modelSelected(SharedCell1DataProtocol.self).subscribe {  sharedCell1Data in
+                viewModel.saveSharedCell1DataToCoreData.onNext(sharedCell1Data)
+            }.disposed(by: disposeBag)
+        case .sharedCell2:
+            tableView.rx.modelSelected(SharedCell2DataProtocol.self).subscribe {  sharedCell2Data in
+                viewModel.saveSharedCell2DataToCoreData.onNext(sharedCell2Data)
+            }.disposed(by: disposeBag)
+        }
+        
+        
+        
+        
         // Set delegate for TableView Cell Height / Header Height
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
         
@@ -108,7 +127,7 @@ extension FloatingController {
 }
 
 //MARK: - Configure TableView
-extension FloatingController: UITableViewDelegate {
+extension FloatingController {
     private func configurePharmacyCell(_ cell: PharmacyCell, _ data: PharmacyCellDataProtocol) {
         cell.configure(with: data)
         cell.didtapLocationButton.subscribe { [weak self] _ in
@@ -136,7 +155,7 @@ extension FloatingController: UITableViewDelegate {
 }
 
 
-extension FloatingController {
+extension FloatingController: UITableViewDelegate {
     
     //MARK: - Expand cell When Selected
     func whenCellSelected(_ tableView: UITableView, indexPath: IndexPath, completion: @escaping (UITableView) -> Void) {

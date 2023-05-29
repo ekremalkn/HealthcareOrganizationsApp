@@ -31,12 +31,20 @@ final class MainCoordinator: Coordinator {
                 navigationController.pushViewController(mapController, animated: true)
     }
     
-    func openSideMenuController(from controller: UIViewController) {
+    func openSideMenuController(from controller: MainController) {
         let sideMenuController = SideMenuController()
-        let leftMenuNavController = SideMenuNavigationController(rootViewController: sideMenuController)
-        SideMenuManager.default.leftMenuNavigationController = leftMenuNavController
-        SideMenuManager.default.addPanGestureToPresent(toView: controller.navigationController!.navigationBar)
-        controller.present(leftMenuNavController, animated: true)
+        
+        let sideMenuCoordinator = SideMenuCoordinator()
+        sideMenuController.sideMenuCoordinator = sideMenuCoordinator
+        
+        let sideMenuNavController = SideMenuNavigationController(rootViewController: sideMenuController)
+        sideMenuCoordinator.navigationController = sideMenuNavController
+        
+        SideMenuManager.default.leftMenuNavigationController = sideMenuNavController
+        guard let navBar = controller.navigationController?.navigationBar else { return }
+        SideMenuManager.default.addPanGestureToPresent(toView: navBar)
+        
+        controller.present(sideMenuNavController, animated: true)
     }
     
 }

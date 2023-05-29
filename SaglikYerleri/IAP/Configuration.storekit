@@ -72,7 +72,7 @@
             }
           ],
           "productID" : "com.ekremalkan.HealthcareOrganizations.annual_subs",
-          "recurringSubscriptionPeriod" : "P1M",
+          "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Annual/99.99TL",
           "subscriptionGroupID" : "4D601DB1",
           "type" : "RecurringSubscription"

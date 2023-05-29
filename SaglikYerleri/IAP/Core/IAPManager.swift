@@ -23,6 +23,9 @@ final public class IAPManager: IAPService {
     //MARK: - DisposeBag
     private let disposeBag = DisposeBag()
     
+    //MARK: - Variable
+    var isSubscribe: Bool?
+    
     private func getOfferings() -> Observable<Offerings> {
         return Observable.create { observer in
             Purchases.shared.getOfferings { offerings, error in
@@ -61,7 +64,7 @@ final public class IAPManager: IAPService {
     }
     
     public func makePurchase(package: Package) -> Observable<(StoreTransaction, CustomerInfo, PublicError, Bool)> {
-        Observable.create { observer in
+        return Observable.create { observer in
             Purchases.shared.purchase(package: package) { transaction, customerInfo, error, isUserCancelled in
             }
             return Disposables.create()
@@ -76,15 +79,17 @@ final public class IAPManager: IAPService {
     }
     
     public func getCustomerInfo() -> Observable<Bool> {
-        Observable.create { observer in
+        return Observable.create { observer in
             // Check User is subscribe or not
-            Purchases.shared.getCustomerInfo { customerInfo, error in
+            Purchases.shared.getCustomerInfo { [weak self] customerInfo, error in
                 if let error {
                     observer.onError(error)
                 } else {
                     if customerInfo?.entitlements.all[IAPConstants.entitlementIdentifier.rawValue]?.isActive == true {
                         observer.onNext(true)
+                        self?.isSubscribe = true
                     } else {
+                        self?.isSubscribe = false
                         observer.onNext(false)
                     }
                 }

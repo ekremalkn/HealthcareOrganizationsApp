@@ -63,7 +63,7 @@ final class CustomAnnotationView: MKAnnotationView {
     }
     func set(categoryType: NetworkConstants, customAnnotation: MKAnnotation, name: String) {
         annotation = customAnnotation
-        backgroundColor = MainHorizontalCollectionData.categoryType(categoryType).tintAndBackgroundColor.withAlphaComponent(0.4)
+        backgroundColor =  .init(hex: MainHorizontalCollectionData.categoryType(categoryType).tintAndBackgroundColor).withAlphaComponent(0.4)
         setImage(categoryType: categoryType)
     }
 
@@ -83,8 +83,8 @@ final class CustomAnnotationView: MKAnnotationView {
             make.center.equalTo(self.snp.center)
         }
         
-        imageView.tintColor = MainHorizontalCollectionData.categoryType(categoryType).tintAndBackgroundColor
-        imageView.image = MainCollectionData.categoryType(categoryType).image
+        imageView.tintColor = .init(hex: MainHorizontalCollectionData.categoryType(categoryType).tintAndBackgroundColor)
+        imageView.image = .init(named: MainCollectionData.categoryType(categoryType).image) ?? UIImage()
         
         
     }

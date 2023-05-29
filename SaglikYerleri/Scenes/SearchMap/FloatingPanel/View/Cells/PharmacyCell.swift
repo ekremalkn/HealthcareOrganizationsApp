@@ -15,9 +15,9 @@ enum ConstraintsType {
     case makeConstraints
 }
 
-protocol PharmacyCellDataProtocol where Self: Codable {
-    var pharmacyImageBackgroundColor: UIColor { get }
-    var pharmacyImage: UIImage { get }
+protocol PharmacyCellDataProtocol {
+    var pharmacyImageBackgroundColor: String { get }
+    var pharmacyImage: String { get }
     var pharmacyName: String { get }
     var pharmacyAddress: String { get }
     var pharmacyPhone1: String { get }
@@ -187,8 +187,8 @@ final class PharmacyCell: UITableViewCell {
     func configure(with data: PharmacyCellDataProtocol) {
         organizationInfo = (CLLocationCoordinate2D(latitude: data.pharmacyLat, longitude: data.pharmacyLng), data.pharmacyName)
         createContentToShare(with: data)
-        leftImageBackgroundView.backgroundColor = data.pharmacyImageBackgroundColor.withAlphaComponent(0.2)
-        leftImageView.image = data.pharmacyImage
+        leftImageBackgroundView.backgroundColor = .init(hex: data.pharmacyImageBackgroundColor).withAlphaComponent(0.2)
+        leftImageView.image = .init(named: data.pharmacyImage)
         nameLabel.text = data.pharmacyName.localizedCapitalized
         addressLabel.text = data.pharmacyAddress
         directionsLabel.text = data.pharmacyDirections
