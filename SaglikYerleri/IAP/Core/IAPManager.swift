@@ -13,19 +13,19 @@ protocol IAPService {
     func getPackages() -> Observable<[Package]>
     func makePurchase(package: Package) -> Observable<(StoreTransaction, CustomerInfo, PublicError, Bool)>
     func restorePurchases()
-    func getCustomerInfo() -> Observable<Bool>
+    func getUserPremiumStatus() -> Observable<Bool>
+    func getCustomerInfo() -> Observable<CustomerInfo>
 }
 
 
 final public class IAPManager: IAPService {
     static let shared: IAPService = IAPManager()
     
+    
+    
     //MARK: - DisposeBag
     private let disposeBag = DisposeBag()
-    
-    //MARK: - Variable
-    var isSubscribe: Bool?
-    
+        
     private func getOfferings() -> Observable<Offerings> {
         return Observable.create { observer in
             Purchases.shared.getOfferings { offerings, error in
@@ -41,7 +41,7 @@ final public class IAPManager: IAPService {
         }
     }
     
-    public func getPackages() -> Observable<[Package]> {
+    func getPackages() -> Observable<[Package]> {
         return Observable.create { [unowned self] observer in
             self.getOfferings().flatMap { offerings in
                 
@@ -63,7 +63,7 @@ final public class IAPManager: IAPService {
         
     }
     
-    public func makePurchase(package: Package) -> Observable<(StoreTransaction, CustomerInfo, PublicError, Bool)> {
+    func makePurchase(package: Package) -> Observable<(StoreTransaction, CustomerInfo, PublicError, Bool)> {
         return Observable.create { observer in
             Purchases.shared.purchase(package: package) { transaction, customerInfo, error, isUserCancelled in
             }
@@ -77,24 +77,22 @@ final public class IAPManager: IAPService {
             if customerInfo?.entitlements.all[IAPConstants.entitlementIdentifier.rawValue]?.isActive == true {
                 print("BU ADAMIN BİR YERLERDE HESABI VAR VE AKTİFLEŞTİRİLDİ")
             } else {
-                print("BU ADAMINN AMK")
+                print("BU ADAMINN AKTİFLETŞTİRİCEK HESABI YOK")
             }
             //... check customerInfo to see if entitlement is now active
         }
     }
     
-    public func getCustomerInfo() -> Observable<Bool> {
+    func getUserPremiumStatus() -> Observable<Bool> {
         return Observable.create { observer in
             // Check User is subscribe or not
-            Purchases.shared.getCustomerInfo { [weak self] customerInfo, error in
+            Purchases.shared.getCustomerInfo { customerInfo, error in
                 if let error {
                     observer.onError(error)
                 } else {
                     if customerInfo?.entitlements.all[IAPConstants.entitlementIdentifier.rawValue]?.isActive == true {
                         observer.onNext(true)
-                        self?.isSubscribe = true
                     } else {
-                        self?.isSubscribe = false
                         observer.onNext(false)
                     }
                 }
@@ -105,6 +103,22 @@ final public class IAPManager: IAPService {
             
         }
     }
+    
+    func getCustomerInfo() -> Observable<CustomerInfo> {
+        return Observable.create { observer in
+            // Get all customer info when user is already subscribe
+            Purchases.shared.getCustomerInfo { customerInfo, error in
+                if let error {
+                    observer.onError(error)
+                } else if let customerInfo {
+                    observer.onNext(customerInfo)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    
     
     
 }

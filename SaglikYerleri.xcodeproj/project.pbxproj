@@ -15,6 +15,11 @@
 		F00E6BCF2A195DE000633FC4 /* CustomSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BCE2A195DE000633FC4 /* CustomSignInButton.swift */; };
 		F00E6BD12A195F1F00633FC4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BD02A195F1F00633FC4 /* SignInView.swift */; };
 		F00E6BD42A19656300633FC4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BD32A19656300633FC4 /* SignInViewController.swift */; };
+		F022559C2A263EEC002DD734 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F022559B2A263EEC002DD734 /* ProfileView.swift */; };
+		F022559E2A26409B002DD734 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F022559D2A26409B002DD734 /* ProfileController.swift */; };
+		F02255A12A26410E002DD734 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02255A02A26410E002DD734 /* ProfileViewModel.swift */; };
+		F02255A32A264A47002DD734 /* Date+FormattedDateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02255A22A264A47002DD734 /* Date+FormattedDateString.swift */; };
+		F02255A62A265113002DD734 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02255A52A265113002DD734 /* ProfileCell.swift */; };
 		F0277C0F2A21412400A71771 /* RecentSearchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0277C0E2A21412400A71771 /* RecentSearchesViewModel.swift */; };
 		F03380AF2A1E52BF00B120E7 /* IAPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03380AD2A1E52BF00B120E7 /* IAPConstants.swift */; };
 		F03380B02A1E52BF00B120E7 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03380AE2A1E52BF00B120E7 /* IAPManager.swift */; };
@@ -138,6 +143,11 @@
 		F00E6BCE2A195DE000633FC4 /* CustomSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSignInButton.swift; sourceTree = "<group>"; };
 		F00E6BD02A195F1F00633FC4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F00E6BD32A19656300633FC4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		F022559B2A263EEC002DD734 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F022559D2A26409B002DD734 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		F02255A02A26410E002DD734 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		F02255A22A264A47002DD734 /* Date+FormattedDateString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FormattedDateString.swift"; sourceTree = "<group>"; };
+		F02255A52A265113002DD734 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		F0277C0E2A21412400A71771 /* RecentSearchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesViewModel.swift; sourceTree = "<group>"; };
 		F03380AD2A1E52BF00B120E7 /* IAPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPConstants.swift; sourceTree = "<group>"; };
 		F03380AE2A1E52BF00B120E7 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
@@ -330,6 +340,41 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		F02255992A263ECD002DD734 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F022559A2A263ED5002DD734 /* View */,
+				F022559F2A2640F8002DD734 /* ViewModel */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		F022559A2A263ED5002DD734 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F02255A42A265100002DD734 /* Cell */,
+				F022559B2A263EEC002DD734 /* ProfileView.swift */,
+				F022559D2A26409B002DD734 /* ProfileController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F022559F2A2640F8002DD734 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F02255A02A26410E002DD734 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F02255A42A265100002DD734 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F02255A52A265113002DD734 /* ProfileCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F0277C0B2A21403700A71771 /* PharmacyCellModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +546,7 @@
 				F096A2932A14AB2D0084947F /* Splash */,
 				F072589229F285E200F625CE /* Home */,
 				F0C3D7FB2A20FDBB003A6BE1 /* RecentSearches */,
+				F02255992A263ECD002DD734 /* Profile */,
 				F0D77CF629F928ED0061C85E /* SearchMap */,
 			);
 			path = Scenes;
@@ -545,6 +591,7 @@
 				F0E975DD2A1753E300C5A607 /* UIButton+CellButtonActions.swift */,
 				F0E975DF2A1762BC00C5A607 /* UIApplication+TopViewController.swift */,
 				F06552882A181059008897A7 /* UIViewController+ShowToast.swift */,
+				F02255A22A264A47002DD734 /* Date+FormattedDateString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1009,6 +1056,7 @@
 				F0D73A192A00CF5B00D4F58D /* SearchResultViewModel.swift in Sources */,
 				F00E6BCD2A19583C00633FC4 /* SignInViewModel.swift in Sources */,
 				F09D11EB2A1F3F680015C000 /* RemoteConfigManager.swift in Sources */,
+				F02255A62A265113002DD734 /* ProfileCell.swift in Sources */,
 				F072589829F2CF2800F625CE /* Coordinator.swift in Sources */,
 				F096A29C2A14AF1D0084947F /* SplashCoordinator.swift in Sources */,
 				F0D70D0229FD1B6900CA4C39 /* TRCityModel.swift in Sources */,
@@ -1037,11 +1085,13 @@
 				F090A7942A213C62001B01A6 /* HealthOrganizations.xcdatamodeld in Sources */,
 				F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */,
 				F03380AF2A1E52BF00B120E7 /* IAPConstants.swift in Sources */,
+				F02255A12A26410E002DD734 /* ProfileViewModel.swift in Sources */,
 				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
 				F0E975DE2A1753E300C5A607 /* UIButton+CellButtonActions.swift in Sources */,
 				F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,
+				F02255A32A264A47002DD734 /* Date+FormattedDateString.swift in Sources */,
 				F0CA98202A0438C800F996D8 /* AnimationView.swift in Sources */,
 				F0D77CFD29F929D30061C85E /* MapView.swift in Sources */,
 				F06BEE8229FFDA7C0013E22D /* AnimalHospitalModel.swift in Sources */,
@@ -1056,6 +1106,7 @@
 				F0D70D0C29FD2C6B00CA4C39 /* NetworkAPIConstant.swift in Sources */,
 				F06BEE8629FFDB470013E22D /* GynecologyCenterModel.swift in Sources */,
 				F0C3D8092A21059A003A6BE1 /* SideMenuCoordinator.swift in Sources */,
+				F022559C2A263EEC002DD734 /* ProfileView.swift in Sources */,
 				F06BEE8029FFDA020013E22D /* RadiologyCenterModel.swift in Sources */,
 				F06552892A181059008897A7 /* UIViewController+ShowToast.swift in Sources */,
 				F0E975E32A1786FF00C5A607 /* MapViewModel.swift in Sources */,
@@ -1066,6 +1117,7 @@
 				F065528C2A1817E0008897A7 /* MapAlertController.swift in Sources */,
 				F04FF3672A248908001F0018 /* PharmacyCellData+CoreDataProperties.swift in Sources */,
 				F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */,
+				F022559E2A26409B002DD734 /* ProfileController.swift in Sources */,
 				F0EE77A62A054708007BF9A7 /* FloatingViewModel.swift in Sources */,
 				F096A2982A14AB500084947F /* SplashView.swift in Sources */,
 				F0C3D8022A20FEA5003A6BE1 /* RecentSearchesHeaderView.swift in Sources */,

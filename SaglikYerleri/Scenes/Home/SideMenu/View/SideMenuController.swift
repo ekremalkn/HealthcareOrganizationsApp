@@ -42,7 +42,7 @@ final class SideMenuController: UIViewController {
         
         sideMenuView.profileButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
-            
+            self.sideMenuCoordinator?.openProifleController()
         }.disposed(by: disposeBag)
     }
     

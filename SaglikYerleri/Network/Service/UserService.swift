@@ -126,8 +126,10 @@ final class UserNetworkService: UserService {
             do {
                 try Auth.auth().signOut()
                 observer.onNext(())
+                observer.onCompleted()
             } catch let signOutError as NSError {
                 observer.onError(signOutError)
+                observer.onCompleted()
             }
             return Disposables.create()
         }

@@ -39,12 +39,17 @@ final class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        buttonActions()
+    }
+    
+ 
+    //MARK: - Button Actions
+    private func buttonActions() {
         signInView.contiuneSignInWithProvider.rx.tap.subscribe { [weak self] _ in
             guard let self, let selectedButtonType = signInView.selectedButtonType else { return }
             switch selectedButtonType {
             case .google:
-//                viewModel.googleSignInWithRC(showOn: self)
-                            self.viewModel.signOut()
+                viewModel.googleSignInWithRC(showOn: self)
             case .apple:
                 viewModel.startSignInWithAppleFlow { request in
                     let authrozitaionController = ASAuthorizationController(authorizationRequests: [request])
@@ -56,8 +61,7 @@ final class SignInViewController: UIViewController {
             }
         }.disposed(by: disposeBag)
     }
-    
- 
+
 }
 
 extension SignInViewController:ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {

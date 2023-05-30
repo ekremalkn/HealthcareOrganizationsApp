@@ -112,7 +112,7 @@ extension MainView {
 //MARK: - UI Elements AddSubview / SetupConstraints
 extension MainView: ViewProtocol {
     func configureView() {
-        backgroundColor = UIColor(hex: "FBFCFE")
+        backgroundColor = .init(hex: "FBFCFE")
         addSubview()
         setupConstraints()
     }

@@ -22,6 +22,14 @@ final class SideMenuCoordinator {
         navigationController.pushViewController(recentSearchesController, animated: true)
     }
     
+    func openProifleController() {
+        guard let navigationController else { return }
+        let userService: UserService = UserNetworkService()
+        let profileViewModel = ProfileViewModel(userService: userService)
+        let profileController = ProfileController(viewModel: profileViewModel)
+        navigationController.pushViewController(profileController, animated: true)
+    }
+    
     
     
 }

@@ -56,8 +56,8 @@ extension MainViewModel {
             checkIsCurrentUserActive().flatMap { user in
                 return Observable.just(user)
             }.subscribe(onNext: { user in
-                if let user { // Check if user already sign in with provider and has account on firebase
-                    IAPManager.shared.getCustomerInfo().subscribe { [weak self] result in
+                if user != nil { // Check if user already sign in with provider and has account on firebase
+                    IAPManager.shared.getUserPremiumStatus().subscribe { [weak self] result in
                         guard let _ = self else { return }
                         switch result {
                         case .next(let userSubscriptionStatus):

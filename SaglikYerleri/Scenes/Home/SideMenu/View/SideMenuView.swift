@@ -21,7 +21,7 @@ final class SideMenuView: UIView {
     
     let profileButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("ABONE BİLGİSİ", for: .normal)
+        button.setTitle("HESAP BILGILERI", for: .normal)
         button.titleLabel?.font = UIFont(name: "Arial-BoldMT", size: 13)
         button.titleLabel?.textAlignment = .left
         button.setTitleColor(.darkGray, for: .normal)

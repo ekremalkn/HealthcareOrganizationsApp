@@ -40,20 +40,6 @@ final class SignInViewModel {
         userService.googleSignInWithRC(showOn: parentVC)
     }
     
-    func signOut() {
-        userService.signOut().subscribe { result in
-            switch result {
-            case .next():
-                print("çıkış başarılı")
-            case .error(let error):
-                print("\(error) çıkış başarısız")
-            case .completed:
-                print("çıkış işlemi tamamlandı")
-            }
-            
-        }.disposed(by: disposeBag)
-    }
-    
     //MARK: - Apple SignIn
     func startSignInWithAppleFlow(completion: (ASAuthorizationAppleIDRequest) -> Void) {
         let nonce = randomNonceString()
@@ -64,7 +50,6 @@ final class SignInViewModel {
         request.nonce = sha256(nonce)
         completion(request)
     }
-    
     
     //MARK: - When apple sign in complete with authorization
     private func subsToDidCompleteWithAuthorization() {
