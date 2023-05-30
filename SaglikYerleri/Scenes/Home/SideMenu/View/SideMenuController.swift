@@ -31,11 +31,18 @@ final class SideMenuController: UIViewController {
         setupView()
         recentSearchesButtonAction()
     }
+  
     
+    //MARK: - Button Actions subsc
     private func recentSearchesButtonAction() {
         sideMenuView.historyButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
             self.sideMenuCoordinator?.openRecentSearchesController()
+        }.disposed(by: disposeBag)
+        
+        sideMenuView.profileButton.rx.tap.subscribe { [weak self] _ in
+            guard let self else { return }
+            
         }.disposed(by: disposeBag)
     }
     

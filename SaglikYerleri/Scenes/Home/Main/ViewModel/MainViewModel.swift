@@ -6,12 +6,10 @@
 //
 
 import RxSwift
+import FirebaseAuth
 
 final class MainViewModel {
-    
-    //MARK: - DisposeBag
-    private let disposeBag = DisposeBag()
-    
+
     //MARK: - CollectionView Datas
     var horizontalCollectionData = Observable.just([
         MainHorizontalCollectionData.categoryType(.dutyPharmacy),
@@ -40,32 +38,55 @@ final class MainViewModel {
         MainCollectionData.categoryType(.gynecologyCenters)
     ])
     
-    
+    //MARK: - DisposeBag
+    private let disposeBag = DisposeBag()
+        
     init(mainHorizontalCollectionRemoteConfigData: Observable<[MainHorizontalCollectionData]>?) {
         guard let mainHorizontalCollectionRemoteConfigData else { return }
         self.horizontalCollectionData = mainHorizontalCollectionRemoteConfigData
     }
+    
 }
 
 
 //MARK: - Check Subscription Status
 extension MainViewModel {
     func checkSubscriptionStatus() -> Observable<Bool> {
-        Observable.create { [unowned self] observer in
-            IAPManager.shared.getCustomerInfo().subscribe { [weak self] result in
-                guard let _ = self else { return }
-                switch result {
-                case .next(let userSubscriptionStatus):
-                    observer.onNext(userSubscriptionStatus)
-                case .error(let error):
-                    print(error.localizedDescription)
-                case .completed:
-                    print("kullanıcı subscription status işlemi tamamlandı")
+        return Observable.create { [unowned self] observer in
+            checkIsCurrentUserActive().flatMap { user in
+                return Observable.just(user)
+            }.subscribe(onNext: { user in
+                if let user { // Check if user already sign in with provider and has account on firebase
+                    IAPManager.shared.getCustomerInfo().subscribe { [weak self] result in
+                        guard let _ = self else { return }
+                        switch result {
+                        case .next(let userSubscriptionStatus):
+                            observer.onNext(userSubscriptionStatus)
+                        case .error(let error):
+                            print(error.localizedDescription)
+                        case .completed:
+                            print("kullanıcı subscription status işlemi tamamlandı")
+                        }
+                    }.disposed(by: self.disposeBag)
+                } else { // Check if user did not sign in with provider and has not account on firebase
+                    observer.onNext(false)
                 }
-            }.disposed(by: self.disposeBag)
+            }).disposed(by: disposeBag)
+            
             return Disposables.create()
         }
         
+    }
+    
+    private func checkIsCurrentUserActive() -> Observable<User?> {
+        return Observable.create { observer in
+            if let currentUser = Auth.auth().currentUser {
+                observer.onNext(currentUser)
+            } else {
+                observer.onNext(nil)
+            }
+            return Disposables.create()
+        }
     }
 }
 

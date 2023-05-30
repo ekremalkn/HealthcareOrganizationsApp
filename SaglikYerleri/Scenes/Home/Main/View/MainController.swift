@@ -65,7 +65,7 @@ final class MainController: UIViewController {
     private func checkUserSubscriptionStatus() {
         viewModel.checkSubscriptionStatus().subscribe { [weak self] isUserSubscribe in
             guard let self else { return }
-            isUserSubscribe ? self.showToast(message: "Premium bir kullanıcısın") : self.showToast(message: "Premium bir kullanıcı değilsin")
+            isUserSubscribe ? self.showToast(message: "Premium bir kullanıcısın") : self.showToast(message: "Premium bir kullanıcı değilsin ya da giriş yapmalısın")
         }.disposed(by: disposeBag)
         
     }

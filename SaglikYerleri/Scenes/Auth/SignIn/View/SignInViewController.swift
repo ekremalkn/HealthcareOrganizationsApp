@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import AuthenticationServices
 
 final class SignInViewController: UIViewController {
     deinit {
@@ -38,12 +39,39 @@ final class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signInView.contiuneWithGoogle.rx.tap.subscribe { [weak self] _ in
-            guard let self else { return }
-            self.viewModel.googleSignInWithRC(showOn: self)
-//            self.viewModel.signOut()
+        signInView.contiuneSignInWithProvider.rx.tap.subscribe { [weak self] _ in
+            guard let self, let selectedButtonType = signInView.selectedButtonType else { return }
+            switch selectedButtonType {
+            case .google:
+//                viewModel.googleSignInWithRC(showOn: self)
+                            self.viewModel.signOut()
+            case .apple:
+                viewModel.startSignInWithAppleFlow { request in
+                    let authrozitaionController = ASAuthorizationController(authorizationRequests: [request])
+                    authrozitaionController.delegate = self
+                    authrozitaionController.presentationContextProvider = self
+                    authrozitaionController.performRequests()
+                    
+                }
+            }
         }.disposed(by: disposeBag)
     }
     
  
+}
+
+extension SignInViewController:ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        viewModel.didCompleteWithAuthorization.onNext(authorization)
+      }
+
+      func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // Handle error.
+        print("Sign in with Apple errored: \(error)")
+      }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return ASPresentationAnchor()
+    }
+    
 }

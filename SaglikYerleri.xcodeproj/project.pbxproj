@@ -12,7 +12,7 @@
 		F00E6BBD2A19054900633FC4 /* PayWallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BBC2A19054900633FC4 /* PayWallController.swift */; };
 		F00E6BC72A1954E100633FC4 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F00E6BC62A1954E100633FC4 /* GoogleSignIn */; };
 		F00E6BCD2A19583C00633FC4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BCC2A19583C00633FC4 /* SignInViewModel.swift */; };
-		F00E6BCF2A195DE000633FC4 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */; };
+		F00E6BCF2A195DE000633FC4 /* CustomSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BCE2A195DE000633FC4 /* CustomSignInButton.swift */; };
 		F00E6BD12A195F1F00633FC4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BD02A195F1F00633FC4 /* SignInView.swift */; };
 		F00E6BD42A19656300633FC4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E6BD32A19656300633FC4 /* SignInViewController.swift */; };
 		F0277C0F2A21412400A71771 /* RecentSearchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0277C0E2A21412400A71771 /* RecentSearchesViewModel.swift */; };
@@ -135,7 +135,7 @@
 		F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallPlanButton.swift; sourceTree = "<group>"; };
 		F00E6BBC2A19054900633FC4 /* PayWallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallController.swift; sourceTree = "<group>"; };
 		F00E6BCC2A19583C00633FC4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
-		F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
+		F00E6BCE2A195DE000633FC4 /* CustomSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSignInButton.swift; sourceTree = "<group>"; };
 		F00E6BD02A195F1F00633FC4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F00E6BD32A19656300633FC4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F0277C0E2A21412400A71771 /* RecentSearchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesViewModel.swift; sourceTree = "<group>"; };
@@ -291,7 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				F00E6BBA2A18FA5700633FC4 /* PayWallPlanButton.swift */,
-				F00E6BCE2A195DE000633FC4 /* GoogleSignInButton.swift */,
+				F00E6BCE2A195DE000633FC4 /* CustomSignInButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1022,7 +1022,7 @@
 				F0EE77A32A052EE1007BF9A7 /* FloatingView.swift in Sources */,
 				F0C3D7FF2A20FDF1003A6BE1 /* RecentSearchesView.swift in Sources */,
 				F0C3D8052A2101AB003A6BE1 /* RecentSearchesFooterView.swift in Sources */,
-				F00E6BCF2A195DE000633FC4 /* GoogleSignInButton.swift in Sources */,
+				F00E6BCF2A195DE000633FC4 /* CustomSignInButton.swift in Sources */,
 				F072589C29F2D89A00F625CE /* MainCoordinator.swift in Sources */,
 				F096A28D2A13A78E0084947F /* SideMenuView.swift in Sources */,
 				F0D70D0A29FD219900CA4C39 /* NetworkEndPoint.swift in Sources */,

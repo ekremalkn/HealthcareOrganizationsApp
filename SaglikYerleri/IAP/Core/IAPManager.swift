@@ -74,6 +74,11 @@ final public class IAPManager: IAPService {
     func restorePurchases() {
         Purchases.shared.restorePurchases { (customerInfo, error) in
             //UNUTMA APPLE BUNU ISTIYOR
+            if customerInfo?.entitlements.all[IAPConstants.entitlementIdentifier.rawValue]?.isActive == true {
+                print("BU ADAMIN BİR YERLERDE HESABI VAR VE AKTİFLEŞTİRİLDİ")
+            } else {
+                print("BU ADAMINN AMK")
+            }
             //... check customerInfo to see if entitlement is now active
         }
     }

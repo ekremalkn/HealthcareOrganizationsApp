@@ -7,13 +7,17 @@
 
 import UIKit
 
-final class GoogleSignInButton: UIButton {
+enum SignInButtonType {
+    case google
+    case apple
+}
+
+final class CustomSignInButton: UIButton {
     
     //MARK: - Creating UI Elements
     private lazy var buttonImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "googleButton")
         return imageView
     }()
     
@@ -26,7 +30,17 @@ final class GoogleSignInButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    convenience init(type: SignInButtonType) {
+        self.init(frame: .zero)
+        switch type {
+        case .google:
+            buttonImageView.image = UIImage(named: "googleButton")
+        case .apple:
+            buttonImageView.image = UIImage(named: "appleButton")
+        }
+    }
+    
     private func setupViews() {
         layer.borderColor = UIColor.white.cgColor
         backgroundColor = .init(hex: "181818")
