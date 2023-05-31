@@ -12,6 +12,7 @@ import RevenueCat
 final class PayWallController: UIViewController {
 
     //MARK: - References
+    var payWallCoordinator: PayWallCoordinator?
     private let payWallView = PayWallView(selectedButton: .init(type: .annual))
     let viewModel: PayWallViewModel
     
@@ -40,15 +41,27 @@ final class PayWallController: UIViewController {
     
     //MARK: - ConfigureViewController
     private func configureViewController() {
+        handleWhenUserDidNotSignIn()
+        buttonActions()
+    }
+    
+    private func buttonActions() {
         payWallView.continueButton.rx.tap.subscribe { [weak self] _ in
             guard let self, let selectedButtonType = self.payWallView.selectedButton?.type else { return }
-            viewModel.makePurchase(planType: selectedButtonType)
+            viewModel.checkUserAndMakePurchase(planType: selectedButtonType)
         }.disposed(by: disposeBag)
         
         
         payWallView.closeButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
             self.dismiss(animated: true)
+        }.disposed(by: disposeBag)
+    }
+    
+    private func handleWhenUserDidNotSignIn() {
+        viewModel.userDidNotSignIn.subscribe { [weak self] _ in
+            guard let self else { return }
+            payWallCoordinator?.openSignInController(onPayWallVC: self)
         }.disposed(by: disposeBag)
     }
 

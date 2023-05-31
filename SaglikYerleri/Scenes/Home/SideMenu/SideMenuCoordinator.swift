@@ -7,23 +7,21 @@
 
 import UIKit
 
-final class SideMenuCoordinator {
+final class SideMenuCoordinator: Coordinator {
     var childCoordinator: [Coordinator] = []
     
-    weak var navigationController: UINavigationController?
-    
+    var navigationController = UINavigationController()
+
     
     func startCoordinator() {
     }
     
     func openRecentSearchesController() {
-        guard let navigationController else { return }
         let recentSearchesController = RecentSearchesController()
         navigationController.pushViewController(recentSearchesController, animated: true)
     }
     
     func openProifleController() {
-        guard let navigationController else { return }
         let userService: UserService = UserNetworkService()
         let profileViewModel = ProfileViewModel(userService: userService)
         let profileController = ProfileController(viewModel: profileViewModel)

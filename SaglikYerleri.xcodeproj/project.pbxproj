@@ -95,6 +95,7 @@
 		F09D11FF2A1F7F510015C000 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = F09D11FE2A1F7F510015C000 /* FirebaseMessaging */; };
 		F09D12012A1F7F510015C000 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = F09D12002A1F7F510015C000 /* FirebaseRemoteConfig */; };
 		F09D12052A1F82250015C000 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09D12042A1F82250015C000 /* StoreKit.framework */; };
+		F0A6208B2A27351500F533A2 /* PayWallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6208A2A27351500F533A2 /* PayWallCoordinator.swift */; };
 		F0B73F8F2A1B6A900057BDF4 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B73F8E2A1B6A900057BDF4 /* UserService.swift */; };
 		F0C3D7F72A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer in Resources */ = {isa = PBXBuildFile; fileRef = F0C3D7F62A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer */; };
 		F0C3D7FF2A20FDF1003A6BE1 /* RecentSearchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C3D7FE2A20FDF1003A6BE1 /* RecentSearchesView.swift */; };
@@ -218,6 +219,7 @@
 		F09D11EA2A1F3F680015C000 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
 		F09D12022A1F81DE0015C000 /* SaglikYerleri.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SaglikYerleri.entitlements; sourceTree = "<group>"; };
 		F09D12042A1F82250015C000 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		F0A6208A2A27351500F533A2 /* PayWallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallCoordinator.swift; sourceTree = "<group>"; };
 		F0B73F8E2A1B6A900057BDF4 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		F0C3D7F62A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate11.cer; sourceTree = "<group>"; };
 		F0C3D7FE2A20FDF1003A6BE1 /* RecentSearchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesView.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 		F00E6BB52A18F89700633FC4 /* PayWall */ = {
 			isa = PBXGroup;
 			children = (
+				F0A6208A2A27351500F533A2 /* PayWallCoordinator.swift */,
 				F00E6BB62A18F89C00633FC4 /* View */,
 				F03380B62A1E538100B120E7 /* ViewModel */,
 			);
@@ -1088,6 +1091,7 @@
 				F02255A12A26410E002DD734 /* ProfileViewModel.swift in Sources */,
 				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
 				F0E975DE2A1753E300C5A607 /* UIButton+CellButtonActions.swift in Sources */,
+				F0A6208B2A27351500F533A2 /* PayWallCoordinator.swift in Sources */,
 				F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,

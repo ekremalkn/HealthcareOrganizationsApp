@@ -119,11 +119,7 @@ final class ProfileController: UIViewController {
         // set delegate for cell height
         profileView.buttonTableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
-    
-    //MARK: - Delete apple account
-    private func subscribeViewModelVariables() {
-        
-    }
+
     
     
 }

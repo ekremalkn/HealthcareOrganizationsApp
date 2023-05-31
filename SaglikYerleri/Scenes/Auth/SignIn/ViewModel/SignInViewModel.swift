@@ -27,17 +27,25 @@ final class SignInViewModel {
     //MARK: - Current Nonce
     var currentNonce: String?
 
-    //MARK: - Observables
-    let didCompleteWithAuthorization = PublishSubject<ASAuthorization>()
-
     init(userService: UserService) {
         self.userService = userService
-        subsToDidCompleteWithAuthorization()
     }
     
     
-    func googleSignInWithRC(showOn parentVC: UIViewController) {
-        userService.googleSignInWithRC(showOn: parentVC)
+    func googleSignInWithRC(showOn parentVC: UIViewController) -> Observable<Bool> {
+        return Observable.create { [weak self ] observer in
+            guard let self else { return Disposables.create() }
+            userService.googleSignInWithRC(showOn: parentVC).flatMap { isSignedIn in
+                return Observable.just(isSignedIn)
+            }.subscribe(onNext: { isSignedIn in
+                if isSignedIn {
+                    observer.onNext(true)
+                } else {
+                    observer.onNext(false)
+                }
+            }).disposed(by: disposeBag)
+            return Disposables.create()
+        }
     }
     
     //MARK: - Apple SignIn
@@ -51,12 +59,21 @@ final class SignInViewModel {
         completion(request)
     }
     
-    //MARK: - When apple sign in complete with authorization
-    private func subsToDidCompleteWithAuthorization() {
-        didCompleteWithAuthorization.subscribe { [weak self] authorization in
-            guard let self else { return }
-            userService.appleSignInWithRC(authorization: authorization, currentNonce: currentNonce)
-        }.disposed(by: disposeBag)
+    func appleSignInWithRC(authorization: ASAuthorization) -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
+            guard let self else { return Disposables.create() }
+            
+            userService.appleSignInWithRC(authorization: authorization, currentNonce: currentNonce).flatMap { isSignedIn in
+                return Observable.just(isSignedIn)
+            }.subscribe(onNext: { isSignedIn in
+                if isSignedIn {
+                    observer.onNext(true)
+                } else {
+                    observer.onNext(false)
+                }
+            }).disposed(by: disposeBag)
+            return Disposables.create()
+        }
     }
 
     //MARK: - generate a random string a nonce

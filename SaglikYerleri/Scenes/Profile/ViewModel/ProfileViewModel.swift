@@ -82,35 +82,35 @@ final class ProfileViewModel {
         didCompleteWithAuthorization.subscribe(onNext: { [weak self] authorization in
             guard let self else { return }
             guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential
-             else {
-               print("Unable to retrieve AppleIDCredential")
-               return
-             }
-
-             guard let _ = currentNonce else {
-               fatalError("Invalid state: A login callback was received, but no login request was sent.")
-             }
-
-             guard let appleAuthCode = appleIDCredential.authorizationCode else {
-               print("Unable to fetch authorization code")
-               return
-             }
-
-             guard let authCodeString = String(data: appleAuthCode, encoding: .utf8) else {
-               print("Unable to serialize auth code string from data: \(appleAuthCode.debugDescription)")
-               return
-             }
-
-             Task {
-               do {
-                 try await Auth.auth().revokeToken(withAuthorizationCode: authCodeString)
-                   try await Auth.auth().currentUser?.delete()
-                 // silindi sayfayu yenilde
-                   print("hesap silindi ")
-               } catch {
-                 print("hesao silnemedi")
-               }
-             }
+            else {
+                print("Unable to retrieve AppleIDCredential")
+                return
+            }
+            
+            guard let _ = currentNonce else {
+                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+            }
+            
+            guard let appleAuthCode = appleIDCredential.authorizationCode else {
+                print("Unable to fetch authorization code")
+                return
+            }
+            
+            guard let authCodeString = String(data: appleAuthCode, encoding: .utf8) else {
+                print("Unable to serialize auth code string from data: \(appleAuthCode.debugDescription)")
+                return
+            }
+            
+            Task {
+                do {
+                    try await Auth.auth().revokeToken(withAuthorizationCode: authCodeString)
+                    try await Auth.auth().currentUser?.delete()
+                    // silindi sayfayu yenilde
+                    print("hesap silindi ")
+                } catch {
+                    print("hesap silinemedi: \(error)")
+                }
+            }
         }).disposed(by: disposeBag)
     }
     

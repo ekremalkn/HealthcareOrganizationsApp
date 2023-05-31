@@ -18,13 +18,15 @@ final class MainCoordinator: Coordinator {
     }
     
     func openMapController(categoryType: NetworkConstants, cellType: CellType, customTopViewBC: UIColor) {
-                let userService: UserService = UserNetworkService()
-                let signinvc = SignInViewController(userService: userService)
-                navigationController.pushViewController(signinvc, animated: true)
-//        let payWallViewModel = PayWallViewModel()
-//        let payWallVC = PayWallController(viewModel: payWallViewModel)
-//        payWallVC.modalPresentationStyle = .pageSheet
-//        navigationController.present(payWallVC, animated: true)
+//                let userService: UserService = UserNetworkService()
+//                let signinvc = SignInViewController(userService: userService)
+//                navigationController.pushViewController(signinvc, animated: true)
+        let payWallViewModel = PayWallViewModel()
+        let payWallVC = PayWallController(viewModel: payWallViewModel)
+        let payWallCoordinator = PayWallCoordinator()
+        payWallVC.payWallCoordinator = payWallCoordinator
+        payWallVC.modalPresentationStyle = .pageSheet
+        navigationController.present(payWallVC, animated: true)
 //                let networkService: CityCountyService = NetworkService()
 //        let mapController = MapController(categoryType: categoryType, cellType: cellType, networkService: networkService, customTopViewBC: customTopViewBC)
 //                mapController.mapCoordinator = MapCoordinator()

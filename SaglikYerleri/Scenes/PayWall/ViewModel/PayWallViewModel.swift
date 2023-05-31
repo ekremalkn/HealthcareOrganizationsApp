@@ -7,7 +7,9 @@
 
 import Foundation
 import RxSwift
+import FirebaseAuth
 import RevenueCat
+
 
 final class PayWallViewModel {
 
@@ -16,6 +18,8 @@ final class PayWallViewModel {
     
     var monthlyPackage: Package?
     var annualPackage: Package?
+    
+    let userDidNotSignIn = PublishSubject<Void>()
     
     init() {
         getPackages()
@@ -42,7 +46,33 @@ final class PayWallViewModel {
         }.disposed(by: disposeBag)
     }
     
-    func makePurchase(planType: PayWallPlanButtonType) {
+    private func checkIsCurrentUserActive() -> Observable<User?> {
+        return Observable.create { observer in
+            if let currentUser = Auth.auth().currentUser {
+                observer.onNext(currentUser)
+            } else {
+                observer.onNext(nil)
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func checkUserAndMakePurchase(planType: PayWallPlanButtonType) {
+        checkIsCurrentUserActive().flatMap { user in
+            return Observable.just(user)
+        }.subscribe(onNext: { [weak self] currentUser in
+            guard let self else { return }
+            if currentUser != nil {
+                makePurchase(planType: planType)
+            } else {
+                userDidNotSignIn.onNext(())
+            }
+            
+        }).disposed(by: disposeBag)
+        
+    }
+    
+    private func makePurchase(planType: PayWallPlanButtonType) {
         switch planType {
         case .annual:
             guard let annualPackage else { return }

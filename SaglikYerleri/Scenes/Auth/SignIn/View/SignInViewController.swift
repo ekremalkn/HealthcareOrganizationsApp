@@ -16,7 +16,6 @@ final class SignInViewController: UIViewController {
     //MARK: - References
     private let signInView = SignInView()
     private let viewModel: SignInViewModel
-    
     //MARK: - DisposeBag
     private let disposeBag = DisposeBag()
     
@@ -49,7 +48,14 @@ final class SignInViewController: UIViewController {
             guard let self, let selectedButtonType = signInView.selectedButtonType else { return }
             switch selectedButtonType {
             case .google:
-                viewModel.googleSignInWithRC(showOn: self)
+                viewModel.googleSignInWithRC(showOn: self).subscribe { [weak self] isSignedIn in
+                    guard let self else { return }
+                    if isSignedIn {
+                        dismiss(animated: true)
+                    } else {
+                        print("Google İLE Revenucata giriş yapılmadı")
+                    }
+                }.disposed(by: disposeBag)
             case .apple:
                 viewModel.startSignInWithAppleFlow { request in
                     let authrozitaionController = ASAuthorizationController(authorizationRequests: [request])
@@ -66,7 +72,14 @@ final class SignInViewController: UIViewController {
 
 extension SignInViewController:ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        viewModel.didCompleteWithAuthorization.onNext(authorization)
+        viewModel.appleSignInWithRC(authorization: authorization).subscribe { [weak self] isSignedIn in
+            guard let self else { return }
+            if isSignedIn {
+                dismiss(animated: true)
+            } else {
+                print("APPLE ILE REvenucate giriş yapılamadı")
+            }
+        }.disposed(by: disposeBag)
       }
 
       func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
