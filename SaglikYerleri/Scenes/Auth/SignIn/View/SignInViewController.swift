@@ -17,8 +17,11 @@ final class SignInViewController: UIViewController {
     private let signInView = SignInView()
     private let viewModel: SignInViewModel
     //MARK: - DisposeBag
-    private let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     
+    //MARK: - When Dissmissed
+    let signInVCDismissed = PublishSubject<Void>()
+
     init(userService: UserService) {
         self.viewModel = SignInViewModel(userService: userService)
         super.init(nibName: nil, bundle: nil)
@@ -51,7 +54,10 @@ final class SignInViewController: UIViewController {
                 viewModel.googleSignInWithRC(showOn: self).subscribe { [weak self] isSignedIn in
                     guard let self else { return }
                     if isSignedIn {
-                        dismiss(animated: true)
+                        dismiss(animated: true) { [weak self] in
+                            guard let self else { return }
+                            signInVCDismissed.onNext(())
+                        }
                     } else {
                         print("Google İLE Revenucata giriş yapılmadı")
                     }
@@ -75,7 +81,10 @@ extension SignInViewController:ASAuthorizationControllerDelegate, ASAuthorizatio
         viewModel.appleSignInWithRC(authorization: authorization).subscribe { [weak self] isSignedIn in
             guard let self else { return }
             if isSignedIn {
-                dismiss(animated: true)
+                dismiss(animated: true) { [weak self] in
+                    guard let self else { return }
+                    signInVCDismissed.onNext(())
+                }
             } else {
                 print("APPLE ILE REvenucate giriş yapılamadı")
             }

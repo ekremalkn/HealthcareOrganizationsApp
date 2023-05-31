@@ -9,13 +9,15 @@ import UIKit
 
 final class ProfileCell: UITableViewCell {
     static let identifier = "ProfileCell"
-    
+    deinit {
+        print("ProfileCell  deinit")
+    }
     //MARK: - Creating UI Elements
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.spacing = 5
         return stackView
     }()
     
@@ -59,14 +61,24 @@ final class ProfileCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        keyLabel.textColor = .black
+        isUserInteractionEnabled = true
+    }
+    
     func configure(with data: (key: String, value: String)) {
         keyLabel.text = data.key
         valueLabel.text = data.value
     }
     
-    func configureButtonTitle(with title: String) {
+    func configureButtonTitle(with title: String, interaction: Bool) {
         keyLabel.text = title
         rightImageView.isHidden = false
+        if !interaction {
+            keyLabel.textColor = .systemGray
+            isUserInteractionEnabled = false
+        }
     }
 
 }

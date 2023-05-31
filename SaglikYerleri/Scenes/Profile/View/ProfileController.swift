@@ -10,14 +10,20 @@ import RxSwift
 import AuthenticationServices
 
 final class ProfileController: UIViewController {
-    
+    deinit {
+        print("ProfileController  deinit")
+    }
     //MARK: - References
+    var profileCoordinator: ProfileCoordinator?
     private let profileView = ProfileView()
     private var viewModel: ProfileViewModel
     
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
     
+    //MARK: - SignInVC Dismissed
+    var signInVCDismissed = PublishSubject<Void>()
+
     //MARK: - Life Cycle Methods
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
@@ -39,29 +45,23 @@ final class ProfileController: UIViewController {
     }
     
     private func configureViewController() {
+        configureNavItems()
         subscribeToDataStatus()
+        buttonActionStages()
         configureTableView()
+        signInVCDismissedCallback()
     }
     
-    private func subscribeToDataStatus() {
-        viewModel.isUserInfoDataAvailable.subscribe { [weak self] isAvailable in
-            guard let self else { return }
-            if isAvailable {
-                profileView.toogleUserInfoAlpha(with: true)
-            } else {
-                profileView.toogleUserInfoAlpha(with: false)
-            }
-        }.disposed(by: disposeBag)
-        
-        viewModel.isPurchaseInfoDataAvailable.subscribe { [weak self] isAvailable in
-            guard let self else { return }
-            if isAvailable {
-                profileView.tooglePurchaseInfoAlpha(with: true)
-            } else {
-                profileView.tooglePurchaseInfoAlpha(with: false)
-            }
-        }.disposed(by: disposeBag)
+    private func configureNavItems() {
+        // BarButtonItem'ları güncelle
+
     }
+    
+    
+}
+//MARK: - Configure TableViews
+
+extension ProfileController {
     
     private func configureTableView() {
         // User Info TableView - Bind data
@@ -90,8 +90,12 @@ final class ProfileController: UIViewController {
         
         // Button TableView - Bind data
         viewModel.buttonData.bind(to: profileView.buttonTableView.rx.items(cellIdentifier: ProfileCell.identifier, cellType: ProfileCell.self)) { index, buttonType, cell in
-            cell.configureButtonTitle(with: buttonType.buttonTitle)
+            cell.configureButtonTitle(with: buttonType.buttonOption.buttonTitle, interaction: buttonType.buttonOption.buttonInteraction)
+            
         }.disposed(by: disposeBag)
+        
+        // set button tableview data
+        viewModel.setButtonTableViewData()
         
         // handle did select
         profileView.buttonTableView.rx.modelSelected(ProfileButtonTableViewData.self).subscribe(onNext: { [weak self] buttonType in
@@ -100,14 +104,22 @@ final class ProfileController: UIViewController {
             case .signOut:
                 viewModel.signOut(profileController: self)
             case .deleteAccount:
-                viewModel.deleteCurrentAppleUser { request in
-                    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-                    authorizationController.delegate = self
-                    authorizationController.presentationContextProvider = self
-                    authorizationController.performRequests()
+                guard let providerType = viewModel.providerType else { return }
+                switch providerType {
+                case .apple:
+                    viewModel.deleteCurrentAppleUser { request in
+                        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+                        authorizationController.delegate = self
+                        authorizationController.presentationContextProvider = self
+                        authorizationController.performRequests()
+                    }
+                case .google:
+                    viewModel.deleteCurrentGoogleUser()
                 }
             case .restorePurchases:
-                print("restore button")
+                viewModel.restorePurchases()
+            case .signIn:
+                profileCoordinator?.openSignInController(onProfileVC: self)
             }
         }).disposed(by: disposeBag)
         
@@ -119,10 +131,117 @@ final class ProfileController: UIViewController {
         // set delegate for cell height
         profileView.buttonTableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
-
-    
-    
 }
+
+//MARK: - SignInVC Dismissed
+extension ProfileController {
+    private func signInVCDismissedCallback() {
+        signInVCDismissed.subscribe { [weak self] _ in
+            guard let self else { return }
+            viewModel.getUserInfo()
+            viewModel.getCustomerPurchaseInfo()
+            viewModel.setButtonTableViewData()
+        }.disposed(by: disposeBag)
+    }
+}
+
+
+//MARK: - Button Action Stages
+extension ProfileController {
+    private func buttonActionStages() {
+        // signOut button stages
+        viewModel.userSigningOut.subscribe { [weak self] value in
+            guard let self else { return }
+            if value {
+                profileView.animateLoadingAnimationView(ing: true, ed: nil)
+                print("Kullanıcı çıkışı başlatıldı")
+            } else {
+                profileView.animateLoadingAnimationView(ing: false, ed: nil)
+                print("Kullanıcı çıkışı durdu")
+            }
+        }.disposed(by: disposeBag)
+        
+        viewModel.userSignedOut.subscribe { [weak self] _ in
+            guard let self else { return }
+            profileView.animateLoadingAnimationView(ing: nil, ed: ())
+            viewModel.setButtonTableViewData()
+            print("Kullanıcı çıkışı başarıyla tamamlandı profili dismiss et")
+        }.disposed(by: disposeBag)
+        
+        // deleteAccount button stages
+        viewModel.userDeletingAccount.subscribe { [weak self] value in
+            guard let self else { return }
+            if value {
+                profileView.animateLoadingAnimationView(ing: true, ed: nil)
+                print("Kullanıcı hesap silme işlemi başlatıldı")
+            } else {
+                profileView.animateLoadingAnimationView(ing: false, ed: nil)
+                print("Kullanıcı hesap silme işlemi durdu")
+            }
+        }.disposed(by: disposeBag)
+        
+        viewModel.userDeletedAccount.subscribe { [weak self] _ in
+            guard let self else { return }
+            profileView.animateLoadingAnimationView(ing: nil, ed: ())
+            profileView.changeProviderImage(providerType: nil)
+            viewModel.setButtonTableViewData()
+            print("Kullanıcı silme işlemi başarıyla tamamlandı. Profil sayfasını dismiss et")
+        }.disposed(by: disposeBag)
+        
+        // restorePurchases button stages
+        viewModel.userRestoringPurchase.subscribe { [weak self] value in
+            guard let self else { return }
+            if value {
+                profileView.animateLoadingAnimationView(ing: true, ed: nil)
+                print("Kullanıcı eski satın aldığını aramaya başladı")
+            } else {
+                profileView.animateLoadingAnimationView(ing: false, ed: nil)
+                print("Kullanıcı eski satın aldığını arama işlemi tamamlandı.")
+            }
+        }.disposed(by: disposeBag)
+        
+        viewModel.userRestoredPurchase.subscribe { [weak self] _ in
+            guard let self else { return }
+            profileView.animateLoadingAnimationView(ing: nil, ed: ())
+            print("Kullanıcı eski satın aldığını başarıyla buldu ")
+            viewModel.getCustomerPurchaseInfo()
+        }.disposed(by: disposeBag)
+        
+        viewModel.errorMsg.subscribe(onNext: { errorMsg in
+            print(errorMsg)
+        }).disposed(by: disposeBag)
+    }
+}
+
+
+//MARK: - ViewModel callbacks
+extension ProfileController {
+    private func subscribeToDataStatus() {
+        viewModel.isUserInfoDataAvailable.subscribe { [weak self] isAvailable in
+            guard let self else { return }
+            if isAvailable {
+                profileView.toogleUserInfoAlpha(with: true)
+            } else {
+                profileView.toogleUserInfoAlpha(with: false)
+            }
+        }.disposed(by: disposeBag)
+        
+        viewModel.isPurchaseInfoDataAvailable.subscribe { [weak self] isAvailable in
+            guard let self else { return }
+            if isAvailable {
+                profileView.tooglePurchaseInfoAlpha(with: true)
+            } else {
+                profileView.tooglePurchaseInfoAlpha(with: false)
+            }
+        }.disposed(by: disposeBag)
+        
+        viewModel.providerTypeObservable.subscribe(onNext: { [weak self] providerType in
+            guard let self else { return }
+            profileView.changeProviderImage(providerType: providerType)
+        }).disposed(by: disposeBag)
+    }
+}
+
 
 //MARK: - Configure cell height
 extension ProfileController: UITableViewDelegate {
@@ -135,6 +254,10 @@ extension ProfileController: ASAuthorizationControllerDelegate, ASAuthorizationC
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         viewModel.didCompleteWithAuthorization.onNext(authorization)
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        viewModel.userDeletingAccount.onNext(false)
     }
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {

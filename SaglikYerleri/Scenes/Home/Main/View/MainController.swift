@@ -51,11 +51,11 @@ final class MainController: UIViewController {
     
     //MARK: - Configure ViewController
     private func configureViewController() {
-        configureNavigationBar()
+        configureNavItems()
         configureMainCollectionView()
     }
     
-    private func configureNavigationBar() {
+    private func configureNavItems() {
         title = "Sağlık Kuruluşları"
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mainView.navBarLeftButton)
         subsToLeftNavBarButton()

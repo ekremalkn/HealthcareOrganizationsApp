@@ -96,6 +96,7 @@
 		F09D12012A1F7F510015C000 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = F09D12002A1F7F510015C000 /* FirebaseRemoteConfig */; };
 		F09D12052A1F82250015C000 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09D12042A1F82250015C000 /* StoreKit.framework */; };
 		F0A6208B2A27351500F533A2 /* PayWallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6208A2A27351500F533A2 /* PayWallCoordinator.swift */; };
+		F0A6208D2A27D8D800F533A2 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6208C2A27D8D800F533A2 /* ProfileCoordinator.swift */; };
 		F0B73F8F2A1B6A900057BDF4 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B73F8E2A1B6A900057BDF4 /* UserService.swift */; };
 		F0C3D7F72A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer in Resources */ = {isa = PBXBuildFile; fileRef = F0C3D7F62A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer */; };
 		F0C3D7FF2A20FDF1003A6BE1 /* RecentSearchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C3D7FE2A20FDF1003A6BE1 /* RecentSearchesView.swift */; };
@@ -220,6 +221,7 @@
 		F09D12022A1F81DE0015C000 /* SaglikYerleri.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SaglikYerleri.entitlements; sourceTree = "<group>"; };
 		F09D12042A1F82250015C000 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F0A6208A2A27351500F533A2 /* PayWallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallCoordinator.swift; sourceTree = "<group>"; };
+		F0A6208C2A27D8D800F533A2 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		F0B73F8E2A1B6A900057BDF4 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		F0C3D7F62A20DBE7003A6BE1 /* StoreKitTestCertificate11.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate11.cer; sourceTree = "<group>"; };
 		F0C3D7FE2A20FDF1003A6BE1 /* RecentSearchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesView.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 		F02255992A263ECD002DD734 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				F0A6208C2A27D8D800F533A2 /* ProfileCoordinator.swift */,
 				F022559A2A263ED5002DD734 /* View */,
 				F022559F2A2640F8002DD734 /* ViewModel */,
 			);
@@ -1085,6 +1088,7 @@
 				F03380B82A1E538B00B120E7 /* PayWallViewModel.swift in Sources */,
 				F06BEE8429FFDAEE0013E22D /* PsychologyCenterModel.swift in Sources */,
 				F096A2902A13A7AE0084947F /* SideMenuController.swift in Sources */,
+				F0A6208D2A27D8D800F533A2 /* ProfileCoordinator.swift in Sources */,
 				F090A7942A213C62001B01A6 /* HealthOrganizations.xcdatamodeld in Sources */,
 				F07258BF29F33F9800F625CE /* MainViewModel.swift in Sources */,
 				F03380AF2A1E52BF00B120E7 /* IAPConstants.swift in Sources */,

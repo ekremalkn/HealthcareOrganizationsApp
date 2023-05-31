@@ -23,8 +23,10 @@ final class SideMenuCoordinator: Coordinator {
     
     func openProifleController() {
         let userService: UserService = UserNetworkService()
-        let profileViewModel = ProfileViewModel(userService: userService)
+        let iapService: IAPService = IAPManager()
+        let profileViewModel = ProfileViewModel(userService: userService, iapService: iapService)
         let profileController = ProfileController(viewModel: profileViewModel)
+        profileController.profileCoordinator = ProfileCoordinator()
         navigationController.pushViewController(profileController, animated: true)
     }
     

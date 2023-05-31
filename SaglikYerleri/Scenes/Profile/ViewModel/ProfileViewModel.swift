@@ -11,25 +11,58 @@ import RevenueCat
 import AuthenticationServices
 import CryptoKit
 
-enum ProfileButtonTableViewData: CaseIterable {
-    case signOut
-    case deleteAccount
-    case restorePurchases
+enum ProviderType: String {
+    case apple = "apple.com"
+    case google = "google.com"
+}
+
+
+
+enum ProfileButtonTableViewData {
+    case signIn(isUserSignedIn: Bool)
+    case signOut(isUserSignedIn: Bool)
+    case deleteAccount(isUserSignedIn: Bool)
+    case restorePurchases(isUserSignedIn: Bool)
     
-    var buttonTitle: String {
+    var buttonOption: (buttonTitle: String, buttonInteraction: Bool) {
         switch self {
-        case .signOut:
-            return "Çıkış Yap"
-        case .deleteAccount:
-            return "Hesabını Sil"
-        case .restorePurchases:
-            return "Önceden satın aldığın premiumu etkinleştir"
+        case .signIn(isUserSignedIn: let isUserSignedIn):
+            switch isUserSignedIn {
+            case true:
+                return ("Giriş Yap", true)
+            case false:
+                return ("Giriş Yap", false)
+            }
+        case .signOut(isUserSignedIn: let isUserSignedIn):
+            switch isUserSignedIn {
+            case true:
+                return ("Çıkış Yap", true)
+            case false:
+                return ("Çıkış Yap", false)
+            }
+        case .deleteAccount(isUserSignedIn: let isUserSignedIn):
+            switch isUserSignedIn {
+            case true:
+                return ("Hesabını Sil", true)
+            case false:
+                return ("Hesabını Sil", false)
+            }
+        case .restorePurchases(isUserSignedIn: let isUserSignedIn):
+            switch isUserSignedIn {
+            case true:
+                return ("Önceden satın aldığın premiumu etkinleştir" , true)
+            case false:
+                return ("Önceden satın aldığın premiumu etkinleştir" , false)
+            }
         }
     }
+    
 }
 
 final class ProfileViewModel {
-    
+    deinit {
+        print("ProfileViewModel  deinit")
+    }
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
     
@@ -40,14 +73,27 @@ final class ProfileViewModel {
     let purchaseInfoData = PublishSubject<[String : String]>()
     let userInfoData = PublishSubject<[String : String]>()
     
-    let buttonData = Observable.just([
-        ProfileButtonTableViewData.restorePurchases,
-        ProfileButtonTableViewData.deleteAccount,
-        ProfileButtonTableViewData.signOut,
-    ])
-    
+    var buttonData = PublishSubject<[ProfileButtonTableViewData]>()
+
     //MARK: - Referecenes
     let userService: UserService
+    let iapService: IAPService
+    
+    //MARK: - Variables
+    var providerType: ProviderType? = nil
+    var providerTypeObservable = PublishSubject<ProviderType?>()
+    
+    //MARK: - Button Action Stages
+    var userSigningOut = PublishSubject<Bool>()
+    var userSignedOut = PublishSubject<Void>()
+    
+    var userDeletingAccount = PublishSubject<Bool>()
+    var userDeletedAccount = PublishSubject<Void>()
+    
+    var userRestoringPurchase = PublishSubject<Bool>()
+    var userRestoredPurchase = PublishSubject<Void>()
+    
+    var errorMsg = PublishSubject<String>()
     
     //MARK: - Current Nonce
     var currentNonce: String?
@@ -55,28 +101,101 @@ final class ProfileViewModel {
     //MARK: - Observables
     let didCompleteWithAuthorization = PublishSubject<ASAuthorization>()
     
-    init(userService: UserService) {
+    init(userService: UserService, iapService: IAPService) {
         self.userService = userService
+        self.iapService = iapService
         subsToDidCompleteWithAuthorization()
     }
     
     func signOut(profileController: ProfileController) {
-        userService.signOut().subscribe { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .next():
-                isUserInfoDataAvailable.onNext(false)
-                isPurchaseInfoDataAvailable.onNext(false)
-                profileController.showToast(message: "Çıkış işleminiz başarılı")
-            case .error(let error):
-                print("\(error) çıkış başarısız")
-            case .completed:
-                print("çıkış işlemi tamamlandı")
-            }
-            
-        }.disposed(by: disposeBag)
+        userSigningOut.onNext(true)
+        if Auth.auth().currentUser != nil {
+            userService.signOut().subscribe { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .next():
+                    userSigningOut.onNext(false)
+                    userSignedOut.onNext(())
+                    isUserInfoDataAvailable.onNext(false)
+                    isPurchaseInfoDataAvailable.onNext(false)
+                    providerTypeObservable.onNext(nil)
+                case .error(let error):
+                    userSigningOut.onNext(false)
+                    errorMsg.onNext(error.localizedDescription)
+                case .completed:
+                    print("çıkış işlemi tamamlandı")
+                }
+                
+            }.disposed(by: disposeBag)
+        } else {
+            userSigningOut.onNext(false)
+        }
+        
     }
     
+    func deleteCurrentGoogleUser() {
+        userDeletingAccount.onNext(true)
+        if let user = Auth.auth().currentUser {
+            user.delete { [weak self] error in
+                guard let self else { return }
+                if let error = error {
+                    userDeletingAccount.onNext(false)
+                    errorMsg.onNext(error.localizedDescription)
+                } else {
+                    isUserInfoDataAvailable.onNext(false)
+                    isPurchaseInfoDataAvailable.onNext(false)
+                    providerTypeObservable.onNext(nil)
+                    userDeletingAccount.onNext(false)
+                    userDeletedAccount.onNext(())
+                }
+            }
+        } else {
+            userDeletingAccount.onNext(false)
+        }
+        
+        
+        
+    }
+    
+    
+}
+
+//MARK: - Apple required method for Restore
+extension ProfileViewModel {
+    func restorePurchases() {
+        //Note that Apple does require a restore mechanism in the event a user loses access to their purchases (e.g: uninstalling/reinstalling the app, losing their account information, etc).
+        userRestoringPurchase.onNext(true)
+        if providerType != nil { // if user signed in and provider type setted
+            iapService.restorePurchases().flatMap { isRestored in
+                
+                return Observable.just(isRestored)
+            }.subscribe { [weak self] result in
+                guard let self else { return }
+                
+                switch result {
+                case .next(let isRestored):
+                    if isRestored {
+                        userRestoringPurchase.onNext(false)
+                        userRestoredPurchase.onNext(())
+                    }
+                case .error(let error):
+                    errorMsg.onNext(error.localizedDescription)
+                case .completed:
+                    print("Restore işlemi tamamlandı.")
+                }
+            }.disposed(by: disposeBag)
+        } else {
+            // show to user, "must sign in to restore purchase"
+            print("ESKİ SATIN ALINANI ETKİNLEŞTİRMEK İÇİN GİRİŞ YAPMALISIN")
+            userRestoringPurchase.onNext(false)
+        }
+        
+    }
+}
+
+
+//MARK: - Apple Sign In / RevokeToken Methods
+extension ProfileViewModel {
     //MARK: - When apple sign in complete with authorization
     private func subsToDidCompleteWithAuthorization() {
         didCompleteWithAuthorization.subscribe(onNext: { [weak self] authorization in
@@ -101,21 +220,29 @@ final class ProfileViewModel {
                 return
             }
             
-            Task {
+            Task { [weak self] in
+                guard let self else { return }
+                userDeletingAccount.onNext(true)
                 do {
                     try await Auth.auth().revokeToken(withAuthorizationCode: authCodeString)
                     try await Auth.auth().currentUser?.delete()
-                    // silindi sayfayu yenilde
-                    print("hesap silindi ")
+                    // silindi sayfayi yenile
+                    isUserInfoDataAvailable.onNext(false)
+                    isPurchaseInfoDataAvailable.onNext(false)
+                    providerTypeObservable.onNext(nil)
+                    userDeletingAccount.onNext(false)
+                    userDeletedAccount.onNext(())
                 } catch {
-                    print("hesap silinemedi: \(error)")
+                    userDeletingAccount.onNext(false)
+                    errorMsg.onNext(error.localizedDescription)
                 }
             }
         }).disposed(by: disposeBag)
     }
     
-    //MARK: - Delete curren apple user
+    //MARK: - Delete current apple user
     func deleteCurrentAppleUser(completion: (ASAuthorizationAppleIDRequest) -> Void) {
+        userDeletingAccount.onNext(true)
         let nonce = randomNonceString()
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -161,8 +288,6 @@ final class ProfileViewModel {
         
         return hashString
     }
-    
-    
 }
 
 //MARK: - Check Subscription Status
@@ -184,10 +309,8 @@ extension ProfileViewModel {
                 userDictionaryData["Kullanıcı E-maili"] = userEmail
                 
                 userInfoData.onNext(userDictionaryData)
-                
             } else {
                 isUserInfoDataAvailable.onNext(false)
-                
             }
             
         }).disposed(by: disposeBag)
@@ -219,16 +342,70 @@ extension ProfileViewModel {
     }
     
     private func checkIsCurrentUserActive() -> Observable<User?> {
-        return Observable.create { observer in
+        return Observable.create { [weak self] observer in
+            guard let self else { return Disposables.create() }
             if let currentUser = Auth.auth().currentUser {
                 observer.onNext(currentUser)
+                setUserProviderType(currentUser: currentUser)
             } else {
                 observer.onNext(nil)
+                isUserInfoDataAvailable.onNext(false)
+                setUserProviderType(currentUser: nil)
             }
             return Disposables.create()
         }
     }
     
+    func setButtonTableViewData() {
+        checkIsCurrentUserActive().flatMap { currentUser in
+            return Observable.just(currentUser)
+        }.subscribe(onNext: { [weak self] currentUser in
+            guard let self else { return }
+            if currentUser != nil {
+                let newData = [
+                    ProfileButtonTableViewData.signIn(isUserSignedIn: false),
+                    ProfileButtonTableViewData.restorePurchases(isUserSignedIn: true),
+                    ProfileButtonTableViewData.deleteAccount(isUserSignedIn: true),
+                    ProfileButtonTableViewData.signOut(isUserSignedIn: true)
+                ]
+                buttonData.onNext(newData)
+            } else {
+                let newData = [
+                    ProfileButtonTableViewData.signIn(isUserSignedIn: true),
+                    ProfileButtonTableViewData.restorePurchases(isUserSignedIn: false),
+                    ProfileButtonTableViewData.deleteAccount(isUserSignedIn: false),
+                    ProfileButtonTableViewData.signOut(isUserSignedIn: false)
+                ]
+                buttonData.onNext(newData)
+            }
+        }).disposed(by: disposeBag)
+        
+        
+    }
+    
+    private func setUserProviderType(currentUser: User?) {
+        if let providerData = currentUser?.providerData {
+            providerData.forEach { [weak self] userInfo in
+                guard let self else { return }
+                let providerID = userInfo.providerID
+                switch providerID {
+                case ProviderType.apple.rawValue:
+                    providerType = .apple
+                    providerTypeObservable.onNext(.apple)
+                case ProviderType.google.rawValue:
+                    providerType = .google
+                    providerTypeObservable.onNext(.google)
+                default:
+                    break
+                }
+            }
+        } else {
+            providerType = nil
+            providerTypeObservable.onNext(nil)
+        }
+    }
+    
+    //MARK: - Create Dictionary Data ForTableView
     private func createDictionaryDataForTableView(customerInfo: CustomerInfo) {
         var purchaseDictionaryData: [String: String] = [:]
         

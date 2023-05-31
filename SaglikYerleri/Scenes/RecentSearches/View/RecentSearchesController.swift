@@ -38,10 +38,10 @@ final class RecentSearchesController: UIViewController {
     //MARK: - Configure ViewController
     private func configureViewController() {
         configureTableView()
-        configureNavigationBar()
+        configureNavItems()
     }
     
-    private func configureNavigationBar() {
+    private func configureNavItems() {
         title = "Son Arananalar"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Geri", style: .plain, target: nil, action: nil)
     }

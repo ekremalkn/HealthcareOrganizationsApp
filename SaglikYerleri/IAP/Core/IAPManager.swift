@@ -12,7 +12,7 @@ import RevenueCat
 protocol IAPService {
     func getPackages() -> Observable<[Package]>
     func makePurchase(package: Package) -> Observable<(StoreTransaction, CustomerInfo, PublicError, Bool)>
-    func restorePurchases()
+    func restorePurchases() -> Observable<Bool>
     func getUserPremiumStatus() -> Observable<Bool>
     func getCustomerInfo() -> Observable<CustomerInfo>
 }
@@ -25,7 +25,7 @@ final public class IAPManager: IAPService {
     
     //MARK: - DisposeBag
     private let disposeBag = DisposeBag()
-        
+    
     private func getOfferings() -> Observable<Offerings> {
         return Observable.create { observer in
             Purchases.shared.getOfferings { offerings, error in
@@ -71,16 +71,22 @@ final public class IAPManager: IAPService {
         }
     }
     
-    func restorePurchases() {
-        Purchases.shared.restorePurchases { (customerInfo, error) in
-            //UNUTMA APPLE BUNU ISTIYOR
-            if customerInfo?.entitlements.all[IAPConstants.entitlementIdentifier.rawValue]?.isActive == true {
-                print("BU ADAMIN BİR YERLERDE HESABI VAR VE AKTİFLEŞTİRİLDİ")
-            } else {
-                print("BU ADAMINN AKTİFLETŞTİRİCEK HESABI YOK")
+    func restorePurchases() -> Observable<Bool> {
+        return Observable.create { observer in
+            Purchases.shared.restorePurchases { (customerInfo, error) in
+                //... check customerInfo to see if entitlement is now active
+                if customerInfo?.entitlements.all[IAPConstants.entitlementIdentifier.rawValue]?.isActive == true {
+                    observer.onNext(true)
+                    print("BU ADAMIN BİR YERLERDE HESABI VAR VE AKTİFLEŞTİRİLDİ")
+                } else if let error {
+                    observer.onError(error)
+                    print("BU ADAMINN AKTİFLETŞTİRİCEK HESABI YOK")
+                }
+                
             }
-            //... check customerInfo to see if entitlement is now active
+            return Disposables.create()
         }
+        
     }
     
     func getUserPremiumStatus() -> Observable<Bool> {
