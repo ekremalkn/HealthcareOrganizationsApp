@@ -62,6 +62,7 @@ extension MainViewModel {
                         switch result {
                         case .next(let userSubscriptionStatus):
                             observer.onNext(userSubscriptionStatus)
+                            
                         case .error(let error):
                             print(error.localizedDescription)
                         case .completed:
@@ -88,5 +89,7 @@ extension MainViewModel {
             return Disposables.create()
         }
     }
+    
+    
 }
 

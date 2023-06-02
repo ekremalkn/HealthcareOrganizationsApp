@@ -7,46 +7,58 @@
 
 import UIKit
 import SideMenu
+import RxSwift
 
 final class MainCoordinator: Coordinator {
-    var childCoordinator: [Coordinator] = []
+
+    var childCoordinators: [Coordinator] = []
     
-    var navigationController = UINavigationController()
+    var navigationController: UINavigationController
     
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
     
     func startCoordinator() {
     }
     
-    func openMapController(categoryType: NetworkConstants, cellType: CellType, customTopViewBC: UIColor) {
-//                let userService: UserService = UserNetworkService()
-//                let signinvc = SignInViewController(userService: userService)
-//                navigationController.pushViewController(signinvc, animated: true)
-        let payWallViewModel = PayWallViewModel()
-        let payWallVC = PayWallController(viewModel: payWallViewModel)
-        let payWallCoordinator = PayWallCoordinator()
-        payWallVC.payWallCoordinator = payWallCoordinator
-        payWallVC.modalPresentationStyle = .pageSheet
-        navigationController.present(payWallVC, animated: true)
-//                let networkService: CityCountyService = NetworkService()
-//        let mapController = MapController(categoryType: categoryType, cellType: cellType, networkService: networkService, customTopViewBC: customTopViewBC)
-//                mapController.mapCoordinator = MapCoordinator()
-//                navigationController.pushViewController(mapController, animated: true)
+    func childCoordinatorDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+                break
+            }
+            
+        }
     }
     
-    func openSideMenuController(from controller: MainController) {
-        let sideMenuController = SideMenuController()
+    func openSelection() {
+        let childCoordinanor = SelectionPopUpCoordinator(navigationController: navigationController)
+        childCoordinanor.parentCoordinator = self
+        childCoordinators.append(childCoordinanor)
+        childCoordinanor.startCoordinator()
+    }
+    
+    func openMap(categoryType: NetworkConstants, cellType: CellType, customTopViewBC: UIColor) {
+        let childCoordinator = MapCoordinator(navigationController: navigationController)
+        childCoordinator.parentCoordinator = self
+        childCoordinators.append(childCoordinator)
+        childCoordinator.startCoordinator(categoryType: categoryType, cellType: cellType, customTopViewBC: customTopViewBC)
+    }
+    
+    func openPayWall() {
+        let childCoordinator = PayWallCoordinator(navigationController: navigationController)
+        childCoordinator.parentCoordinator = self
+        childCoordinators.append(childCoordinator)
+        childCoordinator.startCoordinator()
+    }
+    
+    func openSideMenu(from vc: MainController) {
+        let childCoordinator = SideMenuCoordinator()
+        childCoordinator.parentCoordinator = self
+        childCoordinators.append(childCoordinator)
+        childCoordinator.startCoordinator(from: vc)
         
-        let sideMenuCoordinator = SideMenuCoordinator()
-        sideMenuController.sideMenuCoordinator = sideMenuCoordinator
-        
-        let sideMenuNavController = SideMenuNavigationController(rootViewController: sideMenuController)
-        sideMenuCoordinator.navigationController = sideMenuNavController
-        
-        SideMenuManager.default.leftMenuNavigationController = sideMenuNavController
-        guard let navBar = controller.navigationController?.navigationBar else { return }
-        SideMenuManager.default.addPanGestureToPresent(toView: navBar)
-        
-        controller.present(sideMenuNavController, animated: true)
     }
     
 }

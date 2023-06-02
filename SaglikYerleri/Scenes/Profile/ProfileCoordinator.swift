@@ -9,14 +9,28 @@ import UIKit
 
 
 final class ProfileCoordinator: Coordinator {
-    deinit {
-        print("profile coordinator deinit")
-    }
-    var childCoordinator: [Coordinator] = []
     
-    var navigationController = UINavigationController()
+    weak var parentCoordinator: SideMenuCoordinator?
+    
+    var childCoordinators: [Coordinator] = []
+    var navigationController: UINavigationController
+    
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
     
     func startCoordinator() {
+        let userService: UserService = UserNetworkService()
+        let iapService: IAPService = IAPManager()
+        let profileViewModel = ProfileViewModel(userService: userService, iapService: iapService)
+        let profileController = ProfileController(viewModel: profileViewModel)
+        profileController.profileCoordinator = self
+        navigationController.pushViewController(profileController, animated: true)
+
+    }
+    
+    func profileClosed() {
+        parentCoordinator?.childCoordinatorDidFinish(self)
     }
     
     func openSignInController(onProfileVC: ProfileController) {

@@ -15,16 +15,23 @@ final class MapAlertController: UIAlertController {
         
     }
 
-    func showAlert(on viewController: UIViewController, useWhenOkTapped annotation: MKAnnotation) {
+    func showAlert(on viewController: UIViewController, fromMapController annotation: MKAnnotation? = nil, fromRecentSearch coordinate: CLLocationCoordinate2D? = nil) {
         let firstAction = UIAlertAction(title: "Evet", style: .default) { [weak self] _ in
             guard let self else { return }
             // Open Apple Maps
-            self.openAppleMaps(with: annotation)
+            if let coordinate {
+                openAppleMapsFromRecentSearchController(coordinate: coordinate)
+            } else {
+                if let annotation {
+                    openAppleMapsFromMapController(with: annotation)
+                }
+
+            }
         }
         
         let secondAction = UIAlertAction(title: "Geri Dön", style: .default) { [weak self] _ in
             guard let self else { return }
-            self.dismiss(animated: true)
+            dismiss(animated: true)
         } //Cancel Style
         
         addAction(firstAction)
@@ -33,7 +40,13 @@ final class MapAlertController: UIAlertController {
         viewController.present(self, animated: true)
     }
     
-    private func openAppleMaps(with annotation: MKAnnotation) {
+    private func openAppleMapsFromRecentSearchController(coordinate: CLLocationCoordinate2D) {
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.openInMaps()
+    }
+    
+    private func openAppleMapsFromMapController(with annotation: MKAnnotation) {
         let coordinate = annotation.coordinate
 
         let placemark = MKPlacemark(coordinate: coordinate)

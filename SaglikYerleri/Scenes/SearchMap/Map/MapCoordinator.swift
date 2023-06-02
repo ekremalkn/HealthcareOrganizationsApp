@@ -12,14 +12,40 @@ final class MapCoordinator: MapCoordinatorProtocol {
     deinit {
         print("deinit MAPCOORDINATOR")
     }
-    var childCoordinator: [Coordinator] = []
     
-    var navigationController = UINavigationController()
+    weak var parentCoordinator: MainCoordinator?
     
+    var childCoordinators: [Coordinator] = []
+    var navigationController: UINavigationController
     var floatingPanel: FloatingPanelController?
+    
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
     
     func startCoordinator() {
         
+    }
+    
+    func childCoordinatorDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+                break
+            }
+            
+        }
+    }
+    
+    func startCoordinator(categoryType: NetworkConstants, cellType: CellType, customTopViewBC: UIColor) {
+        let networkService: CityCountyService = NetworkService()
+        let mapController = MapController(categoryType: categoryType, cellType: cellType, networkService: networkService, customTopViewBC: customTopViewBC)
+        mapController.mapCoordinator = self
+        navigationController.pushViewController(mapController, animated: true)
+    }
+    
+    func mapClosed() {
+        parentCoordinator?.childCoordinatorDidFinish(self)
     }
     
     func openFloatingController(categoryType: NetworkConstants, cellType: CellType, mapController: MapController, citySlug: String, countySlug: String, cityName: String, countyName: String, parentVC: UIViewController) {

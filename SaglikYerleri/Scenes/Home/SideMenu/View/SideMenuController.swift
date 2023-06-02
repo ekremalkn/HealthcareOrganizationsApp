@@ -9,9 +9,11 @@ import UIKit
 import RxSwift
 
 final class SideMenuController: UIViewController {
-    
+    deinit {
+        print("SideMenuController deinitt")
+    }
     //MARK: - References
-    var sideMenuCoordinator: SideMenuCoordinator?
+    weak var sideMenuCoordinator: SideMenuCoordinator?
     private let sideMenuView = SideMenuView()
     
     //MARK: - DisposeBag
@@ -27,22 +29,29 @@ final class SideMenuController: UIViewController {
         configureViewController()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        sideMenuCoordinator?.sideMenuClosed()
+    }
+    
     private func configureViewController() {
         setupView()
         recentSearchesButtonAction()
     }
+    
+
   
     
     //MARK: - Button Actions subsc
     private func recentSearchesButtonAction() {
         sideMenuView.historyButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
-            self.sideMenuCoordinator?.openRecentSearchesController()
+            self.sideMenuCoordinator?.openRecentSearches()
         }.disposed(by: disposeBag)
         
         sideMenuView.profileButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
-            self.sideMenuCoordinator?.openProifleController()
+            self.sideMenuCoordinator?.openProfile()
         }.disposed(by: disposeBag)
     }
     

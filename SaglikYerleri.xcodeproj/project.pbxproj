@@ -45,6 +45,13 @@
 		F061C2C52A0655D500D1E485 /* PrivateDentalCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */; };
 		F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */; };
 		F06458602A0956EE00B17BF1 /* PharmacyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */; };
+		F064ED792A286E64001FC58E /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED782A286E64001FC58E /* SplashViewModel.swift */; };
+		F064ED7C2A2886ED001FC58E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED7B2A2886ED001FC58E /* MainTabBarController.swift */; };
+		F064ED842A28F7AA001FC58E /* SelectionPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED832A28F7AA001FC58E /* SelectionPopUpController.swift */; };
+		F064ED862A28F7BA001FC58E /* SelectionPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED852A28F7BA001FC58E /* SelectionPopUpView.swift */; };
+		F064ED892A29C118001FC58E /* SelectionPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED882A29C118001FC58E /* SelectionPopUpViewModel.swift */; };
+		F064ED8C2A29C166001FC58E /* SelectionPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED8B2A29C166001FC58E /* SelectionPopUpCell.swift */; };
+		F064ED8E2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED8D2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift */; };
 		F06552852A17F7B7008897A7 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06552842A17F7B7008897A7 /* CustomAnnotationView.swift */; };
 		F06552892A181059008897A7 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06552882A181059008897A7 /* UIViewController+ShowToast.swift */; };
 		F065528C2A1817E0008897A7 /* MapAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F065528B2A1817E0008897A7 /* MapAlertController.swift */; };
@@ -174,6 +181,13 @@
 		F061C2C42A0655D500D1E485 /* PrivateDentalCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateDentalCenterModel.swift; sourceTree = "<group>"; };
 		F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHorizontalCollectionModel.swift; sourceTree = "<group>"; };
 		F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyCell.swift; sourceTree = "<group>"; };
+		F064ED782A286E64001FC58E /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		F064ED7B2A2886ED001FC58E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		F064ED832A28F7AA001FC58E /* SelectionPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpController.swift; sourceTree = "<group>"; };
+		F064ED852A28F7BA001FC58E /* SelectionPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpView.swift; sourceTree = "<group>"; };
+		F064ED882A29C118001FC58E /* SelectionPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpViewModel.swift; sourceTree = "<group>"; };
+		F064ED8B2A29C166001FC58E /* SelectionPopUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpCell.swift; sourceTree = "<group>"; };
+		F064ED8D2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpCoordinator.swift; sourceTree = "<group>"; };
 		F06552842A17F7B7008897A7 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		F06552882A181059008897A7 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
 		F065528B2A1817E0008897A7 /* MapAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAlertController.swift; sourceTree = "<group>"; };
@@ -464,6 +478,58 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F064ED772A286E54001FC58E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F064ED782A286E64001FC58E /* SplashViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F064ED7A2A2886AE001FC58E /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				F064ED7B2A2886ED001FC58E /* MainTabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		F064ED812A28F781001FC58E /* SelectionPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				F064ED8D2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift */,
+				F064ED872A29C0FF001FC58E /* ViewModel */,
+				F064ED822A28F793001FC58E /* View */,
+			);
+			path = SelectionPopUp;
+			sourceTree = "<group>";
+		};
+		F064ED822A28F793001FC58E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F064ED8A2A29C153001FC58E /* Cell */,
+				F064ED832A28F7AA001FC58E /* SelectionPopUpController.swift */,
+				F064ED852A28F7BA001FC58E /* SelectionPopUpView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F064ED872A29C0FF001FC58E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F064ED882A29C118001FC58E /* SelectionPopUpViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F064ED8A2A29C153001FC58E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F064ED8B2A29C166001FC58E /* SelectionPopUpCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F065528A2A1817C2008897A7 /* AlertController */ = {
 			isa = PBXGroup;
 			children = (
@@ -547,6 +613,7 @@
 		F072589129F285DA00F625CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				F064ED7A2A2886AE001FC58E /* TabBar */,
 				F00E6BC82A19581800633FC4 /* Auth */,
 				F00E6BB52A18F89700633FC4 /* PayWall */,
 				F096A2932A14AB2D0084947F /* Splash */,
@@ -562,6 +629,7 @@
 			isa = PBXGroup;
 			children = (
 				F096A2892A13A7440084947F /* Main */,
+				F064ED812A28F781001FC58E /* SelectionPopUp */,
 				F096A28A2A13A7780084947F /* SideMenu */,
 			);
 			path = Home;
@@ -702,6 +770,7 @@
 			children = (
 				F096A29B2A14AF1D0084947F /* SplashCoordinator.swift */,
 				F096A2942A14AB340084947F /* View */,
+				F064ED772A286E54001FC58E /* ViewModel */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -1058,6 +1127,7 @@
 				F06BEE7A29FFD70D0013E22D /* HealthCenterModel.swift in Sources */,
 				F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */,
 				F04FF3662A248908001F0018 /* PharmacyCellData+CoreDataClass.swift in Sources */,
+				F064ED7C2A2886ED001FC58E /* MainTabBarController.swift in Sources */,
 				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
 				F0D73A192A00CF5B00D4F58D /* SearchResultViewModel.swift in Sources */,
 				F00E6BCD2A19583C00633FC4 /* SignInViewModel.swift in Sources */,
@@ -1084,6 +1154,7 @@
 				F0D77CF529F680240061C85E /* MainCollectionSectionModel.swift in Sources */,
 				F06552852A17F7B7008897A7 /* CustomAnnotationView.swift in Sources */,
 				F096A2962A14AB420084947F /* SplashController.swift in Sources */,
+				F064ED862A28F7BA001FC58E /* SelectionPopUpView.swift in Sources */,
 				F07258B829F32B2F00F625CE /* CustomTextField.swift in Sources */,
 				F03380B82A1E538B00B120E7 /* PayWallViewModel.swift in Sources */,
 				F06BEE8429FFDAEE0013E22D /* PsychologyCenterModel.swift in Sources */,
@@ -1099,6 +1170,7 @@
 				F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,
+				F064ED8E2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift in Sources */,
 				F02255A32A264A47002DD734 /* Date+FormattedDateString.swift in Sources */,
 				F0CA98202A0438C800F996D8 /* AnimationView.swift in Sources */,
 				F0D77CFD29F929D30061C85E /* MapView.swift in Sources */,
@@ -1124,7 +1196,9 @@
 				F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */,
 				F065528C2A1817E0008897A7 /* MapAlertController.swift in Sources */,
 				F04FF3672A248908001F0018 /* PharmacyCellData+CoreDataProperties.swift in Sources */,
+				F064ED8C2A29C166001FC58E /* SelectionPopUpCell.swift in Sources */,
 				F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */,
+				F064ED892A29C118001FC58E /* SelectionPopUpViewModel.swift in Sources */,
 				F022559E2A26409B002DD734 /* ProfileController.swift in Sources */,
 				F0EE77A62A054708007BF9A7 /* FloatingViewModel.swift in Sources */,
 				F096A2982A14AB500084947F /* SplashView.swift in Sources */,
@@ -1143,11 +1217,13 @@
 				F06773BE2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift in Sources */,
 				F00E6BB82A18F8AB00633FC4 /* PayWallView.swift in Sources */,
 				F072589529F285F600F625CE /* MainController.swift in Sources */,
+				F064ED842A28F7AA001FC58E /* SelectionPopUpController.swift in Sources */,
 				F00E6BBD2A19054900633FC4 /* PayWallController.swift in Sources */,
 				F072587D29F284EC00F625CE /* SceneDelegate.swift in Sources */,
 				F0D73A172A00CCEC00D4F58D /* SearchResultController.swift in Sources */,
 				F04FF36A2A248908001F0018 /* CellData+CoreDataClass.swift in Sources */,
 				F06773BB2A0BBA5100B4BFC4 /* SharedCell2.swift in Sources */,
+				F064ED792A286E64001FC58E /* SplashViewModel.swift in Sources */,
 				F0CDE30629F51EDD0050D81B /* VerticalCollectionCell.swift in Sources */,
 				F061C2BB2A06530700D1E485 /* SpaCenterModel.swift in Sources */,
 			);

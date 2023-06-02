@@ -39,6 +39,11 @@ final class PayWallController: UIViewController {
         configureViewController()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        payWallCoordinator?.payWallClosed()
+    }
+    
     //MARK: - ConfigureViewController
     private func configureViewController() {
         handleWhenUserDidNotSignIn()
@@ -61,7 +66,7 @@ final class PayWallController: UIViewController {
     private func handleWhenUserDidNotSignIn() {
         viewModel.userDidNotSignIn.subscribe { [weak self] _ in
             guard let self else { return }
-            payWallCoordinator?.openSignInController(onPayWallVC: self)
+            payWallCoordinator?.openSignIn(onPayWallVC: self)
         }.disposed(by: disposeBag)
     }
 

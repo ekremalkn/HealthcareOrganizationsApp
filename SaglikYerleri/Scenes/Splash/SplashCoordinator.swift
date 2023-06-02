@@ -9,7 +9,11 @@ import UIKit
 import RxSwift
 
 final class SplashCoordinator: Coordinator {
-    var childCoordinator: [Coordinator] = []
+    deinit {
+        print("SplashCoordinator deinit")
+    }
+    
+    var childCoordinators: [Coordinator] = []
     
     var navigationController = UINavigationController()
     
@@ -19,17 +23,13 @@ final class SplashCoordinator: Coordinator {
         navigationController.pushViewController(splashcontroller, animated: false)
     }
     
-    func openMainController(mainHorizontalCollectionData: Observable<[MainHorizontalCollectionData]>?, completion: @escaping () -> Void) {
+    func openMain(mainHorizontalCollectionData: Observable<[MainHorizontalCollectionData]>?, completion: @escaping () -> Void) {
         let mainViewModel = MainViewModel(mainHorizontalCollectionRemoteConfigData: mainHorizontalCollectionData)
         let mainController = MainController(viewModel: mainViewModel)
-        mainController.mainCoordinator = MainCoordinator()
-        mainController.mainCoordinator?.navigationController = self.navigationController
+        mainController.mainCoordinator = MainCoordinator(navigationController: navigationController)
         navigationController.pushViewController(mainController, animated: true)
         completion()
     }
     
-    deinit {
-       print( "deinit splash")
-    }
 }
 

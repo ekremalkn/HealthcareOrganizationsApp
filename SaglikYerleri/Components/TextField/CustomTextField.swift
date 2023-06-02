@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class CustomTextField: UITextField {
     
@@ -19,6 +20,11 @@ final class CustomTextField: UITextField {
     }()
     
     let placeholderInsets = UIEdgeInsets(top: 0, left: 45, bottom: 0, right: 10)
+    
+    let tapGestureRecognizer = UITapGestureRecognizer()
+    
+    
+   
     
     //MARK: - Init Methods
     override init(frame: CGRect) {
@@ -54,16 +60,17 @@ final class CustomTextField: UITextField {
 
 extension CustomTextField: ViewProtocol {
     func configureView() {
-        self.placeholder = "Arama yapmak için dokun..."
-        self.backgroundColor = .white
-        self.layer.borderWidth = 0.5
-        self.layer.borderColor = UIColor.systemGray3.cgColor
+        placeholder = "Arama yapmak için dokun..."
+        backgroundColor = .white
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.systemGray3.cgColor
         addSubview()
         setupConstraints()
     }
     
     func addSubview() {
-        self.addSubview(leftImageView)
+        addGestureRecognizer(tapGestureRecognizer)
+        addSubview(leftImageView)
     }
     
     func setupConstraints() {

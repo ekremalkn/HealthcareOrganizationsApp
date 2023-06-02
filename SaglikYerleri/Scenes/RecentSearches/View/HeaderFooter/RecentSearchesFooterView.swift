@@ -8,7 +8,9 @@
 import UIKit
 
 final class RecentSearchesFooterView: UIView {
-    
+    deinit {
+        print("RecentSearchesFooterView deinit")
+    }
     //MARK: - Creating UI Elements
     let filterCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

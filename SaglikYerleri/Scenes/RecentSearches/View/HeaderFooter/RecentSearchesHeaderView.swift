@@ -8,7 +8,9 @@
 import UIKit
 
 final class RecentSearchesHeaderView: UIView {
-    
+    deinit {
+        print("RecentSearchesHeaderView deinit")
+    }
     //MARK: - Creating UI Elements
     private let leftLabel: UILabel = {
         let label = UILabel()

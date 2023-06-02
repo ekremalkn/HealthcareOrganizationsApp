@@ -15,11 +15,12 @@ final class MainController: UIViewController {
     //MARK: - References
     var mainCoordinator: MainCoordinator?
     let mainView = MainView()
-    
     let viewModel: MainViewModel
     
     //Dispose Bag
     private let disposeBag = DisposeBag()
+    
+    private var isUserSubscribe: Bool = false
     
     //MARK: - Life Cycle Methods
     
@@ -44,20 +45,21 @@ final class MainController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkUserSubscriptionStatus()
+        configureNavItems()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        checkUserSubscriptionStatus()
     }
     
     
     //MARK: - Configure ViewController
     private func configureViewController() {
-        configureNavItems()
         configureMainCollectionView()
     }
     
     private func configureNavItems() {
         title = "Sağlık Kuruluşları"
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mainView.navBarLeftButton)
+        navigationItem.backBarButtonItem = mainView.backButton
         subsToLeftNavBarButton()
     }
     
@@ -65,7 +67,8 @@ final class MainController: UIViewController {
     private func checkUserSubscriptionStatus() {
         viewModel.checkSubscriptionStatus().subscribe { [weak self] isUserSubscribe in
             guard let self else { return }
-            isUserSubscribe ? self.showToast(message: "Premium bir kullanıcısın") : self.showToast(message: "Premium bir kullanıcı değilsin ya da giriş yapmalısın")
+//            !isUserSubscribe ? mainCoordinator?.openPayWall() : nil
+            self.isUserSubscribe = isUserSubscribe
         }.disposed(by: disposeBag)
         
     }
@@ -74,10 +77,10 @@ final class MainController: UIViewController {
     private func subsToLeftNavBarButton() {
         mainView.navBarLeftButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
-            self.mainCoordinator?.openSideMenuController(from: self)
+            self.mainCoordinator?.openSideMenu(from: self)
         }.disposed(by: disposeBag)
     }
-
+    
     
 }
 
@@ -94,9 +97,17 @@ extension MainController {
         // Handle DidSelect
         mainView.mainCollectionView.rx.modelSelected(MainCollectionData.self).bind { [weak self] mainCollectionData in
             guard let self else { return }
-            self.mainCoordinator?.openMapController(categoryType: mainCollectionData.selectedCategoryType, cellType: mainCollectionData.cellTypeAccorindToCategory, customTopViewBC: .init(hex: mainCollectionData.backgroundColor))
+            if mainCollectionData.selectedCategoryType != .dutyPharmacy {
+                !isUserSubscribe ? mainCoordinator?.openPayWall() : mainCoordinator?.openMap(categoryType: mainCollectionData.selectedCategoryType, cellType: mainCollectionData.cellTypeAccorindToCategory, customTopViewBC: .init(hex: mainCollectionData.backgroundColor))
+            } else {
+                mainCoordinator?.openMap(categoryType: mainCollectionData.selectedCategoryType, cellType: mainCollectionData.cellTypeAccorindToCategory, customTopViewBC: .init(hex: mainCollectionData.backgroundColor))
+            }
+            
+            
         }.disposed(by: disposeBag)
         
+        
+        mainView.mainCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     
     private func mainCollectionDataSource() -> RxCollectionViewSectionedReloadDataSource<SectionModel<String, MainCollectionData>> {
@@ -107,6 +118,12 @@ extension MainController {
         } configureSupplementaryView: { [weak self] _, collectionView, item, indexPath in
             guard let self = self, let headerView =
                     collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier, for: indexPath) as? MainCollectionHeaderView else { return UICollectionReusableView() }
+            
+            
+            headerView.textField.tapGestureRecognizer.rx.event.subscribe { [weak self] _ in
+                guard let self else { return }
+                mainCoordinator?.openSelection()
+            }.disposed(by: disposeBag)
             
             // Configure Header's HorizontalCollectionView
             let headerDataSource = self.headerDataSource()
@@ -121,7 +138,13 @@ extension MainController {
             // Handle DidSelect
             headerView.horizontalCollectionView.rx.modelSelected(MainHorizontalCollectionData.self).bind { [weak self] mainHorizontalCollectionData in
                 guard let self else { return }
-                self.mainCoordinator?.openMapController(categoryType: mainHorizontalCollectionData.selectedCategoryType, cellType: mainHorizontalCollectionData.cellTypeAccorindToCategory, customTopViewBC: .init(hex: mainHorizontalCollectionData.tintAndBackgroundColor))
+                if mainHorizontalCollectionData.selectedCategoryType != .dutyPharmacy {
+                    !isUserSubscribe ? mainCoordinator?.openPayWall() : mainCoordinator?.openMap(categoryType: mainHorizontalCollectionData.selectedCategoryType, cellType: mainHorizontalCollectionData.cellTypeAccorindToCategory, customTopViewBC: .init(hex: mainHorizontalCollectionData.tintAndBackgroundColor))
+                } else {
+                    mainCoordinator?.openMap(categoryType: mainHorizontalCollectionData.selectedCategoryType, cellType: mainHorizontalCollectionData.cellTypeAccorindToCategory, customTopViewBC: .init(hex: mainHorizontalCollectionData.tintAndBackgroundColor))
+                    
+                }
+                
             }.disposed(by: headerView.disposeBag)
             
             // Delegate for horizontalCollection cell size
@@ -144,7 +167,7 @@ extension MainController {
 }
 
 //MARK: - Configure Header's HorizontalCollectionView Cell Size / Padding
-extension MainController: UICollectionViewDelegateFlowLayout {
+extension MainController: UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == mainView.mainCollectionView {
             
@@ -162,4 +185,5 @@ extension MainController: UICollectionViewDelegateFlowLayout {
     
     
 }
+
 

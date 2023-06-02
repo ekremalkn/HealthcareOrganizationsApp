@@ -43,6 +43,12 @@ final class ProfileController: UIViewController {
         super.viewDidLoad()
         configureViewController()
     }
+   
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        profileCoordinator?.profileClosed()
+        
+    }
     
     private func configureViewController() {
         configureNavItems()
@@ -53,8 +59,7 @@ final class ProfileController: UIViewController {
     }
     
     private func configureNavItems() {
-        // BarButtonItem'ları güncelle
-
+        navigationItem.backBarButtonItem = profileView.backButton
     }
     
     

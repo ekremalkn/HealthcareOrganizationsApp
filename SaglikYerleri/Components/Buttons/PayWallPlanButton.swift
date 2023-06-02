@@ -85,7 +85,8 @@ final class PayWallPlanButton: UIButton {
                             }
                             if let priceValue = Double(priceString) {
                                 let monthlyPrice = priceValue / 12
-                                let formattedPrice = String(monthlyPrice)
+                                let roundedNumber = String(format: "%.2f", monthlyPrice)
+                                let formattedPrice = "\(roundedNumber)TL/Ay"
                                 self.planOptionsLabel.text = formattedPrice
                             } else {
                                 self.planOptionsLabel.text = ""

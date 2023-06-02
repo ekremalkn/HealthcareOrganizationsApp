@@ -171,7 +171,7 @@ extension MainHorizontalCollectionData {
             case .animalHospitals:
                 return "Hayvan Hastaneleri"
             case .dialysisCenters:
-                return "Diyaliz Merkzleri"
+                return "Diyaliz Merkezleri"
             case .emergencyCenters:
                 return "Acil Servisler"
             case .medicalShopCenters:

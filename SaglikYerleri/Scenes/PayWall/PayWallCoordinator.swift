@@ -8,15 +8,28 @@
 import UIKit
 
 final class PayWallCoordinator: Coordinator {
-    var childCoordinator: [Coordinator] = []
     
-    var navigationController =  UINavigationController()
+    weak var parentCoordinator: MainCoordinator?
+    var childCoordinators: [Coordinator] = []
+    var navigationController: UINavigationController
     
-    func startCoordinator() {
-        
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
     }
     
-    func openSignInController(onPayWallVC: PayWallController) {
+    func startCoordinator() {
+        let payWallViewModel = PayWallViewModel()
+        let payWallVC = PayWallController(viewModel: payWallViewModel)
+        payWallVC.payWallCoordinator = self
+        payWallVC.modalPresentationStyle = .pageSheet
+        navigationController.present(payWallVC, animated: true)
+    }
+    
+    func payWallClosed() {
+        parentCoordinator?.childCoordinatorDidFinish(self)
+    }
+    
+    func openSignIn(onPayWallVC: PayWallController) {
         let userService: UserService = UserNetworkService()
         let signInVC = SignInViewController(userService: userService)
         signInVC.modalPresentationStyle = .pageSheet

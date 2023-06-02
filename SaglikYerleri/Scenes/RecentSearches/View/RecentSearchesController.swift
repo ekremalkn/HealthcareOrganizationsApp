@@ -7,9 +7,12 @@
 
 import UIKit
 import RxSwift
+import MapKit
 
 final class RecentSearchesController: UIViewController {
-    
+    deinit {
+        print("RecentSearchesController deinit")
+    }
     //MARK: - References
     private let recentSearchesView = RecentSearchesView()
     private let viewModel = RecentSearchesViewModel()
@@ -18,12 +21,12 @@ final class RecentSearchesController: UIViewController {
     
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
-
+    
     //MARK: - Variables
     var cellType: CellType?
     var selectedCellIndexPath: IndexPath?
     var isExpanded: Bool = false
-
+    
     //MARK: - Init Methods
     override func loadView() {
         super.loadView()
@@ -59,14 +62,54 @@ extension RecentSearchesController {
             if let pharmacyCellData = data as? PharmacyCellData {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: PharmacyCell.identifier, for: IndexPath(row: index, section: 0)) as? PharmacyCell else { return UITableViewCell() }
                 cell.configure(with: pharmacyCellData)
+                
+                
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let self else { return }
+                    let lat = pharmacyCellData.pharmacyLat
+                    let lng = pharmacyCellData.pharmacyLng
+                    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                    
+                    let mapAlertController = MapAlertController(title: "Yol tarifi al", message: nil, preferredStyle: .alert)
+                    mapAlertController.showAlert(on: self, fromRecentSearch: coordinate)
+                }.disposed(by: cell.disposeBag)
+                
+                
                 return cell
             } else if let sharedCell1Data = data as? SharedCell1Data {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SharedCell1.identifier, for: IndexPath(row: index, section: 0)) as? SharedCell1 else { return UITableViewCell() }
                 cell.configure(with: sharedCell1Data)
+                
+                
+                
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let self else { return }
+                    let lat = sharedCell1Data.sharedCell1Lat
+                    let lng = sharedCell1Data.sharedCell1Lng
+                    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                    
+                    let mapAlertController = MapAlertController(title: "Yol tarifi al", message: nil, preferredStyle: .alert)
+                    mapAlertController.showAlert(on: self, fromRecentSearch: coordinate)
+                }.disposed(by: cell.disposeBag)
+                
+                
                 return cell
             } else if let sharedCell2Data = data as? SharedCell2Data {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SharedCell2.identifier, for: IndexPath(row: index, section: 0)) as? SharedCell2 else { return UITableViewCell() }
                 cell.configure(with: sharedCell2Data)
+                
+                
+                cell.didtapLocationButton.subscribe { [weak self] _ in
+                    guard let self else { return }
+                    let lat = sharedCell2Data.sharedCell2Lat
+                    let lng = sharedCell2Data.sharedCell2Lng
+                    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                    
+                    let mapAlertController = MapAlertController(title: "Yol tarifi al", message: nil, preferredStyle: .alert)
+                    mapAlertController.showAlert(on: self, fromRecentSearch: coordinate)
+                }.disposed(by: cell.disposeBag)
+                
+                
                 return cell
             }
             
@@ -88,7 +131,7 @@ extension RecentSearchesController {
         
         // set delegate for cell height
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
-      
+        
     }
     
     
@@ -124,7 +167,7 @@ extension RecentSearchesController: UITableViewDelegate {
                 completion()
             }
         }
-   
+        
     }
     
     private func checkIfSelectedCellPharmacyCell(_ tableView: UITableView, at indexPath: IndexPath, selectedCellType: CellType, completion: @escaping () -> Void) {
@@ -175,13 +218,13 @@ extension RecentSearchesController: UITableViewDelegate {
     private func nonSelectedCells(cell: UITableViewCell) {
         if let pharmacyCell = cell as? PharmacyCell {
             pharmacyCell.isExpanded ? pharmacyCell.isExpanded.toggle() : nil
-
+            
         } else if let sharedCell1 = cell as? SharedCell1 {
             sharedCell1.isExpanded ? sharedCell1.isExpanded.toggle() : nil
-
+            
         } else if let sharedCell2 = cell as? SharedCell2 {
             sharedCell2.isExpanded ? sharedCell2.isExpanded.toggle() : nil
-
+            
         }
     }
     

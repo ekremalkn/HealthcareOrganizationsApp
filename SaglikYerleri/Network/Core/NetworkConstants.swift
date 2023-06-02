@@ -104,7 +104,7 @@ public enum NetworkConstants: NetworkConstantsProtocol {
         case .medicalShopCenters:
             return "https://www.nosyapi.com/apiv2/getTurkey?id=79448"
         case .physiotheraphyCenters:
-            return "https://www.nosyapi.com/apiv2/getTurkeyCity?id=43049"
+            return "https://www.nosyapi.com/apiv2/getTurkey?id=43049"
         case .dutyPharmacy:
             return "https://www.nosyapi.com/apiv2/pharmacy"
         }

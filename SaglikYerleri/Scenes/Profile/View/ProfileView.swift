@@ -13,6 +13,13 @@ final class ProfileView: UIView {
         print("ProfileView  deinit")
     }
     //MARK: - Creating UI Elements
+    lazy var backButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = ""
+        button.tintColor = UIColor.black
+        return button
+    }()
+    
     lazy var loadingAnimationView: LottieAnimationView = {
         let animationView = LottieAnimationView(name: "LoadingAnimation")
         animationView.contentMode = .scaleAspectFit

@@ -10,7 +10,9 @@ import UIKit
 import RxSwift
 
 final class RecentSearchesViewModel {
-    
+    deinit {
+        print("RecentSearchesViewModel deinit")
+    }
     //MARK: - References
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     

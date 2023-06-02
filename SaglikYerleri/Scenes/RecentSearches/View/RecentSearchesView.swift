@@ -8,7 +8,9 @@
 import UIKit
 
 final class RecentSearchesView: UIView {
-    
+    deinit {
+        print("RecentSearchesView deinit")
+    }
     //MARK: - Creating UI Elements
     let recentSearchesTableView: UITableView = {
         let tableView = UITableView()
@@ -35,7 +37,7 @@ final class RecentSearchesView: UIView {
 
 extension RecentSearchesView: ViewProtocol {
     func configureView() {
-        backgroundColor = .white
+        backgroundColor = .init(hex: "FBFCFE")
         addSubview()
         setupConstraints()
     }

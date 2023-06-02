@@ -8,13 +8,24 @@
 import UIKit
 
 final class SplashView: UIView {
-
+    deinit {
+        print("SplashView deinit")
+    }
     //MARK: - Creating UI Elements
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Sağlık Kuruluşları"
         label.textAlignment = .center
         label.font = UIFont(name: "Avenir-Black", size: 25)
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    
+    lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "İlk ayarlamalar yapılıyor lütfen bekleyiniz..."
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 17)
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
@@ -47,11 +58,13 @@ extension SplashView: ViewProtocol {
     func addSubview() {
         addSubview(loadingView)
         loadingView.addSubview(titleLabel)
+        loadingView.addSubview(infoLabel)
     }
     
     func setupConstraints() {
         loadingViewConstraints()
         titleLabelConstraints()
+        infoLabelConstraints()
     }
     
     private func loadingViewConstraints() {
@@ -65,6 +78,15 @@ extension SplashView: ViewProtocol {
             make.top.equalTo(loadingView.safeAreaLayoutGuide.snp.top).offset(50)
             make.width.equalTo(loadingView.snp.width).multipliedBy(0.9)
             make.centerX.equalTo(loadingView.snp.centerX)
+        }
+    }
+    
+    private func infoLabelConstraints() {
+        infoLabel.snp.makeConstraints { make in
+            guard let loadingAnimation = loadingView.animationView2 else { return }
+            make.top.equalTo(loadingAnimation.snp.bottom).offset(10)
+            make.centerX.equalTo(loadingAnimation.snp.centerX)
+            make.width.equalTo(titleLabel.snp.width)
         }
     }
     

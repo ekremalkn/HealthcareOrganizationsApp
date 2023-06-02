@@ -24,7 +24,7 @@ final class MainCollectionHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private lazy var textField = CustomTextField()
+    lazy var textField = CustomTextField()
     
     private lazy var topSearchedLabel: UILabel = {
         let label = UILabel()

@@ -8,7 +8,9 @@
 import UIKit
 
 final class SideMenuView: UIView {
-    
+    deinit {
+        print("SideMenuView deinitt")
+    }
     //MARK: - Creating UI Elements
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()

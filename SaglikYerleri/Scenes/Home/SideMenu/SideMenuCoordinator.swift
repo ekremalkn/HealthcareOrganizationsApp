@@ -6,28 +6,54 @@
 //
 
 import UIKit
+import SideMenu
 
 final class SideMenuCoordinator: Coordinator {
-    var childCoordinator: [Coordinator] = []
     
+    weak var parentCoordinator: MainCoordinator?
+    var childCoordinators: [Coordinator] = []
     var navigationController = UINavigationController()
-
+    
     
     func startCoordinator() {
     }
     
-    func openRecentSearchesController() {
+    func startCoordinator(from vc: MainController) {
+        let sideMenuController = SideMenuController()
+        
+        sideMenuController.sideMenuCoordinator = self
+        let sideMenuNavController = SideMenuNavigationController(rootViewController: sideMenuController)
+        self.navigationController = sideMenuNavController
+        SideMenuManager.default.leftMenuNavigationController = sideMenuNavController
+        let navBar = navigationController.navigationBar
+        SideMenuManager.default.addPanGestureToPresent(toView: navBar)
+        vc.present(sideMenuNavController, animated: true)
+    }
+    
+    func childCoordinatorDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+                break
+            }
+            
+        }
+    }
+    
+    func sideMenuClosed() {
+        parentCoordinator?.childCoordinatorDidFinish(self)
+    }
+    
+    func openRecentSearches() {
         let recentSearchesController = RecentSearchesController()
         navigationController.pushViewController(recentSearchesController, animated: true)
     }
     
-    func openProifleController() {
-        let userService: UserService = UserNetworkService()
-        let iapService: IAPService = IAPManager()
-        let profileViewModel = ProfileViewModel(userService: userService, iapService: iapService)
-        let profileController = ProfileController(viewModel: profileViewModel)
-        profileController.profileCoordinator = ProfileCoordinator()
-        navigationController.pushViewController(profileController, animated: true)
+    func openProfile() {
+        let childCoordinator = ProfileCoordinator(navigationController: navigationController)
+        childCoordinator.parentCoordinator = self
+        childCoordinators.append(childCoordinator)
+        childCoordinator.startCoordinator()
     }
     
     

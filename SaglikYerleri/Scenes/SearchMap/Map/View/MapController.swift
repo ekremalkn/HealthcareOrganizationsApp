@@ -64,6 +64,11 @@ final class MapController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        mapCoordinator?.mapClosed()
+    }
+    
     private func configureViewController() {
         self.navigationItem.searchController = self.searchController
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = self.mapView.backButton
@@ -167,7 +172,7 @@ extension MapController:  MKMapViewDelegate {
         
         customAnnotationView.leftCalloutAccessoryButtonTapped.subscribe { [unowned self] _ in
             let mapAlertController = MapAlertController(title: "Yol tarifi al", message: nil, preferredStyle: .alert)
-            mapAlertController.showAlert(on: self, useWhenOkTapped: annotation)
+            mapAlertController.showAlert(on: self, fromMapController: annotation)
         }.disposed(by: customAnnotationView.disposeBag)
         
         return customAnnotationView

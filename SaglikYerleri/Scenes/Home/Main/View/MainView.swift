@@ -10,7 +10,14 @@ import SnapKit
 
 final class MainView: UIView {
     
-    //MARK: - Creating UI Elements    
+    //MARK: - Creating UI Elements
+    lazy var backButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = ""
+        button.tintColor = UIColor.black
+        return button
+    }()
+    
     lazy var navBarLeftButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .black
@@ -23,6 +30,7 @@ final class MainView: UIView {
         collection.register(VerticalCollectionCell.self, forCellWithReuseIdentifier: VerticalCollectionCell.identifier)
         collection.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionHeaderView.identifier)
         collection.backgroundColor = UIColor(hex: "FBFCFE")
+        collection.bounces = false
         collection.showsVerticalScrollIndicator = false
         return collection
     }()
