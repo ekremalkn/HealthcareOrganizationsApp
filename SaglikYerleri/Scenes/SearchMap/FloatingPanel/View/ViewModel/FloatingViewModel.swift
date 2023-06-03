@@ -7,6 +7,7 @@
 
 import RxSwift
 import UIKit
+import CoreData
 
 final class FloatingViewModel {
     deinit {
@@ -14,7 +15,7 @@ final class FloatingViewModel {
     }
     //MARK: - Network Service
     var networkSerivce: OrganizationsService?
-
+    
     //MARK: - Category Type
     let categoryType: NetworkConstants?
     
@@ -32,7 +33,7 @@ final class FloatingViewModel {
     let pharmacyCellData = PublishSubject<[PharmacyCellDataProtocol]>()
     let sharedCell1Data = PublishSubject<[SharedCell1DataProtocol]>()
     let sharedCell2Data = PublishSubject<[SharedCell2DataProtocol]>()
- 
+    
     
     //MARK: - Save to Core Data Calls
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -42,8 +43,8 @@ final class FloatingViewModel {
     let saveSharedCell2DataToCoreData = PublishSubject<SharedCell2DataProtocol>()
     
     //MARK: - TableView Observables
-
-
+    
+    
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
     
@@ -58,7 +59,7 @@ final class FloatingViewModel {
         self.subscribeToCellSelections()
     }
 }
- 
+
 
 //MARK: - Network Process
 extension FloatingViewModel {
@@ -307,7 +308,7 @@ extension FloatingViewModel {
             }.disposed(by: disposeBag)
         }
     }
-
+    
 }
 
 //MARK: - Set Loading Animate State
@@ -334,24 +335,42 @@ extension FloatingViewModel {
         self.savePharmacyCellDataToCoreData.subscribe(onNext: { [weak self] pharmacyCellDataProtocol in
             guard let self else { return }
             
-            // Create a CellDataModel context
-            let cellData = CellData(context: context)
+            // Check for duplicate data
+            let fetchRequest: NSFetchRequest<PharmacyCellData> = PharmacyCellData.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name == %@", pharmacyCellDataProtocol.pharmacyName)
+            let fetchResult = try? context.fetch(fetchRequest)
             
-            // create Pharmacy Cell Data object
-            let pharmacyCellData = PharmacyCellData(context: context)
-
-            pharmacyCellData.imageBackgroundColor = pharmacyCellDataProtocol.pharmacyImageBackgroundColor
-            pharmacyCellData.image = pharmacyCellDataProtocol.pharmacyImage
-            pharmacyCellData.name = pharmacyCellDataProtocol.pharmacyName
-            pharmacyCellData.address = pharmacyCellDataProtocol.pharmacyAddress
-            pharmacyCellData.directions = pharmacyCellDataProtocol.pharmacyDirections
-            pharmacyCellData.phone1 = pharmacyCellDataProtocol.pharmacyPhone1
-            pharmacyCellData.phone2 = pharmacyCellDataProtocol.pharmacyPhone2
-            pharmacyCellData.lat = pharmacyCellDataProtocol.pharmacyLat
-            pharmacyCellData.lng = pharmacyCellDataProtocol.pharmacyLng
+            if let existingData = fetchResult?.first {
+                // Update existing data
+                existingData.imageBackgroundColor = pharmacyCellDataProtocol.pharmacyImageBackgroundColor
+                existingData.image = pharmacyCellDataProtocol.pharmacyImage
+                existingData.address = pharmacyCellDataProtocol.pharmacyAddress
+                existingData.directions = pharmacyCellDataProtocol.pharmacyDirections
+                existingData.phone1 = pharmacyCellDataProtocol.pharmacyPhone1
+                existingData.phone2 = pharmacyCellDataProtocol.pharmacyPhone2
+                existingData.lat = pharmacyCellDataProtocol.pharmacyLat
+                existingData.lng = pharmacyCellDataProtocol.pharmacyLng
+            } else {
+                // Create a CellDataModel context
+                let cellData = CellData(context: context)
+                
+                // create SharedCell1 Data object
+                let pharmacyCellData = PharmacyCellData(context: context)
+                
+                pharmacyCellData.imageBackgroundColor = pharmacyCellDataProtocol.pharmacyImageBackgroundColor
+                pharmacyCellData.image = pharmacyCellDataProtocol.pharmacyImage
+                pharmacyCellData.name = pharmacyCellDataProtocol.pharmacyName
+                pharmacyCellData.address = pharmacyCellDataProtocol.pharmacyAddress
+                pharmacyCellData.directions = pharmacyCellDataProtocol.pharmacyDirections
+                pharmacyCellData.phone1 = pharmacyCellDataProtocol.pharmacyPhone1
+                pharmacyCellData.phone2 = pharmacyCellDataProtocol.pharmacyPhone2
+                pharmacyCellData.lat = pharmacyCellDataProtocol.pharmacyLat
+                pharmacyCellData.lng = pharmacyCellDataProtocol.pharmacyLng
+                
+                // Add Shared1 Cell Datas to cell data
+                cellData.addToPharmayCells(pharmacyCellData)
+            }
             
-            // Add Pharmacy Cells TO  CELL DATA
-            cellData.addToPharmayCells(pharmacyCellData)
             
             // save the data
             do {
@@ -367,24 +386,39 @@ extension FloatingViewModel {
             guard let self else { return }
             // save shared cell1 data
             
-            // Create a CellDataModel context
-            let cellData = CellData(context: context)
+            // Check for duplicate data
+            let fetchRequest: NSFetchRequest<SharedCell1Data> = SharedCell1Data.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name == %@", sharedCell1DataProtocol.sharedCell1Name)
+            let fetchResult = try? context.fetch(fetchRequest)
             
-            // create SharedCell1 Data object
-            let sharedCell1Data = SharedCell1Data(context: context)
-            
-            sharedCell1Data.imageBackroundColor = sharedCell1DataProtocol.sharedCell1ImageBackgroundColor
-            sharedCell1Data.image = sharedCell1DataProtocol.sharedCell1Image
-            sharedCell1Data.name = sharedCell1DataProtocol.sharedCell1Name
-            sharedCell1Data.address = sharedCell1DataProtocol.sharedCell1Address
-            sharedCell1Data.phone = sharedCell1DataProtocol.sharedCell1Phone
-            sharedCell1Data.email = sharedCell1DataProtocol.sharedCell1Email
-            sharedCell1Data.lat = sharedCell1DataProtocol.sharedCell1Lat
-            sharedCell1Data.lng = sharedCell1DataProtocol.sharedCell1Lng
-            
-            
-            // Add Shared1 Cell Datas to cell data
-            cellData.addToShared1Cells(sharedCell1Data)
+            if let existingData = fetchResult?.first {
+                // Update existing data
+                existingData.imageBackroundColor = sharedCell1DataProtocol.sharedCell1ImageBackgroundColor
+                existingData.image = sharedCell1DataProtocol.sharedCell1Image
+                existingData.address = sharedCell1DataProtocol.sharedCell1Address
+                existingData.phone = sharedCell1DataProtocol.sharedCell1Phone
+                existingData.email = sharedCell1DataProtocol.sharedCell1Email
+                existingData.lat = sharedCell1DataProtocol.sharedCell1Lat
+                existingData.lng = sharedCell1DataProtocol.sharedCell1Lng
+            } else {
+                // Create a CellDataModel context
+                let cellData = CellData(context: context)
+                
+                // create SharedCell1 Data object
+                let sharedCell1Data = SharedCell1Data(context: context)
+                
+                sharedCell1Data.imageBackroundColor = sharedCell1DataProtocol.sharedCell1ImageBackgroundColor
+                sharedCell1Data.image = sharedCell1DataProtocol.sharedCell1Image
+                sharedCell1Data.name = sharedCell1DataProtocol.sharedCell1Name
+                sharedCell1Data.address = sharedCell1DataProtocol.sharedCell1Address
+                sharedCell1Data.phone = sharedCell1DataProtocol.sharedCell1Phone
+                sharedCell1Data.email = sharedCell1DataProtocol.sharedCell1Email
+                sharedCell1Data.lat = sharedCell1DataProtocol.sharedCell1Lat
+                sharedCell1Data.lng = sharedCell1DataProtocol.sharedCell1Lng
+                
+                // Add Shared1 Cell Datas to cell data
+                cellData.addToShared1Cells(sharedCell1Data)
+            }
             
             // save the data
             do {
@@ -399,23 +433,41 @@ extension FloatingViewModel {
             guard let self else { return }
             // save shared cell2 data
             
-            // Create a CellDataModel context
-            let cellData = CellData(context: context)
+            // Check for duplicate data
+            let fetchRequest: NSFetchRequest<SharedCell2Data> = SharedCell2Data.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name == %@", sharedCell2DataProtocol.sharedCell2Name )
+            let fetchResult = try? context.fetch(fetchRequest)
             
-            //  Create SharedCell2Data object
-            let sharedCell2Data = SharedCell2Data(context: context)
             
-            sharedCell2Data.imageBackgroundColor = sharedCell2DataProtocol.sharedCell2ImageBackgroundColor
-            sharedCell2Data.image = sharedCell2DataProtocol.sharedCell2Image
-            sharedCell2Data.name = sharedCell2DataProtocol.sharedCell2Name
-            sharedCell2Data.street = sharedCell2DataProtocol.sharedCell2Street
-            sharedCell2Data.phone = sharedCell2DataProtocol.sharedCell2Phone
-            sharedCell2Data.webSite = sharedCell2DataProtocol.sharedCell2WebSite
-            sharedCell2Data.lat = sharedCell2DataProtocol.sharedCell2Lat
-            sharedCell2Data.lng = sharedCell2DataProtocol.sharedCell2Lng
+            if let existingData = fetchResult?.first {
+                // Update existing data
+                existingData.imageBackgroundColor = sharedCell2DataProtocol.sharedCell2ImageBackgroundColor
+                existingData.image = sharedCell2DataProtocol.sharedCell2Image
+                existingData.street = sharedCell2DataProtocol.sharedCell2Street
+                existingData.phone = sharedCell2DataProtocol.sharedCell2Phone
+                existingData.webSite = sharedCell2DataProtocol.sharedCell2WebSite
+                existingData.lat = sharedCell2DataProtocol.sharedCell2Lat
+                existingData.lng = sharedCell2DataProtocol.sharedCell2Lng
+            } else {
+                // Add Shared2Cell Data to cell data
+                // Create a CellDataModel context
+                let cellData = CellData(context: context)
+                
+                //  Create SharedCell2Data object
+                let sharedCell2Data = SharedCell2Data(context: context)
+                
+                sharedCell2Data.imageBackgroundColor = sharedCell2DataProtocol.sharedCell2ImageBackgroundColor
+                sharedCell2Data.image = sharedCell2DataProtocol.sharedCell2Image
+                sharedCell2Data.name = sharedCell2DataProtocol.sharedCell2Name
+                sharedCell2Data.street = sharedCell2DataProtocol.sharedCell2Street
+                sharedCell2Data.phone = sharedCell2DataProtocol.sharedCell2Phone
+                sharedCell2Data.webSite = sharedCell2DataProtocol.sharedCell2WebSite
+                sharedCell2Data.lat = sharedCell2DataProtocol.sharedCell2Lat
+                sharedCell2Data.lng = sharedCell2DataProtocol.sharedCell2Lng
+                
+                cellData.addToShared2Cells(sharedCell2Data)
+            }
             
-            // Add Shared2Cell Datas to cel ldata
-            cellData.addToShared2Cells(sharedCell2Data)
             
             // save the data
             do {
@@ -426,5 +478,8 @@ extension FloatingViewModel {
             
         }).disposed(by: disposeBag)
     }
+    
+    
+    
 }
 

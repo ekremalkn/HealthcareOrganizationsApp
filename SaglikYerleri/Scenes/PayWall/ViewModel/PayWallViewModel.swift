@@ -12,7 +12,9 @@ import RevenueCat
 
 
 final class PayWallViewModel {
-
+    deinit {
+        print("deinit PayWallViewModel")
+    }
     //MARK: - DisposeBag
     private let disposeBag = DisposeBag()
     

@@ -16,8 +16,7 @@ final class RecentSearchesController: UIViewController {
     //MARK: - References
     private let recentSearchesView = RecentSearchesView()
     private let viewModel = RecentSearchesViewModel()
-    private let header = RecentSearchesHeaderView()
-    private let footer = RecentSearchesFooterView()
+    //    private let footer = RecentSearchesFooterView()
     
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
@@ -46,8 +45,9 @@ final class RecentSearchesController: UIViewController {
     
     private func configureNavItems() {
         title = "Son Arananalar"
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Geri", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.topItem?.backBarButtonItem = recentSearchesView.backButton
     }
+    
     
     
     
@@ -58,7 +58,8 @@ extension RecentSearchesController {
     private func configureTableView() {
         let tableView = recentSearchesView.recentSearchesTableView
         // bind data
-        viewModel.tableViewDataSource().bind(to: tableView.rx.items) { tableView, index, data in
+        viewModel.cellData.bind(to: tableView.rx.items) { [weak self] tableView, index, data in
+            guard let self else { return UITableViewCell()}
             if let pharmacyCellData = data as? PharmacyCellData {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: PharmacyCell.identifier, for: IndexPath(row: index, section: 0)) as? PharmacyCell else { return UITableViewCell() }
                 cell.configure(with: pharmacyCellData)
@@ -70,10 +71,9 @@ extension RecentSearchesController {
                     let lng = pharmacyCellData.pharmacyLng
                     let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
                     
-                    let mapAlertController = MapAlertController(title: "Yol tarifi al", message: nil, preferredStyle: .alert)
-                    mapAlertController.showAlert(on: self, fromRecentSearch: coordinate)
+                    let mapAlertController = CustomAlertController(title: "Yol Tarifi", message: "Yol tarifini Apple Maps'te görmek için devam edin", preferredStyle: .alert)
+                    mapAlertController.showAlertForAppleMaps(on: self, fromRecentSearch: coordinate)
                 }.disposed(by: cell.disposeBag)
-                
                 
                 return cell
             } else if let sharedCell1Data = data as? SharedCell1Data {
@@ -88,8 +88,8 @@ extension RecentSearchesController {
                     let lng = sharedCell1Data.sharedCell1Lng
                     let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
                     
-                    let mapAlertController = MapAlertController(title: "Yol tarifi al", message: nil, preferredStyle: .alert)
-                    mapAlertController.showAlert(on: self, fromRecentSearch: coordinate)
+                    let mapAlertController = CustomAlertController(title: "Yol Tarifi", message: "Yol tarifini Apple Maps'te görmek için devam edin", preferredStyle: .alert)
+                    mapAlertController.showAlertForAppleMaps(on: self, fromRecentSearch: coordinate)
                 }.disposed(by: cell.disposeBag)
                 
                 
@@ -105,8 +105,8 @@ extension RecentSearchesController {
                     let lng = sharedCell2Data.sharedCell2Lng
                     let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
                     
-                    let mapAlertController = MapAlertController(title: "Yol tarifi al", message: nil, preferredStyle: .alert)
-                    mapAlertController.showAlert(on: self, fromRecentSearch: coordinate)
+                    let mapAlertController = CustomAlertController(title: "Yol Tarifi", message: "Yol tarifini Apple Maps'te görmek için devam edin", preferredStyle: .alert)
+                    mapAlertController.showAlertForAppleMaps(on: self, fromRecentSearch: coordinate)
                 }.disposed(by: cell.disposeBag)
                 
                 
@@ -127,7 +127,7 @@ extension RecentSearchesController {
         }.disposed(by: disposeBag)
         
         // fetch data
-        viewModel.fetchDataFromCoreData()
+        viewModel.getCellData()
         
         // set delegate for cell height
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -139,6 +139,37 @@ extension RecentSearchesController {
 }
 
 extension RecentSearchesController: UITableViewDelegate {
+    
+    //MARK: - TableViewHeader
+    // Header Height
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = RecentSearchesHeaderView()
+        
+        let cellData =  try? viewModel.cellData.value()
+        header.configure(with: cellData?.count ?? 0)
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    
+    //MARK: - Delete When Cell Swiped
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let action = UIContextualAction(style: .destructive, title: "Sil") { [weak self] action, view, completion in
+            guard let self else { return }
+            
+            viewModel.removeItem(at: indexPath)
+            
+            //            tableView.deleteRows(at: [indexPath], with: .left) //// Getting error if execute this line
+        }
+        
+        
+        
+        return UISwipeActionsConfiguration(actions: [action])
+    }
     
     //MARK: - Expand cell When Selected
     func whenCellSelected(_ tableView: UITableView, indexPath: IndexPath, completion: @escaping (UITableView) -> Void) {

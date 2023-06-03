@@ -63,9 +63,11 @@ extension CustomTextField: ViewProtocol {
         placeholder = "Arama yapmak için dokun..."
         backgroundColor = .white
         layer.borderWidth = 0.5
-        layer.borderColor = UIColor.systemGray3.cgColor
+        layer.borderColor = UIColor.init(hex: "8E8E93").cgColor
         addSubview()
         setupConstraints()
+        attributedPlaceholder = NSAttributedString(string: placeholder ?? "",
+                                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.init(hex: "8E8E93")])
     }
     
     func addSubview() {

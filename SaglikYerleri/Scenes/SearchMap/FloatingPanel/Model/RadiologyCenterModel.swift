@@ -21,7 +21,7 @@ struct RadiologyCenter: Codable, OrganizationModel, SharedCell1DataProtocol {
     let website: String?
     let sehir, ilce: String?
     let latitude, longitude: Double?
-
+    
     enum CodingKeys: String, CodingKey {
         case ad = "Ad"
         case aciklama = "Aciklama"
@@ -32,7 +32,7 @@ struct RadiologyCenter: Codable, OrganizationModel, SharedCell1DataProtocol {
         case sehir = "Sehir"
         case ilce, latitude, longitude
     }
- 
+    
     var sharedCell1ImageBackgroundColor: String {
         return MainHorizontalCollectionData.categoryType(.radiologyCenters).tintAndBackgroundColor
     }

@@ -23,7 +23,7 @@ final class ProfileController: UIViewController {
     
     //MARK: - SignInVC Dismissed
     var signInVCDismissed = PublishSubject<Void>()
-
+    
     //MARK: - Life Cycle Methods
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
@@ -43,7 +43,7 @@ final class ProfileController: UIViewController {
         super.viewDidLoad()
         configureViewController()
     }
-   
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         profileCoordinator?.profileClosed()
@@ -51,6 +51,7 @@ final class ProfileController: UIViewController {
     }
     
     private func configureViewController() {
+        title = "Hesap Bilgileri"
         configureNavItems()
         subscribeToDataStatus()
         buttonActionStages()
@@ -59,7 +60,9 @@ final class ProfileController: UIViewController {
     }
     
     private func configureNavItems() {
-        navigationItem.backBarButtonItem = profileView.backButton
+        navigationController?.navigationBar.barTintColor = .init(hex: "F2F2F7")
+        navigationController?.navigationBar.topItem?.backBarButtonItem = profileView.backButton
+        
     }
     
     
@@ -95,7 +98,7 @@ extension ProfileController {
         
         // Button TableView - Bind data
         viewModel.buttonData.bind(to: profileView.buttonTableView.rx.items(cellIdentifier: ProfileCell.identifier, cellType: ProfileCell.self)) { index, buttonType, cell in
-            cell.configureButtonTitle(with: buttonType.buttonOption.buttonTitle, interaction: buttonType.buttonOption.buttonInteraction)
+            cell.configureButtonTitle(with: buttonType.buttonOption.buttonTitle, interaction: buttonType.buttonOption.buttonInteraction, buttonTintColor: buttonType.buttonOption.buttonTintColor)
             
         }.disposed(by: disposeBag)
         
@@ -107,24 +110,41 @@ extension ProfileController {
             guard let self else { return }
             switch buttonType {
             case .signOut:
-                viewModel.signOut(profileController: self)
-            case .deleteAccount:
-                guard let providerType = viewModel.providerType else { return }
-                switch providerType {
-                case .apple:
-                    viewModel.deleteCurrentAppleUser { request in
-                        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-                        authorizationController.delegate = self
-                        authorizationController.presentationContextProvider = self
-                        authorizationController.performRequests()
-                    }
-                case .google:
-                    viewModel.deleteCurrentGoogleUser()
+                let profileAlertController = CustomAlertController(title: "Çıkış", message: "Çıkış yapmak istediğnizden emin misiniz?", preferredStyle: .actionSheet)
+                
+                profileAlertController.showAlertForProfile(on: self, button: .signOut(isUserSignedIn: true)) { [weak self] in
+                    guard let self else { return }
+                    viewModel.signOut(profileController: self)
                 }
+            case .deleteAccount:
+                let profileAlertController = CustomAlertController(title: "Uyarı!", message: "Hesap silme işleminin sağlıklı gerçekleşmesi için, silmeden önce çıkış yapıp tekrar girmelisiniz", preferredStyle: .alert)
+                
+                profileAlertController.showAlertForProfile(on: self, button: .deleteAccount(isUserSignedIn: true)) { [weak self] in
+                    guard let self else { return }
+                    
+                    guard let providerType = viewModel.providerType else { return }
+                    switch providerType {
+                    case .apple:
+                        viewModel.deleteCurrentAppleUser { request in
+                            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+                            authorizationController.delegate = self
+                            authorizationController.presentationContextProvider = self
+                            authorizationController.performRequests()
+                        }
+                        
+                    case .google:
+                        viewModel.deleteCurrentGoogleUser()
+                    }
+                    
+                }
+                
             case .restorePurchases:
                 viewModel.restorePurchases()
             case .signIn:
+                viewModel.userSigningIn.onNext(true)
                 profileCoordinator?.openSignInController(onProfileVC: self)
+            case .makePurchase:
+                break
             }
         }).disposed(by: disposeBag)
         
@@ -143,6 +163,9 @@ extension ProfileController {
     private func signInVCDismissedCallback() {
         signInVCDismissed.subscribe { [weak self] _ in
             guard let self else { return }
+            viewModel.userSigningIn.onNext(false)
+            viewModel.userSignedIn.onNext(())
+            
             viewModel.getUserInfo()
             viewModel.getCustomerPurchaseInfo()
             viewModel.setButtonTableViewData()
@@ -155,6 +178,24 @@ extension ProfileController {
 extension ProfileController {
     private func buttonActionStages() {
         // signOut button stages
+        
+        viewModel.userSigningIn.subscribe { [weak self] value in
+            guard let self else { return }
+            if value {
+                profileView.animateLoadingAnimationView(ing: true, ed: nil)
+                print("Kullanıcı girişi başlatıldı")
+            } else {
+                profileView.animateLoadingAnimationView(ing: false, ed: nil)
+                print("Kullanıcı girişi durdu")
+            }
+        }.disposed(by: disposeBag)
+        
+        viewModel.userSignedIn.subscribe { [weak self] _ in
+            guard let self else { return }
+            profileView.animateLoadingAnimationView(ing: nil, ed: ())
+            print("Kullanıcı girişi başarıyla tamamlandı")
+        }.disposed(by: disposeBag)
+        
         viewModel.userSigningOut.subscribe { [weak self] value in
             guard let self else { return }
             if value {

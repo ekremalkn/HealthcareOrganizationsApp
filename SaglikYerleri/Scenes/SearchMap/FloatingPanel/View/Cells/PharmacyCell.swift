@@ -223,7 +223,7 @@ final class PharmacyCell: UITableViewCell {
         contentToShare.onNext((data.pharmacyName, data.pharmacyAddress, data.pharmacyDirections, data.pharmacyPhone1, mapItem))
         
     }
-
+    
 }
 
 //MARK: - UI Element AddSubview / SetupConstraints

@@ -21,7 +21,7 @@ struct Pharmacy: Codable, OrganizationModel, PharmacyCellDataProtocol {
     let eczaneAdi, adresi, semt, yolTarifi: String?
     let telefon, telefon2, sehir, ilce: String?
     let latitude, longitude: Double?
-
+    
     enum CodingKeys: String, CodingKey {
         case eczaneAdi = "EczaneAdi"
         case adresi = "Adresi"

@@ -23,36 +23,44 @@ enum ProfileButtonTableViewData {
     case signOut(isUserSignedIn: Bool)
     case deleteAccount(isUserSignedIn: Bool)
     case restorePurchases(isUserSignedIn: Bool)
+    case makePurchase(isUserSignedIn: Bool)
     
-    var buttonOption: (buttonTitle: String, buttonInteraction: Bool) {
+    var buttonOption: (buttonTitle: String, buttonInteraction: Bool, buttonTintColor: String) {
         switch self {
         case .signIn(isUserSignedIn: let isUserSignedIn):
             switch isUserSignedIn {
             case true:
-                return ("Giriş Yap", true)
+                return ("Giriş Yap", true, "056DFA")
             case false:
-                return ("Giriş Yap", false)
+                return ("Giriş Yap", false, "8E8E93")
             }
         case .signOut(isUserSignedIn: let isUserSignedIn):
             switch isUserSignedIn {
             case true:
-                return ("Çıkış Yap", true)
+                return ("Çıkış Yap", true, "FF342B")
             case false:
-                return ("Çıkış Yap", false)
+                return ("Çıkış Yap", false, "8E8E93")
             }
         case .deleteAccount(isUserSignedIn: let isUserSignedIn):
             switch isUserSignedIn {
             case true:
-                return ("Hesabını Sil", true)
+                return ("Hesabını Sil", true, "FF342B")
             case false:
-                return ("Hesabını Sil", false)
+                return ("Hesabını Sil", false, "8E8E93")
             }
         case .restorePurchases(isUserSignedIn: let isUserSignedIn):
             switch isUserSignedIn {
             case true:
-                return ("Önceden satın aldığın premiumu etkinleştir" , true)
+                return ("Premiumsan etkinleştir" , true, "056DFA")
             case false:
-                return ("Önceden satın aldığın premiumu etkinleştir" , false)
+                return ("Premiumsan etkinleştir" , false, "8E8E93")
+            }
+        case .makePurchase(isUserSignedIn: let isUserSignedIn):
+            switch isUserSignedIn {
+            case true:
+                return ("Premium satın al", true, "FFC400")
+            case false:
+                return ("Premium satın al", false, "8E8E93")
             }
         }
     }
@@ -74,7 +82,7 @@ final class ProfileViewModel {
     let userInfoData = PublishSubject<[String : String]>()
     
     var buttonData = PublishSubject<[ProfileButtonTableViewData]>()
-
+    
     //MARK: - Referecenes
     let userService: UserService
     let iapService: IAPService
@@ -84,6 +92,9 @@ final class ProfileViewModel {
     var providerTypeObservable = PublishSubject<ProviderType?>()
     
     //MARK: - Button Action Stages
+    var userSigningIn = PublishSubject<Bool>()
+    var userSignedIn = PublishSubject<Void>()
+    
     var userSigningOut = PublishSubject<Bool>()
     var userSignedOut = PublishSubject<Void>()
     
@@ -356,7 +367,7 @@ extension ProfileViewModel {
         }
     }
     
-    func setButtonTableViewData() {
+    func setButtonTableViewData(makePurchaseButton: Bool? = nil) {
         checkIsCurrentUserActive().flatMap { currentUser in
             return Observable.just(currentUser)
         }.subscribe(onNext: { [weak self] currentUser in
@@ -364,7 +375,8 @@ extension ProfileViewModel {
             if currentUser != nil {
                 let newData = [
                     ProfileButtonTableViewData.signIn(isUserSignedIn: false),
-                    ProfileButtonTableViewData.restorePurchases(isUserSignedIn: true),
+                    ProfileButtonTableViewData.makePurchase(isUserSignedIn: makePurchaseButton ?? false),
+                    ProfileButtonTableViewData.restorePurchases(isUserSignedIn: makePurchaseButton ?? true),
                     ProfileButtonTableViewData.deleteAccount(isUserSignedIn: true),
                     ProfileButtonTableViewData.signOut(isUserSignedIn: true)
                 ]
@@ -372,6 +384,7 @@ extension ProfileViewModel {
             } else {
                 let newData = [
                     ProfileButtonTableViewData.signIn(isUserSignedIn: true),
+                    ProfileButtonTableViewData.makePurchase(isUserSignedIn: makePurchaseButton ?? false),
                     ProfileButtonTableViewData.restorePurchases(isUserSignedIn: false),
                     ProfileButtonTableViewData.deleteAccount(isUserSignedIn: false),
                     ProfileButtonTableViewData.signOut(isUserSignedIn: false)
@@ -411,7 +424,7 @@ extension ProfileViewModel {
         
         if let entitlement = customerInfo.entitlements.all[IAPConstants.entitlementIdentifier.rawValue], entitlement.isActive {
             purchaseDictionaryData["Abonelik Durumu"] = "Aktif"
-            
+            setButtonTableViewData(makePurchaseButton: false)
             switch entitlement.productIdentifier {
             case IAPConstants.monthlyProduct.rawValue:
                 purchaseDictionaryData["Abonelik Türü"] = "Premimum Aylık"
@@ -430,6 +443,7 @@ extension ProfileViewModel {
             }
         } else {
             purchaseDictionaryData["Abonelik Durumu"] = "Aktif Değil"
+            setButtonTableViewData(makePurchaseButton: true)
         }
         
         purchaseInfoData.onNext(purchaseDictionaryData)

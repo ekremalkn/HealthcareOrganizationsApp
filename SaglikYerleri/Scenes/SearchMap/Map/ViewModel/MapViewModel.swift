@@ -14,7 +14,7 @@ final class MapViewModel {
     }
     //MARK: - Variables
     var organizations = PublishSubject<(CLLocationCoordinate2D, String)>()
-
+    
     //MARK: - Init Method
     init() {
         

@@ -26,7 +26,7 @@ final class ProfileCoordinator: Coordinator {
         let profileController = ProfileController(viewModel: profileViewModel)
         profileController.profileCoordinator = self
         navigationController.pushViewController(profileController, animated: true)
-
+        
     }
     
     func profileClosed() {
@@ -43,6 +43,8 @@ final class ProfileCoordinator: Coordinator {
         
         onProfileVC.present(signinvc, animated: true)
     }
+    
+    
     
     
 }

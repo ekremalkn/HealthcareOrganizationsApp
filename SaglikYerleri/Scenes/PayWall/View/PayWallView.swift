@@ -9,9 +9,11 @@ import UIKit
 import RxSwift
 
 final class PayWallView: UIView {
-    
+    deinit {
+        print("deinit PayWallView")
+    }
     //MARK: - Creating UI Elements
-    private lazy var backgroundImageView: UIImageView = {
+    lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "payWallBackgroundImage")
         imageView.contentMode = .scaleAspectFill
@@ -147,9 +149,9 @@ final class PayWallView: UIView {
             
             completion?()
         }
-
+        
     }
-
+    
     private func applyGradient() {
         backgroundImageView.applyGradient(colors: [
             UIColor.black.cgColor,

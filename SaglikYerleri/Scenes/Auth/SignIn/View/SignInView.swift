@@ -13,14 +13,36 @@ final class SignInView: UIView {
         print("deinit SignInView")
     }
     //MARK: - Creating UI Elements
-    lazy var backgroundImageView: UIImageView = {
+    lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.init(systemName: "multiply"), for: .normal)
+        button.tintColor = .white.withAlphaComponent(0.5)
+        button.backgroundColor = .init(hex: "181818").withAlphaComponent(0.2)
+        return button
+    }()
+    
+    lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "signInBackgroundImage")
-        imageView.backgroundColor = .clear
-        imageView.clipsToBounds = true
+        imageView.image = .init(named: "logoImage")
         return imageView
     }()
+    
+    lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .init(hex: "FBFCFE")
+        return view
+    }()
+    
+    private lazy var buttonTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Giriş Yöntemi Seçiniz"
+        label.font = UIFont(name: "Arial-BoldMT", size: 17)
+        label.textAlignment = .center
+        label.textColor = .init(hex: "6279E0")
+        label.numberOfLines = 0
+        return label
+    }()
+    
     
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
@@ -33,25 +55,6 @@ final class SignInView: UIView {
     private lazy var googleSignInButton = CustomSignInButton(type: .google)
     
     private lazy var appleSignInButton = CustomSignInButton(type: .apple)
-    
-    private lazy var andLabel: UILabel = {
-        let label = UILabel()
-        label.text = "ya da"
-        label.font = UIFont(name: "ArialMT", size: 18)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.textColor = .clear
-        return label
-    }()
-    
-    private lazy var withOutSignInButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .clear
-        button.setTitle("Giriş yapmadan devam et", for: .normal)
-        button.titleLabel?.font = UIFont(name: "ArialMT", size: 22)
-        button.tintColor = .white
-        return button
-    }()
     
     lazy var contiuneSignInWithProvider: UIButton = {
         let button = UIButton()
@@ -88,19 +91,37 @@ final class SignInView: UIView {
         super.layoutSubviews()
         contiuneSignInWithProvider.layer.cornerRadius = 12
         contiuneSignInWithProvider.layer.masksToBounds = true
+        
+        closeButton.layer.cornerRadius = 12.5
+        closeButton.layer.masksToBounds = true
+        
+        contentView.layer.cornerRadius = 12
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOffset = CGSize(width: -3, height: -3)
+        contentView.layer.shadowOpacity = 0.3
+        
+        logoImageView.layer.shadowColor = UIColor.black.cgColor
+        logoImageView.layer.shadowOffset = CGSize(width: 3, height: 3)
+        logoImageView.layer.shadowOpacity = 0.1
+        
+        
         applyGradient()
     }
     
     private func applyGradient() {
-        backgroundImageView.applyGradient(colors: [
-            UIColor.black.cgColor,
-            UIColor.black.withAlphaComponent(0.8).cgColor,
-            UIColor.black.withAlphaComponent(0.6).cgColor,
-            UIColor.black.withAlphaComponent(0.4).cgColor,
-            UIColor.black.withAlphaComponent(0.2).cgColor,
+        contentView.applyGradient(colors: [
+            UIColor.init(hex: "6279E0").withAlphaComponent(0.8).cgColor,
+            UIColor.init(hex: "6279E0").withAlphaComponent(0.6).cgColor,
+            UIColor.init(hex: "64B2F0").withAlphaComponent(0.6).cgColor,
+            UIColor.init(hex: "64B2F0").withAlphaComponent(0.8).cgColor,
         ], startPoint: .init(x: 0, y: 0.89), endPoint: .init(x: 0, y: 0))
         
-        contiuneSignInWithProvider.applyGradient(colors: [UIColor.init(hex: "0F4606").cgColor, UIColor.init(hex: "101110").cgColor])
+        contiuneSignInWithProvider.applyGradient(colors: [
+            UIColor.init(hex: "6279E0").withAlphaComponent(0.8).cgColor,
+            UIColor.init(hex: "6279E0").withAlphaComponent(0.6).cgColor,
+            UIColor.init(hex: "64B2F0").withAlphaComponent(0.6).cgColor,
+            UIColor.init(hex: "64B2F0").withAlphaComponent(0.8).cgColor,
+        ])
     }
     
     private func buttonActions() {
@@ -174,10 +195,15 @@ final class SignInView: UIView {
         isProviderSelected.subscribe { [weak self] value in
             guard let self else { return }
             if value {
+                
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
                     guard let self else { return }
-                    self.contiuneSignInWithProvider.alpha = 1
-                    self.contiuneSignInWithProvider.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                    buttonTitleLabel.alpha = 0
+                    let logoImageViewTransformY = buttonTitleLabel.frame.origin.y
+                    logoImageView.transform = CGAffineTransform(translationX: 0, y: -logoImageViewTransformY)
+                    buttonStackView.transform = CGAffineTransform(translationX: 0, y: -logoImageViewTransformY - 25)
+                    contiuneSignInWithProvider.alpha = 1
+                    contiuneSignInWithProvider.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                 }, completion: nil)
             }
         }.disposed(by: disposeBag)
@@ -188,69 +214,79 @@ final class SignInView: UIView {
 
 extension SignInView: ViewProtocol {
     func configureView() {
-        backgroundColor = .black
+        backgroundColor = .clear
         addSubview()
         setupConstraints()
     }
     
     func addSubview() {
-        addSubview(backgroundImageView)
-        addSubview(buttonStackView)
+        addSubview(contentView)
+        contentView.addSubview(closeButton)
+        contentView.addSubview(logoImageView)
+        contentView.addSubview(buttonTitleLabel)
+        contentView.addSubview(buttonStackView)
         buttonStackView.addArrangedSubview(googleSignInButton)
         buttonStackView.addArrangedSubview(appleSignInButton)
-        addSubview(andLabel)
-        addSubview(withOutSignInButton)
-        addSubview(contiuneSignInWithProvider)
+        contentView.addSubview(contiuneSignInWithProvider)
     }
     
     func setupConstraints() {
-        backgroundImageViewConstraints()
+        closeButtonConstraints()
+        logoImageViewConstraints()
+        contentViewConstraints()
+        buttonTitleLabelConstraints()
         buttonStackViewConstraints()
-        andLabelConstraints()
-        withOutSignInButtonConstraints()
         contiuneWithGoogleConstraints()
     }
     
-    private func backgroundImageViewConstraints() {
-        backgroundImageView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(self)
-            make.height.equalTo(self.snp.height).multipliedBy(0.6)
+    private func contentViewConstraints() {
+        contentView.snp.makeConstraints { make in
+            make.height.equalTo(self.snp.height).multipliedBy(0.45)
+            make.leading.trailing.bottom.equalTo(self)
+        }
+    }
+    
+    
+    private func closeButtonConstraints() {
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(15)
+            make.trailing.equalTo(self.snp.trailing).offset(-15)
+            make.width.height.equalTo(25)
+        }
+    }
+    
+    private func buttonTitleLabelConstraints() {
+        buttonTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(25)
+            make.leading.trailing.equalTo(contentView)
+            
+        }
+    }
+    
+    private func logoImageViewConstraints() {
+        logoImageView.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(50)
+            make.height.width.equalTo(80)
+            make.centerX.equalTo(contentView.snp.centerX)
         }
     }
     
     private func buttonStackViewConstraints() {
         buttonStackView.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundImageView.snp.bottom)
-            make.height.equalTo(100)
-            make.leading.equalTo(backgroundImageView.snp.leading).offset(40)
-            make.trailing.equalTo(backgroundImageView.snp.trailing).offset(-40)
-        }
-    }
-    
-    private func andLabelConstraints() {
-        andLabel.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.bottom).offset(15)
-            make.height.equalTo(18)
-            make.centerX.equalTo(buttonStackView.snp.centerX)
-            make.width.equalTo(backgroundImageView.snp.width).multipliedBy(0.75)
-        }
-    }
-    
-    private func withOutSignInButtonConstraints() {
-        withOutSignInButton.snp.makeConstraints { make in
-            make.top.equalTo(andLabel.snp.bottom).offset(30)
-            make.height.equalTo(22)
-            make.centerX.equalTo(andLabel.snp.centerX)
-            make.width.equalTo(self.snp.width).multipliedBy(0.75)
+            make.height.equalTo(80)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.8)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.top.equalTo(logoImageView.snp.bottom).offset(50)
+            
         }
     }
     
     private func contiuneWithGoogleConstraints() {
         contiuneSignInWithProvider.snp.makeConstraints { make in
-            make.top.equalTo(withOutSignInButton.snp.bottom).offset(30)
-            make.centerX.equalTo(self.snp.centerX)
-            make.width.equalTo(self.snp.width).multipliedBy(0.55)
-            make.height.equalTo(55)
+            make.bottom.equalTo(contentView.snp.bottom).offset(UIScreen.main.bounds.height < 800 ? -32 : -56)
+            make.centerX.equalTo(buttonStackView.snp.centerX)
+            make.width.equalTo(buttonStackView.snp.width).multipliedBy(0.8)
+            make.height.equalTo(42)
         }
     }
     

@@ -42,15 +42,18 @@ final class CustomSignInButton: UIButton {
     }
     
     private func setupViews() {
-        layer.borderColor = UIColor.white.cgColor
-        backgroundColor = .init(hex: "181818")
+        layer.borderColor = UIColor.init(hex: "6279E0").cgColor
+        backgroundColor = .white
         layer.cornerRadius = 12
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.1
+        layer.shadowOffset = CGSize.init(width: 3, height: 3)
         
         addSubview(buttonImageView)
         
         buttonImageView.snp.makeConstraints { make in
             make.center.equalTo(self)
-            make.height.width.equalTo(self)
+            make.height.width.equalTo(self.snp.height).multipliedBy(0.75)
         }
     }
     

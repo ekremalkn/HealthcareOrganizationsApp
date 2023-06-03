@@ -32,6 +32,6 @@ struct TRCounty: Codable, CityCountyModel {
         .county
     }
     
-
+    
     
 }

@@ -14,7 +14,7 @@ final class RecentSearchesHeaderView: UIView {
     //MARK: - Creating UI Elements
     private let leftLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Medium", size: 15)
+        label.font = UIFont(name: "Avenir-Medium", size: 17)
         label.textColor = .darkGray
         label.textAlignment = .left
         return label
@@ -24,7 +24,7 @@ final class RecentSearchesHeaderView: UIView {
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        configureView()
     }
     
     required init?(coder: NSCoder) {
@@ -37,6 +37,9 @@ final class RecentSearchesHeaderView: UIView {
         layer.shadowOffset = CGSize.init(width: 3, height: 3)
     }
     
+    func configure(with data: Int) {
+        leftLabel.text = "Toplam: \(data) "
+    }
     
 }
 

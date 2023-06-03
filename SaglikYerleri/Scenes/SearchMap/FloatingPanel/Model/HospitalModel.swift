@@ -20,7 +20,7 @@ struct Hospital: Codable, OrganizationModel, SharedCell1DataProtocol {
     let website: String?
     let sehir, ilce: String?
     let latitude, longitude: Double?
-
+    
     enum CodingKeys: String, CodingKey {
         case ad = "Ad"
         case adres = "Adres"

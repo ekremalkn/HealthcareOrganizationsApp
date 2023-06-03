@@ -10,15 +10,17 @@ import RxSwift
 import RevenueCat
 
 final class PayWallController: UIViewController {
-
+    deinit {
+        print("deinit PayWallController")
+    }
     //MARK: - References
-    var payWallCoordinator: PayWallCoordinator?
+    weak var payWallCoordinator: PayWallCoordinator?
     private let payWallView = PayWallView(selectedButton: .init(type: .annual))
     let viewModel: PayWallViewModel
     
     //MARK: - DisposeBag
     private let disposeBag = DisposeBag()
-
+    
     //MARK: - Life Cycle Methods
     init(viewModel: PayWallViewModel) {
         self.viewModel = viewModel
@@ -42,6 +44,7 @@ final class PayWallController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         payWallCoordinator?.payWallClosed()
+        
     }
     
     //MARK: - ConfigureViewController
@@ -69,6 +72,6 @@ final class PayWallController: UIViewController {
             payWallCoordinator?.openSignIn(onPayWallVC: self)
         }.disposed(by: disposeBag)
     }
-
-
+    
+    
 }

@@ -49,7 +49,7 @@ final class ProfileCell: UITableViewCell {
         imageView.isHidden = true
         return imageView
     }()
-
+    
     
     //MARK: - Init Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -72,15 +72,17 @@ final class ProfileCell: UITableViewCell {
         valueLabel.text = data.value
     }
     
-    func configureButtonTitle(with title: String, interaction: Bool) {
+    func configureButtonTitle(with title: String, interaction: Bool, buttonTintColor: String) {
         keyLabel.text = title
         rightImageView.isHidden = false
-        if !interaction {
-            keyLabel.textColor = .systemGray
+        if interaction {
+            keyLabel.textColor = .init(hex: buttonTintColor)
+        } else {
+            keyLabel.textColor = .init(hex: buttonTintColor)
             isUserInteractionEnabled = false
         }
     }
-
+    
 }
 
 extension ProfileCell: CellProtocol {

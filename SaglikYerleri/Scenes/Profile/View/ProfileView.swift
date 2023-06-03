@@ -15,8 +15,8 @@ final class ProfileView: UIView {
     //MARK: - Creating UI Elements
     lazy var backButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = ""
-        button.tintColor = UIColor.black
+        button.title = "Ana Menü"
+        button.tintColor = .init(hex: "6279E0")
         return button
     }()
     
@@ -32,7 +32,7 @@ final class ProfileView: UIView {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .systemGray6
+        scrollView.backgroundColor = .init(hex: "F2F2F7")
         return scrollView
     }()
     
@@ -143,10 +143,12 @@ final class ProfileView: UIView {
                 switch status {
                 case true:
                     buttonTableView.transform = .identity
+                    scrollView.isScrollEnabled = true
                     userInfoLabel.alpha = 1
                     userInfoTableView.alpha = 1
                 case false:
-                    buttonTableView.transform = CGAffineTransform(translationX: 0, y: (-self.frame.height / 2) + buttonTableView.frame.height)
+                    buttonTableView.transform = CGAffineTransform(translationX: 0, y: -purchaseInfoTableView.frame.origin.y)
+                    scrollView.isScrollEnabled = false
                     userInfoLabel.alpha = 0
                     userInfoTableView.alpha = 0
                 }
@@ -202,7 +204,7 @@ final class ProfileView: UIView {
 
 extension ProfileView: ViewProtocol {
     func configureView() {
-        backgroundColor = .systemGray6
+        backgroundColor = .init(hex: "F2F2F7")
         addSubview()
         setupConstraints()
     }
@@ -292,7 +294,7 @@ extension ProfileView: ViewProtocol {
         buttonTableView.snp.makeConstraints { make in
             make.top.equalTo(purchaseInfoTableView.snp.bottom).offset(25)
             make.leading.trailing.equalTo(userInfoTableView)
-            make.height.equalTo(198)
+            make.height.equalTo(248)
             make.bottom.equalTo(scrollView.snp.bottom)
         }
     }

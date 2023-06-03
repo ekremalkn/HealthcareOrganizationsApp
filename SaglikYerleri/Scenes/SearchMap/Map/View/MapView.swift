@@ -122,7 +122,7 @@ extension MapView: ViewProtocol {
             make.leading.trailing.equalTo(self)
         }
     }
-  
+    
     func customTopViewConstraints() {
         customTopView.snp.makeConstraints { make in
             make.top.equalTo(self)

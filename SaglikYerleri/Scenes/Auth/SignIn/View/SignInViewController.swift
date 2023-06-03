@@ -21,11 +21,11 @@ final class SignInViewController: UIViewController {
     
     //MARK: - When Dissmissed
     let signInVCDismissed = PublishSubject<Void>()
-
+    
     init(userService: UserService) {
         self.viewModel = SignInViewModel(userService: userService)
         super.init(nibName: nil, bundle: nil)
-
+        modalPresentationStyle = .overFullScreen
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +44,7 @@ final class SignInViewController: UIViewController {
         buttonActions()
     }
     
- 
+    
     //MARK: - Button Actions
     private func buttonActions() {
         signInView.contiuneSignInWithProvider.rx.tap.subscribe { [weak self] _ in
@@ -72,8 +72,18 @@ final class SignInViewController: UIViewController {
                 }
             }
         }.disposed(by: disposeBag)
+        
+        signInView.closeButton.rx.tap.subscribe { [weak self] _ in
+            guard let self else { return }
+            dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                signInVCDismissed.onNext(())
+            }
+            
+        }.disposed(by: disposeBag)
     }
-
+    
+    
 }
 
 extension SignInViewController:ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
@@ -89,12 +99,12 @@ extension SignInViewController:ASAuthorizationControllerDelegate, ASAuthorizatio
                 print("APPLE ILE REvenucate giriş yapılamadı")
             }
         }.disposed(by: disposeBag)
-      }
-
-      func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
-      }
+    }
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return ASPresentationAnchor()

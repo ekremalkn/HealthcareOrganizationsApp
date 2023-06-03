@@ -25,6 +25,14 @@ final class PayWallCoordinator: Coordinator {
         navigationController.present(payWallVC, animated: true)
     }
     
+    func startCoordinatorWithPresent(on vc: SelectionPopUpController) {
+        let payWallViewModel = PayWallViewModel()
+        let payWallVC = PayWallController(viewModel: payWallViewModel)
+        payWallVC.payWallCoordinator = self
+        payWallVC.modalPresentationStyle = .pageSheet
+        vc.present(payWallVC, animated: true)
+    }
+    
     func payWallClosed() {
         parentCoordinator?.childCoordinatorDidFinish(self)
     }
@@ -32,7 +40,6 @@ final class PayWallCoordinator: Coordinator {
     func openSignIn(onPayWallVC: PayWallController) {
         let userService: UserService = UserNetworkService()
         let signInVC = SignInViewController(userService: userService)
-        signInVC.modalPresentationStyle = .pageSheet
         onPayWallVC.present(signInVC, animated: true)
     }
     

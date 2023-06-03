@@ -16,7 +16,7 @@ struct ENCityModel: Codable {
 
 // MARK: - ENCity
 struct ENCity: Codable, CityCountyModel {
- 
+    
     let cityName, citySlug: String?
     
     var name: String? {

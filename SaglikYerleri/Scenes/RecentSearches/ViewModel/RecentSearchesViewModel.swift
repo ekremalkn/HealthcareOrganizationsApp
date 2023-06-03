@@ -17,17 +17,24 @@ final class RecentSearchesViewModel {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     //MARK: - Variables
-    var pharmacyCellData = PublishSubject<[PharmacyCellData]>()
-    var sharedCell1Data = PublishSubject<[SharedCell1Data]>()
-    var sharedCell2Data = PublishSubject<[SharedCell2Data]>()
+    //    var pharmacyCellData = PublishSubject<[PharmacyCellData]>()
+    //    var sharedCell1Data = PublishSubject<[SharedCell1Data]>()
+    //    var sharedCell2Data = PublishSubject<[SharedCell2Data]>()
+    //
+    var pharmacyCellData = BehaviorSubject(value: [PharmacyCellData]())
+    var sharedCell1Data =  BehaviorSubject(value: [SharedCell1Data]())
+    var sharedCell2Data =  BehaviorSubject(value: [SharedCell2Data]())
+    
+    var cellData = BehaviorSubject(value: [Any]())
     
     //MARK: - DisposeBag
     private let disposeBag = DisposeBag()
     
     //MARK: - Fetch Organizations Data from Core Data
-    func tableViewDataSource() -> Observable<[Any]> {
-        Observable.create { [weak self] observer in
-            guard let self else { return Disposables.create() }
+    func getCellData() {
+        
+        fetchDataFromCoreData { [weak self] in
+            guard let self else { return }
             // fetched data from core data, combine observable datas
             let combinedObservableData = Observable.combineLatest(pharmacyCellData, sharedCell1Data, sharedCell2Data)
             
@@ -37,26 +44,67 @@ final class RecentSearchesViewModel {
             }
             
             // create [Any] data for observer onNext
-            mappedObservable.subscribe(onNext: { result in
-                observer.onNext(result)
+            mappedObservable.subscribe(onNext: { [weak self] result in
+                guard let self else { return }
+                cellData.onNext(result)
             }).disposed(by: disposeBag)
             
-            return Disposables.create()
         }
+        
+        
         
     }
     
-    func fetchDataFromCoreData() {
+    func fetchDataFromCoreData(completion: @escaping () -> Void) {
         // fetch
-        do {
-            self.pharmacyCellData.onNext(try self.context.fetch(PharmacyCellData.fetchRequest()))
-            self.sharedCell1Data.onNext(try self.context.fetch(SharedCell1Data.fetchRequest()))
-            self.sharedCell2Data.onNext(try self.context.fetch(SharedCell2Data.fetchRequest()))
-        } catch {
-            print("Did occur error while fetching data from coredata error: !!!!!\(error)!!!!!")
+        DispatchQueue.global().async {
+            do {
+                let pharmacyData = try self.context.fetch(PharmacyCellData.fetchRequest())
+                let sharedCell1Data = try self.context.fetch(SharedCell1Data.fetchRequest())
+                let sharedCell2Data = try self.context.fetch(SharedCell2Data.fetchRequest())
+                
+                DispatchQueue.main.async {
+                    self.pharmacyCellData.onNext(pharmacyData)
+                    self.sharedCell1Data.onNext(sharedCell1Data)
+                    self.sharedCell2Data.onNext(sharedCell2Data)
+                    
+                    completion()
+                }
+            } catch {
+                print("Core Data'dan veri alınırken hata oluştu: \(error)")
+            }
         }
     }
     
+    func removeItem(at indexPath: IndexPath) {
+        guard var cellData = try? self.cellData.value() else { return }
+        
+        deleteDataFromCoreData(indexPath: indexPath, cellData: cellData) {
+            cellData.remove(at: indexPath.row)
+        }
+        
+        self.cellData.onNext(cellData)
+    }
     
+    func deleteDataFromCoreData(indexPath: IndexPath, cellData: [Any], completion: () -> Void) {
+        // remove from core data
+        if let pharmacyCellData = cellData[indexPath.row] as? PharmacyCellData {
+            context.delete(pharmacyCellData)
+            
+        } else if let sharedCell1Data = cellData[indexPath.row] as? SharedCell1Data {
+            context.delete(sharedCell1Data)
+        } else if let sharedCell2Data = cellData[indexPath.row] as? SharedCell2Data {
+            context.delete(sharedCell2Data)
+        }
+        
+        // save the new data
+        do {
+            try context.save()
+            completion()
+        } catch {
+            print("Cordatadan silme işlemi sırasında hata: \(error)")
+        }
+        
+    }
 }
 

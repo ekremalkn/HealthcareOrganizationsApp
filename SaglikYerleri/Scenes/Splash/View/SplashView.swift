@@ -18,6 +18,7 @@ final class SplashView: UIView {
         label.textAlignment = .center
         label.font = UIFont(name: "Avenir-Black", size: 25)
         label.adjustsFontSizeToFitWidth = true
+        label.textColor = .init(hex: "282D3C")
         return label
     }()
     
@@ -27,6 +28,7 @@ final class SplashView: UIView {
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 17)
         label.adjustsFontSizeToFitWidth = true
+        label.textColor = .init(hex: "282D3C")
         return label
     }()
     

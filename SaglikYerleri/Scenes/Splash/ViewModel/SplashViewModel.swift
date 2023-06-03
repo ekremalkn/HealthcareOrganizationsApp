@@ -15,9 +15,9 @@ final class SplashViewModel {
     
     
     func fetchAndUpdateRemoteConfig(completion: @escaping (Observable<[MainHorizontalCollectionData]>?) -> Void)  {
-            RemoteConfigManager.shared.fetchAndUpdateRemoteConfig(duration: 0) { mainHorizontalCollectionData in
-                completion(mainHorizontalCollectionData)
-            }
+        RemoteConfigManager.shared.fetchAndUpdateRemoteConfig(duration: 86400) { mainHorizontalCollectionData in
+            completion(mainHorizontalCollectionData)
+        }
     }
     
     func setAndCheckIsFirstLaunch(completion: (Bool) -> Void) {

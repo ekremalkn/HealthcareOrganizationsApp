@@ -36,7 +36,6 @@
 		F04FF36B2A248908001F0018 /* CellData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3632A248908001F0018 /* CellData+CoreDataProperties.swift */; };
 		F04FF36C2A248908001F0018 /* SharedCell2Data+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3642A248908001F0018 /* SharedCell2Data+CoreDataClass.swift */; };
 		F04FF36D2A248908001F0018 /* SharedCell2Data+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FF3652A248908001F0018 /* SharedCell2Data+CoreDataProperties.swift */; };
-		F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */; };
 		F061C2BB2A06530700D1E485 /* SpaCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */; };
 		F061C2BD2A06539400D1E485 /* PhysiotheraphyCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BC2A06539400D1E485 /* PhysiotheraphyCenterModel.swift */; };
 		F061C2BF2A06540400D1E485 /* DialysisCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2BE2A06540400D1E485 /* DialysisCenterModel.swift */; };
@@ -46,7 +45,6 @@
 		F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */; };
 		F06458602A0956EE00B17BF1 /* PharmacyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */; };
 		F064ED792A286E64001FC58E /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED782A286E64001FC58E /* SplashViewModel.swift */; };
-		F064ED7C2A2886ED001FC58E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED7B2A2886ED001FC58E /* MainTabBarController.swift */; };
 		F064ED842A28F7AA001FC58E /* SelectionPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED832A28F7AA001FC58E /* SelectionPopUpController.swift */; };
 		F064ED862A28F7BA001FC58E /* SelectionPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED852A28F7BA001FC58E /* SelectionPopUpView.swift */; };
 		F064ED892A29C118001FC58E /* SelectionPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED882A29C118001FC58E /* SelectionPopUpViewModel.swift */; };
@@ -54,7 +52,7 @@
 		F064ED8E2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064ED8D2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift */; };
 		F06552852A17F7B7008897A7 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06552842A17F7B7008897A7 /* CustomAnnotationView.swift */; };
 		F06552892A181059008897A7 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06552882A181059008897A7 /* UIViewController+ShowToast.swift */; };
-		F065528C2A1817E0008897A7 /* MapAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F065528B2A1817E0008897A7 /* MapAlertController.swift */; };
+		F065528C2A1817E0008897A7 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F065528B2A1817E0008897A7 /* CustomAlertController.swift */; };
 		F06773BB2A0BBA5100B4BFC4 /* SharedCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06773BA2A0BBA5100B4BFC4 /* SharedCell2.swift */; };
 		F06773BE2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06773BD2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift */; };
 		F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06BEE7329FFD2690013E22D /* ENCityModel.swift */; };
@@ -172,7 +170,6 @@
 		F04FF3632A248908001F0018 /* CellData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CellData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F04FF3642A248908001F0018 /* SharedCell2Data+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedCell2Data+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F04FF3652A248908001F0018 /* SharedCell2Data+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedCell2Data+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		F061C2BA2A06530700D1E485 /* SpaCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaCenterModel.swift; sourceTree = "<group>"; };
 		F061C2BC2A06539400D1E485 /* PhysiotheraphyCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysiotheraphyCenterModel.swift; sourceTree = "<group>"; };
 		F061C2BE2A06540400D1E485 /* DialysisCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialysisCenterModel.swift; sourceTree = "<group>"; };
@@ -182,7 +179,6 @@
 		F061C2C62A06565700D1E485 /* MainHorizontalCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHorizontalCollectionModel.swift; sourceTree = "<group>"; };
 		F064585F2A0956EE00B17BF1 /* PharmacyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyCell.swift; sourceTree = "<group>"; };
 		F064ED782A286E64001FC58E /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
-		F064ED7B2A2886ED001FC58E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F064ED832A28F7AA001FC58E /* SelectionPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpController.swift; sourceTree = "<group>"; };
 		F064ED852A28F7BA001FC58E /* SelectionPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpView.swift; sourceTree = "<group>"; };
 		F064ED882A29C118001FC58E /* SelectionPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpViewModel.swift; sourceTree = "<group>"; };
@@ -190,7 +186,7 @@
 		F064ED8D2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionPopUpCoordinator.swift; sourceTree = "<group>"; };
 		F06552842A17F7B7008897A7 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		F06552882A181059008897A7 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
-		F065528B2A1817E0008897A7 /* MapAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAlertController.swift; sourceTree = "<group>"; };
+		F065528B2A1817E0008897A7 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		F06773BA2A0BBA5100B4BFC4 /* SharedCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCell2.swift; sourceTree = "<group>"; };
 		F06773BD2A0C02B000B4BFC4 /* PlacesTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableHeaderView.swift; sourceTree = "<group>"; };
 		F06BEE7329FFD2690013E22D /* ENCityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENCityModel.swift; sourceTree = "<group>"; };
@@ -336,8 +332,8 @@
 		F00E6BC92A19581D00633FC4 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				F00E6BCB2A19582700633FC4 /* ViewModel */,
 				F00E6BCA2A19582300633FC4 /* View */,
+				F00E6BCB2A19582700633FC4 /* ViewModel */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -486,20 +482,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		F064ED7A2A2886AE001FC58E /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				F064ED7B2A2886ED001FC58E /* MainTabBarController.swift */,
-			);
-			path = TabBar;
-			sourceTree = "<group>";
-		};
 		F064ED812A28F781001FC58E /* SelectionPopUp */ = {
 			isa = PBXGroup;
 			children = (
 				F064ED8D2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift */,
-				F064ED872A29C0FF001FC58E /* ViewModel */,
 				F064ED822A28F793001FC58E /* View */,
+				F064ED872A29C0FF001FC58E /* ViewModel */,
 			);
 			path = SelectionPopUp;
 			sourceTree = "<group>";
@@ -533,7 +521,7 @@
 		F065528A2A1817C2008897A7 /* AlertController */ = {
 			isa = PBXGroup;
 			children = (
-				F065528B2A1817E0008897A7 /* MapAlertController.swift */,
+				F065528B2A1817E0008897A7 /* CustomAlertController.swift */,
 			);
 			path = AlertController;
 			sourceTree = "<group>";
@@ -613,26 +601,17 @@
 		F072589129F285DA00F625CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				F064ED7A2A2886AE001FC58E /* TabBar */,
 				F00E6BC82A19581800633FC4 /* Auth */,
 				F00E6BB52A18F89700633FC4 /* PayWall */,
 				F096A2932A14AB2D0084947F /* Splash */,
-				F072589229F285E200F625CE /* Home */,
+				F096A2892A13A7440084947F /* Main */,
+				F064ED812A28F781001FC58E /* SelectionPopUp */,
+				F096A28A2A13A7780084947F /* SideMenu */,
 				F0C3D7FB2A20FDBB003A6BE1 /* RecentSearches */,
 				F02255992A263ECD002DD734 /* Profile */,
 				F0D77CF629F928ED0061C85E /* SearchMap */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		F072589229F285E200F625CE /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				F096A2892A13A7440084947F /* Main */,
-				F064ED812A28F781001FC58E /* SelectionPopUp */,
-				F096A28A2A13A7780084947F /* SideMenu */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		F072589329F285E700F625CE /* View */ = {
@@ -652,7 +631,6 @@
 				F072589729F2CF2800F625CE /* Coordinator.swift */,
 				F072589F29F2E08F00F625CE /* ViewProtocol.swift */,
 				F07258BB29F338B200F625CE /* CellProtocol.swift */,
-				F061C2B72A0633AF00D1E485 /* MapCoordinatorProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1127,7 +1105,6 @@
 				F06BEE7A29FFD70D0013E22D /* HealthCenterModel.swift in Sources */,
 				F061C2C72A06565700D1E485 /* MainHorizontalCollectionModel.swift in Sources */,
 				F04FF3662A248908001F0018 /* PharmacyCellData+CoreDataClass.swift in Sources */,
-				F064ED7C2A2886ED001FC58E /* MainTabBarController.swift in Sources */,
 				F07258B429F31BF900F625CE /* MainCollectionHeaderView.swift in Sources */,
 				F0D73A192A00CF5B00D4F58D /* SearchResultViewModel.swift in Sources */,
 				F00E6BCD2A19583C00633FC4 /* SignInViewModel.swift in Sources */,
@@ -1167,7 +1144,6 @@
 				F0D77CF829F929160061C85E /* MapController.swift in Sources */,
 				F0E975DE2A1753E300C5A607 /* UIButton+CellButtonActions.swift in Sources */,
 				F0A6208B2A27351500F533A2 /* PayWallCoordinator.swift in Sources */,
-				F061C2B82A0633AF00D1E485 /* MapCoordinatorProtocol.swift in Sources */,
 				F072587B29F284EC00F625CE /* AppDelegate.swift in Sources */,
 				F07258A029F2E08F00F625CE /* ViewProtocol.swift in Sources */,
 				F064ED8E2A2A27FF001FC58E /* SelectionPopUpCoordinator.swift in Sources */,
@@ -1194,7 +1170,7 @@
 				F061C2C12A06545C00D1E485 /* EmergencyCenterModel.swift in Sources */,
 				F061C2BD2A06539400D1E485 /* PhysiotheraphyCenterModel.swift in Sources */,
 				F06BEE7429FFD2690013E22D /* ENCityModel.swift in Sources */,
-				F065528C2A1817E0008897A7 /* MapAlertController.swift in Sources */,
+				F065528C2A1817E0008897A7 /* CustomAlertController.swift in Sources */,
 				F04FF3672A248908001F0018 /* PharmacyCellData+CoreDataProperties.swift in Sources */,
 				F064ED8C2A29C166001FC58E /* SelectionPopUpCell.swift in Sources */,
 				F06BEE7E29FFD9010013E22D /* MedicalLaboratoryModel.swift in Sources */,
@@ -1369,7 +1345,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SaglikYerleri/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Sağlık Kuruluşları";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
@@ -1404,7 +1380,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SaglikYerleri/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Sağlık Kuruluşları";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;

@@ -59,7 +59,7 @@ final class PlacesTableHeaderView: UIView {
 //MARK: - UI Elements AddSubview / SetupConstraints
 extension PlacesTableHeaderView: ViewProtocol {
     func configureView() {
-        backgroundColor = UIColor(hex: "FBFCFE")
+        backgroundColor = .init(hex: "FBFCFE")
         addShadow()
         addSubview()
         setupConstraints()

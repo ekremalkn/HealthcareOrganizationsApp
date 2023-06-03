@@ -8,7 +8,7 @@
 import UIKit
 import FloatingPanel
 
-final class MapCoordinator: MapCoordinatorProtocol {
+final class MapCoordinator: Coordinator {
     deinit {
         print("deinit MAPCOORDINATOR")
     }
@@ -22,6 +22,7 @@ final class MapCoordinator: MapCoordinatorProtocol {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    
     
     func startCoordinator() {
         

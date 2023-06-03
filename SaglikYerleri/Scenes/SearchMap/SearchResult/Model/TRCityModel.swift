@@ -28,7 +28,7 @@ struct TRCityModel: Codable  {
 // MARK: - TRCity
 struct TRCity: Codable, CityCountyModel {
     let sehirAd, sehirSlug: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case sehirAd = "SehirAd"
         case sehirSlug = "SehirSlug"
@@ -46,6 +46,6 @@ struct TRCity: Codable, CityCountyModel {
         .city
     }
     
-
-        
+    
+    
 }

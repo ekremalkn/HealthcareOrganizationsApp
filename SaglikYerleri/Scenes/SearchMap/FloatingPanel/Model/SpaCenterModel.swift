@@ -19,7 +19,7 @@ struct SpaCenter: Codable, OrganizationModel, SharedCell2DataProtocol {
     let name, city, country, street: String?
     let streetv2, phone, fax, website: String?
     let latitude, longitude: Double?
-
+    
     var sharedCell2ImageBackgroundColor: String {
         return MainHorizontalCollectionData.categoryType(.spaCenters).tintAndBackgroundColor
     }

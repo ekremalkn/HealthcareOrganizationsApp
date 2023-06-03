@@ -43,7 +43,7 @@ final class SharedCell1: UITableViewCell {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
+    
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
@@ -62,7 +62,7 @@ final class SharedCell1: UITableViewCell {
         label.alpha = 0
         return label
     }()
-
+    
     lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -274,5 +274,5 @@ extension SharedCell1: CellProtocol {
         }
         
     }
-
+    
 }
