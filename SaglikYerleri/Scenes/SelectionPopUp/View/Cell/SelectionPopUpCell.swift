@@ -107,16 +107,16 @@ final class SelectionPopUpCell: UICollectionViewCell {
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
         borderLayer.path = path.cgPath
         
-        // CAShapeLayer'ı contentView'e ekleyin
+        // shape layeri ekle
         contentView.layer.addSublayer(borderLayer)
         
-        // Animasyonu oluşturun
+        // animasyon oluştur
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0.0
         animation.toValue = 1.0
         animation.duration = 0.5
         
-        // Animasyonu çerçeve katmanına uygulayın
+        // animasyonu çerçeve katmanına ekle
         borderLayer.add(animation, forKey: "drawBorderAnimation")
     }
     

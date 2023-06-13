@@ -8,5 +8,5 @@
 import Foundation
 
 enum NetworkAPIConstant: String {
-    case API_KEY = "YOUR API KEY"
+    case API_KEY = "YOUR NOSYAPI API KEY"
 }

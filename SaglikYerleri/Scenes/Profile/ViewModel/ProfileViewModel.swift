@@ -23,7 +23,6 @@ enum ProfileButtonTableViewData {
     case signOut(isUserSignedIn: Bool)
     case deleteAccount(isUserSignedIn: Bool)
     case restorePurchases(isUserSignedIn: Bool)
-    case makePurchase(isUserSignedIn: Bool)
     
     var buttonOption: (buttonTitle: String, buttonInteraction: Bool, buttonTintColor: String) {
         switch self {
@@ -51,16 +50,9 @@ enum ProfileButtonTableViewData {
         case .restorePurchases(isUserSignedIn: let isUserSignedIn):
             switch isUserSignedIn {
             case true:
-                return ("Premiumsan etkinleştir" , true, "056DFA")
+                return ("Hesabını etkinleştir" , true, "056DFA")
             case false:
-                return ("Premiumsan etkinleştir" , false, "8E8E93")
-            }
-        case .makePurchase(isUserSignedIn: let isUserSignedIn):
-            switch isUserSignedIn {
-            case true:
-                return ("Premium satın al", true, "FFC400")
-            case false:
-                return ("Premium satın al", false, "8E8E93")
+                return ("Hesabını etkinleştir" , false, "8E8E93")
             }
         }
     }
@@ -176,30 +168,25 @@ extension ProfileViewModel {
     func restorePurchases() {
         //Note that Apple does require a restore mechanism in the event a user loses access to their purchases (e.g: uninstalling/reinstalling the app, losing their account information, etc).
         userRestoringPurchase.onNext(true)
-        if providerType != nil { // if user signed in and provider type setted
-            iapService.restorePurchases().flatMap { isRestored in
-                
-                return Observable.just(isRestored)
-            }.subscribe { [weak self] result in
-                guard let self else { return }
-                
-                switch result {
-                case .next(let isRestored):
-                    if isRestored {
-                        userRestoringPurchase.onNext(false)
-                        userRestoredPurchase.onNext(())
-                    }
-                case .error(let error):
-                    errorMsg.onNext(error.localizedDescription)
-                case .completed:
-                    print("Restore işlemi tamamlandı.")
+        
+        iapService.restorePurchases().flatMap { isRestored in
+            
+            return Observable.just(isRestored)
+        }.subscribe { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .next(let isRestored):
+                if isRestored {
+                    userRestoringPurchase.onNext(false)
+                    userRestoredPurchase.onNext(())
                 }
-            }.disposed(by: disposeBag)
-        } else {
-            // show to user, "must sign in to restore purchase"
-            print("ESKİ SATIN ALINANI ETKİNLEŞTİRMEK İÇİN GİRİŞ YAPMALISIN")
-            userRestoringPurchase.onNext(false)
-        }
+            case .error(let error):
+                errorMsg.onNext(error.localizedDescription)
+            case .completed:
+                print("Restore işlemi tamamlandı.")
+            }
+        }.disposed(by: disposeBag)
         
     }
 }
@@ -375,7 +362,6 @@ extension ProfileViewModel {
             if currentUser != nil {
                 let newData = [
                     ProfileButtonTableViewData.signIn(isUserSignedIn: false),
-                    ProfileButtonTableViewData.makePurchase(isUserSignedIn: makePurchaseButton ?? false),
                     ProfileButtonTableViewData.restorePurchases(isUserSignedIn: makePurchaseButton ?? true),
                     ProfileButtonTableViewData.deleteAccount(isUserSignedIn: true),
                     ProfileButtonTableViewData.signOut(isUserSignedIn: true)
@@ -384,7 +370,6 @@ extension ProfileViewModel {
             } else {
                 let newData = [
                     ProfileButtonTableViewData.signIn(isUserSignedIn: true),
-                    ProfileButtonTableViewData.makePurchase(isUserSignedIn: makePurchaseButton ?? false),
                     ProfileButtonTableViewData.restorePurchases(isUserSignedIn: false),
                     ProfileButtonTableViewData.deleteAccount(isUserSignedIn: false),
                     ProfileButtonTableViewData.signOut(isUserSignedIn: false)

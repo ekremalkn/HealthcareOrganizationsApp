@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import SafariServices
 
 final class PayWallCoordinator: Coordinator {
-    
+
     weak var parentCoordinator: MainCoordinator?
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
@@ -18,7 +19,8 @@ final class PayWallCoordinator: Coordinator {
     }
     
     func startCoordinator() {
-        let payWallViewModel = PayWallViewModel()
+        let iapService: IAPService = IAPManager()
+        let payWallViewModel = PayWallViewModel(iapService: iapService)
         let payWallVC = PayWallController(viewModel: payWallViewModel)
         payWallVC.payWallCoordinator = self
         payWallVC.modalPresentationStyle = .pageSheet
@@ -26,7 +28,8 @@ final class PayWallCoordinator: Coordinator {
     }
     
     func startCoordinatorWithPresent(on vc: SelectionPopUpController) {
-        let payWallViewModel = PayWallViewModel()
+        let iapService: IAPService = IAPManager()
+        let payWallViewModel = PayWallViewModel(iapService: iapService)
         let payWallVC = PayWallController(viewModel: payWallViewModel)
         payWallVC.payWallCoordinator = self
         payWallVC.modalPresentationStyle = .pageSheet
@@ -37,11 +40,5 @@ final class PayWallCoordinator: Coordinator {
         parentCoordinator?.childCoordinatorDidFinish(self)
     }
     
-    func openSignIn(onPayWallVC: PayWallController) {
-        let userService: UserService = UserNetworkService()
-        let signInVC = SignInViewController(userService: userService)
-        onPayWallVC.present(signInVC, animated: true)
-    }
-    
-    
 }
+

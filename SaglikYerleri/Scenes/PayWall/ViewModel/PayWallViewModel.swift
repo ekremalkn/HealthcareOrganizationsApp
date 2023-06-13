@@ -7,7 +7,6 @@
 
 import Foundation
 import RxSwift
-import FirebaseAuth
 import RevenueCat
 
 
@@ -18,12 +17,14 @@ final class PayWallViewModel {
     //MARK: - DisposeBag
     private let disposeBag = DisposeBag()
     
+    //MARK: - References
+    var iapService: IAPService
+    
     var monthlyPackage: Package?
     var annualPackage: Package?
-    
-    let userDidNotSignIn = PublishSubject<Void>()
-    
-    init() {
+        
+    init(iapService: IAPService) {
+        self.iapService = iapService
         getPackages()
     }
     
@@ -48,30 +49,9 @@ final class PayWallViewModel {
         }.disposed(by: disposeBag)
     }
     
-    private func checkIsCurrentUserActive() -> Observable<User?> {
-        return Observable.create { observer in
-            if let currentUser = Auth.auth().currentUser {
-                observer.onNext(currentUser)
-            } else {
-                observer.onNext(nil)
-            }
-            return Disposables.create()
-        }
-    }
     
     func checkUserAndMakePurchase(planType: PayWallPlanButtonType) {
-        checkIsCurrentUserActive().flatMap { user in
-            return Observable.just(user)
-        }.subscribe(onNext: { [weak self] currentUser in
-            guard let self else { return }
-            if currentUser != nil {
-                makePurchase(planType: planType)
-            } else {
-                userDidNotSignIn.onNext(())
-            }
-            
-        }).disposed(by: disposeBag)
-        
+        makePurchase(planType: planType)
     }
     
     private func makePurchase(planType: PayWallPlanButtonType) {
@@ -87,5 +67,19 @@ final class PayWallViewModel {
                 print(transaction.id)
             }.disposed(by: disposeBag)
         }
+    }
+    
+    func restorePurchase() {
+        iapService.restorePurchases().subscribe { result in
+            switch result {
+                
+            case .next(let isRestored):
+                isRestored ? print("restored başarılı") : print("restored başarısız")
+            case .error(let error):
+                print(error.localizedDescription)
+            case .completed:
+                break
+            }
+        }.disposed(by: disposeBag)
     }
 }

@@ -143,8 +143,6 @@ extension ProfileController {
             case .signIn:
                 viewModel.userSigningIn.onNext(true)
                 profileCoordinator?.openSignInController(onProfileVC: self)
-            case .makePurchase:
-                break
             }
         }).disposed(by: disposeBag)
         

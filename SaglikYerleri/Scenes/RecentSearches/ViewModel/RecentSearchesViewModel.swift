@@ -17,10 +17,6 @@ final class RecentSearchesViewModel {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     //MARK: - Variables
-    //    var pharmacyCellData = PublishSubject<[PharmacyCellData]>()
-    //    var sharedCell1Data = PublishSubject<[SharedCell1Data]>()
-    //    var sharedCell2Data = PublishSubject<[SharedCell2Data]>()
-    //
     var pharmacyCellData = BehaviorSubject(value: [PharmacyCellData]())
     var sharedCell1Data =  BehaviorSubject(value: [SharedCell1Data]())
     var sharedCell2Data =  BehaviorSubject(value: [SharedCell2Data]())

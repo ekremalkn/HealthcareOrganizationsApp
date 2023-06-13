@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIView {
-    func applyGradient(colors: [CGColor], startPoint: CGPoint = CGPoint(x: 0, y: 1), endPoint: CGPoint = CGPoint(x: 1, y: 0)) {
+    func applyGradient(colors: [CGColor], cornerRadius: CGFloat? = nil, startPoint: CGPoint = CGPoint(x: 0, y: 1), endPoint: CGPoint = CGPoint(x: 1, y: 0)) {
             if let gradientLayer = self.layer.sublayers?.first as? CAGradientLayer {
                 gradientLayer.colors = colors
                 gradientLayer.frame = self.bounds
@@ -21,7 +21,7 @@ extension UIView {
             gradient.colors = colors
             gradient.startPoint = startPoint
             gradient.endPoint   = endPoint
-
+            gradient.cornerRadius = cornerRadius ?? 0
             self.layer.insertSublayer(gradient, at: 0)
         }
 

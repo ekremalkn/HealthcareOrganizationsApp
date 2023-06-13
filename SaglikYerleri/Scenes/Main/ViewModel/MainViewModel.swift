@@ -75,43 +75,21 @@ final class MainViewModel {
 extension MainViewModel {
     func checkSubscriptionStatus() -> Observable<Bool> {
         return Observable.create { [unowned self] observer in
-            checkIsCurrentUserActive().flatMap { user in
-                return Observable.just(user)
-            }.subscribe(onNext: { user in
-                if user != nil { // Check if user already sign in with provider and has account on firebase
-                    IAPManager.shared.getUserPremiumStatus().subscribe { [weak self] result in
-                        guard let _ = self else { return }
-                        switch result {
-                        case .next(let userSubscriptionStatus):
-                            observer.onNext(userSubscriptionStatus)
-                            
-                        case .error(let error):
-                            print(error.localizedDescription)
-                        case .completed:
-                            print("kullanıcı subscription status işlemi tamamlandı")
-                        }
-                    }.disposed(by: self.disposeBag)
-                } else { // Check if user did not sign in with provider and has not account on firebase
-                    observer.onNext(false)
+            IAPManager.shared.getUserPremiumStatus().subscribe { [weak self] result in
+                guard let _ = self else { return }
+                switch result {
+                case .next(let userSubscriptionStatus):
+                    observer.onNext(userSubscriptionStatus)
+                case .error(let error):
+                    observer.onError(error)
+                case .completed:
+                    print("kullanıcı subscription status işlemi tamamlandı")
                 }
-            }).disposed(by: disposeBag)
-            
+            }.disposed(by: self.disposeBag)
             return Disposables.create()
         }
         
     }
-    
-    private func checkIsCurrentUserActive() -> Observable<User?> {
-        return Observable.create { observer in
-            if let currentUser = Auth.auth().currentUser {
-                observer.onNext(currentUser)
-            } else {
-                observer.onNext(nil)
-            }
-            return Disposables.create()
-        }
-    }
-    
     
 }
 

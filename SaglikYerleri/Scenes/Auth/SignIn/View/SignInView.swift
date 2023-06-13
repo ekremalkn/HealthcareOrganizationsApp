@@ -114,7 +114,7 @@ final class SignInView: UIView {
             UIColor.init(hex: "6279E0").withAlphaComponent(0.6).cgColor,
             UIColor.init(hex: "64B2F0").withAlphaComponent(0.6).cgColor,
             UIColor.init(hex: "64B2F0").withAlphaComponent(0.8).cgColor,
-        ], startPoint: .init(x: 0, y: 0.89), endPoint: .init(x: 0, y: 0))
+        ], cornerRadius: 12, startPoint: .init(x: 0, y: 0.89), endPoint: .init(x: 0, y: 0))
         
         contiuneSignInWithProvider.applyGradient(colors: [
             UIColor.init(hex: "6279E0").withAlphaComponent(0.8).cgColor,

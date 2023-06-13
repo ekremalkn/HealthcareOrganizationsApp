@@ -64,6 +64,15 @@ final class PayWallView: UIView {
     private lazy var yearlyButton = PayWallPlanButton(type: .annual)
     private lazy var monthlyButton = PayWallPlanButton(type: .monthly)
     
+    private lazy var autoRenewingSubLabel: UILabel = {
+        let label = UILabel()
+        label.text = "*Otamatik Yenilenen Abonelik: \("\n")Abonelikler, mevcut dönemin sonundan önce 24 saat içinde iptal edilmediği takdirde otomatik olarak yenilenir. Hesap ayarlarınızla istediğiniz zaman iptal edebilirsiniz."
+        label.textColor = .init(hex: "FBFCFE")
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .systemFont(ofSize: 15)
+        return label
+    }()
     
     lazy var continueButton: UIButton = {
         let button = UIButton(type: .system)
@@ -73,6 +82,43 @@ final class PayWallView: UIView {
         button.backgroundColor = .init(hex: "7C99F2")
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
+        return button
+    }()
+    
+    private lazy var bottomButtonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
+    lazy var restorePurchaseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Restore Purchase", for: .normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.backgroundColor = .clear
+        return button
+    }()
+    
+    lazy var termsOfUseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Terms of Use", for: .normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.backgroundColor = .clear
+        return button
+    }()
+    
+    lazy var privacyPolicyButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Privacy Policy", for: .normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.backgroundColor = .clear
         return button
     }()
     
@@ -182,6 +228,11 @@ extension PayWallView: ViewProtocol {
         addSubview(borderView)
         addSubview(monthlyButton)
         addSubview(continueButton)
+        addSubview(bottomButtonStackView)
+        bottomButtonStackView.addArrangedSubview(restorePurchaseButton)
+        bottomButtonStackView.addArrangedSubview(termsOfUseButton)
+        bottomButtonStackView.addArrangedSubview(privacyPolicyButton)
+        addSubview(autoRenewingSubLabel)
     }
     
     func setupConstraints() {
@@ -192,7 +243,9 @@ extension PayWallView: ViewProtocol {
         yearlyButtonConstraints()
         borderViewConstraints()
         monthlyButtonConstraints()
+        autoRenewingSubLabelConstraints()
         continueButtonConstraints()
+        bottomButtonStackViewConstraints()
     }
     
     private func backgroundImageViewConstraints() {
@@ -212,7 +265,7 @@ extension PayWallView: ViewProtocol {
     
     private func titleLabelConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backgroundImageView.snp.bottom).offset(-50)
+            make.bottom.equalTo(backgroundImageView.snp.bottom).offset(-100)
             make.leading.equalTo(backgroundImageView.snp.leading).offset(32)
             make.trailing.equalTo(backgroundImageView.snp.trailing).offset(-32)
         }
@@ -221,6 +274,7 @@ extension PayWallView: ViewProtocol {
     private func subTitleLabelConstraints() {
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
+            make.height.equalTo(titleLabel.font.lineHeight)
             make.centerX.equalTo(titleLabel.snp.centerX)
             make.width.equalTo(titleLabel.snp.width).multipliedBy(0.60)
         }
@@ -228,7 +282,7 @@ extension PayWallView: ViewProtocol {
     
     private func yearlyButtonConstraints() {
         yearlyButton.snp.makeConstraints { make in
-            make.top.equalTo(backgroundImageView.snp.bottom).offset(10)
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(15)
             make.leading.equalTo(backgroundImageView.snp.leading).offset(24)
             make.height.width.equalTo(self.backgroundImageView.snp.width).multipliedBy(0.4)
         }
@@ -245,20 +299,38 @@ extension PayWallView: ViewProtocol {
     
     private func monthlyButtonConstraints() {
         monthlyButton.snp.makeConstraints { make in
-            make.top.equalTo(backgroundImageView.snp.bottom).offset(10)
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(15)
             make.trailing.equalTo(backgroundImageView.snp.trailing).offset(-24)
             make.height.width.equalTo(self.backgroundImageView.snp.width).multipliedBy(0.4)
         }
         
     }
     
+    private func autoRenewingSubLabelConstraints() {
+        autoRenewingSubLabel.snp.makeConstraints { make in
+            make.top.equalTo(monthlyButton.snp.bottom).offset(15)
+            make.bottom.equalTo(continueButton.snp.top).offset(-15)
+            make.leading.equalTo(yearlyButton.snp.leading)
+            make.trailing.equalTo(monthlyButton.snp.trailing)
+        }
+    }
+    
     private func continueButtonConstraints() {
         continueButton.snp.makeConstraints { make in
-            make.top.equalTo(yearlyButton.snp.bottom).offset(36)
+            make.bottom.equalTo(bottomButtonStackView.snp.top).offset(-15)
             make.centerX.equalTo(self.snp.centerX)
             make.width.equalTo(backgroundImageView.snp.width).multipliedBy(0.92)
             make.height.equalTo(66)
         }
     }
+    
+    private func bottomButtonStackViewConstraints() {
+        bottomButtonStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.leading.trailing.equalTo(continueButton)
+        }
+    }
+    
+    
     
 }

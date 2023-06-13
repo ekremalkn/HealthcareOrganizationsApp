@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RevenueCat
+import SafariServices
 
 final class PayWallController: UIViewController {
     deinit {
@@ -49,7 +50,6 @@ final class PayWallController: UIViewController {
     
     //MARK: - ConfigureViewController
     private func configureViewController() {
-        handleWhenUserDidNotSignIn()
         buttonActions()
     }
     
@@ -57,21 +57,39 @@ final class PayWallController: UIViewController {
         payWallView.continueButton.rx.tap.subscribe { [weak self] _ in
             guard let self, let selectedButtonType = self.payWallView.selectedButton?.type else { return }
             viewModel.checkUserAndMakePurchase(planType: selectedButtonType)
+            
         }.disposed(by: disposeBag)
         
         
         payWallView.closeButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
-            self.dismiss(animated: true)
+            dismiss(animated: true)
         }.disposed(by: disposeBag)
-    }
-    
-    private func handleWhenUserDidNotSignIn() {
-        viewModel.userDidNotSignIn.subscribe { [weak self] _ in
+        
+        
+        
+        payWallView.restorePurchaseButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
-            payWallCoordinator?.openSignIn(onPayWallVC: self)
+            viewModel.restorePurchase()
+            
         }.disposed(by: disposeBag)
+        
+        payWallView.termsOfUseButton.rx.tap.subscribe {  [weak self] _ in
+            guard let self else { return }
+            if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+        }.disposed(by: disposeBag)
+        
+        payWallView.privacyPolicyButton.rx.tap.subscribe { [weak self] _ in
+            guard let self else { return }
+            if let url = URL(string: "https://grotesqueryy.wixsite.com/ekremalkan/gizlilik-politikas%C4%B1") {
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+        }.disposed(by: disposeBag)
+        
     }
-    
     
 }

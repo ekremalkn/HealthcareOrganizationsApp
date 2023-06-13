@@ -48,6 +48,7 @@ final class MainController: UIViewController {
         configureNavItems()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         checkUserSubscriptionStatus()
+        print("ekrem")
     }
     
     

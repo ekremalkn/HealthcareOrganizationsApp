@@ -50,8 +50,6 @@ final class CustomAlertController: UIAlertController {
 
         case .restorePurchases:
             break
-        case .makePurchase:
-            break
         }
     }
    
@@ -96,8 +94,5 @@ final class CustomAlertController: UIAlertController {
         mapItem.openInMaps()
     }
     
-    
-    
-
-
 }
+

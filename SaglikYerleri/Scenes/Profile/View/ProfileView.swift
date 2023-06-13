@@ -294,7 +294,7 @@ extension ProfileView: ViewProtocol {
         buttonTableView.snp.makeConstraints { make in
             make.top.equalTo(purchaseInfoTableView.snp.bottom).offset(25)
             make.leading.trailing.equalTo(userInfoTableView)
-            make.height.equalTo(248)
+            make.height.equalTo(198)
             make.bottom.equalTo(scrollView.snp.bottom)
         }
     }

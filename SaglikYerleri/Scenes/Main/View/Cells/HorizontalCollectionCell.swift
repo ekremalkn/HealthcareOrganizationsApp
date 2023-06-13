@@ -66,6 +66,7 @@ final class HorizontalCollectionCell: UICollectionViewCell {
         layer.shadowOpacity = 0.1
         layer.shadowOffset = CGSize.init(width: 3, height: 3)
     }
+    
 }
 
 //MARK: - UI Elements AddSubview / SetupConstraints
